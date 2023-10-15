@@ -22,7 +22,6 @@ var stamina = 100
 var input = Vector2.ZERO
 
 func _physics_process(delta):
-	
 	player_movement(delta)
 
 func _process(delta):
@@ -50,7 +49,7 @@ func get_input():
 	input.x = int(Input.is_action_pressed("blue_right")) - int(Input.is_action_pressed("blue_left"))
 	input.y = int(Input.is_action_pressed("blue_down")) - int(Input.is_action_pressed("blue_up"))
 	return input.normalized()
-	
+
 func player_movement(delta):
 	input = get_input()
 	

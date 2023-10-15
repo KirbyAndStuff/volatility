@@ -11,6 +11,7 @@ func _ready():
 var speed = 300
 var player_chase = false
 var player = null
+var attack_player = false
 
 func _physics_process(delta):
 	if player_chase:
@@ -18,6 +19,8 @@ func _physics_process(delta):
 		velocity=direction*speed
 		move_and_slide()
 		
+	if attack_player:
+		(get_node("../player").health) -= 1
 
 func _on_playerdeath_body_entered(body):
 	if body.name == "bullet4":
@@ -44,4 +47,8 @@ func _on_player_detection_body_exited(body):
 
 func _on_hurts_player_body_entered(body):
 	if body.name == "player":
-		body.health -= 1
+		attack_player = true
+
+func _on_hurts_player_body_exited(body):
+	if body.name == "player":
+		attack_player = false

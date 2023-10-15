@@ -1,2 +1,10 @@
 res://world.tscn
 res://ui/stamina_bar_theme.tres
+res://player/player.tscn
+res://player/player_dash_particles.tscn
+res://enemies/red.tscn
+res://enemies/red_death.tscn
+res://attacks/bullet_4.tscn
+res://attacks/bullet_death.tscn
+res://ui/health.tscn
+res://ui/stamina.tscn
