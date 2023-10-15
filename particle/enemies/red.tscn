@@ -1,0 +1,104 @@
+[gd_scene load_steps=9 format=3 uid="uid://ugfxmkdd6pyc"]
+
+[ext_resource type="Script" path="res://enemies/red.gd" id="1_320g4"]
+
+[sub_resource type="Curve" id="Curve_8jx83"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_8qyx3"]
+colors = PackedColorArray(1, 0, 0, 0.501961, 1, 1, 1, 0.501961)
+
+[sub_resource type="Gradient" id="Gradient_548fa"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0.235294)
+
+[sub_resource type="Gradient" id="Gradient_na7al"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6jx58"]
+radius = 28.0
+height = 90.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sdnrw"]
+radius = 551.001
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g07hy"]
+radius = 25.318
+
+[node name="red" type="CharacterBody2D"]
+script = ExtResource("1_320g4")
+
+[node name="body" type="CPUParticles2D" parent="."]
+position = Vector2(1, -2)
+amount = 250
+lifetime = 0.5
+speed_scale = 0.7
+explosiveness = 0.1
+randomness = 0.1
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 25.0
+spread = 180.0
+gravity = Vector2(0, -1000)
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_8jx83")
+color_ramp = SubResource("Gradient_8qyx3")
+color_initial_ramp = SubResource("Gradient_548fa")
+
+[node name="left eye" type="CPUParticles2D" parent="."]
+position = Vector2(10, -8)
+amount = 50
+lifetime = 0.2
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -1000)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_na7al")
+
+[node name="right eye" type="CPUParticles2D" parent="."]
+position = Vector2(-8, -8)
+amount = 50
+lifetime = 0.2
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -1000)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_na7al")
+
+[node name="playerdeath" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
+position = Vector2(1, -22)
+shape = SubResource("CapsuleShape2D_6jx58")
+
+[node name="player_detection" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
+position = Vector2(0, -38)
+shape = SubResource("CircleShape2D_sdnrw")
+
+[node name="hurts_player" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
+position = Vector2(1, -20)
+shape = SubResource("CircleShape2D_g07hy")
+
+[connection signal="body_entered" from="playerdeath" to="." method="_on_playerdeath_body_entered"]
+[connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
+[connection signal="body_entered" from="hurts_player" to="." method="_on_hurts_player_body_entered"]

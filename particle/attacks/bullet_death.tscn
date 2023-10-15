@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0igxnnwh8j42"]
+
+[ext_resource type="Script" path="res://attacks/bullet_death.gd" id="1_rtsd2"]
+
+[sub_resource type="Gradient" id="Gradient_naxm6"]
+offsets = PackedFloat32Array(0, 0.596026)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="bullet_death" type="CPUParticles2D"]
+position = Vector2(54, -10)
+emitting = false
+amount = 30
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(2, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_naxm6")
+script = ExtResource("1_rtsd2")

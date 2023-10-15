@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bduiy1bypb61n"]
+
+[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_1xvu2"]
+[ext_resource type="PackedScene" uid="uid://bvcvwki6yk3vm" path="res://player/player.tscn" id="1_cwnpp"]
+[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red.tscn" id="2_rl18w"]
+[ext_resource type="PackedScene" uid="uid://drdc60d0adwf2" path="res://ui.tscn" id="4_hivci"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="2Os250Kt" type="Sprite2D" parent="."]
+position = Vector2(716, 343)
+scale = Vector2(19.6652, 10.022)
+texture = ExtResource("1_1xvu2")
+metadata/_edit_lock_ = true
+
+[node name="player" parent="." instance=ExtResource("1_cwnpp")]
+position = Vector2(583, 518)
+
+[node name="red" parent="." instance=ExtResource("2_rl18w")]
+position = Vector2(978, 518)
+
+[node name="ui" parent="." instance=ExtResource("4_hivci")]
+offset_left = 240.0
+offset_top = 984.0
+offset_right = 240.0
+offset_bottom = 984.0
