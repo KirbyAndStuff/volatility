@@ -90,7 +90,11 @@ wait_time = 0.3
 
 [node name="I_FramesLength" type="Timer" parent="."]
 
+[node name="DashI_FramesLength" type="Timer" parent="."]
+wait_time = 0.3
+
 [connection signal="timeout" from="GunTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]
 [connection signal="timeout" from="DashParticles" to="." method="_on_dash_particles_timeout"]
 [connection signal="timeout" from="I_FramesLength" to="." method="_on_i_frames_length_timeout"]
+[connection signal="timeout" from="DashI_FramesLength" to="." method="_on_dash_i_frames_length_timeout"]

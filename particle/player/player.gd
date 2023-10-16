@@ -9,6 +9,7 @@ var dash_particles := preload("res://player/player_dash_particles.tscn")
 @onready var dashlength := $DashLength
 @onready var dash_particlestimer := $DashParticles
 @onready var i_frameslength := $I_FramesLength
+@onready var dashi_frameslength := $DashI_FramesLength
 
 func _ready():
 	particlesB = $"body"
@@ -22,6 +23,7 @@ var friction = 2000
 var stamina = 100
 var input = Vector2.ZERO
 var i_frames = false
+var dashi_frames = false
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -41,6 +43,7 @@ func _process(delta):
 		
 	if Input.is_action_pressed("dash") and stamina > 50:
 		dash()
+		dashi_framesss()
 		
 	if i_frames == true and i_frameslength.is_stopped():
 		i_framesss()
@@ -93,6 +96,10 @@ func dash():
 func i_framesss():
 	i_frames = true
 	i_frameslength.start()
+	
+func dashi_framesss():
+	dashi_frames = true
+	dashi_frameslength.start()
 
 func _on_dash_length_timeout() -> void:
 	friction = 2000
@@ -105,3 +112,7 @@ func _on_dash_particles_timeout() -> void:
 func _on_i_frames_length_timeout() -> void:
 	i_frames = false
 	i_frameslength.stop()
+
+func _on_dash_i_frames_length_timeout() -> void:
+	dashi_frames = false
+	dashi_frameslength.stop()

@@ -15,9 +15,8 @@ colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0.235294)
 [sub_resource type="Gradient" id="Gradient_na7al"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6jx58"]
-radius = 28.0
-height = 90.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_4iuuo"]
+radius = 38.0526
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sdnrw"]
 radius = 551.001
@@ -81,8 +80,8 @@ color_ramp = SubResource("Gradient_na7al")
 [node name="playerdeath" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
-position = Vector2(1, -22)
-shape = SubResource("CapsuleShape2D_6jx58")
+position = Vector2(1, -20)
+shape = SubResource("CircleShape2D_4iuuo")
 
 [node name="player_detection" type="Area2D" parent="."]
 collision_layer = 2
