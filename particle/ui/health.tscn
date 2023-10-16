@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://f36owwx8a16h"]
+[gd_scene load_steps=3 format=3 uid="uid://dhoylud6i8xce"]
 
-[ext_resource type="Script" path="res://health.gd" id="1_suonn"]
+[ext_resource type="Script" path="res://ui/health.gd" id="1_ird76"]
 [ext_resource type="Texture2D" uid="uid://cmrnoha87yuv2" path="res://4l3cr98s.bmp" id="2_7pn2u"]
 
 [node name="health" type="Control"]
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_suonn")
+script = ExtResource("1_ird76")
 
 [node name="4l3Cr98s" type="Sprite2D" parent="."]
 position = Vector2(2.38419e-07, 0)

@@ -18,9 +18,11 @@ func _physics_process(delta):
 		var direction = (player.position-position).normalized()
 		velocity=direction*speed
 		move_and_slide()
-		
-	if attack_player:
+
+func _process(delta):
+	if attack_player and (get_node("../player").i_frames) == false:
 		(get_node("../player").health) -= 1
+		(get_node("../player").i_frames) = true
 
 func _on_playerdeath_body_entered(body):
 	if body.name == "bullet4":

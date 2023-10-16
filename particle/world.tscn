@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bvcvwki6yk3vm" path="res://player/player.tscn" id="1_cwnpp"]
 [ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red.tscn" id="2_rl18w"]
 [ext_resource type="PackedScene" uid="uid://cwd6uwrleay6e" path="res://ui/stamina.tscn" id="4_5m155"]
-[ext_resource type="PackedScene" uid="uid://f36owwx8a16h" path="res://ui/health.tscn" id="5_rkgij"]
+[ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="5_rkgij"]
 
 [node name="world" type="Node2D"]
 
