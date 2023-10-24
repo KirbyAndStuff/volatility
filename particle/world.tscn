@@ -24,15 +24,15 @@ position = Vector2(1349, 303)
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 240.0
-offset_top = 984.0
-offset_right = 240.0
-offset_bottom = 984.0
+offset_left = 224.0
+offset_top = 960.0
+offset_right = 224.0
+offset_bottom = 960.0
 grow_horizontal = 1
 grow_vertical = 1
 
 [node name="health" parent="." instance=ExtResource("5_rkgij")]
-offset_left = 87.0
-offset_top = 837.0
-offset_right = 87.0
-offset_bottom = 837.0
+offset_left = 80.0
+offset_top = 880.0
+offset_right = 80.0
+offset_bottom = 880.0

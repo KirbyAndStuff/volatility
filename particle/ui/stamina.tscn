@@ -15,9 +15,9 @@ grow_vertical = 2
 
 [node name="stamina_bar" type="ProgressBar" parent="."]
 layout_mode = 0
-offset_left = -176.0
-offset_top = -32.0
-offset_right = 168.0
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 136.0
 offset_bottom = 32.0
 theme = ExtResource("1_d7n5u")
 theme_override_font_sizes/font_size = 25
@@ -29,8 +29,8 @@ script = ExtResource("2_nh05g")
 [node name="4l3Cr98s5" type="Sprite2D" parent="stamina_bar"]
 modulate = Color(1, 1, 1, 0.588235)
 show_behind_parent = true
-position = Vector2(172, 32)
-scale = Vector2(1.36, 0.659793)
+position = Vector2(132, 24)
+scale = Vector2(1.09333, 0.577319)
 texture = ExtResource("3_ejpuc")
 
 [node name="stamina_thingie" type="Timer" parent="stamina_bar"]
@@ -38,6 +38,6 @@ wait_time = 0.3
 one_shot = true
 
 [node name="2Os250Kt2" type="Sprite2D" parent="."]
-position = Vector2(-4, 0)
-scale = Vector2(0.0352424, 0.281938)
+position = Vector2(4, 7.99998)
+scale = Vector2(0.0352424, 0.211454)
 texture = ExtResource("4_ffwnn")

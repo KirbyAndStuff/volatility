@@ -1,8 +1,10 @@
-res://world.tscn
-res://ui/stamina_bar_theme.tres
 res://player/player.tscn
+res://ui/stamina_bar_theme.tres
+res://player/left eye node.gd
+res://player/right eye node.gd
+res://world.tscn
 res://enemies/red.tscn
 res://attacks/bullet_4.tscn
 res://ui/health.tscn
 res://ui/stamina.tscn
-res://player/player_dash_particles.tscn
+res://player/player.gd

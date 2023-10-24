@@ -13,8 +13,8 @@ var dash_particles := preload("res://player/player_dash_particles.tscn")
 
 func _ready():
 	particlesB = $"body"
-	particlesL = $"left eye"
-	particlesR = $"right eye"
+	particlesL = $"left eye node/left eye"
+	particlesR = $"right eye node/right eye"
 
 var health = 3
 var speed = 500

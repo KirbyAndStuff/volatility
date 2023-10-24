@@ -31,7 +31,7 @@ func _process(delta):
 	if red_stamina <= 20:
 		red_stamina += 10 * delta
 	if dash_at_player == true:
-		speed = 800
+		speed = 1500
 
 func _on_playerdeath_body_entered(body):
 	if body.name == "bullet4":

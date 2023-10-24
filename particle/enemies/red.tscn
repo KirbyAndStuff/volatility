@@ -25,7 +25,7 @@ radius = 551.001
 radius = 25.318
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_awomf"]
-radius = 201.002
+radius = 167.192
 
 [node name="red" type="CharacterBody2D"]
 script = ExtResource("1_320g4")
@@ -107,7 +107,7 @@ position = Vector2(1, -20)
 shape = SubResource("CircleShape2D_awomf")
 
 [node name="Red_DashLength" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.2
 one_shot = true
 
 [connection signal="body_entered" from="playerdeath" to="." method="_on_playerdeath_body_entered"]
