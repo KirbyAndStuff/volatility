@@ -91,10 +91,11 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
+visible = false
 position = Vector2(1, -20)
 shape = SubResource("CircleShape2D_sdnrw")
 
-[node name="hurts_player" type="Area2D" parent="."]
+[node name="hurts_player" type="Area2D" parent="." groups=["enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 position = Vector2(1, -20)
@@ -103,6 +104,7 @@ shape = SubResource("CircleShape2D_g07hy")
 [node name="player_dash_distance" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_dash_distance"]
+visible = false
 position = Vector2(1, -20)
 shape = SubResource("CircleShape2D_awomf")
 

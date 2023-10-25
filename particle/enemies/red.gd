@@ -8,6 +8,7 @@ var red_dash_particles := preload("res://enemies/red_dash_particles.tscn")
 func _ready():
 	particlesL = $"left eye"
 	particlesR = $"right eye"
+	add_to_group("enemy")
 
 var speed = 300
 var player_chase = false

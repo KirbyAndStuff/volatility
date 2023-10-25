@@ -1,5 +1,5 @@
-Node2D
-CPUParticles2D
-Timer
 CollisionShape2D
 Area2D
+CPUParticles2D
+Node2D
+Timer

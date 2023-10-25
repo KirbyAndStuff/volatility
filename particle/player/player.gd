@@ -3,6 +3,7 @@ extends CharacterBody2D
 var particlesB: CPUParticles2D
 var particlesL: CPUParticles2D
 var particlesR: CPUParticles2D
+var combat_eye: CPUParticles2D
 var dash_particles := preload("res://player/player_dash_particles.tscn")
 
 @onready var guntimer := $GunTimer
@@ -15,6 +16,7 @@ func _ready():
 	particlesB = $"body"
 	particlesL = $"left eye node/left eye"
 	particlesR = $"right eye node/right eye"
+	combat_eye = $"combat eye"
 
 var health = 3
 var speed = 500
@@ -116,3 +118,11 @@ func _on_i_frames_length_timeout() -> void:
 func _on_dash_i_frames_length_timeout() -> void:
 	dashi_frames = false
 	dashi_frameslength.stop()
+
+func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
+		combat_eye.emitting = true
+
+func _on_combat_eye_detection_area_exited(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
+		combat_eye.emitting = false
