@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var child = get_children()[0]
 
-var max_dist = 7
+var max_dist = 5
 
 func _process(delta):
 	var mouse_pos = get_local_mouse_position()

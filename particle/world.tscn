@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_1xvu2"]
 [ext_resource type="PackedScene" uid="uid://bvcvwki6yk3vm" path="res://player/player.tscn" id="1_cwnpp"]
-[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red.tscn" id="2_rl18w"]
+[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="2_rl18w"]
 [ext_resource type="PackedScene" uid="uid://cwd6uwrleay6e" path="res://ui/stamina.tscn" id="4_5m155"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="5_rkgij"]
 
@@ -18,7 +18,7 @@ metadata/_edit_lock_ = true
 position = Vector2(392, 335)
 
 [node name="red" parent="." instance=ExtResource("2_rl18w")]
-position = Vector2(1349, 303)
+position = Vector2(1336, 330)
 
 [node name="stamina" parent="." instance=ExtResource("4_5m155")]
 anchors_preset = 0

@@ -1,18 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq5c7nslwpouu"]
+[gd_scene load_steps=4 format=3 uid="uid://sf0q5gh5sfxk"]
 
-[ext_resource type="Script" path="res://enemies/red_dash_particles.gd" id="1_4cjy3"]
+[ext_resource type="Script" path="res://enemies/red/red_hurt.gd" id="1_us8no"]
 
-[sub_resource type="Curve" id="Curve_7npgd"]
+[sub_resource type="Curve" id="Curve_mjg34"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_y8813"]
+[sub_resource type="Gradient" id="Gradient_gdqb6"]
 offsets = PackedFloat32Array(0, 0.794702)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="red_dash_particles" type="CPUParticles2D"]
+[node name="red_hurt" type="CPUParticles2D"]
 emitting = false
-amount = 50
+amount = 30
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
@@ -20,15 +20,15 @@ emission_shape = 1
 emission_sphere_radius = 25.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
-scale_amount_curve = SubResource("Curve_7npgd")
+scale_amount_curve = SubResource("Curve_mjg34")
 color = Color(1, 0, 0, 1)
-color_ramp = SubResource("Gradient_y8813")
-script = ExtResource("1_4cjy3")
+color_ramp = SubResource("Gradient_gdqb6")
+script = ExtResource("1_us8no")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://605ng3t3lwhu"]
 
-[ext_resource type="Script" path="res://enemies/red_death.gd" id="1_22xqq"]
+[ext_resource type="Script" path="res://enemies/red/red_death.gd" id="1_22xqq"]
 
 [sub_resource type="Curve" id="Curve_gc8rw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]

@@ -5,12 +5,14 @@ var particlesL: CPUParticles2D
 var particlesR: CPUParticles2D
 var combat_eye: CPUParticles2D
 var dash_particles := preload("res://player/player_dash_particles.tscn")
+var parry_particles := preload("res://player/parry_particles.tscn")
 
 @onready var guntimer := $GunTimer
 @onready var dashlength := $DashLength
 @onready var dash_particlestimer := $DashParticles
 @onready var i_frameslength := $I_FramesLength
 @onready var dashi_frameslength := $DashI_FramesLength
+@onready var parrytimer := $ParryTimer
 
 func _ready():
 	particlesB = $"body"
@@ -49,6 +51,8 @@ func _process(delta):
 		
 	if i_frames == true and i_frameslength.is_stopped():
 		i_framesss()
+	if Input.is_action_pressed("parry"):
+		parry()
 
 func get_input():
 	if input.length() > 0.0:
@@ -126,3 +130,21 @@ func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
 func _on_combat_eye_detection_area_exited(area: Area2D) -> void:
 	if area.is_in_group("enemy"):
 		combat_eye.emitting = false
+
+func parry():
+	if parrytimer.is_stopped():
+		var effect := parry_particles.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		$parry_detection/CollisionShape2D.disabled = false
+		parrytimer.start()
+		await get_tree().create_timer(0.25).timeout
+		$parry_detection/CollisionShape2D.disabled = true
+
+func _on_parry_timer_timeout() -> void:
+	parrytimer.stop()
+
+func _on_parry_detection_area_entered(area: Area2D) -> void:
+	if area.is_in_group("attack"):
+		i_framesss()
+		(get_node("../red").red_health) -= 2
