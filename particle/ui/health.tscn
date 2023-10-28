@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhoylud6i8xce"]
+[gd_scene load_steps=5 format=3 uid="uid://dhoylud6i8xce"]
 
 [ext_resource type="Script" path="res://ui/health.gd" id="1_ird76"]
-[ext_resource type="Texture2D" uid="uid://cmrnoha87yuv2" path="res://4l3cr98s.bmp" id="2_7pn2u"]
+
+[sub_resource type="Curve" id="Curve_rdrcp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_43cvr"]
+colors = PackedColorArray(0, 0.827451, 1, 0.392157, 1, 1, 1, 0.501961)
+
+[sub_resource type="Gradient" id="Gradient_fdwkl"]
+colors = PackedColorArray(0, 1, 1, 0.694118, 1, 1, 1, 0.247059)
 
 [node name="health" type="Control"]
 layout_mode = 3
@@ -12,17 +21,52 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ird76")
 
-[node name="4l3Cr98s" type="Sprite2D" parent="."]
-position = Vector2(2.38419e-07, 0)
-scale = Vector2(0.105833, 0.155928)
-texture = ExtResource("2_7pn2u")
+[node name="health" type="CPUParticles2D" parent="."]
+amount = 50
+lifetime = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+gravity = Vector2(0, -1000)
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_rdrcp")
+color_ramp = SubResource("Gradient_43cvr")
+color_initial_ramp = SubResource("Gradient_fdwkl")
 
-[node name="4l3Cr98s2" type="Sprite2D" parent="."]
-position = Vector2(48, 0)
-scale = Vector2(0.105833, 0.155928)
-texture = ExtResource("2_7pn2u")
+[node name="health2" type="CPUParticles2D" parent="."]
+position = Vector2(64, 0)
+amount = 50
+lifetime = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+gravity = Vector2(0, -1000)
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_rdrcp")
+color_ramp = SubResource("Gradient_43cvr")
+color_initial_ramp = SubResource("Gradient_fdwkl")
 
-[node name="4l3Cr98s3" type="Sprite2D" parent="."]
-position = Vector2(95, 0)
-scale = Vector2(0.105833, 0.155928)
-texture = ExtResource("2_7pn2u")
+[node name="health3" type="CPUParticles2D" parent="."]
+position = Vector2(128, 0)
+amount = 50
+lifetime = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+gravity = Vector2(0, -1000)
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_rdrcp")
+color_ramp = SubResource("Gradient_43cvr")
+color_initial_ramp = SubResource("Gradient_fdwkl")

@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_1xvu2"]
 [ext_resource type="PackedScene" uid="uid://bvcvwki6yk3vm" path="res://player/player.tscn" id="1_cwnpp"]
 [ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="2_rl18w"]
-[ext_resource type="PackedScene" uid="uid://cwd6uwrleay6e" path="res://ui/stamina.tscn" id="4_5m155"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="5_rkgij"]
+[ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="5_yubak"]
 
 [node name="world" type="Node2D"]
 
@@ -20,19 +20,14 @@ position = Vector2(392, 335)
 [node name="red" parent="." instance=ExtResource("2_rl18w")]
 position = Vector2(1336, 330)
 
-[node name="stamina" parent="." instance=ExtResource("4_5m155")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 224.0
-offset_top = 960.0
-offset_right = 224.0
-offset_bottom = 960.0
-grow_horizontal = 1
-grow_vertical = 1
-
 [node name="health" parent="." instance=ExtResource("5_rkgij")]
 offset_left = 80.0
-offset_top = 880.0
+offset_top = 928.0
 offset_right = 80.0
-offset_bottom = 880.0
+offset_bottom = 928.0
+
+[node name="staminabar" parent="." instance=ExtResource("5_yubak")]
+offset_left = 10.0
+offset_top = 956.0
+offset_right = 10.0
+offset_bottom = 956.0

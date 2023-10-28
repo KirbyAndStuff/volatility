@@ -30,6 +30,8 @@ func _process(delta):
 	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames) = true
+		(get_node("../player").player_hurt_particles())
+		(get_node("../player").framefreeze(0.4, 0.25))
 	if red_stamina <= 20:
 		red_stamina += 10 * delta
 	if dash_at_player == true:
@@ -46,6 +48,8 @@ func _on_playerdeath_body_entered(body):
 		effect.position = position
 		get_parent().add_child(effect)
 		red_health -= 1
+	if body.name == "parried_particles":
+		red_health -= 2
 
 func _on_player_detection_body_entered(body):
 	player = body

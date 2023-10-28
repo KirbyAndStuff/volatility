@@ -6,6 +6,8 @@ var particlesR: CPUParticles2D
 var combat_eye: CPUParticles2D
 var dash_particles := preload("res://player/player_dash_particles.tscn")
 var parry_particles := preload("res://player/parry_particles.tscn")
+var parried_particles := preload("res://attacks/parried_particles.tscn")
+var player_hurt := preload("res://player/player_hurt.tscn")
 
 @onready var guntimer := $GunTimer
 @onready var dashlength := $DashLength
@@ -147,4 +149,17 @@ func _on_parry_timer_timeout() -> void:
 func _on_parry_detection_area_entered(area: Area2D) -> void:
 	if area.is_in_group("attack"):
 		i_framesss()
-		(get_node("../red").red_health) -= 2
+		var effect := parried_particles.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		framefreeze(0.4, 0.25)
+
+func framefreeze(timescale, duration):
+	Engine.time_scale = timescale
+	await(get_tree().create_timer(duration * timescale).timeout)
+	Engine.time_scale = 1.0
+
+func player_hurt_particles():
+	var effect := player_hurt.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)

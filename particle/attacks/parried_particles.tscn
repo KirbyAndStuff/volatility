@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://d083aewpch5q8"]
+
+[ext_resource type="Script" path="res://attacks/parried_particles.gd" id="1_3e5vl"]
+
+[sub_resource type="Curve" id="Curve_ju8rs"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_qflhe"]
+colors = PackedColorArray(0, 0.827451, 1, 1, 0, 0.827451, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5w6mf"]
+radius = 118.068
+
+[node name="parried_particles" type="CharacterBody2D"]
+script = ExtResource("1_3e5vl")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 100
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_ju8rs")
+color_ramp = SubResource("Gradient_qflhe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5w6mf")
+one_way_collision = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

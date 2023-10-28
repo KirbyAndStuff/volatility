@@ -1,5 +1,9 @@
+GPUParticles2D
+ProgressBar
 CPUParticles2D
+Timer
 CollisionShape2D
 Area2D
-Timer
+CharacterBody2D
+StaticBody2D
 Node2D

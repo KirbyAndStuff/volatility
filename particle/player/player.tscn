@@ -27,7 +27,6 @@ radius = 700.0
 radius = 35.0
 
 [node name="player" type="CharacterBody2D"]
-position = Vector2(164, 48)
 collision_layer = 3
 script = ExtResource("1_ni3np")
 
@@ -107,7 +106,7 @@ angle_max = 20.0
 scale_amount_min = 3.0
 scale_amount_max = 3.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_k4hsi")
 
 [node name="GunTimer" type="Timer" parent="."]
