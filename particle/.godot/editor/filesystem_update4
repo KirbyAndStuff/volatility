@@ -2,7 +2,7 @@ res://world.tscn
 res://ui/stamina_bar_theme.tres
 res://player/player.tscn
 res://enemies/red/red.tscn
-res://player/player_hurt.tscn
-res://enemies/red/red_hurt.tscn
 res://ui/health.tscn
 res://ui/staminabar.tscn
+res://player/player.gd
+res://ui/health.gd

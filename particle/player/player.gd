@@ -30,6 +30,7 @@ var stamina = 100
 var input = Vector2.ZERO
 var i_frames = false
 var dashi_frames = false
+var enemies_in_area = 0
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -127,11 +128,14 @@ func _on_dash_i_frames_length_timeout() -> void:
 
 func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy"):
+		enemies_in_area += 1
 		combat_eye.emitting = true
 
 func _on_combat_eye_detection_area_exited(area: Area2D) -> void:
 	if area.is_in_group("enemy"):
-		combat_eye.emitting = false
+		enemies_in_area -= 1
+		if enemies_in_area == 0:
+			combat_eye.emitting = false
 
 func parry():
 	if parrytimer.is_stopped():
