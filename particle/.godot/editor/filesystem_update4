@@ -1,8 +1,10 @@
 res://world.tscn
 res://ui/stamina_bar_theme.tres
 res://player/player.tscn
+res://enemies/green/green.tscn
 res://enemies/red/red.tscn
-res://ui/health.tscn
-res://ui/staminabar.tscn
-res://player/player.gd
-res://ui/health.gd
+res://player/attacks/bullet_4.tscn
+res://enemies/green/green_bullet.tscn
+res://enemies/red/red.gd
+res://player/attacks/parried_particles.tscn
+res://enemies/green/green.gd

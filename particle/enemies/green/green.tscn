@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6sg1b6ucnje7"]
+
+[ext_resource type="Script" path="res://enemies/green/green.gd" id="1_t7t5q"]
+
+[sub_resource type="Gradient" id="Gradient_v453m"]
+offsets = PackedFloat32Array(0, 0.556291, 1)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ikm5"]
+radius = 56.0803
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mawf4"]
+radius = 600.0
+
+[node name="green" type="CharacterBody2D"]
+script = ExtResource("1_t7t5q")
+
+[node name="body" type="CPUParticles2D" parent="."]
+amount = 100
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+color_ramp = SubResource("Gradient_v453m")
+
+[node name="eye1_bottom" type="CPUParticles2D" parent="body"]
+position = Vector2(-1, 16)
+amount = 10
+explosiveness = 0.75
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+
+[node name="eye_top" type="CPUParticles2D" parent="body"]
+position = Vector2(1, -16)
+amount = 10
+explosiveness = 0.75
+local_coords = true
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+
+[node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
+shape = SubResource("CircleShape2D_1ikm5")
+
+[node name="player_detection" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
+visible = false
+shape = SubResource("CircleShape2D_mawf4")
+
+[node name="GunTimer" type="Timer" parent="."]
+wait_time = 0.8
+
+[connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
+[connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
+[connection signal="timeout" from="GunTimer" to="." method="_on_gun_timer_timeout"]

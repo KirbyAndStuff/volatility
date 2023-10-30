@@ -5,8 +5,8 @@ var particlesL: CPUParticles2D
 var particlesR: CPUParticles2D
 var combat_eye: CPUParticles2D
 var dash_particles := preload("res://player/player_dash_particles.tscn")
-var parry_particles := preload("res://player/parry_particles.tscn")
-var parried_particles := preload("res://attacks/parried_particles.tscn")
+var parry_particles := preload("res://player/attacks/parry_particles.tscn")
+var parried_particles := preload("res://player/attacks/parried_particles.tscn")
 var player_hurt := preload("res://player/player_hurt.tscn")
 
 @onready var guntimer := $GunTimer
@@ -85,7 +85,7 @@ func player_movement(delta):
 	move_and_slide()
 
 func shoot():
-	var bullet_scene = preload("res://attacks/bullet_4.tscn")
+	var bullet_scene = preload("res://player/attacks/bullet_4.tscn")
 	var shot = bullet_scene.instantiate() 
 	get_parent().add_child(shot)
 	shot.shoot(global_position, get_global_mouse_position())
@@ -144,7 +144,7 @@ func parry():
 		get_parent().add_child(effect)
 		$parry_detection/CollisionShape2D.disabled = false
 		parrytimer.start()
-		await get_tree().create_timer(0.25).timeout
+		await get_tree().create_timer(0.15).timeout
 		$parry_detection/CollisionShape2D.disabled = true
 
 func _on_parry_timer_timeout() -> void:
@@ -156,7 +156,7 @@ func _on_parry_detection_area_entered(area: Area2D) -> void:
 		var effect := parried_particles.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		framefreeze(0.4, 0.25)
+		framefreeze(0.4, 0.3)
 
 func framefreeze(timescale, duration):
 	Engine.time_scale = timescale

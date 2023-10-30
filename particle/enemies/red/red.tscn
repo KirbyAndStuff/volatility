@@ -10,7 +10,7 @@ point_count = 3
 colors = PackedColorArray(1, 0, 0, 0.501961, 1, 1, 1, 0.501961)
 
 [sub_resource type="Gradient" id="Gradient_548fa"]
-colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0.235294)
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="Gradient" id="Gradient_na7al"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -19,7 +19,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 radius = 38.0526
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sdnrw"]
-radius = 551.001
+radius = 600.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g07hy"]
 radius = 25.318
@@ -98,6 +98,7 @@ shape = SubResource("CircleShape2D_sdnrw")
 [node name="hurts_player" type="Area2D" parent="." groups=["attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
+visible = false
 position = Vector2(1, -20)
 shape = SubResource("CircleShape2D_g07hy")
 
@@ -112,7 +113,7 @@ shape = SubResource("CircleShape2D_awomf")
 wait_time = 0.2
 one_shot = true
 
-[connection signal="body_entered" from="playerdeath" to="." method="_on_playerdeath_body_entered"]
+[connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="hurts_player" to="." method="_on_hurts_player_body_entered"]

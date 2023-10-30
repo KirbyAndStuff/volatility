@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0igxnnwh8j42"]
 
-[ext_resource type="Script" path="res://attacks/bullet_death.gd" id="1_rtsd2"]
+[ext_resource type="Script" path="res://player/attacks/bullet_death.gd" id="1_rtsd2"]
 
 [sub_resource type="Gradient" id="Gradient_naxm6"]
 offsets = PackedFloat32Array(0, 0.596026)

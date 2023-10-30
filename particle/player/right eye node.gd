@@ -9,4 +9,3 @@ func _process(delta):
 	var dir = Vector2.ZERO.direction_to(mouse_pos)
 	var dist = mouse_pos.length()
 	child.position = dir * min(dist, max_dist)
-	

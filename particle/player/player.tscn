@@ -18,7 +18,7 @@ colors = PackedColorArray(0, 1, 1, 0.694118, 1, 1, 1, 0.247059)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k4hsi"]
-radius = 23.0
+radius = 22.0227
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xt0ek"]
 radius = 700.0
@@ -28,6 +28,7 @@ radius = 35.0
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_ni3np")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -53,7 +54,7 @@ color_ramp = SubResource("Gradient_748se")
 color_initial_ramp = SubResource("Gradient_ovceo")
 
 [node name="left eye node" type="Node2D" parent="."]
-position = Vector2(8, 3)
+position = Vector2(8, 6)
 script = ExtResource("2_bfumu")
 
 [node name="left eye" type="CPUParticles2D" parent="left eye node"]
@@ -70,7 +71,7 @@ scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_irh04")
 
 [node name="right eye node" type="Node2D" parent="."]
-position = Vector2(-8, 3)
+position = Vector2(-8, 6)
 script = ExtResource("3_g7m5p")
 
 [node name="right eye" type="CPUParticles2D" parent="right eye node"]
@@ -87,20 +88,20 @@ scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_irh04")
 
 [node name="combat eye" type="CPUParticles2D" parent="."]
-position = Vector2(-3, 21)
+position = Vector2(-2, 20)
 emitting = false
 amount = 150
-lifetime = 0.4
+lifetime = 0.5
 local_coords = true
 emission_shape = 1
 emission_sphere_radius = 1.0
 direction = Vector2(0, 0)
 spread = 0.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 400.0
-initial_velocity_max = 400.0
-orbit_velocity_min = 3.0
-orbit_velocity_max = 3.0
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
 angle_min = -20.0
 angle_max = 20.0
 scale_amount_min = 3.0
@@ -136,9 +137,10 @@ position = Vector2(0, -18)
 shape = SubResource("CircleShape2D_xt0ek")
 
 [node name="parry_detection" type="Area2D" parent="."]
-position = Vector2(0, 22)
+position = Vector2(0, 25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="parry_detection"]
+visible = false
 position = Vector2(0, -22)
 shape = SubResource("CircleShape2D_lc2ci")
 disabled = true
