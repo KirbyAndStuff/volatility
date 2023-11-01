@@ -1,4 +1,6 @@
 Button
+Label
+Panel
 CanvasLayer
 CPUParticles2D
 Area2D
