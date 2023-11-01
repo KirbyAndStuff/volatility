@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var particlesL: CPUParticles2D
 var particlesR: CPUParticles2D
-var plred_death := preload("res://enemies/red/red_death.tscn")
+var red_death := preload("res://enemies/red/red_death.tscn")
 var red_dash_particles := preload("res://enemies/red/red_dash_particles.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 
@@ -43,7 +43,7 @@ func _process(delta):
 		speed = 1500
 		red_dashlength.start()
 	if red_health < 1:
-		var effect := plred_death.instantiate()
+		var effect := red_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		queue_free()

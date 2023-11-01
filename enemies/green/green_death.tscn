@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://d08kklwwchddj"]
+
+[ext_resource type="Script" path="res://enemies/green/green_death.gd" id="1_pa5bu"]
+
+[sub_resource type="Curve" id="Curve_0rkpy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_44su8"]
+colors = PackedColorArray(0, 1, 0, 0.501961, 0, 1, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_alatr"]
+colors = PackedColorArray(0, 1, 0, 0.784314, 1, 1, 1, 0)
+
+[node name="green_death" type="CPUParticles2D"]
+emitting = false
+amount = 250
+lifetime = 0.5
+one_shot = true
+speed_scale = 0.7
+explosiveness = 1.0
+randomness = 0.1
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 25.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_0rkpy")
+color_ramp = SubResource("Gradient_44su8")
+color_initial_ramp = SubResource("Gradient_alatr")
+script = ExtResource("1_pa5bu")

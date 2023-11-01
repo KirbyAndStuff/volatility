@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var green_death := preload("res://enemies/green/green_death.tscn")
 var green_hurt := preload("res://enemies/green/green_hurt.tscn")
 
 var green_health = 3
@@ -7,6 +8,9 @@ var shoot_at_player = false
 
 func _process(delta):
 	if green_health < 1:
+		var effect := green_death.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
 		queue_free()
 	if shoot_at_player and $GunTimer.is_stopped():
 		var bullet_scene = preload("res://enemies/green/green_bullet.tscn")

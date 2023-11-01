@@ -50,6 +50,7 @@ color_initial_ramp = SubResource("Gradient_ye5px")
 script = ExtResource("1_22xqq")
 
 [node name="left eye" type="CPUParticles2D" parent="."]
+visible = false
 position = Vector2(10, -8)
 emitting = false
 amount = 50
@@ -72,6 +73,7 @@ scale_amount_curve = SubResource("Curve_7ksf7")
 color_ramp = SubResource("Gradient_r8ml1")
 
 [node name="right eye" type="CPUParticles2D" parent="."]
+visible = false
 position = Vector2(-8, -8)
 emitting = false
 amount = 50
