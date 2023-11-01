@@ -5,3 +5,8 @@ res://enemies/green/green.tscn
 res://enemies/red/red.tscn
 res://startmenu.tscn
 res://startbutton.gd
+res://quit_game_button.gd
+res://credits_button.gd
+res://menu/credits_button.gd
+res://credits_close_button.gd
+res://settings_button.gd

@@ -1,17 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfykqm448qllb"]
+[gd_scene load_steps=6 format=3 uid="uid://bfykqm448qllb"]
 
-[ext_resource type="Script" path="res://startbutton.gd" id="1_djjyp"]
+[ext_resource type="Script" path="res://menu/start_button.gd" id="1_bv6dm"]
+[ext_resource type="Script" path="res://menu/credits_button.gd" id="2_6x70u"]
+[ext_resource type="Script" path="res://menu/credits_close_button.gd" id="3_lcuhu"]
+[ext_resource type="Script" path="res://menu/quit_game_button.gd" id="3_x87sf"]
+[ext_resource type="Script" path="res://settings_button.gd" id="5_rwo04"]
 
 [node name="startmenu" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="startbutton" type="Button" parent="CanvasLayer"]
-offset_left = 755.0
-offset_top = 663.0
-offset_right = 1014.0
-offset_bottom = 744.0
+[node name="start_button" type="Button" parent="CanvasLayer"]
+offset_left = 851.0
+offset_top = 545.0
+offset_right = 1110.0
+offset_bottom = 626.0
 text = "Start Game"
-script = ExtResource("1_djjyp")
+script = ExtResource("1_bv6dm")
 
-[connection signal="pressed" from="CanvasLayer/startbutton" to="CanvasLayer/startbutton" method="_on_pressed"]
+[node name="credits_button" type="Button" parent="CanvasLayer"]
+offset_left = 860.0
+offset_top = 774.0
+offset_right = 1070.0
+offset_bottom = 842.0
+text = "Credits"
+script = ExtResource("2_6x70u")
+
+[node name="credits_panel" type="Panel" parent="CanvasLayer/credits_button"]
+visible = false
+layout_mode = 0
+offset_left = -646.0
+offset_top = -641.0
+offset_right = 855.0
+offset_bottom = 195.0
+
+[node name="credits_close_button" type="Button" parent="CanvasLayer/credits_button/credits_panel"]
+layout_mode = 0
+offset_left = 1273.0
+offset_top = 33.0
+offset_right = 1461.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+text = "X"
+script = ExtResource("3_lcuhu")
+
+[node name="credits_label" type="Label" parent="CanvasLayer/credits_button/credits_panel"]
+layout_mode = 0
+offset_left = 342.0
+offset_top = 142.0
+offset_right = 1110.0
+offset_bottom = 553.0
+text = "Credits
+
+Creator - KirbyAndStuff
+Co-Creator - Zev"
+horizontal_alignment = 1
+
+[node name="quit_game_button" type="Button" parent="CanvasLayer"]
+offset_left = 894.0
+offset_top = 882.0
+offset_right = 1010.0
+offset_bottom = 941.0
+text = "Quit Game"
+script = ExtResource("3_x87sf")
+
+[node name="settings_button" type="Button" parent="CanvasLayer"]
+offset_left = 868.0
+offset_top = 666.0
+offset_right = 1072.0
+offset_bottom = 746.0
+text = "Settings"
+script = ExtResource("5_rwo04")
+
+[connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/credits_button" to="CanvasLayer/credits_button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/credits_button/credits_panel/credits_close_button" to="CanvasLayer/credits_button/credits_panel/credits_close_button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/quit_game_button" to="CanvasLayer/quit_game_button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/settings_button" to="CanvasLayer/settings_button" method="_on_pressed"]
