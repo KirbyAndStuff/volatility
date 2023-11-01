@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfykqm448qllb"]
+
+[ext_resource type="Script" path="res://startbutton.gd" id="1_djjyp"]
+
+[node name="startmenu" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="startbutton" type="Button" parent="CanvasLayer"]
+offset_left = 755.0
+offset_top = 663.0
+offset_right = 1014.0
+offset_bottom = 744.0
+text = "Start Game"
+script = ExtResource("1_djjyp")
+
+[connection signal="pressed" from="CanvasLayer/startbutton" to="CanvasLayer/startbutton" method="_on_pressed"]
