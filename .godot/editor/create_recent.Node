@@ -1,10 +1,11 @@
+Button
+CanvasLayer
 CPUParticles2D
 Area2D
 CollisionPolygon2D
 Timer
 CollisionShape2D
 CharacterBody2D
-CanvasLayer
 Camera2D
 GPUParticles2D
 ProgressBar
