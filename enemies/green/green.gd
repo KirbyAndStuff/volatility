@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var green_hurt := preload("res://enemies/green/green_hurt.tscn")
+
 var green_health = 3
 var shoot_at_player = false
 
@@ -15,6 +17,9 @@ func _process(delta):
 
 func _on_playerdeath_area_entered(area):
 	if area.name == "bullet_hurtbox":
+		var effect := green_hurt.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
 		green_health -= 1
 	if area.name == "parried_hurtbox":
 		green_health -= 2

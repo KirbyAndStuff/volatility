@@ -22,7 +22,7 @@ metadata/_edit_lock_ = true
 script = ExtResource("6_2hp6k")
 
 [node name="red" parent="." instance=ExtResource("2_rl18w")]
-position = Vector2(1616, -472)
+position = Vector2(1149, -198)
 
 [node name="red2" parent="." instance=ExtResource("2_rl18w")]
 position = Vector2(716, 568)
@@ -32,6 +32,12 @@ position = Vector2(135, -832)
 
 [node name="red4" parent="." instance=ExtResource("2_rl18w")]
 position = Vector2(-603, 648)
+
+[node name="green" parent="." instance=ExtResource("7_nka32")]
+position = Vector2(-779, -337)
+
+[node name="green2" parent="." instance=ExtResource("7_nka32")]
+position = Vector2(-763, -916)
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -58,6 +64,3 @@ offset_bottom = 960.0
 grow_horizontal = 1
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="green" parent="." instance=ExtResource("7_nka32")]
-position = Vector2(-774, -292)

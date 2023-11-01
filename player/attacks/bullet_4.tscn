@@ -21,7 +21,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 script = ExtResource("1_p2t35")
 
 [node name="bullet_body" type="CPUParticles2D" parent="."]
-position = Vector2(67, 0)
+position = Vector2(47, 0)
 amount = 40
 lifetime = 0.5
 preprocess = 1.0
@@ -45,7 +45,7 @@ wait_time = 0.8
 autostart = true
 
 [node name="explosion_bottom" type="CPUParticles2D" parent="."]
-position = Vector2(58, 0)
+position = Vector2(47, 0)
 amount = 20
 lifetime = 0.85
 explosiveness = 1.0
@@ -63,7 +63,7 @@ scale_amount_curve = SubResource("Curve_vs1ms")
 color_ramp = SubResource("Gradient_6ciq3")
 
 [node name="explosion_top" type="CPUParticles2D" parent="."]
-position = Vector2(58, 0)
+position = Vector2(47, 0)
 amount = 20
 lifetime = 0.85
 explosiveness = 1.0
@@ -81,7 +81,6 @@ scale_amount_curve = SubResource("Curve_vs1ms")
 color_ramp = SubResource("Gradient_6ciq3")
 
 [node name="bullet_hurtbox" type="Area2D" parent="."]
-position = Vector2(20, 0)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bullet_hurtbox"]
 position = Vector2(44.4683, 1)

@@ -83,7 +83,6 @@ visible = false
 shape = SubResource("CircleShape2D_mawf4")
 
 [node name="GunTimer" type="Timer" parent="."]
-wait_time = 0.8
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]

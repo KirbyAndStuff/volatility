@@ -3,3 +3,9 @@ res://ui/stamina_bar_theme.tres
 res://player/player.tscn
 res://enemies/red/red.tscn
 res://enemies/green/green.tscn
+res://enemies/green/green_bullet.gd
+res://enemies/green/green_bullet.tscn
+res://enemies/red/red_hurt.tscn
+res://enemies/green/green_hurt.tscn
+res://enemies/green/green_hurt.gd
+res://enemies/green/green.gd

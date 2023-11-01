@@ -1,6 +1,6 @@
+CPUParticles2D
 Area2D
 CollisionPolygon2D
-CPUParticles2D
 Timer
 CollisionShape2D
 CharacterBody2D

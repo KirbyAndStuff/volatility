@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var direction := Vector2.ZERO
-var plbullet_death := preload("res://player/attacks/bullet_death.tscn")
+var bullet_death := preload("res://player/attacks/bullet_death.tscn")
 
 @export var speed := 1500.0
 
@@ -14,7 +14,7 @@ func _physics_process(delta):
 	position += direction * speed * delta
 
 func _on_timer_timeout() -> void:
-	var effect := plbullet_death.instantiate()
+	var effect := bullet_death.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
 	queue_free()
