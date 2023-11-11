@@ -40,6 +40,7 @@ func _process(delta):
 		effect.position = position
 		get_parent().add_child(effect)
 		await get_tree().create_timer(0.5).timeout
+		$red_dashsfx.play()
 		speed = 1500
 		red_dashlength.start()
 	if red_health < 1:

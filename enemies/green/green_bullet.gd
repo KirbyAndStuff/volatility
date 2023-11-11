@@ -6,6 +6,9 @@ var green_bullet_death := preload("res://enemies/green/green_bullet_death.tscn")
 @export var speed := 1000.0
 var attack_player = false
 
+func _ready():
+	$green_bulletsfx.play()
+
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
 	direction = from.direction_to(to)
@@ -15,6 +18,8 @@ func _physics_process(delta):
 	position += direction * speed * delta
 
 func _on_timer_timeout() -> void:
+	$bullet_body.emitting = false
+	await get_tree().create_timer(0.27).timeout
 	var effect := green_bullet_death.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)

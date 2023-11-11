@@ -101,6 +101,7 @@ func dash():
 		accel *= 5
 		speed *= 2
 		dashlength.start()
+		$dashsfx.play()
 
 func i_framesss():
 	i_frames = true

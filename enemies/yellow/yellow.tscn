@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1cslbdxweiuv"]
+
+[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_h10gl"]
+[ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="1_j67w1"]
+[ext_resource type="PackedScene" uid="uid://bvcvwki6yk3vm" path="res://player/player.tscn" id="2_jd1uy"]
+[ext_resource type="PackedScene" uid="uid://bkuqrtxq3tgfy" path="res://player/attacks/bullet_4.tscn" id="3_nnc3k"]
+
+[sub_resource type="Curve" id="Curve_0mdx0"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[node name="yellow" type="CharacterBody2D"]
+
+[node name="2Os250Kt" type="Sprite2D" parent="."]
+position = Vector2(-261, -140)
+scale = Vector2(10.5154, 3.56388)
+texture = ExtResource("1_h10gl")
+metadata/_edit_lock_ = true
+
+[node name="body" type="CPUParticles2D" parent="."]
+amount = 100
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -360.0
+angle_max = 360.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+color = Color(1, 1, 0, 1)
+
+[node name="white_right4" type="CPUParticles2D" parent="."]
+position = Vector2(68, -34)
+amount = 100
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+orbit_velocity_min = 0.05
+orbit_velocity_max = 0.05
+angle_min = -360.0
+angle_max = 360.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_0mdx0")
+
+[node name="green" parent="." instance=ExtResource("1_j67w1")]
+position = Vector2(-431, -50)
+
+[node name="player" parent="." instance=ExtResource("2_jd1uy")]
+position = Vector2(-121, -5)
+
+[node name="bullet4" parent="." instance=ExtResource("3_nnc3k")]
+position = Vector2(-409, 130)
+
+[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(36, -138)
+amount = 300
+fixed_fps = 30
+local_coords = true
+draw_order = 1
+emission_shape = 4
+emission_points = PackedVector2Array(24, 24, 24, 25, 24, 26, 24, 27, 24, 28, 24, 29, 24, 30, 24, 31, 24, 32, 24, 33, 24, 34, 24, 35, 24, 36, 24, 37, 24, 38, 24, 39, 25, 24, 25, 39, 26, 24, 26, 39, 27, 24, 27, 39, 28, 24, 28, 39, 29, 24, 29, 39, 30, 24, 30, 39, 31, 24, 31, 39, 32, 24, 32, 39, 33, 24, 33, 39, 34, 24, 34, 39, 35, 24, 35, 39, 36, 24, 36, 39, 37, 24, 37, 39, 38, 24, 38, 39, 39, 24, 39, 39, 40, 25, 40, 38, 41, 25, 41, 38, 42, 25, 42, 38, 43, 25, 43, 38, 44, 25, 44, 38, 45, 25, 45, 38, 46, 25, 46, 38, 47, 25, 47, 38, 48, 25, 48, 38, 49, 25, 49, 38, 50, 25, 50, 38, 51, 25, 51, 38, 52, 25, 52, 38, 53, 25, 53, 38, 54, 25, 54, 38, 55, 25, 55, 38, 56, 25, 56, 38, 57, 25, 57, 38, 58, 25, 58, 38, 59, 25, 59, 38, 60, 25, 60, 38, 61, 25, 61, 38, 62, 25, 62, 38, 63, 25, 63, 38, 64, 25, 64, 38, 65, 25, 65, 38, 66, 25, 66, 38, 67, 25, 67, 38, 68, 25, 68, 38, 69, 25, 69, 38, 70, 25, 70, 38, 71, 25, 71, 38, 72, 26, 72, 37, 73, 26, 73, 37, 74, 26, 74, 37, 75, 26, 75, 37, 76, 26, 76, 37, 77, 26, 77, 37, 78, 26, 78, 37, 79, 26, 79, 37, 80, 26, 80, 37, 81, 26, 81, 37, 82, 26, 82, 37, 83, 26, 83, 37, 84, 26, 84, 37, 85, 26, 85, 37, 86, 26, 86, 37, 87, 26, 87, 27, 87, 28, 87, 29, 87, 30, 87, 31, 87, 32, 87, 33, 87, 34, 87, 35, 87, 36, 87, 37, 88, 26, 88, 37, 89, 26, 89, 38, 90, 26, 90, 38, 91, 26, 91, 38, 92, 26, 92, 38, 93, 26, 93, 39, 94, 26, 94, 39, 95, 26, 95, 39, 96, 26, 96, 39, 97, 26, 97, 39, 98, 26, 98, 39, 99, 26, 99, 40, 100, 26, 100, 40, 101, 26, 101, 40, 102, 26, 102, 40, 103, 26, 103, 40, 104, 26, 104, 40, 105, 26, 105, 40, 106, 26, 106, 40, 107, 26, 107, 40, 108, 26, 108, 40, 109, 26, 109, 41, 110, 26, 110, 41, 111, 26, 111, 41, 112, 26, 112, 41, 113, 26, 113, 41, 114, 26, 114, 41, 115, 26, 115, 41, 116, 26, 116, 41, 117, 26, 117, 41, 118, 26, 118, 41, 119, 26, 119, 41, 120, 26, 120, 41, 121, 26, 121, 40, 122, 26, 122, 40, 123, 26, 123, 40, 124, 26, 124, 40, 125, 26, 125, 40, 126, 26, 126, 40, 127, 26, 127, 40, 128, 26, 128, 40, 129, 26, 129, 39, 130, 26, 130, 39, 131, 26, 131, 39, 132, 26, 132, 39, 133, 26, 133, 39, 134, 26, 134, 38, 135, 26, 135, 38, 136, 26, 136, 38, 137, 26, 137, 38, 138, 26, 138, 38, 139, 26, 139, 37, 140, 26, 140, 37, 141, 26, 141, 37, 142, 26, 142, 37, 143, 26, 143, 37, 144, 26, 144, 37, 145, 26, 145, 36, 146, 26, 146, 36, 147, 26, 147, 36, 148, 26, 148, 36, 149, 26, 149, 35, 150, 26, 150, 35, 151, 26, 151, 35, 152, 26, 152, 34, 153, 26, 153, 34, 154, 26, 154, 34, 155, 26, 155, 34, 156, 26, 156, 33, 157, 26, 157, 33, 158, 26, 158, 33, 159, 26, 159, 32, 160, 26, 160, 32, 161, 26, 161, 32, 162, 26, 162, 31, 163, 26, 163, 31, 164, 26, 164, 31, 165, 26, 165, 30, 166, 26, 166, 30, 167, 26, 167, 29, 168, 26, 168, 29, 169, 26, 169, 29, 170, 26, 170, 28, 171, 26, 171, 28, 172, 26, 172, 27, 173, 26, 173, 27, 174, 26, 175, 26)
+emission_colors = PackedColorArray()
+gravity = Vector2(0, 0)
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+angle_min = -360.0
+angle_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0

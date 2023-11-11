@@ -32,7 +32,7 @@ scale_amount_min = 15.0
 scale_amount_max = 15.0
 color_ramp = SubResource("Gradient_v453m")
 
-[node name="eye1_bottom" type="CPUParticles2D" parent="body"]
+[node name="eye_bottom" type="CPUParticles2D" parent="body"]
 position = Vector2(-1, 16)
 amount = 10
 explosiveness = 0.75
@@ -72,6 +72,7 @@ scale_amount_max = 5.0
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
+visible = false
 shape = SubResource("CircleShape2D_1ikm5")
 
 [node name="player_detection" type="Area2D" parent="."]

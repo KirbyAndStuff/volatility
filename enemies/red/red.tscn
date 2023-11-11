@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=11 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
+[ext_resource type="AudioStream" uid="uid://droywo0qiri6i" path="res://audio/dash.wav" id="2_i433d"]
 
 [sub_resource type="Curve" id="Curve_8jx83"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -112,6 +113,11 @@ shape = SubResource("CircleShape2D_awomf")
 [node name="Red_DashLength" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="red_dashsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_i433d")
+volume_db = -11.0
+pitch_scale = 0.75
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
