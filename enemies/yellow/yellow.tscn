@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_h10gl"]
 [ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="1_j67w1"]
-[ext_resource type="PackedScene" uid="uid://bvcvwki6yk3vm" path="res://player/player.tscn" id="2_jd1uy"]
+[ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="2_jd1uy"]
 [ext_resource type="PackedScene" uid="uid://bkuqrtxq3tgfy" path="res://player/attacks/bullet_4.tscn" id="3_nnc3k"]
 
 [sub_resource type="Curve" id="Curve_0mdx0"]

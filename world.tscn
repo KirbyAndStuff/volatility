@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bduiy1bypb61n"]
+[gd_scene load_steps=9 format=3 uid="uid://bduiy1bypb61n"]
 
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_1xvu2"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_cwnpp"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="5_yubak"]
 [ext_resource type="Script" path="res://camera.gd" id="6_2hp6k"]
 [ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="7_nka32"]
+[ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://pausemenu.tscn" id="8_fbhd5"]
 
 [node name="world" type="Node2D"]
 position = Vector2(960, 540)
@@ -65,3 +66,6 @@ offset_bottom = 960.0
 grow_horizontal = 1
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="pausemenu" parent="ui" instance=ExtResource("8_fbhd5")]
+visible = false
