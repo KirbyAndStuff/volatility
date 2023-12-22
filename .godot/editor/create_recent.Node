@@ -1,5 +1,9 @@
-Button
+GPUParticles2D
 CPUParticles2D
+CollisionShape2D
+StaticBody2D
+Node2D
+Button
 Label
 VBoxContainer
 CenterContainer
@@ -7,8 +11,4 @@ ColorRect
 Control
 CanvasLayer
 Timer
-Node2D
 Panel
-CollisionShape2D
-Area2D
-CharacterBody2D
