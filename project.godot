@@ -13,7 +13,6 @@ config_version=5
 config/name="volatility"
 run/main_scene="res://startmenu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 config/icon="res://icon.svg"
 
 [display]
@@ -69,3 +68,7 @@ parry={
 [physics]
 
 common/physics_ticks_per_second=240
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
