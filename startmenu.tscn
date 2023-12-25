@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfykqm448qllb"]
+[gd_scene load_steps=10 format=3 uid="uid://bfykqm448qllb"]
 
 [ext_resource type="Script" path="res://menu/start_button.gd" id="1_bv6dm"]
 [ext_resource type="Script" path="res://menu/credits_button.gd" id="2_6x70u"]
 [ext_resource type="Script" path="res://playground.gd" id="2_e6qry"]
 [ext_resource type="Script" path="res://menu/credits_close_button.gd" id="3_lcuhu"]
+[ext_resource type="Script" path="res://controls_button.gd" id="3_qgv6k"]
 [ext_resource type="Script" path="res://menu/quit_game_button.gd" id="3_x87sf"]
 [ext_resource type="Script" path="res://settings_button.gd" id="5_rwo04"]
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="7_w6e5l"]
@@ -29,6 +30,33 @@ offset_right = -35.0
 offset_bottom = 763.0
 text = "Playground"
 script = ExtResource("2_e6qry")
+
+[node name="controls_button" type="Button" parent="CanvasLayer"]
+offset_left = 852.0
+offset_top = 638.0
+offset_right = 1108.0
+offset_bottom = 707.0
+text = "Controls"
+script = ExtResource("3_qgv6k")
+
+[node name="controls_panel" type="Panel" parent="CanvasLayer/controls_button"]
+visible = false
+layout_mode = 0
+offset_left = -590.0
+offset_top = -500.0
+offset_right = 873.0
+offset_bottom = 288.0
+
+[node name="Label" type="Label" parent="CanvasLayer/controls_button/controls_panel"]
+layout_mode = 0
+offset_left = 637.0
+offset_top = 301.0
+offset_right = 798.0
+offset_bottom = 376.0
+text = "Movement - WASD
+Shoot - Left Click
+Dash - Left Shift"
+horizontal_alignment = 1
 
 [node name="Settings" type="Button" parent="CanvasLayer"]
 offset_left = -209.0
@@ -79,9 +107,9 @@ horizontal_alignment = 1
 
 [node name="quit_game_button" type="Button" parent="CanvasLayer"]
 offset_left = 850.0
-offset_top = 643.0
+offset_top = 726.0
 offset_right = 1110.0
-offset_bottom = 703.0
+offset_bottom = 786.0
 text = "Quit Game"
 script = ExtResource("3_x87sf")
 
@@ -155,6 +183,7 @@ position = Vector2(843, 354)
 
 [connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/playground" to="CanvasLayer/playground" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/controls_button" to="CanvasLayer/controls_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/credits_button" to="CanvasLayer/credits_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/credits_button/credits_panel/credits_close_button" to="CanvasLayer/credits_button/credits_panel/credits_close_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/quit_game_button" to="CanvasLayer/quit_game_button" method="_on_pressed"]
