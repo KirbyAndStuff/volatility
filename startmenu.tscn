@@ -23,19 +23,25 @@ text = "Start Game"
 script = ExtResource("1_bv6dm")
 
 [node name="playground" type="Button" parent="CanvasLayer"]
-offset_left = 850.0
-offset_top = 645.0
-offset_right = 1110.0
-offset_bottom = 725.0
+offset_left = 152.0
+offset_top = 490.0
+offset_right = 412.0
+offset_bottom = 570.0
 text = "Playground"
 script = ExtResource("2_e6qry")
 
+[node name="Settings" type="Button" parent="CanvasLayer"]
+offset_left = 856.0
+offset_top = 659.0
+offset_right = 960.0
+offset_bottom = 718.0
+text = "Settings"
+
 [node name="credits_button" type="Button" parent="CanvasLayer"]
-visible = false
-offset_left = 930.0
-offset_top = 858.0
-offset_right = 1021.0
-offset_bottom = 908.0
+offset_left = 986.0
+offset_top = 672.0
+offset_right = 1108.0
+offset_bottom = 722.0
 text = "Credits"
 script = ExtResource("2_6x70u")
 

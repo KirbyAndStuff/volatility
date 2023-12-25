@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bax76c4teyl8h"]
+[gd_scene load_steps=11 format=3 uid="uid://bax76c4teyl8h"]
 
 [ext_resource type="Script" path="res://survival.gd" id="1_qdupt"]
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_t06wf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="6_xq38b"]
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="7_qn7gk"]
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://pausemenu.tscn" id="7_srrwy"]
+[ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://gameoverscreen.tscn" id="8_l2emk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_habt6"]
 size = Vector2(4540, 1)
@@ -65,6 +66,8 @@ offset_left = -3442.0
 offset_top = -2103.0
 offset_right = 3421.0
 offset_bottom = 2191.0
+
+[node name="gameoverscreen" parent="ui" instance=ExtResource("8_l2emk")]
 
 [node name="border_top" type="StaticBody2D" parent="."]
 position = Vector2(-2267, -1357)

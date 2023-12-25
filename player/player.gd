@@ -8,6 +8,7 @@ var dash_particles := preload("res://player/player_dash_particles.tscn")
 var parry_particles := preload("res://player/attacks/parry_particles.tscn")
 var parried_particles := preload("res://player/attacks/parried_particles.tscn")
 var player_hurt := preload("res://player/player_hurt.tscn")
+var player_death := preload("res://player/player_death.tscn")
 
 @onready var guntimer := $GunTimer
 @onready var dashlength := $DashLength
@@ -31,6 +32,7 @@ var input = Vector2.ZERO
 var i_frames = false
 var dashi_frames = false
 var enemies_in_area = 0
+var is_dead = false
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -56,6 +58,11 @@ func _process(delta):
 		i_framesss()
 	if Input.is_action_pressed("parry"):
 		parry()
+	if health < 1 and is_dead == false:
+		var effect := player_death.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		is_dead = true
 
 func get_input():
 	if input.length() > 0.0:

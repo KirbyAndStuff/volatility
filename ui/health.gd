@@ -11,3 +11,4 @@ func _process(delta):
 		$health3.emitting = false
 		$health2.emitting = false
 		$health.emitting = false
+	
