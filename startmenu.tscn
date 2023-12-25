@@ -23,25 +23,25 @@ text = "Start Game"
 script = ExtResource("1_bv6dm")
 
 [node name="playground" type="Button" parent="CanvasLayer"]
-offset_left = 152.0
-offset_top = 490.0
-offset_right = 412.0
-offset_bottom = 570.0
+offset_left = -295.0
+offset_top = 683.0
+offset_right = -35.0
+offset_bottom = 763.0
 text = "Playground"
 script = ExtResource("2_e6qry")
 
 [node name="Settings" type="Button" parent="CanvasLayer"]
-offset_left = 856.0
-offset_top = 659.0
-offset_right = 960.0
-offset_bottom = 718.0
+offset_left = -209.0
+offset_top = 492.0
+offset_right = -105.0
+offset_bottom = 551.0
 text = "Settings"
 
 [node name="credits_button" type="Button" parent="CanvasLayer"]
-offset_left = 986.0
-offset_top = 672.0
-offset_right = 1108.0
-offset_bottom = 722.0
+offset_left = -190.0
+offset_top = 603.0
+offset_right = -68.0
+offset_bottom = 653.0
 text = "Credits"
 script = ExtResource("2_6x70u")
 
@@ -72,15 +72,16 @@ offset_right = 1110.0
 offset_bottom = 553.0
 text = "Credits
 
-Creator - KirbyAndStuff
-Co-Creator - Zev"
+Videospiel von Choi
+
+"
 horizontal_alignment = 1
 
 [node name="quit_game_button" type="Button" parent="CanvasLayer"]
 offset_left = 850.0
-offset_top = 745.0
+offset_top = 643.0
 offset_right = 1110.0
-offset_bottom = 805.0
+offset_bottom = 703.0
 text = "Quit Game"
 script = ExtResource("3_x87sf")
 
@@ -99,8 +100,58 @@ scale = Vector2(10.0969, 5.57269)
 texture = ExtResource("7_w6e5l")
 metadata/_edit_lock_ = true
 
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 743.0
+offset_top = 268.0
+offset_right = 1921.0
+offset_bottom = 429.0
+theme_override_colors/background_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 100
+text = "Volatility"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="TextEdit3" type="TextEdit" parent="."]
+offset_left = 936.0
+offset_top = 389.0
+offset_right = 1100.0
+offset_bottom = 520.0
+theme_override_colors/background_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+text = "by Choi"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="TextEdit2" type="TextEdit" parent="."]
+offset_left = 812.0
+offset_top = 305.0
+offset_right = 871.0
+offset_bottom = 389.0
+theme_override_colors/background_color = Color(0, 0, 0, 1)
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+
 [node name="Node2D" parent="." instance=ExtResource("8_wc8lt")]
-position = Vector2(973, 444)
+position = Vector2(843, 354)
 
 [connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/playground" to="CanvasLayer/playground" method="_on_pressed"]

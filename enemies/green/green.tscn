@@ -10,7 +10,7 @@ colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1)
 radius = 56.0803
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mawf4"]
-radius = 600.0
+radius = 1451.61
 
 [node name="green" type="CharacterBody2D"]
 script = ExtResource("1_t7t5q")
@@ -80,7 +80,6 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
-visible = false
 shape = SubResource("CircleShape2D_mawf4")
 
 [node name="GunTimer" type="Timer" parent="."]

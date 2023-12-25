@@ -62,6 +62,11 @@ func _process(delta):
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		speed = 0
+		particlesB.emitting = false
+		particlesL.emitting = false
+		particlesR.emitting = false
+		combat_eye.emitting = false
 		is_dead = true
 
 func get_input():

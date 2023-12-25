@@ -4,25 +4,41 @@ var difficulty = 0
 var red = preload("res://enemies/red/red.tscn")
 var green = preload("res://enemies/green/green.tscn")
 var yellow = preload("res://enemies/yellow/yellow.tscn")
-var spawn_chances = {"red": 0.1, "green": 0.2, "yellow": 0.15}
-var spawn_thresholds = {"red": 0, "green": 3, "yellow": 5}
+var spawn_chances = {"red": 0.2, "green": 0.2}
+var spawn_thresholds = {"red": 0, "green": 5}
 var pause_menu
+var timer_label : Label
+var seconds_lived : int
 
 func _ready():
 	# Set up your timers here
 	var difficulty_timer = Timer.new()
-	difficulty_timer.wait_time = 20
+	difficulty_timer.wait_time = 1
 	difficulty_timer.autostart = true
 	difficulty_timer.connect("timeout", Callable(self, "_on_difficulty_timer_timeout"))
 	add_child(difficulty_timer)
 
 	var spawn_timer = Timer.new()
-	spawn_timer.wait_time = 1
+	spawn_timer.wait_time = 1 - (difficulty/100)
 	spawn_timer.autostart = true
 	spawn_timer.connect("timeout", Callable(self, "_on_spawn_timer_timeout"))
 	add_child(spawn_timer)
 	
-
+	timer_label = $ui/seconds_lived # Adjust the path based on your scene structure
+	if timer_label == null:
+		print("Label not found. Check the path in the script.")
+	else:
+		seconds_lived = 0
+		$Timer.connect("timeout", Callable(self, "_on_timer_timeout"))
+		$Timer.start()
+	
+func _on_timer_timeout():
+	seconds_lived += 1
+	if timer_label != null:
+		timer_label.text = "Seconds Lived: " + str(seconds_lived)
+	else:
+		print("Label not found. Check the path in the script.")
+	
 func _on_difficulty_timer_timeout():
 	difficulty += 1
 	print("Difficulty increased to: ", difficulty)

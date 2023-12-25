@@ -13,6 +13,7 @@ colors = PackedColorArray(0, 0.827451, 1, 0.501961, 1, 1, 1, 0.501961)
 colors = PackedColorArray(0, 0.827451, 1, 1, 1, 1, 1, 0.235294)
 
 [node name="player_death" type="CPUParticles2D"]
+process_mode = 3
 emitting = false
 amount = 250
 lifetime = 0.5
