@@ -72,7 +72,6 @@ scale_amount_max = 5.0
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
-visible = false
 shape = SubResource("CircleShape2D_1ikm5")
 
 [node name="player_detection" type="Area2D" parent="."]
@@ -80,6 +79,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
+visible = false
 shape = SubResource("CircleShape2D_mawf4")
 
 [node name="GunTimer" type="Timer" parent="."]
