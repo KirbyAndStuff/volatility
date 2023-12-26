@@ -66,6 +66,7 @@ shape = SubResource("CircleShape2D_dtirm")
 [node name="player_shoot_distance" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_shoot_distance"]
+visible = false
 shape = SubResource("CircleShape2D_iqeec")
 
 [node name="GunTimer" type="Timer" parent="."]

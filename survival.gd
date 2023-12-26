@@ -4,8 +4,8 @@ var difficulty = 0
 var red = preload("res://enemies/red/red.tscn")
 var green = preload("res://enemies/green/green.tscn")
 var yellow = preload("res://enemies/yellow/yellow.tscn")
-var spawn_chances = {"red": 0.2, "green": 0.2}
-var spawn_thresholds = {"red": 0, "green": 5}
+var spawn_chances = {"red": 0.2, "green": 0.2, "yellow": 0.2, "purple": 0.2}
+var spawn_thresholds = {"red": 0, "green": 5, "yellow": 10, "purple":15}
 var pause_menu
 var timer_label : Label
 var seconds_lived : int

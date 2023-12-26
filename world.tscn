@@ -1,27 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://bduiy1bypb61n"]
+[gd_scene load_steps=9 format=3 uid="uid://dor7mirhn7dau"]
 
-[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_1xvu2"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_cwnpp"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="5_rkgij"]
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="5_yubak"]
 [ext_resource type="Script" path="res://camera.gd" id="6_2hp6k"]
-
+[ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://gameoverscreen.tscn" id="6_nb6fy"]
+[ext_resource type="PackedScene" uid="uid://d1cslbdxweiuv" path="res://enemies/yellow/yellow.tscn" id="7_bdvpu"]
+[ext_resource type="PackedScene" uid="uid://c8codwb0jmyiu" path="res://enemies/purple/purple.tscn" id="8_7u1ft"]
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://pausemenu.tscn" id="8_fbhd5"]
 
 [node name="world" type="Node2D"]
-position = Vector2(960, 540)
-
-[node name="2Os250Kt" type="Sprite2D" parent="."]
-scale = Vector2(21.1542, 12.9295)
-texture = ExtResource("1_1xvu2")
-metadata/_edit_lock_ = true
 
 [node name="player" parent="." instance=ExtResource("1_cwnpp")]
 
 [node name="camera" type="Camera2D" parent="."]
 position_smoothing_speed = 20.0
 script = ExtResource("6_2hp6k")
-
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -51,6 +45,20 @@ metadata/_edit_use_anchors_ = true
 
 [node name="pausemenu" parent="ui" instance=ExtResource("8_fbhd5")]
 visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3442.0
+offset_top = -2103.0
+offset_right = 3421.0
+offset_bottom = 2191.0
 
-[node name="yellow" parent="." instance=ExtResource("7_vpx17")]
-position = Vector2(-629, 181)
+[node name="gameoverscreen" parent="ui" instance=ExtResource("6_nb6fy")]
+
+[node name="yellow" parent="." instance=ExtResource("7_bdvpu")]
+position = Vector2(-530, 217)
+
+[node name="purple" parent="." instance=ExtResource("8_7u1ft")]
+position = Vector2(1861, 168)
