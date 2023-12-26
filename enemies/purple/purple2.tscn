@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://o7kjrn46nqd"]
+
+[ext_resource type="Script" path="res://enemies/purple/purple2.gd" id="1_7ohsw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2l3fj"]
+radius = 258.697
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wt1ba"]
+radius = 37.0259
+
+[node name="purple2" type="CharacterBody2D"]
+script = ExtResource("1_7ohsw")
+
+[node name="body" type="CPUParticles2D" parent="."]
+scale = Vector2(3, 3)
+amount = 100
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -360.0
+angle_max = 360.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+color = Color(0.372549, 0, 1, 1)
+
+[node name="player_detection" type="Area2D" parent="."]
+scale = Vector2(3, 3)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
+shape = SubResource("CircleShape2D_2l3fj")
+
+[node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
+scale = Vector2(3, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
+shape = SubResource("CircleShape2D_wt1ba")
+
+[connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
+[connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
