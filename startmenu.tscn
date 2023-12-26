@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfykqm448qllb"]
+[gd_scene load_steps=11 format=3 uid="uid://bfykqm448qllb"]
 
 [ext_resource type="Script" path="res://menu/start_button.gd" id="1_bv6dm"]
 [ext_resource type="Script" path="res://menu/credits_button.gd" id="2_6x70u"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://settings_button.gd" id="5_rwo04"]
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="7_w6e5l"]
 [ext_resource type="PackedScene" uid="uid://310650vo12fr" path="res://player/player_immoblie.tscn" id="8_wc8lt"]
+[ext_resource type="AudioStream" uid="uid://p1lur1k0r2v5" path="res://music/Chris Christodoulou - Risk of Rain [2023 Remaster] ｜ ROR Returns (2023) [g8iP1TwEB88].wav" id="10_cimmb"]
 
 [node name="startmenu" type="Node2D"]
 process_mode = 3
@@ -24,10 +25,10 @@ text = "Start Game"
 script = ExtResource("1_bv6dm")
 
 [node name="playground" type="Button" parent="CanvasLayer"]
-offset_left = -295.0
-offset_top = 683.0
-offset_right = -35.0
-offset_bottom = 763.0
+offset_left = 852.0
+offset_top = 865.0
+offset_right = 1112.0
+offset_bottom = 945.0
 text = "Playground"
 script = ExtResource("2_e6qry")
 
@@ -180,6 +181,11 @@ middle_mouse_paste_enabled = false
 
 [node name="Node2D" parent="." instance=ExtResource("8_wc8lt")]
 position = Vector2(843, 354)
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_cimmb")
+volume_db = -20.0
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/playground" to="CanvasLayer/playground" method="_on_pressed"]
