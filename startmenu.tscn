@@ -25,10 +25,7 @@ text = "Start Game"
 script = ExtResource("1_bv6dm")
 
 [node name="playground" type="Button" parent="CanvasLayer"]
-offset_left = 852.0
-offset_top = 865.0
-offset_right = 1112.0
-offset_bottom = 945.0
+
 text = "Playground"
 script = ExtResource("2_e6qry")
 

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="5_rkgij"]
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="5_yubak"]
 [ext_resource type="Script" path="res://camera.gd" id="6_2hp6k"]
-[ext_resource type="PackedScene" uid="uid://d1cslbdxweiuv" path="res://enemies/yellow/yellow.tscn" id="7_vpx17"]
+
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://pausemenu.tscn" id="8_fbhd5"]
 
 [node name="world" type="Node2D"]
@@ -21,6 +21,7 @@ metadata/_edit_lock_ = true
 [node name="camera" type="Camera2D" parent="."]
 position_smoothing_speed = 20.0
 script = ExtResource("6_2hp6k")
+
 
 [node name="ui" type="CanvasLayer" parent="."]
 
