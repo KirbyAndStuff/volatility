@@ -13,6 +13,7 @@ func _process(delta):
 		get_parent().add_child(effect)
 		queue_free()
 	if shoot_at_player and $GunTimer.is_stopped():
+		$green_bulletsfx.play()
 		var bullet_scene = preload("res://enemies/green/green_bullet.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)

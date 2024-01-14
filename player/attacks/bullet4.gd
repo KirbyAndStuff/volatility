@@ -5,9 +5,6 @@ var bullet_death := preload("res://player/attacks/bullet_death.tscn")
 
 @export var speed := 1500.0
 
-func _ready():
-	$bulletsfx.play()
-
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
 	direction = from.direction_to(to)
@@ -23,3 +20,10 @@ func _on_timer_timeout() -> void:
 	effect.position = position
 	get_parent().add_child(effect)
 	queue_free()
+
+func _on_bullet_hurtbox_body_entered(body):
+	if body.is_in_group("wall"):
+		var effect := bullet_death.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		queue_free()

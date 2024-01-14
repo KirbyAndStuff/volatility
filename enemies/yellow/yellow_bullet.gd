@@ -32,6 +32,11 @@ func _process(delta):
 func _on_yellow_bullet_hurtbox_body_entered(body):
 	if body.name == "player":
 		attack_player = true
+	if body.is_in_group("wall"):
+		var effect := attack_area.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		queue_free()
 
 func _on_yellow_bullet_hurtbox_body_exited(body):
 	if body.name == "player":

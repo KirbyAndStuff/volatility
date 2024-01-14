@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://o7kjrn46nqd"]
+[gd_scene load_steps=6 format=3 uid="uid://o7kjrn46nqd"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple2.gd" id="1_7ohsw"]
 
@@ -11,7 +11,12 @@ radius = 37.0259
 [sub_resource type="CircleShape2D" id="CircleShape2D_aqbt7"]
 radius = 110.114
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kdq7s"]
+radius = 109.115
+
 [node name="purple2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_7ohsw")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -32,22 +37,64 @@ color = Color(0.372549, 0, 1, 1)
 
 [node name="player_detection" type="Area2D" parent="."]
 scale = Vector2(3, 3)
-collision_layer = 2
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
+visible = false
 shape = SubResource("CircleShape2D_2l3fj")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
 scale = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
+visible = false
 shape = SubResource("CircleShape2D_wt1ba")
 
 [node name="hurts_player" type="Area2D" parent="." groups=["attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
+visible = false
 shape = SubResource("CircleShape2D_aqbt7")
+
+[node name="eye_bottom" type="CPUParticles2D" parent="."]
+position = Vector2(0, 60)
+amount = 80
+explosiveness = 0.9
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+
+[node name="eye_top" type="CPUParticles2D" parent="."]
+position = Vector2(0, -60)
+amount = 80
+explosiveness = 0.9
+local_coords = true
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+
+[node name="wall_hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_kdq7s")
 
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]

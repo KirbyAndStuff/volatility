@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1cslbdxweiuv"]
+[gd_scene load_steps=8 format=3 uid="uid://d1cslbdxweiuv"]
 
 [ext_resource type="Script" path="res://enemies/yellow/yellow.gd" id="1_ryoiu"]
+[ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_4p1av"]
 
 [sub_resource type="Gradient" id="Gradient_pnp7h"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 0)
@@ -14,7 +15,13 @@ radius = 1518.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqeec"]
 radius = 1087.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4mdx1"]
+radius = 37.054
+
 [node name="yellow" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+slide_on_ceiling = false
 script = ExtResource("1_ryoiu")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -71,6 +78,15 @@ shape = SubResource("CircleShape2D_iqeec")
 
 [node name="GunTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="yellow_bulletsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4p1av")
+volume_db = -3.0
+pitch_scale = 0.75
+
+[node name="wall_hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_4mdx1")
 
 [connection signal="area_entered" from="player_death" to="." method="_on_player_death_area_entered"]
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]

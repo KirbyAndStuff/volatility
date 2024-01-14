@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
-var purple_death := preload("res://enemies/purple/purple_death.tscn")
-var purple_hurt := preload("res://enemies/purple/purple_hurt.tscn")
+var purple_hurt := preload("res://enemies/purple/purple_hurt3.tscn")
 
 func _ready():
-	pass
+	$playerdeath/CollisionShape2D.disabled = true
+	await get_tree().create_timer(0.3).timeout
+	$playerdeath/CollisionShape2D.disabled = false
 
-var speed = 450
+var speed = 500
 var player_chase = false
 var player = null
 var attack_player = false
@@ -25,9 +26,6 @@ func _process(delta):
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
 	if purple_health < 1:
-		var effect := purple_death.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
 		queue_free()
 
 func _on_playerdeath_area_entered(area):
@@ -40,12 +38,14 @@ func _on_playerdeath_area_entered(area):
 		purple_health -= 2
 
 func _on_player_detection_body_entered(body):
-	player = body
-	player_chase = true
+	if body.name == "player":
+		player = body
+		player_chase = true
 
 func _on_player_detection_body_exited(body):
-	player = null
-	player_chase = false
+	if body.name == "player":
+		player = null
+		player_chase = false
 
 func _on_hurts_player_body_entered(body):
 	if body.name == "player":

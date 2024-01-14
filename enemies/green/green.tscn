@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6sg1b6ucnje7"]
+[gd_scene load_steps=7 format=3 uid="uid://b6sg1b6ucnje7"]
 
 [ext_resource type="Script" path="res://enemies/green/green.gd" id="1_t7t5q"]
+[ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_kbnva"]
 
 [sub_resource type="Gradient" id="Gradient_v453m"]
 offsets = PackedFloat32Array(0, 0.556291, 1)
@@ -12,7 +13,12 @@ radius = 56.0803
 [sub_resource type="CircleShape2D" id="CircleShape2D_mawf4"]
 radius = 1451.61
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ynvg1"]
+radius = 53.0094
+
 [node name="green" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_t7t5q")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -72,17 +78,25 @@ scale_amount_max = 5.0
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
+visible = false
 shape = SubResource("CircleShape2D_1ikm5")
 
 [node name="player_detection" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
 visible = false
 shape = SubResource("CircleShape2D_mawf4")
 
 [node name="GunTimer" type="Timer" parent="."]
+
+[node name="green_bulletsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_kbnva")
+volume_db = -3.0
+pitch_scale = 2.0
+
+[node name="wall-hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_ynvg1")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]

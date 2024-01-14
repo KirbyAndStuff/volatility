@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkuqrtxq3tgfy"]
+[gd_scene load_steps=6 format=3 uid="uid://bkuqrtxq3tgfy"]
 
 [ext_resource type="Script" path="res://player/attacks/bullet4.gd" id="1_p2t35"]
-[ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_2o08p"]
 
 [sub_resource type="Curve" id="Curve_rviok"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252747, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -88,8 +87,5 @@ position = Vector2(44.4683, 1)
 scale = Vector2(1.02455, 1)
 polygon = PackedVector2Array(9, -9, 0, -11, -15, -9, -30, -6, -45, -1, -30, 6, -15, 9, 0, 11, 9, 9, 13, -1)
 
-[node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_2o08p")
-volume_db = 3.0
-
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_body_entered"]

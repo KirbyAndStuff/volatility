@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8ptqwq7ce3im"]
+[gd_scene load_steps=6 format=3 uid="uid://b8ptqwq7ce3im"]
 
 [ext_resource type="Script" path="res://enemies/green/green_bullet.gd" id="1_2bm86"]
-[ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_nj6v1"]
 
 [sub_resource type="Curve" id="Curve_phgnu"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252809, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -86,11 +85,6 @@ autostart = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="green_bullet_hurtbox"]
 polygon = PackedVector2Array(-25, 0, 0, -9, 8, 0, 0, 9)
-
-[node name="green_bulletsfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_nj6v1")
-volume_db = -3.0
-pitch_scale = 2.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="green_bullet_hurtbox" to="." method="_on_green_bullet_hurtbox_body_entered"]

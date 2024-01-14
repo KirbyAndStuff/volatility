@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=12 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://droywo0qiri6i" path="res://audio/dash.wav" id="2_i433d"]
@@ -28,7 +28,12 @@ radius = 25.318
 [sub_resource type="CircleShape2D" id="CircleShape2D_awomf"]
 radius = 167.192
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ctjf"]
+radius = 22.02
+
 [node name="red" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_q1clp")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -84,12 +89,11 @@ color_ramp = SubResource("Gradient_na7al")
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
+visible = false
 position = Vector2(1, -20)
 shape = SubResource("CircleShape2D_4iuuo")
 
 [node name="player_detection" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
 visible = false
@@ -118,6 +122,11 @@ one_shot = true
 stream = ExtResource("2_i433d")
 volume_db = -11.0
 pitch_scale = 0.75
+
+[node name="wall_hitbox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_1ctjf")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]

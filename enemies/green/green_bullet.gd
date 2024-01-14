@@ -6,9 +6,6 @@ var green_bullet_death := preload("res://enemies/green/green_bullet_death.tscn")
 @export var speed := 1000.0
 var attack_player = false
 
-func _ready():
-	$green_bulletsfx.play()
-
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
 	direction = from.direction_to(to)
@@ -35,6 +32,11 @@ func _process(delta):
 func _on_green_bullet_hurtbox_body_entered(body):
 	if body.name == "player":
 		attack_player = true
+	if body.is_in_group("wall"):
+		var effect := green_bullet_death.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		queue_free()
 
 func _on_green_bullet_hurtbox_body_exited(body):
 	if body.name == "player":

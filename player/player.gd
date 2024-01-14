@@ -97,6 +97,7 @@ func player_movement(delta):
 	move_and_slide()
 
 func shoot():
+	$bulletsfx.play()
 	var bullet_scene = preload("res://player/attacks/bullet_4.tscn")
 	var shot = bullet_scene.instantiate() 
 	get_parent().add_child(shot)

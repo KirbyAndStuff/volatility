@@ -59,16 +59,18 @@ func _on_playerdeath_area_entered(area):
 		red_health -= 2
 
 func _on_player_detection_body_entered(body):
-	player = body
-	player_chase = true
-	particlesL.lifetime = 0.1
-	particlesR.lifetime = 0.1
+	if body.name == "player":
+		player = body
+		player_chase = true
+		particlesL.lifetime = 0.1
+		particlesR.lifetime = 0.1
 
 func _on_player_detection_body_exited(body):
-	player = null
-	player_chase = false
-	particlesL.lifetime = 0.2
-	particlesR.lifetime = 0.2
+	if body.name == "player":
+		player = null
+		player_chase = false
+		particlesL.lifetime = 0.2
+		particlesR.lifetime = 0.2
 
 func _on_hurts_player_body_entered(body):
 	if body.name == "player":

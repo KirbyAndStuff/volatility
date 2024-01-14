@@ -1,18 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpgwrekqkq8lb"]
+[gd_scene load_steps=4 format=3 uid="uid://dwd0kgblr4wvw"]
 
-[ext_resource type="Script" path="res://enemies/green/green_hurt.gd" id="1_jp6p8"]
+[ext_resource type="Script" path="res://enemies/green/green_hurt.gd" id="1_7ays5"]
 
 [sub_resource type="Curve" id="Curve_rlgok"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_s1dw7"]
 offsets = PackedFloat32Array(0.013245, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="purple_hurt" type="CPUParticles2D"]
+[node name="purple_hurt2" type="CPUParticles2D"]
 emitting = false
-amount = 30
+amount = 50
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
@@ -20,15 +20,15 @@ emission_shape = 1
 emission_sphere_radius = 20.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 200.0
-initial_velocity_max = 200.0
+initial_velocity_min = 450.0
+initial_velocity_max = 450.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 25.0
-scale_amount_max = 25.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_rlgok")
-color = Color(0, 1, 0, 1)
+color = Color(0.372549, 0, 1, 1)
 color_ramp = SubResource("Gradient_s1dw7")
-script = ExtResource("1_jp6p8")
+script = ExtResource("1_7ays5")
