@@ -22,8 +22,8 @@ func _process(delta):
 
 func _on_retry_pressed():
 	self.is_paused = false
-	get_tree().change_scene_to_file("res://survival.tscn")
+	get_tree().change_scene_to_file("res://start_menu/survival.tscn")
 
 func _on_quit_to_main_menu_pressed():
 	self.is_paused = false
-	get_tree().change_scene_to_file("res://startmenu.tscn")
+	get_tree().change_scene_to_file("res://start_menu/startmenu.tscn")

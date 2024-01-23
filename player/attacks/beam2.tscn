@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://qqrgrc3cq65s"]
+
+[ext_resource type="Script" path="res://player/attacks/beam.gd" id="1_xs1st"]
+
+[sub_resource type="Environment" id="Environment_h4p03"]
+background_mode = 3
+glow_enabled = true
+glow_levels/2 = 1.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_strength = 2.0
+glow_blend_mode = 0
+glow_hdr_threshold = 4.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s56by"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 0)
+angle_min = -180.0
+angle_max = 180.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+
+[node name="RayCast2D" type="RayCast2D"]
+target_position = Vector2(1000, 0)
+collision_mask = 4
+script = ExtResource("1_xs1st")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h4p03")
+
+[node name="beam_body" type="GPUParticles2D" parent="."]
+modulate = Color(1, 2.11, 2.55, 1)
+position = Vector2(522, 0)
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_s56by")
+lifetime = 0.25
+fixed_fps = 0
+local_coords = true
+draw_order = 0
+
+[node name="beam_hurtbox" type="Area2D" parent="." groups=["beam"]]
+scale = Vector2(1, 8)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

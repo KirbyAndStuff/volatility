@@ -58,7 +58,7 @@ angle_max = 180.0
 scale_amount_min = 5.0
 scale_amount_max = 5.0
 
-[node name="player_death" type="Area2D" parent="." groups=["enemy"]]
+[node name="player_death" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_death"]
 visible = false

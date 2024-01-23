@@ -28,6 +28,11 @@ func _on_playerdeath_area_entered(area):
 		green_health -= 1
 	if area.name == "parried_hurtbox":
 		green_health -= 2
+	if area.is_in_group("beam"):
+		var effect := green_hurt.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		green_health -= 2
 
 func _on_player_detection_body_entered(body):
 	if body.name == "player":

@@ -1,17 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://mdr2cg4tof1l"]
+[gd_scene load_steps=2 format=3 uid="uid://bnd30ew1s2oj2"]
 
-[ext_resource type="Script" path="res://gameoverscreen.gd" id="1_5cdm2"]
+[ext_resource type="Script" path="res://menu/pausemenu.gd" id="1_cj5n6"]
 
-[node name="gameoverscreen" type="Control"]
+
+[node name="pausemenu" type="Control"]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5cdm2")
+script = ExtResource("1_cj5n6")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -44,17 +44,17 @@ theme_override_constants/separation = 7
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Game Over"
+text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Retry" type="Button" parent="VBoxContainer"]
+[node name="Resume Game" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Retry"
+text = "Resume Game"
 
-[node name="Quit to Main Menu" type="Button" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Quit to Main Menu"
+text = "Quit"
 
-[connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit to Main Menu" to="." method="_on_quit_to_main_menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/Resume Game" to="." method="_on_resume_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

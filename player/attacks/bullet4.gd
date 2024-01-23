@@ -2,8 +2,16 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/bullet_death.tscn")
+var enemies_hit = 0
 
 @export var speed := 1500.0
+
+func _process(delta):
+	if 1 < enemies_hit:
+		var effect := bullet_death.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		queue_free()
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
@@ -27,3 +35,7 @@ func _on_bullet_hurtbox_body_entered(body):
 		effect.position = position
 		get_parent().add_child(effect)
 		queue_free()
+
+func _on_bullet_hurtbox_area_entered(area):
+	if area.is_in_group("enemy_body"):
+		enemies_hit += 1

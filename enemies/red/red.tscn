@@ -86,7 +86,7 @@ scale_amount_min = 3.0
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_na7al")
 
-[node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
+[node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 visible = false
@@ -100,7 +100,7 @@ visible = false
 position = Vector2(1, -20)
 shape = SubResource("CircleShape2D_sdnrw")
 
-[node name="hurts_player" type="Area2D" parent="." groups=["attack"]]
+[node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 visible = false

@@ -42,14 +42,14 @@ scale = Vector2(5, 5)
 visible = false
 shape = SubResource("CircleShape2D_jt0y4")
 
-[node name="playerdeath" type="Area2D" parent="." groups=["enemy"]]
+[node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
 scale = Vector2(5, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 visible = false
 shape = SubResource("CircleShape2D_wxq5g")
 
-[node name="hurts_player" type="Area2D" parent="." groups=["attack"]]
+[node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 visible = false

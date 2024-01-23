@@ -41,7 +41,7 @@ func _process(delta):
 	if stamina <= 100:
 		stamina += 25 * delta
 		
-	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped():
+	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and is_dead == false:
 		shoot()
 		
 	if Input.is_action_pressed("dash") and stamina > 50 and dash_particlestimer.is_stopped():
@@ -66,8 +66,10 @@ func _process(delta):
 		particlesB.emitting = false
 		particlesL.emitting = false
 		particlesR.emitting = false
-		combat_eye.emitting = false
+		combat_eye.visible = false
 		is_dead = true
+	if Input.is_action_pressed("right_mouse_button") and guntimer.is_stopped() and is_dead == false:
+		alt_shoot()
 
 func get_input():
 	if input.length() > 0.0:
@@ -100,6 +102,14 @@ func shoot():
 	$bulletsfx.play()
 	var bullet_scene = preload("res://player/attacks/bullet_4.tscn")
 	var shot = bullet_scene.instantiate() 
+	get_parent().add_child(shot)
+	shot.shoot(global_position, get_global_mouse_position())
+	guntimer.start()
+
+func alt_shoot():
+	$bulletsfx.play()
+	var bullet_scene = preload("res://player/attacks/beam2.tscn")
+	var shot = bullet_scene.instantiate()
 	get_parent().add_child(shot)
 	shot.shoot(global_position, get_global_mouse_position())
 	guntimer.start()
@@ -165,7 +175,7 @@ func _on_parry_timer_timeout() -> void:
 	parrytimer.stop()
 
 func _on_parry_detection_area_entered(area: Area2D) -> void:
-	if area.is_in_group("attack"):
+	if area.is_in_group("enemy_attack"):
 		i_framesss()
 		var effect := parried_particles.instantiate()
 		effect.position = position

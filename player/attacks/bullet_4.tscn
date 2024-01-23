@@ -88,4 +88,5 @@ scale = Vector2(1.02455, 1)
 polygon = PackedVector2Array(9, -9, 0, -11, -15, -9, -30, -6, -45, -1, -30, 6, -15, 9, 0, 11, 9, 9, 13, -1)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_entered"]
 [connection signal="body_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_body_entered"]

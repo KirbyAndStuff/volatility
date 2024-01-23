@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://bax76c4teyl8h"]
 
-[ext_resource type="Script" path="res://survival.gd" id="1_qdupt"]
-[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://2os250kt.bmp" id="1_t06wf"]
+[ext_resource type="Script" path="res://start_menu/survival.gd" id="1_qdupt"]
+[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://pngs/2os250kt.bmp" id="1_t06wf"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="2_m2bu4"]
-[ext_resource type="Script" path="res://camera.gd" id="3_8hu5r"]
+[ext_resource type="Script" path="res://ui/camera.gd" id="3_8hu5r"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="6_xq38b"]
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="7_qn7gk"]
-[ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://pausemenu.tscn" id="7_srrwy"]
-[ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://gameoverscreen.tscn" id="8_l2emk"]
+[ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="7_srrwy"]
+[ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="8_l2emk"]
 [ext_resource type="AudioStream" uid="uid://cb2hlwx5i3kl4" path="res://music/Chris Christodoulou - Thermodynamic Equilibrium ｜ Risk of Rain 2 (2020) [FXS1tFVd4Y4].wav" id="9_u0lil"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_habt6"]
