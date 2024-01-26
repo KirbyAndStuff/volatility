@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfykqm448qllb"]
+[gd_scene load_steps=12 format=3 uid="uid://bfykqm448qllb"]
 
 [ext_resource type="Script" path="res://start_menu/start_button.gd" id="1_q1fjm"]
 [ext_resource type="Script" path="res://start_menu/playground.gd" id="2_1oigh"]
+[ext_resource type="Script" path="res://start_menu/levels.gd" id="2_wgb50"]
 [ext_resource type="Script" path="res://start_menu/controls_button.gd" id="3_k40w0"]
 [ext_resource type="Script" path="res://start_menu/credits_button.gd" id="4_tfxyc"]
 [ext_resource type="Script" path="res://start_menu/credits_close_button.gd" id="5_6crtf"]
 [ext_resource type="Script" path="res://start_menu/quit_game_button.gd" id="6_e8luk"]
 [ext_resource type="Script" path="res://start_menu/settings_button.gd" id="7_7mv0f"]
-[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://pngs/2os250kt.bmp" id="8_xglv5"]
+[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://levels/pngs/2os250kt.bmp" id="8_xglv5"]
 [ext_resource type="PackedScene" uid="uid://310650vo12fr" path="res://player/player_immoblie.tscn" id="9_np2n1"]
 [ext_resource type="AudioStream" uid="uid://p1lur1k0r2v5" path="res://music/Chris Christodoulou - Risk of Rain [2023 Remaster] ｜ ROR Returns (2023) [g8iP1TwEB88].wav" id="10_8agby"]
 
@@ -23,6 +24,14 @@ offset_right = 1110.0
 offset_bottom = 625.0
 text = "Start Game"
 script = ExtResource("1_q1fjm")
+
+[node name="levels" type="Button" parent="CanvasLayer"]
+offset_left = 1266.0
+offset_top = 549.0
+offset_right = 1526.0
+offset_bottom = 629.0
+text = "Levels"
+script = ExtResource("2_wgb50")
 
 [node name="playground" type="Button" parent="CanvasLayer"]
 offset_left = 913.0
@@ -188,6 +197,7 @@ volume_db = -20.0
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels" to="CanvasLayer/levels" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/playground" to="CanvasLayer/playground" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/controls_button" to="CanvasLayer/controls_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/credits_button" to="CanvasLayer/credits_button" method="_on_pressed"]

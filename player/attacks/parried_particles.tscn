@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d083aewpch5q8"]
+[gd_scene load_steps=5 format=3 uid="uid://be72bqhr4mwmt"]
 
 [ext_resource type="Script" path="res://player/attacks/parried_particles.gd" id="1_ln7ip"]
 
@@ -15,7 +15,7 @@ radius = 118.068
 [node name="parried_particles" type="CharacterBody2D"]
 script = ExtResource("1_ln7ip")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="parried_particles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 100
 lifetime = 0.4

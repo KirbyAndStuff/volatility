@@ -8,7 +8,7 @@ var direction := Vector2.ZERO
 func _ready():
 	$beam_hurtbox.add_child(collision_shape)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if is_colliding():
 		target_position = to_local(get_collision_point())
 	$beam_body.position = target_position * 0.5

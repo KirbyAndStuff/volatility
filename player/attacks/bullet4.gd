@@ -6,7 +6,7 @@ var enemies_hit = 0
 
 @export var speed := 1500.0
 
-func _process(delta):
+func _process(_delta):
 	if 1 < enemies_hit:
 		var effect := bullet_death.instantiate()
 		effect.position = position

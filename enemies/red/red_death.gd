@@ -5,6 +5,6 @@ func _ready():
 	$"left eye".emitting = true
 	$"right eye".emitting = true
 	
-func _process(delta):
+func _process(_delta):
 	if !emitting:
 		queue_free()

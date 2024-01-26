@@ -13,7 +13,7 @@ func set_is_paused(value):
 	get_tree().paused = is_paused
 	visible = is_paused
 	
-func _process(delta):
+func _process(_delta):
 	var value = (get_node("../../player").health)
 	if value < 1:
 		visible = true

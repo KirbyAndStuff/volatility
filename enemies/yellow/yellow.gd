@@ -9,13 +9,13 @@ var player = null
 var yellow_health = 2
 var shoot_at_player = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player_chase:
 		var direction = (player.position-position).normalized()
 		velocity=direction*speed
 		move_and_slide()
 
-func _process(delta):
+func _process(_delta):
 	if yellow_health < 1:
 		var effect := yellow_death.instantiate()
 		effect.position = position
@@ -35,8 +35,6 @@ func _on_player_death_area_entered(area):
 		effect.position = position
 		get_parent().add_child(effect)
 		yellow_health -= 1
-	if area.name == "parried_hurtbox":
-		yellow_health -= 2
 	if area.is_in_group("beam"):
 		var effect := yellow_hurt.instantiate()
 		effect.position = position

@@ -17,10 +17,11 @@ var attack_player = false
 var dash_at_player = false
 var red_stamina = 20
 var red_health = 2
+var is_stunned = false
 
 @onready var red_dashlength = $Red_DashLength
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player_chase:
 		var direction = (player.position-position).normalized()
 		velocity=direction*speed
@@ -40,9 +41,10 @@ func _process(delta):
 		effect.position = position
 		get_parent().add_child(effect)
 		await get_tree().create_timer(0.5).timeout
-		$red_dashsfx.play()
-		speed = 1500
-		red_dashlength.start()
+		if is_stunned == false:
+			$red_dashsfx.play()
+			speed = 1500
+			red_dashlength.start()
 	if red_health < 1:
 		var effect := red_death.instantiate()
 		effect.position = position
@@ -56,7 +58,16 @@ func _on_playerdeath_area_entered(area):
 		get_parent().add_child(effect)
 		red_health -= 1
 	if area.name == "parried_hurtbox":
-		red_health -= 2
+		is_stunned = true
+		player_chase = false
+		dash_at_player = false
+		$"left eye".emitting = false
+		$"right eye".emitting = false
+		$"stunned_eye".emitting = true
+		$"stunned_eye2".emitting = true
+		$"stunned_eye3".emitting = true
+		$"stunned_eye4".emitting = true
+		$Stunned.start()
 	if area.is_in_group("beam"):
 		var effect := red_hurt.instantiate()
 		effect.position = position
@@ -64,7 +75,7 @@ func _on_playerdeath_area_entered(area):
 		red_health -= 2
 
 func _on_player_detection_body_entered(body):
-	if body.name == "player":
+	if body.name == "player" and is_stunned == false:
 		player = body
 		player_chase = true
 		particlesL.lifetime = 0.1
@@ -78,7 +89,7 @@ func _on_player_detection_body_exited(body):
 		particlesR.lifetime = 0.2
 
 func _on_hurts_player_body_entered(body):
-	if body.name == "player":
+	if body.name == "player" and is_stunned == false:
 		attack_player = true
 
 func _on_hurts_player_body_exited(body):
@@ -86,7 +97,7 @@ func _on_hurts_player_body_exited(body):
 		attack_player = false
 
 func _on_player_dash_distance_body_entered(body):
-	if body.name == "player":
+	if body.name == "player" and is_stunned == false:
 		dash_at_player = true
 
 func _on_player_dash_distance_body_exited(body):
@@ -95,3 +106,13 @@ func _on_player_dash_distance_body_exited(body):
 
 func _on_red_dash_length_timeout() -> void:
 	speed = 300
+
+func _on_timer_timeout():
+	$"left eye".emitting = true
+	$"right eye".emitting = true
+	$"stunned_eye".emitting = false
+	$"stunned_eye2".emitting = false
+	$"stunned_eye3".emitting = false
+	$"stunned_eye4".emitting = false
+	is_stunned = false
+	player_chase = true

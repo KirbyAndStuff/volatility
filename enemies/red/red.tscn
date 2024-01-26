@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=13 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://droywo0qiri6i" path="res://audio/dash.wav" id="2_i433d"]
@@ -30,6 +30,10 @@ radius = 167.192
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ctjf"]
 radius = 22.02
+
+[sub_resource type="Gradient" id="Gradient_vradg"]
+offsets = PackedFloat32Array(0.0133333, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="red" type="CharacterBody2D"]
 collision_layer = 2
@@ -128,6 +132,70 @@ visible = false
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_1ctjf")
 
+[node name="stunned_eye" type="CPUParticles2D" parent="."]
+position = Vector2(10, -8)
+emitting = false
+amount = 50
+lifetime = 0.15
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(1000, -500)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_vradg")
+
+[node name="stunned_eye2" type="CPUParticles2D" parent="."]
+position = Vector2(10, -8)
+emitting = false
+amount = 50
+lifetime = 0.15
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(1000, 0)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_vradg")
+
+[node name="stunned_eye3" type="CPUParticles2D" parent="."]
+position = Vector2(-8, -8)
+emitting = false
+amount = 50
+lifetime = 0.15
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(-1000, -500)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_vradg")
+
+[node name="stunned_eye4" type="CPUParticles2D" parent="."]
+position = Vector2(-8, -8)
+emitting = false
+amount = 50
+lifetime = 0.15
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(-1000, 0)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_vradg")
+
+[node name="Stunned" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
@@ -136,3 +204,4 @@ shape = SubResource("CircleShape2D_1ctjf")
 [connection signal="body_entered" from="player_dash_distance" to="." method="_on_player_dash_distance_body_entered"]
 [connection signal="body_exited" from="player_dash_distance" to="." method="_on_player_dash_distance_body_exited"]
 [connection signal="timeout" from="Red_DashLength" to="." method="_on_red_dash_length_timeout"]
+[connection signal="timeout" from="Stunned" to="." method="_on_timer_timeout"]

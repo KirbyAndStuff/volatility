@@ -22,7 +22,7 @@ func _on_timer_timeout() -> void:
 	get_parent().add_child(effect)
 	queue_free()
 
-func _process(delta):
+func _process(_delta):
 	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames) = true
@@ -35,7 +35,7 @@ func _on_yellow_bullet_hurtbox_body_entered(body):
 	if body.is_in_group("wall"):
 		var effect := attack_area.instantiate()
 		effect.position = position
-		get_parent().add_child(effect)
+		get_parent().call_deferred("add_child", effect)
 		queue_free()
 
 func _on_yellow_bullet_hurtbox_body_exited(body):

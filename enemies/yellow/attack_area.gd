@@ -4,11 +4,10 @@ var attack_player = false
 var is_dead = false
 
 func _ready():
-	$attack_area_hurtbox/CollisionShape2D.disabled = true
 	await get_tree().create_timer(0.5).timeout
 	$attack_area_hurtbox/CollisionShape2D.disabled = false
 
-func _process(delta):
+func _process(_delta):
 	if attack_player and is_dead == false and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames) = true

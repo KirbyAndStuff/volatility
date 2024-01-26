@@ -22,7 +22,7 @@ func _on_timer_timeout() -> void:
 	get_parent().add_child(effect)
 	queue_free()
 
-func _process(delta):
+func _process(_delta):
 	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames) = true

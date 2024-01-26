@@ -4,7 +4,7 @@ var purple_hurt := preload("res://enemies/purple/purple_hurt3.tscn")
 
 func _ready():
 	$playerdeath/CollisionShape2D.disabled = true
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.5).timeout
 	$playerdeath/CollisionShape2D.disabled = false
 
 var speed = 500
@@ -12,14 +12,15 @@ var player_chase = false
 var player = null
 var attack_player = false
 var purple_health = 1
+var is_stunned = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player_chase:
 		var direction = (player.position-position).normalized()
 		velocity=direction*speed
 		move_and_slide()
 
-func _process(delta):
+func _process(_delta):
 	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames) = true
@@ -35,7 +36,9 @@ func _on_playerdeath_area_entered(area):
 		get_parent().add_child(effect)
 		purple_health -= 1
 	if area.name == "parried_hurtbox":
-		purple_health -= 2
+		player_chase = false
+		$eye_bottom.speed_scale = 0.1
+		$Stunned.start()
 	if area.is_in_group("beam"):
 		var effect := purple_hurt.instantiate()
 		effect.position = position
@@ -43,7 +46,7 @@ func _on_playerdeath_area_entered(area):
 		purple_health -= 2
 
 func _on_player_detection_body_entered(body):
-	if body.name == "player":
+	if body.name == "player" and is_stunned == false:
 		player = body
 		player_chase = true
 
@@ -53,9 +56,14 @@ func _on_player_detection_body_exited(body):
 		player_chase = false
 
 func _on_hurts_player_body_entered(body):
-	if body.name == "player":
+	if body.name == "player" and is_stunned == false:
 		attack_player = true
 
 func _on_hurts_player_body_exited(body):
 	if body.name == "player":
 		attack_player = false
+
+func _on_stunned_timeout():
+	$eye_bottom.speed_scale = 1.5
+	is_stunned = false
+	player_chase = true

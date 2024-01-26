@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=18 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
@@ -6,12 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="4_gvlwj"]
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="5_mxfgi"]
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_hqghg"]
-[ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://walls/white_wall.tscn" id="7_88ayv"]
+[ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://levels/walls/white_wall.tscn" id="7_88ayv"]
 [ext_resource type="PackedScene" uid="uid://d1cslbdxweiuv" path="res://enemies/yellow/yellow.tscn" id="8_cexjm"]
 [ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="9_hyopb"]
 [ext_resource type="PackedScene" uid="uid://c8codwb0jmyiu" path="res://enemies/purple/purple.tscn" id="10_wwokv"]
 [ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="11_68uet"]
-[ext_resource type="PackedScene" uid="uid://c1pvn1v61yry5" path="res://background/white_thing.tscn" id="12_jrkr7"]
+[ext_resource type="PackedScene" uid="uid://c1pvn1v61yry5" path="res://levels/background/white_thing.tscn" id="12_jrkr7"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -24,6 +24,16 @@ scenes/1/scene = ExtResource("12_jrkr7")
 
 [sub_resource type="TileSet" id="TileSet_o37m4"]
 sources/0 = SubResource("TileSetScenesCollectionSource_b6nat")
+
+[sub_resource type="Environment" id="Environment_y6h7w"]
+background_mode = 3
+glow_enabled = true
+glow_levels/2 = 1.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_strength = 2.0
+glow_blend_mode = 0
+glow_hdr_threshold = 4.0
 
 [node name="world" type="Node2D"]
 
@@ -103,3 +113,6 @@ position = Vector2(1749, 537)
 tile_set = SubResource("TileSet_o37m4")
 format = 2
 layer_0/tile_data = PackedInt32Array(3866599, 0, 65536, 524261, 0, 65536, -2883569, 0, 65536, -2555819, 0, 65536, 4587592, 0, 65536)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y6h7w")

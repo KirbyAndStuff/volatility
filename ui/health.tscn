@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhoylud6i8xce"]
+[gd_scene load_steps=6 format=3 uid="uid://dhoylud6i8xce"]
 
 [ext_resource type="Script" path="res://ui/health.gd" id="1_ird76"]
 
@@ -11,6 +11,11 @@ colors = PackedColorArray(0, 0.827451, 1, 0.392157, 1, 1, 1, 0.501961)
 
 [sub_resource type="Gradient" id="Gradient_fdwkl"]
 colors = PackedColorArray(0, 1, 1, 0.694118, 1, 1, 1, 0.247059)
+
+[sub_resource type="Curve" id="Curve_85gda"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
 
 [node name="health" type="Control"]
 layout_mode = 3
@@ -70,3 +75,93 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_rdrcp")
 color_ramp = SubResource("Gradient_43cvr")
 color_initial_ramp = SubResource("Gradient_fdwkl")
+
+[node name="volatility" type="CPUParticles2D" parent="."]
+position = Vector2(-56, 117)
+emitting = false
+amount = 20
+speed_scale = 2.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(15, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_85gda")
+
+[node name="volatility2" type="CPUParticles2D" parent="."]
+position = Vector2(6, 117)
+emitting = false
+amount = 20
+speed_scale = 2.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(15, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_85gda")
+
+[node name="volatility3" type="CPUParticles2D" parent="."]
+position = Vector2(64, 117)
+emitting = false
+amount = 20
+speed_scale = 2.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(15, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_85gda")
+
+[node name="volatility4" type="CPUParticles2D" parent="."]
+position = Vector2(124, 117)
+emitting = false
+amount = 20
+speed_scale = 2.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(15, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_85gda")
+
+[node name="volatility5" type="CPUParticles2D" parent="."]
+position = Vector2(176, 117)
+emitting = false
+amount = 20
+speed_scale = 2.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(15, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_85gda")

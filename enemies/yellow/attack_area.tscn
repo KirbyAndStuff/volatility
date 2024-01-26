@@ -29,6 +29,7 @@ script = ExtResource("1_pure8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area_hurtbox"]
 visible = false
 shape = SubResource("CircleShape2D_d0jnm")
+disabled = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0

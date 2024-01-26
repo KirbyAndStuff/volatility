@@ -33,6 +33,7 @@ var i_frames = false
 var dashi_frames = false
 var enemies_in_area = 0
 var is_dead = false
+var volatility = 0
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -44,7 +45,7 @@ func _process(delta):
 	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and is_dead == false:
 		shoot()
 		
-	if Input.is_action_pressed("dash") and stamina > 50 and dash_particlestimer.is_stopped():
+	if Input.is_action_pressed("dash") and stamina > 50 and dash_particlestimer.is_stopped() and is_dead == false:
 		var effect := dash_particles.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
@@ -56,7 +57,7 @@ func _process(delta):
 		
 	if i_frames == true and i_frameslength.is_stopped():
 		i_framesss()
-	if Input.is_action_pressed("parry"):
+	if Input.is_action_pressed("parry") and is_dead == false:
 		parry()
 	if health < 1 and is_dead == false:
 		var effect := player_death.instantiate()
@@ -107,12 +108,14 @@ func shoot():
 	guntimer.start()
 
 func alt_shoot():
-	$bulletsfx.play()
-	var bullet_scene = preload("res://player/attacks/beam2.tscn")
-	var shot = bullet_scene.instantiate()
-	get_parent().add_child(shot)
-	shot.shoot(global_position, get_global_mouse_position())
-	guntimer.start()
+	if 1 <= volatility:
+		$bulletsfx.play()
+		var bullet_scene = preload("res://player/attacks/beam2.tscn")
+		var shot = bullet_scene.instantiate()
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		guntimer.start()
+		volatility -= 1
 
 func _on_cooldown_timer_timeout() -> void:
 	guntimer.stop()
@@ -174,13 +177,15 @@ func parry():
 func _on_parry_timer_timeout() -> void:
 	parrytimer.stop()
 
-func _on_parry_detection_area_entered(area: Area2D) -> void:
+func _on_parry_detection_area_entered(area):
 	if area.is_in_group("enemy_attack"):
 		i_framesss()
 		var effect := parried_particles.instantiate()
 		effect.position = position
-		get_parent().add_child(effect)
-		framefreeze(0.4, 0.3)
+		get_parent().call_deferred("add_child", effect)
+		if volatility < 5:
+			volatility += 1
+		framefreeze(0.1, 0.3)
 
 func framefreeze(timescale, duration):
 	Engine.time_scale = timescale

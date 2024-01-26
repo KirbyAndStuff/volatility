@@ -1,6 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8codwb0jmyiu"]
+[gd_scene load_steps=7 format=3 uid="uid://c8codwb0jmyiu"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple.gd" id="1_p8b53"]
+
+[sub_resource type="Gradient" id="Gradient_wvx04"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_count = 20
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jt0y4"]
 radius = 258.697
@@ -34,6 +38,7 @@ angle_max = 360.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 color = Color(0.372549, 0, 1, 1)
+color_ramp = SubResource("Gradient_wvx04")
 
 [node name="player_detection" type="Area2D" parent="."]
 scale = Vector2(5, 5)
@@ -138,8 +143,11 @@ scale_amount_max = 20.0
 visible = false
 shape = SubResource("CircleShape2D_voi8f")
 
+[node name="Stunned" type="Timer" parent="."]
+
 [connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="body_entered" from="hurts_player" to="." method="_on_hurts_player_body_entered"]
 [connection signal="body_exited" from="hurts_player" to="." method="_on_hurts_player_body_exited"]
+[connection signal="timeout" from="Stunned" to="." method="_on_stunned_timeout"]
