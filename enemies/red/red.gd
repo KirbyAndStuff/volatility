@@ -74,36 +74,6 @@ func _on_playerdeath_area_entered(area):
 		get_parent().add_child(effect)
 		red_health -= 2
 
-func _on_player_detection_body_entered(body):
-	if body.name == "player" and is_stunned == false:
-		player = body
-		player_chase = true
-		particlesL.lifetime = 0.1
-		particlesR.lifetime = 0.1
-
-func _on_player_detection_body_exited(body):
-	if body.name == "player":
-		player = null
-		player_chase = false
-		particlesL.lifetime = 0.2
-		particlesR.lifetime = 0.2
-
-func _on_hurts_player_body_entered(body):
-	if body.name == "player" and is_stunned == false:
-		attack_player = true
-
-func _on_hurts_player_body_exited(body):
-	if body.name == "player":
-		attack_player = false
-
-func _on_player_dash_distance_body_entered(body):
-	if body.name == "player" and is_stunned == false:
-		dash_at_player = true
-
-func _on_player_dash_distance_body_exited(body):
-	if body.name == "player":
-		dash_at_player = false
-
 func _on_red_dash_length_timeout() -> void:
 	speed = 300
 
@@ -116,3 +86,33 @@ func _on_timer_timeout():
 	$"stunned_eye4".emitting = false
 	is_stunned = false
 	player_chase = true
+
+func _on_player_detection_area_entered(area):
+	if area.is_in_group("player"):
+		player = area.get_parent()
+		player_chase = true
+		particlesL.lifetime = 0.1
+		particlesR.lifetime = 0.1
+
+func _on_player_detection_area_exited(area):
+	if area.is_in_group("player"):
+		player = null
+		player_chase = false
+		particlesL.lifetime = 0.2
+		particlesR.lifetime = 0.2
+
+func _on_hurts_player_area_entered(area):
+	if area.is_in_group("player") and is_stunned == false:
+		attack_player = true
+
+func _on_hurts_player_area_exited(area):
+	if area.is_in_group("player"):
+		attack_player = false
+
+func _on_player_dash_distance_area_entered(area):
+	if area.is_in_group("player") and is_stunned == false:
+		dash_at_player = true
+
+func _on_player_dash_distance_area_exited(area):
+	if area.is_in_group("player"):
+		dash_at_player = false

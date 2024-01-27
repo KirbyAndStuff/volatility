@@ -14,3 +14,5 @@ func _on_area_entered(area):
 		health -= 1
 	if area.is_in_group("beam"):
 		health -= 2
+
+  
