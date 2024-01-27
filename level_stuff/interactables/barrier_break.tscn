@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://jr7f5sfdtnk5"]
+
+[ext_resource type="Script" path="res://level_stuff/interactables/barrier_break.gd" id="1_v022d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3kim"]
+size = Vector2(70, 70)
+
+[sub_resource type="Curve" id="Curve_n7ahq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.494382, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[node name="barrier_break" type="Area2D"]
+script = ExtResource("1_v022d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_a3kim")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+modulate = Color(1.75, 1.75, 1.75, 1)
+amount = 40
+emission_shape = 3
+emission_rect_extents = Vector2(30, 30)
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_n7ahq")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

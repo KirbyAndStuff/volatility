@@ -9,6 +9,7 @@ var parry_particles := preload("res://player/attacks/parry_particles.tscn")
 var parried_particles := preload("res://player/attacks/parried_particles.tscn")
 var player_hurt := preload("res://player/player_hurt.tscn")
 var player_death := preload("res://player/player_death.tscn")
+var bullet_explosion := preload("res://player/attacks/bullet_4_explosion.tscn")
 
 @onready var guntimer := $GunTimer
 @onready var dashlength := $DashLength
@@ -105,6 +106,10 @@ func shoot():
 	var shot = bullet_scene.instantiate() 
 	get_parent().add_child(shot)
 	shot.shoot(global_position, get_global_mouse_position())
+	var effect := bullet_explosion.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)
+	effect.shoot(global_position, get_global_mouse_position())
 	guntimer.start()
 
 func alt_shoot():

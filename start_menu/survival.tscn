@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://bax76c4teyl8h"]
 
 [ext_resource type="Script" path="res://start_menu/survival.gd" id="1_qdupt"]
-[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://levels/pngs/2os250kt.bmp" id="1_t06wf"]
+[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://level_stuff/pngs/2os250kt.bmp" id="1_t06wf"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="2_m2bu4"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="3_8hu5r"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="6_xq38b"]

@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://start_menu/credits_close_button.gd" id="5_6crtf"]
 [ext_resource type="Script" path="res://start_menu/quit_game_button.gd" id="6_e8luk"]
 [ext_resource type="Script" path="res://start_menu/settings_button.gd" id="7_7mv0f"]
-[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://levels/pngs/2os250kt.bmp" id="8_xglv5"]
+[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://level_stuff/pngs/2os250kt.bmp" id="8_xglv5"]
 [ext_resource type="PackedScene" uid="uid://310650vo12fr" path="res://player/player_immoblie.tscn" id="9_np2n1"]
 [ext_resource type="AudioStream" uid="uid://p1lur1k0r2v5" path="res://music/Chris Christodoulou - Risk of Rain [2023 Remaster] ｜ ROR Returns (2023) [g8iP1TwEB88].wav" id="10_8agby"]
 

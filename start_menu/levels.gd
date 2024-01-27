@@ -12,4 +12,4 @@ func _process(_delta):
 
 
 func _on_pressed():
-	get_tree().change_scene_to_file("res://start_menu/survival.tscn")
+	get_tree().change_scene_to_file("res://level_stuff/levels/level_1.tscn")
