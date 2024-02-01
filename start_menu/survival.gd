@@ -53,7 +53,7 @@ func _on_spawn_timer_timeout():
 
 func spawn_enemy(type):
 	# Load the enemy scene based on the type
-	var enemy_scene = load("res://enemies/" + type + "/" + type + ".tscn")
+	var enemy_scene = load("res://enemies/" + type + "/" + type + "_spawn.tscn")
 	var enemy_instance = enemy_scene.instantiate()
 
 	# Define the boundaries based on the provided corner coordinates

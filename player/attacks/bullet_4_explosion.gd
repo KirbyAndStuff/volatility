@@ -4,6 +4,7 @@ var directiona := Vector2.ZERO
 
 func _ready():
 	emitting = true
+	$explosion_top.emitting = true
 	$explosion_bottom.emitting = true
 
 func _process(_delta):

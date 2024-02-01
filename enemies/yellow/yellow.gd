@@ -9,6 +9,11 @@ var player = null
 var yellow_health = 2
 var shoot_at_player = false
 
+func _ready():
+	var effect := yellow_hurt.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)
+
 func _physics_process(_delta):
 	if player_chase:
 		var direction = (player.position-position).normalized()
@@ -41,23 +46,23 @@ func _on_player_death_area_entered(area):
 		get_parent().add_child(effect)
 		yellow_health -= 2
 
-func _on_player_detection_body_entered(body):
-	if body.name == "player":
-		player = body
+func _on_gun_timer_timeout():
+	$GunTimer.stop()
+
+func _on_player_detection_area_entered(area):
+	if area.is_in_group("player"):
+		player = area.get_parent()
 		player_chase = true
 
-func _on_player_detection_body_exited(body):
-	if body.name == "player":
+func _on_player_detection_area_exited(area):
+	if area.is_in_group("player"):
 		player = null
 		player_chase = false
 
-func _on_player_shoot_distance_body_entered(body):
-	if body.name == "player":
+func _on_player_shoot_distance_area_entered(area):
+	if area.is_in_group("player"):
 		shoot_at_player = true
 
-func _on_player_shoot_distance_body_exited(body):
-	if body.name == "player":
+func _on_player_shoot_distance_area_exited(area):
+	if area.is_in_group("player"):
 		shoot_at_player = false
-
-func _on_gun_timer_timeout():
-	$GunTimer.stop()

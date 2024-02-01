@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://woiwjywjpe7g"]
+[gd_scene load_steps=6 format=3 uid="uid://woiwjywjpe7g"]
 
 [ext_resource type="Script" path="res://enemies/yellow/yellow_death.gd" id="1_lkrjy"]
+[ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_64h4m"]
 
 [sub_resource type="Curve" id="Curve_joew8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -39,3 +40,7 @@ scale_amount_curve = SubResource("Curve_joew8")
 color_ramp = SubResource("Gradient_hurmf")
 color_initial_ramp = SubResource("Gradient_76xie")
 script = ExtResource("1_lkrjy")
+
+[node name="deathsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_64h4m")
+volume_db = 3.0

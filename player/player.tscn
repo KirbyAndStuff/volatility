@@ -1,10 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://b6dph58aj4tme"]
+[gd_scene load_steps=18 format=3 uid="uid://b6dph58aj4tme"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ni3np"]
 [ext_resource type="Script" path="res://player/left eye node.gd" id="2_bfumu"]
 [ext_resource type="Script" path="res://player/right eye node.gd" id="3_g7m5p"]
-[ext_resource type="AudioStream" uid="uid://droywo0qiri6i" path="res://audio/dash.wav" id="4_dmqpf"]
+[ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="4_nynlh"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="5_2x6xb"]
+[ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="6_c3jba"]
+[ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="7_2tgkj"]
+[ext_resource type="AudioStream" uid="uid://clt3yv15girww" path="res://audio/laser.wav" id="8_r2dd3"]
+[ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="9_uxff7"]
 
 [sub_resource type="Curve" id="Curve_3g2ry"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -32,7 +36,6 @@ radius = 35.0
 radius = 22.02
 
 [node name="player" type="CharacterBody2D"]
-position = Vector2(363, 227)
 script = ExtResource("1_ni3np")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -94,8 +97,8 @@ color_ramp = SubResource("Gradient_irh04")
 [node name="combat eye" type="CPUParticles2D" parent="."]
 position = Vector2(-1, 20)
 emitting = false
-amount = 150
-lifetime = 0.5
+amount = 30
+lifetime = 0.25
 local_coords = true
 direction = Vector2(0, 0)
 spread = 0.0
@@ -104,6 +107,24 @@ initial_velocity_min = 250.0
 initial_velocity_max = 250.0
 orbit_velocity_min = 2.0
 orbit_velocity_max = 2.0
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+
+[node name="combat eye2" type="CPUParticles2D" parent="."]
+position = Vector2(1, 20)
+emitting = false
+amount = 30
+lifetime = 0.25
+local_coords = true
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+orbit_velocity_min = -2.0
+orbit_velocity_max = -2.0
 angle_min = -20.0
 angle_max = 20.0
 scale_amount_min = 3.0
@@ -149,12 +170,29 @@ shape = SubResource("CircleShape2D_lc2ci")
 disabled = true
 
 [node name="dashsfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_dmqpf")
-volume_db = -5.0
+stream = ExtResource("4_nynlh")
+volume_db = -8.0
 
 [node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
-volume_db = 3.0
+pitch_scale = 2.0
+
+[node name="parrysfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_c3jba")
+volume_db = -15.0
+pitch_scale = 2.2
+
+[node name="parriedsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_2tgkj")
+volume_db = -10.0
+
+[node name="lasersfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_r2dd3")
+volume_db = -10.0
+
+[node name="hurtsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_uxff7")
+pitch_scale = 2.0
 
 [node name="player_hurtbox" type="Area2D" parent="." groups=["player"]]
 

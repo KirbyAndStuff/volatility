@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://srht8npn4ta4"]
+
+[ext_resource type="Script" path="res://enemies/yellow/yellow_spawn.gd" id="1_ud7ct"]
+
+[sub_resource type="Curve" id="Curve_3j2ri"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_7ef1l"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5b8df"]
+radius = 10000.0
+
+[node name="yellow_spawn" type="CPUParticles2D"]
+amount = 20
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 75.0
+initial_velocity_max = 75.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_3j2ri")
+color_ramp = SubResource("Gradient_7ef1l")
+script = ExtResource("1_ud7ct")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CircleShape2D_5b8df")
+disabled = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -35,6 +35,7 @@ var dashi_frames = false
 var enemies_in_area = 0
 var is_dead = false
 var volatility = 0
+var stamina_tween = true
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -52,9 +53,10 @@ func _process(delta):
 		get_parent().add_child(effect)
 		dash_particlestimer.start()
 		
-	if Input.is_action_pressed("dash") and stamina > 50:
+	if Input.is_action_pressed("dash") and stamina > 50 and speed == 500:
 		dash()
 		dashi_framesss()
+		stamina_tween = false
 		
 	if i_frames == true and i_frameslength.is_stopped():
 		i_framesss()
@@ -69,6 +71,7 @@ func _process(delta):
 		particlesL.emitting = false
 		particlesR.emitting = false
 		combat_eye.visible = false
+		$"combat eye2".visible = false
 		is_dead = true
 	if Input.is_action_pressed("right_mouse_button") and guntimer.is_stopped() and is_dead == false:
 		alt_shoot()
@@ -114,7 +117,7 @@ func shoot():
 
 func alt_shoot():
 	if 1 <= volatility:
-		$bulletsfx.play()
+		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/beam2.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
@@ -126,13 +129,12 @@ func _on_cooldown_timer_timeout() -> void:
 	guntimer.stop()
 
 func dash():
-	if speed == 500:
-		stamina -= 50
-		friction *= 3
-		accel *= 5
-		speed *= 2
-		dashlength.start()
-		$dashsfx.play()
+	stamina -= 50
+	friction *= 3
+	accel *= 5
+	speed *= 2
+	dashlength.start()
+	$dashsfx.play()
 
 func i_framesss():
 	i_frames = true
@@ -162,15 +164,18 @@ func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy"):
 		enemies_in_area += 1
 		combat_eye.emitting = true
+		$"combat eye2".emitting = true
 
 func _on_combat_eye_detection_area_exited(area: Area2D) -> void:
 	if area.is_in_group("enemy"):
 		enemies_in_area -= 1
 		if enemies_in_area == 0:
 			combat_eye.emitting = false
+			$"combat eye2".emitting = false
 
 func parry():
 	if parrytimer.is_stopped():
+		$parrysfx.play()
 		var effect := parry_particles.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
@@ -184,6 +189,7 @@ func _on_parry_timer_timeout() -> void:
 
 func _on_parry_detection_area_entered(area):
 	if area.is_in_group("enemy_attack"):
+		$parriedsfx.play()
 		i_framesss()
 		var effect := parried_particles.instantiate()
 		effect.position = position

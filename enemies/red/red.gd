@@ -9,6 +9,9 @@ var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 func _ready():
 	particlesL = $"left eye"
 	particlesR = $"right eye"
+	var effect := red_hurt.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)
 
 var speed = 300
 var player_chase = false
@@ -28,7 +31,7 @@ func _physics_process(_delta):
 		move_and_slide()
 
 func _process(delta):
-	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
+	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false and is_stunned == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames) = true
 		(get_node("../player").player_hurt_particles())
@@ -102,7 +105,7 @@ func _on_player_detection_area_exited(area):
 		particlesR.lifetime = 0.2
 
 func _on_hurts_player_area_entered(area):
-	if area.is_in_group("player") and is_stunned == false:
+	if area.is_in_group("player"):
 		attack_player = true
 
 func _on_hurts_player_area_exited(area):

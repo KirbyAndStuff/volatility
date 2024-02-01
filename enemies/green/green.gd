@@ -6,6 +6,11 @@ var green_hurt := preload("res://enemies/green/green_hurt.tscn")
 var green_health = 3
 var shoot_at_player = false
 
+func _ready():
+	var effect := green_hurt.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)
+
 func _process(_delta):
 	if green_health < 1:
 		var effect := green_death.instantiate()
@@ -32,13 +37,13 @@ func _on_playerdeath_area_entered(area):
 		get_parent().add_child(effect)
 		green_health -= 2
 
-func _on_player_detection_body_entered(body):
-	if body.name == "player":
-		shoot_at_player = true
-
-func _on_player_detection_body_exited(body):
-	if body.name == "player":
-		shoot_at_player = false
-
 func _on_gun_timer_timeout() -> void:
 	$GunTimer.stop()
+
+func _on_player_detection_area_entered(area):
+	if area.is_in_group("player"):
+		shoot_at_player = true
+
+func _on_player_detection_area_exited(area):
+	if area.is_in_group("player"):
+		shoot_at_player = false

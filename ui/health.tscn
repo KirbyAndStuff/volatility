@@ -165,3 +165,61 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_85gda")
+
+[node name="parry" type="CPUParticles2D" parent="."]
+position = Vector2(241, 67)
+amount = 20
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+
+[node name="parry_ready" type="CPUParticles2D" parent="."]
+position = Vector2(240, 35)
+amount = 30
+lifetime = 0.5
+speed_scale = 2.0
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = -1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+
+[node name="parry_ready2" type="CPUParticles2D" parent="."]
+position = Vector2(241, 35)
+amount = 30
+lifetime = 0.5
+speed_scale = 2.0
+local_coords = true
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+
+[node name="Parry_Cooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Parry_Cooldown" to="." method="_on_parry_cooldown_timeout"]

@@ -35,3 +35,14 @@ func _process(_delta):
 		$volatility5.emitting = true
 	else:
 		$volatility5.emitting = false
+	if Input.is_action_pressed("parry") and $Parry_Cooldown.is_stopped():
+		$parry_ready.emitting = false
+		$parry_ready2.emitting = false
+		$parry.modulate = Color(0, 0, 0, 0)
+		var tween = create_tween()
+		tween.tween_property($parry, "modulate", Color(1, 1, 1), 3)
+		$Parry_Cooldown.start()
+
+func _on_parry_cooldown_timeout() -> void:
+	$parry_ready.emitting = true
+	$parry_ready2.emitting = true

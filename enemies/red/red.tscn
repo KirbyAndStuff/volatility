@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
-[ext_resource type="AudioStream" uid="uid://droywo0qiri6i" path="res://audio/dash.wav" id="2_i433d"]
+[ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="2_wjcl0"]
 
 [sub_resource type="Curve" id="Curve_8jx83"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -123,8 +123,8 @@ wait_time = 0.2
 one_shot = true
 
 [node name="red_dashsfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_i433d")
-volume_db = -11.0
+stream = ExtResource("2_wjcl0")
+volume_db = -15.0
 pitch_scale = 0.75
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]

@@ -2,11 +2,12 @@ extends CharacterBody2D
 
 var purple_hurt := preload("res://enemies/purple/purple_hurt1.tscn")
 var purple2 := preload("res://enemies/purple/purple2.tscn")
+var deathsfx := preload("res://enemies/purple/purple_death1sfx.tscn")
 
 func _ready():
-	$playerdeath/CollisionShape2D.disabled = true
-	await get_tree().create_timer(0.25).timeout
-	$playerdeath/CollisionShape2D.disabled = false
+	var effect := purple_hurt.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)
 
 var speed = 200
 var player_chase = false
@@ -22,12 +23,15 @@ func _physics_process(_delta):
 		move_and_slide()
 
 func _process(_delta):
-	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
+	if attack_player and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false and is_stunned == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames) = true
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
 	if purple_health < 1:
+		var effect := deathsfx.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
 		
 		var purple2_1 := purple2.instantiate()
 		var purple2_2 := purple2.instantiate()
@@ -59,24 +63,6 @@ func _on_playerdeath_area_entered(area):
 		get_parent().add_child(effect)
 		purple_health -= 2
 
-func _on_player_detection_body_entered(body):
-	if body.name == "player" and is_stunned == false:
-		player = body
-		player_chase = true
-
-func _on_player_detection_body_exited(body):
-	if body.name == "player":
-		player = null
-		player_chase = false
-
-func _on_hurts_player_body_entered(body):
-	if body.name == "player" and is_stunned == false:
-		attack_player = true
-
-func _on_hurts_player_body_exited(body):
-	if body.name == "player":
-		attack_player = false
-
 func _on_stunned_timeout():
 	$eye_bottom.speed_scale = 0.75
 	$eye_top.speed_scale = 0.75
@@ -84,3 +70,21 @@ func _on_stunned_timeout():
 	$eye_right.speed_scale = 0.75
 	is_stunned = false
 	player_chase = true
+
+func _on_player_detection_area_entered(area):
+	if area.is_in_group("player") and is_stunned == false:
+		player = area.get_parent()
+		player_chase = true
+
+func _on_player_detection_area_exited(area):
+	if area.is_in_group("player"):
+		player = null
+		player_chase = false
+
+func _on_hurts_player_area_entered(area):
+	if area.is_in_group("player"):
+		attack_player = true
+
+func _on_hurts_player_area_exited(area):
+	if area.is_in_group("player"):
+		attack_player = false

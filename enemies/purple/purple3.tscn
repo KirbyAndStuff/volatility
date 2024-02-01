@@ -83,9 +83,9 @@ shape = SubResource("CircleShape2D_8mjf7")
 [node name="Stunned" type="Timer" parent="."]
 wait_time = 0.5
 
-[connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
-[connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
+[connection signal="area_entered" from="player_detection" to="." method="_on_player_detection_area_entered"]
+[connection signal="area_exited" from="player_detection" to="." method="_on_player_detection_area_exited"]
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
-[connection signal="body_entered" from="hurts_player" to="." method="_on_hurts_player_body_entered"]
-[connection signal="body_exited" from="hurts_player" to="." method="_on_hurts_player_body_exited"]
+[connection signal="area_entered" from="hurts_player" to="." method="_on_hurts_player_area_entered"]
+[connection signal="area_exited" from="hurts_player" to="." method="_on_hurts_player_area_exited"]
 [connection signal="timeout" from="Stunned" to="." method="_on_stunned_timeout"]

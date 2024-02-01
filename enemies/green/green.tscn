@@ -99,6 +99,6 @@ visible = false
 shape = SubResource("CircleShape2D_ynvg1")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
-[connection signal="body_entered" from="player_detection" to="." method="_on_player_detection_body_entered"]
-[connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]
+[connection signal="area_entered" from="player_detection" to="." method="_on_player_detection_area_entered"]
+[connection signal="area_exited" from="player_detection" to="." method="_on_player_detection_area_exited"]
 [connection signal="timeout" from="GunTimer" to="." method="_on_gun_timer_timeout"]
