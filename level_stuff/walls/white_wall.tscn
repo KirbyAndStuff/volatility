@@ -1,16 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkv4xhrs4iujk"]
+[gd_scene load_steps=5 format=3 uid="uid://bkv4xhrs4iujk"]
 
 [ext_resource type="Texture2D" uid="uid://cmrnoha87yuv2" path="res://level_stuff/pngs/4l3cr98s.bmp" id="1_wil0j"]
 
+[sub_resource type="GDScript" id="GDScript_3y6el"]
+script/source = "extends CPUParticles2D
+
+func _on_area_2d_area_entered(area):
+	if area.is_in_group(\"player\"):
+		visible = true
+
+func _on_area_2d_area_exited(area):
+	if area.is_in_group(\"player\"):
+		visible = false
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uaip4"]
+size = Vector2(1920, 1080)
 
 [node name="white_wall" type="CPUParticles2D"]
 modulate = Color(1.5, 1.5, 1.5, 1)
-emitting = false
 amount = 1
 lifetime = 10.0
 randomness = 1.0
 lifetime_randomness = 1.0
+local_coords = true
 gravity = Vector2(0, 0)
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
@@ -18,6 +33,7 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
+script = SubResource("GDScript_3y6el")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
 collision_layer = 7
@@ -27,5 +43,16 @@ collision_mask = 7
 shape = SubResource("RectangleShape2D_kp1fi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.0666667, 0.103093)
 texture = ExtResource("1_wil0j")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_uaip4")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

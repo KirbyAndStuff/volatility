@@ -20,5 +20,6 @@ func _process(delta):
 		offset = randomoffset()
 	if get_tree().has_group("screen_shake"):
 		apply_shake()
+
 func randomoffset() -> Vector2:
 	return Vector2(rng.randf_range(-shake_strength, shake_strength),rng.randf_range(-shake_strength, shake_strength))

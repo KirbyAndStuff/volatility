@@ -36,7 +36,7 @@ func _on_playerdeath_area_entered(area):
 		get_parent().add_child(effect)
 		purple_health -= 1
 	if area.name == "parried_hurtbox":
-		player_chase = false
+		speed = 0
 		$eye_bottom.speed_scale = 0.1
 		$Stunned.start()
 	if area.is_in_group("beam"):
@@ -48,7 +48,7 @@ func _on_playerdeath_area_entered(area):
 func _on_stunned_timeout():
 	$eye_bottom.speed_scale = 1.5
 	is_stunned = false
-	player_chase = true
+	speed = 500
 
 func _on_player_detection_area_entered(area):
 	if area.is_in_group("player") and is_stunned == false:

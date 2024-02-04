@@ -62,7 +62,7 @@ func _on_playerdeath_area_entered(area):
 		red_health -= 1
 	if area.name == "parried_hurtbox":
 		is_stunned = true
-		player_chase = false
+		speed = 0
 		dash_at_player = false
 		$"left eye".emitting = false
 		$"right eye".emitting = false
@@ -88,7 +88,7 @@ func _on_timer_timeout():
 	$"stunned_eye3".emitting = false
 	$"stunned_eye4".emitting = false
 	is_stunned = false
-	player_chase = true
+	speed = 300
 
 func _on_player_detection_area_entered(area):
 	if area.is_in_group("player"):
