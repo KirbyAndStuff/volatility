@@ -36,6 +36,8 @@ radius = 35.0
 radius = 22.02
 
 [node name="player" type="CharacterBody2D"]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_ni3np")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -95,10 +97,10 @@ scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_irh04")
 
 [node name="combat eye" type="CPUParticles2D" parent="."]
-position = Vector2(-1, 20)
+position = Vector2(0, 20)
 emitting = false
 amount = 30
-lifetime = 0.25
+lifetime = 0.26
 local_coords = true
 direction = Vector2(0, 0)
 spread = 0.0
@@ -113,10 +115,10 @@ scale_amount_min = 3.0
 scale_amount_max = 3.0
 
 [node name="combat eye2" type="CPUParticles2D" parent="."]
-position = Vector2(1, 20)
+position = Vector2(0, 20)
 emitting = false
 amount = 30
-lifetime = 0.25
+lifetime = 0.26
 local_coords = true
 direction = Vector2(-1, 0)
 spread = 0.0
@@ -199,6 +201,7 @@ collision_layer = 9
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hurtbox"]
+visible = false
 shape = SubResource("CircleShape2D_k1igs")
 
 [connection signal="timeout" from="GunTimer" to="." method="_on_cooldown_timer_timeout"]
