@@ -17,5 +17,7 @@ func _on_wall_check_body_entered(body):
 		queue_free()
 
 func _ready():
+	await get_tree().create_timer(0.25).timeout
+	visible = true
 	await get_tree().create_timer(1).timeout
 	$Area2D/CollisionShape2D.disabled = false

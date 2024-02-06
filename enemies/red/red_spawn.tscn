@@ -17,6 +17,7 @@ radius = 10000.0
 radius = 36.0139
 
 [node name="red_spawn" type="CPUParticles2D"]
+visible = false
 amount = 30
 local_coords = true
 spread = 180.0
