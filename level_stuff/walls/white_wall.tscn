@@ -21,7 +21,6 @@ func _on_hide_timeout():
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
 
 [node name="white_wall" type="CPUParticles2D"]
-modulate = Color(1.5, 1.5, 1.5, 1)
 amount = 1
 lifetime = 10.0
 randomness = 1.0
@@ -37,8 +36,8 @@ scale_amount_max = 20.0
 script = SubResource("GDScript_5awpq")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 2147483679
+collision_mask = 2147483679
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_kp1fi")

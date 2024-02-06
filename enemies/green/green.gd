@@ -9,7 +9,7 @@ var shoot_at_player = false
 func _ready():
 	var effect := green_hurt.instantiate()
 	effect.position = position
-	get_parent().add_child(effect)
+	get_parent().call_deferred("add_child", effect)
 
 func _process(_delta):
 	if green_health < 1:

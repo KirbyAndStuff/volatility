@@ -12,7 +12,7 @@ var shoot_at_player = false
 func _ready():
 	var effect := yellow_hurt.instantiate()
 	effect.position = position
-	get_parent().add_child(effect)
+	get_parent().call_deferred("add_child", effect)
 
 func _physics_process(_delta):
 	if player_chase:

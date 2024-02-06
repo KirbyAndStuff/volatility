@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqfn1l54b78lx"]
+[gd_scene load_steps=6 format=3 uid="uid://bqfn1l54b78lx"]
 
 [ext_resource type="Script" path="res://enemies/green/green_spawn.gd" id="1_x8y1x"]
 
@@ -12,6 +12,9 @@ colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qayuo"]
 radius = 10000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_477c0"]
+radius = 54.037
 
 [node name="green_spawn" type="CPUParticles2D"]
 amount = 40
@@ -39,4 +42,10 @@ visible = false
 shape = SubResource("CircleShape2D_qayuo")
 disabled = true
 
+[node name="wall_check" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_check"]
+shape = SubResource("CircleShape2D_477c0")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="wall_check" to="." method="_on_wall_check_body_entered"]

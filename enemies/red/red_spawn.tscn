@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi4kfgiywfilj"]
+[gd_scene load_steps=6 format=3 uid="uid://bi4kfgiywfilj"]
 
 [ext_resource type="Script" path="res://enemies/red/red_spawn.gd" id="1_44jh4"]
 
@@ -12,6 +12,9 @@ colors = PackedColorArray(1, 0, 0, 0.501961, 1, 0, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xmac5"]
 radius = 10000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yqwce"]
+radius = 36.0139
 
 [node name="red_spawn" type="CPUParticles2D"]
 amount = 30
@@ -39,4 +42,10 @@ visible = false
 shape = SubResource("CircleShape2D_xmac5")
 disabled = true
 
+[node name="wall_check" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_check"]
+shape = SubResource("CircleShape2D_yqwce")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="wall_check" to="." method="_on_wall_check_body_entered"]

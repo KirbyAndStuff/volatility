@@ -4,8 +4,8 @@ var attack_player = false
 var is_dead = false
 
 func _ready():
-	await get_tree().create_timer(0.5).timeout
-	$attack_area_hurtbox/CollisionShape2D.disabled = false
+	var tween = create_tween()
+	tween.tween_property($attack_area_hurtbox/CollisionShape2D, "scale", Vector2(258, 258), 0.55)
 
 func _process(_delta):
 	if attack_player and is_dead == false and (get_node("../player").i_frames) == false and (get_node("../player").dashi_frames) == false:
@@ -23,7 +23,7 @@ func _on_attack_area_hurtbox_body_exited(body):
 		attack_player = false
 
 func _on_timer_timeout():
-	$".".emitting = false
+	emitting = false
 	is_dead = true
 	await get_tree().create_timer(1).timeout
 	queue_free()

@@ -7,7 +7,7 @@ var deathsfx := preload("res://enemies/purple/purple_death1sfx.tscn")
 func _ready():
 	var effect := purple_hurt.instantiate()
 	effect.position = position
-	get_parent().add_child(effect)
+	get_parent().call_deferred("add_child", effect)
 
 var speed = 200
 var player_chase = false

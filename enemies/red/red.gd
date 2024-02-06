@@ -11,7 +11,7 @@ func _ready():
 	particlesR = $"right eye"
 	var effect := red_hurt.instantiate()
 	effect.position = position
-	get_parent().add_child(effect)
+	get_parent().call_deferred("add_child", effect)
 
 var speed = 300
 var player_chase = false
@@ -46,7 +46,7 @@ func _process(delta):
 		await get_tree().create_timer(0.5).timeout
 		if is_stunned == false:
 			$red_dashsfx.play()
-			speed = 1500
+			speed *= 5
 			red_dashlength.start()
 	if red_health < 1:
 		var effect := red_death.instantiate()
@@ -78,7 +78,7 @@ func _on_playerdeath_area_entered(area):
 		red_health -= 2
 
 func _on_red_dash_length_timeout() -> void:
-	speed = 300
+	speed /= 5
 
 func _on_timer_timeout():
 	$"left eye".emitting = true
