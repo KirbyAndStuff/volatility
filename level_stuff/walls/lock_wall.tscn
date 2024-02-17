@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctsrcip8qttp7"]
+
+[sub_resource type="GDScript" id="GDScript_8ws00"]
+script/source = "extends CPUParticles2D
+
+var screen_size
+
+func _ready():
+	screen_size = get_viewport_rect().size
+
+func _process(_delta):
+	if get_tree().has_group(\"enemy\") or get_tree().has_group(\"spawn\"):
+		visible = true
+		$StaticBody2D/CollisionShape2D.disabled = false
+	else:
+		visible = false
+		$StaticBody2D/CollisionShape2D.disabled = true
+
+func _on_hide_timeout():
+	var location_dif = global_position - get_node(\"../../player\").global_position
+	if abs(location_dif.x) > (screen_size.x/2) * 1.4 || abs(location_dif.y) > (screen_size.y/2) * 1.4:
+		visible = false
+		$StaticBody2D/CollisionShape2D.disabled = true
+	else:
+		visible = true
+		$StaticBody2D/CollisionShape2D.disabled = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
+
+[node name="lock_wall" type="CPUParticles2D"]
+visible = false
+amount = 1
+lifetime = 10.0
+randomness = 1.0
+lifetime_randomness = 1.0
+local_coords = true
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+script = SubResource("GDScript_8ws00")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
+collision_layer = 2147483679
+collision_mask = 2147483679
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_kp1fi")
+
+[node name="Hide" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="Hide" to="." method="_on_hide_timeout"]

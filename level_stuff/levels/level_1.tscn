@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bhcec71btiteb"]
+[gd_scene load_steps=26 format=3 uid="uid://bhcec71btiteb"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_0iqyl"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_6wfxg"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_c8hyf"]
 [ext_resource type="PackedScene" uid="uid://jr7f5sfdtnk5" path="res://level_stuff/interactables/barrier_break.tscn" id="8_opgi1"]
 [ext_resource type="PackedScene" uid="uid://vx7ndm1qc5xy" path="res://level_stuff/walls/barrier_wall.tscn" id="9_0l7ix"]
+[ext_resource type="PackedScene" uid="uid://ctsrcip8qttp7" path="res://level_stuff/walls/lock_wall.tscn" id="10_154ym"]
 
 [sub_resource type="GDScript" id="GDScript_ofcm6"]
 script/source = "extends Node2D
@@ -35,12 +36,6 @@ func _process(_delta):
 			timers[i].one_shot = true
 		else:
 			timers[i].one_shot = false
-
-	for i in range(3):
-		if get_tree().has_group(\"enemy\") or get_tree().has_group(\"spawn\"):
-			locks[i].show()
-		else:
-			locks[i].hide()
 
 func _on_first_room_area_entered(area):
 	if area.is_in_group(\"player\"):
@@ -149,23 +144,23 @@ scenes/1/scene = ExtResource("9_0l7ix")
 [sub_resource type="TileSet" id="TileSet_4e615"]
 sources/0 = SubResource("TileSetScenesCollectionSource_j2u83")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_q3yfm"]
-scenes/1/scene = ExtResource("7_c8hyf")
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_a0udg"]
+scenes/1/scene = ExtResource("10_154ym")
 
 [sub_resource type="TileSet" id="TileSet_vu4nh"]
-sources/0 = SubResource("TileSetScenesCollectionSource_q3yfm")
+sources/1 = SubResource("TileSetScenesCollectionSource_a0udg")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_cp31k"]
-scenes/1/scene = ExtResource("7_c8hyf")
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_2dyhl"]
+scenes/1/scene = ExtResource("10_154ym")
 
 [sub_resource type="TileSet" id="TileSet_hibn6"]
-sources/0 = SubResource("TileSetScenesCollectionSource_cp31k")
+sources/1 = SubResource("TileSetScenesCollectionSource_2dyhl")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_fha20"]
-scenes/1/scene = ExtResource("7_c8hyf")
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_wj7tw"]
+scenes/1/scene = ExtResource("10_154ym")
 
 [sub_resource type="TileSet" id="TileSet_bvba4"]
-sources/0 = SubResource("TileSetScenesCollectionSource_fha20")
+sources/1 = SubResource("TileSetScenesCollectionSource_wj7tw")
 
 [node name="level_1" type="Node2D"]
 script = SubResource("GDScript_ofcm6")
@@ -270,23 +265,20 @@ format = 2
 layer_0/tile_data = PackedInt32Array(-1507106, 0, 65536, -1507105, 0, 65536, -1507104, 0, 65536, -1507103, 0, 65536, -1507102, 0, 65536, -1507101, 0, 65536, -1507100, 0, 65536, -1507099, 0, 65536, -1507098, 0, 65536, -1507097, 0, 65536, -1507096, 0, 65536, -1507095, 0, 65536, -1507094, 0, 65536, -1507093, 0, 65536, -1507092, 0, 65536, -1507091, 0, 65536, -1507090, 0, 65536, -1507089, 0, 65536, -1507088, 0, 65536, -1507087, 0, 65536, -1507086, 0, 65536, -1507085, 0, 65536, -1507084, 0, 65536, -1507083, 0, 65536, -1507082, 0, 65536, -1507081, 0, 65536, -1507080, 0, 65536, -1507079, 0, 65536, -1507078, 0, 65536, -1507077, 0, 65536, -1507076, 0, 65536, -1507075, 0, 65536, -1507074, 0, 65536, -1507073, 0, 65536)
 
 [node name="lock1" type="TileMap" parent="."]
-visible = false
 position = Vector2(1485, 288)
 tile_set = SubResource("TileSet_vu4nh")
 format = 2
-layer_0/tile_data = PackedInt32Array(-524243, 0, 65536, -458707, 0, 65536, -393171, 0, 65536, -327635, 0, 65536, -262099, 0, 65536, -196563, 0, 65536, -131027, 0, 65536, -65491, 0, 65536, 45, 0, 65536, 65581, 0, 65536, 131117, 0, 65536, 196653, 0, 65536, 262189, 0, 65536, 327725, 0, 65536, 393261, 0, 65536, 458797, 0, 65536, 524333, 0, 65536, 589869, 0, 65536)
+layer_0/tile_data = PackedInt32Array(-524243, 1, 65536, -458707, 1, 65536, -393171, 1, 65536, -327635, 1, 65536, -262099, 1, 65536, -196563, 1, 65536, -131027, 1, 65536, -65491, 1, 65536, 45, 1, 65536, 65581, 1, 65536, 131117, 1, 65536, 196653, 1, 65536, 262189, 1, 65536, 327725, 1, 65536, 393261, 1, 65536, 458797, 1, 65536, 524333, 1, 65536, 589869, 1, 65536)
 
 [node name="locks2" type="TileMap" parent="."]
-visible = false
 tile_set = SubResource("TileSet_hibn6")
 format = 2
-layer_0/tile_data = PackedInt32Array(655638, 0, 65536, 721174, 0, 65536, 786710, 0, 65536, 852246, 0, 65536, 917782, 0, 65536, 983318, 0, 65536, 1048854, 0, 65536, 1114390, 0, 65536, 1179926, 0, 65536, 1245462, 0, 65536, 1310998, 0, 65536, 1376534, 0, 65536, 1442070, 0, 65536, 1507606, 0, 65536, 1573142, 0, 65536, 1638678, 0, 65536, 1704214, 0, 65536, 1769750, 0, 65536, 655561, 0, 65536, 721097, 0, 65536, 786633, 0, 65536, 852169, 0, 65536, 917705, 0, 65536, 983241, 0, 65536, 1048777, 0, 65536, 1114313, 0, 65536, 1179849, 0, 65536, 1245385, 0, 65536, 1310921, 0, 65536, 1376457, 0, 65536, 1441993, 0, 65536, 1507529, 0, 65536, 1573065, 0, 65536, 1638601, 0, 65536, 1704137, 0, 65536, 1769673, 0, 65536)
+layer_0/tile_data = PackedInt32Array(655561, 1, 65536, 721097, 1, 65536, 786633, 1, 65536, 852169, 1, 65536, 917705, 1, 65536, 983241, 1, 65536, 1048777, 1, 65536, 1114313, 1, 65536, 1179849, 1, 65536, 1245385, 1, 65536, 1310921, 1, 65536, 1376457, 1, 65536, 1441993, 1, 65536, 1507529, 1, 65536, 1573065, 1, 65536, 1638601, 1, 65536, 1704137, 1, 65536, 1769673, 1, 65536, 655638, 1, 65536, 721174, 1, 65536, 786710, 1, 65536, 852246, 1, 65536, 917782, 1, 65536, 983318, 1, 65536, 1048854, 1, 65536, 1114390, 1, 65536, 1179926, 1, 65536, 1245462, 1, 65536, 1310998, 1, 65536, 1376534, 1, 65536, 1442070, 1, 65536, 1507606, 1, 65536, 1573142, 1, 65536, 1638678, 1, 65536, 1704214, 1, 65536, 1769750, 1, 65536)
 
 [node name="locks3" type="TileMap" parent="."]
-visible = false
 tile_set = SubResource("TileSet_bvba4")
 format = 2
-layer_0/tile_data = PackedInt32Array(655710, 0, 65536, 721246, 0, 65536, 786782, 0, 65536, 852318, 0, 65536, 917854, 0, 65536, 983390, 0, 65536, 1048926, 0, 65536, 1114462, 0, 65536, 1179998, 0, 65536, 1245534, 0, 65536, 1311070, 0, 65536, 1376606, 0, 65536, 1442142, 0, 65536, 1507678, 0, 65536, 1573214, 0, 65536, 1638750, 0, 65536, 1704286, 0, 65536, 1769822, 0, 65536)
+layer_0/tile_data = PackedInt32Array(655710, 1, 65536, 721246, 1, 65536, 786782, 1, 65536, 852318, 1, 65536, 917854, 1, 65536, 983390, 1, 65536, 1048926, 1, 65536, 1114462, 1, 65536, 1179998, 1, 65536, 1245534, 1, 65536, 1311070, 1, 65536, 1376606, 1, 65536, 1442142, 1, 65536, 1507678, 1, 65536, 1573214, 1, 65536, 1638750, 1, 65536, 1704286, 1, 65536, 1769822, 1, 65536)
 
 [connection signal="area_entered" from="first_room" to="." method="_on_first_room_area_entered"]
 [connection signal="area_exited" from="first_room" to="." method="_on_first_room_area_exited"]
