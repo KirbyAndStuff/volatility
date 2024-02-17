@@ -137,7 +137,11 @@ visible = false
 shape = SubResource("CircleShape2D_k4hsi")
 
 [node name="GunTimer" type="Timer" parent="."]
-wait_time = 0.9
+wait_time = 0.5
+
+[node name="AltGunTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
 
 [node name="DashLength" type="Timer" parent="."]
 wait_time = 0.3
@@ -153,6 +157,7 @@ wait_time = 0.3
 
 [node name="ParryTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 
 [node name="combat_eye_detection" type="Area2D" parent="."]
 position = Vector2(0, 22)
@@ -209,7 +214,6 @@ shape = SubResource("CircleShape2D_k1igs")
 [connection signal="timeout" from="DashParticles" to="." method="_on_dash_particles_timeout"]
 [connection signal="timeout" from="I_FramesLength" to="." method="_on_i_frames_length_timeout"]
 [connection signal="timeout" from="DashI_FramesLength" to="." method="_on_dash_i_frames_length_timeout"]
-[connection signal="timeout" from="ParryTimer" to="." method="_on_parry_timer_timeout"]
 [connection signal="area_entered" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_entered"]
 [connection signal="area_exited" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_exited"]
 [connection signal="area_entered" from="parry_detection" to="." method="_on_parry_detection_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=15 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
@@ -7,10 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="5_mxfgi"]
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_hqghg"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
-[ext_resource type="PackedScene" uid="uid://d1cslbdxweiuv" path="res://enemies/yellow/yellow.tscn" id="8_cexjm"]
-[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="9_hyopb"]
-[ext_resource type="PackedScene" uid="uid://c8codwb0jmyiu" path="res://enemies/purple/purple.tscn" id="10_wwokv"]
-[ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="11_68uet"]
+[ext_resource type="PackedScene" uid="uid://b17py8gmy2wrq" path="res://enemies/purple/purple_spawn.tscn" id="9_xldcv"]
 [ext_resource type="PackedScene" uid="uid://c1pvn1v61yry5" path="res://level_stuff/interactables/white_thing.tscn" id="12_jrkr7"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
@@ -88,27 +85,6 @@ offset_bottom = 2191.0
 
 [node name="gameoverscreen" parent="ui" instance=ExtResource("6_hqghg")]
 
-[node name="yellow" parent="." instance=ExtResource("8_cexjm")]
-position = Vector2(2629, 459)
-
-[node name="red" parent="." instance=ExtResource("9_hyopb")]
-position = Vector2(732, -109)
-
-[node name="red2" parent="." instance=ExtResource("9_hyopb")]
-position = Vector2(735, 348)
-
-[node name="purple" parent="." instance=ExtResource("10_wwokv")]
-position = Vector2(2782, 106)
-
-[node name="green" parent="." instance=ExtResource("11_68uet")]
-position = Vector2(1687, -277)
-
-[node name="green2" parent="." instance=ExtResource("11_68uet")]
-position = Vector2(2087, 59)
-
-[node name="green3" parent="." instance=ExtResource("11_68uet")]
-position = Vector2(1749, 537)
-
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_o37m4")
 format = 2
@@ -116,3 +92,9 @@ layer_0/tile_data = PackedInt32Array(3866599, 0, 65536, 524261, 0, 65536, -28835
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y6h7w")
+
+[node name="purple_spawn" parent="." instance=ExtResource("9_xldcv")]
+position = Vector2(678, -133)
+
+[node name="purple_spawn2" parent="." instance=ExtResource("9_xldcv")]
+position = Vector2(858, 466)

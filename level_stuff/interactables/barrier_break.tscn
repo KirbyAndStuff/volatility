@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://jr7f5sfdtnk5"]
+[gd_scene load_steps=5 format=3 uid="uid://jr7f5sfdtnk5"]
 
 [ext_resource type="Script" path="res://level_stuff/interactables/barrier_break.gd" id="1_v022d"]
+[ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_vxtf1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a3kim"]
 size = Vector2(70, 70)
@@ -11,7 +12,6 @@ point_count = 3
 metadata/_snap_enabled = true
 
 [node name="barrier_break" type="Area2D"]
-modulate = Color(1, 1.75, 1, 1)
 script = ExtResource("1_v022d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -31,5 +31,9 @@ scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_n7ahq")
 color = Color(0, 1, 0, 1)
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_vxtf1")
+pitch_scale = 2.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

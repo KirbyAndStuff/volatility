@@ -193,7 +193,6 @@ scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_vradg")
 
 [node name="Stunned" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]

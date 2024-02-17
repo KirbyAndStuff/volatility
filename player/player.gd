@@ -25,9 +25,9 @@ func _ready():
 	combat_eye = $"combat eye"
 
 var health = 3
-var speed = 500
+var speed = 700
 var accel = 7000
-var friction = 2000
+var friction = 4000
 var stamina = 100
 var input = Vector2.ZERO
 var i_frames = false
@@ -36,6 +36,7 @@ var enemies_in_area = 0
 var is_dead = false
 var volatility = 0
 var stamina_tween = true
+var parry_tween = false
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -53,7 +54,7 @@ func _process(delta):
 		get_parent().add_child(effect)
 		dash_particlestimer.start()
 		
-	if Input.is_action_pressed("dash") and stamina > 50 and speed == 500:
+	if Input.is_action_pressed("dash") and stamina > 50 and speed == 700:
 		dash()
 		dashi_framesss()
 		stamina_tween = false
@@ -73,17 +74,15 @@ func _process(delta):
 		combat_eye.visible = false
 		$"combat eye2".visible = false
 		is_dead = true
-	if Input.is_action_pressed("right_mouse_button") and guntimer.is_stopped() and is_dead == false:
+	if Input.is_action_pressed("right_mouse_button") and $AltGunTimer.is_stopped() and is_dead == false:
 		alt_shoot()
 
 func get_input():
 	if input.length() > 0.0:
 		particlesL.lifetime = 0.1
-	else:
-		particlesL.lifetime = 0.2
-	if input.length() > 0.0:
 		particlesR.lifetime = 0.1
 	else:
+		particlesL.lifetime = 0.2
 		particlesR.lifetime = 0.2
 	input.x = int(Input.is_action_pressed("blue_right")) - int(Input.is_action_pressed("blue_left"))
 	input.y = int(Input.is_action_pressed("blue_down")) - int(Input.is_action_pressed("blue_up"))
@@ -122,7 +121,7 @@ func alt_shoot():
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
-		guntimer.start()
+		$AltGunTimer.start()
 		volatility -= 1
 
 func _on_cooldown_timer_timeout() -> void:
@@ -145,9 +144,9 @@ func dashi_framesss():
 	dashi_frameslength.start()
 
 func _on_dash_length_timeout() -> void:
-	friction = 2000
-	accel = 7000
-	speed = 500
+	friction /= 3
+	accel /= 5
+	speed /= 2
 
 func _on_dash_particles_timeout() -> void:
 	dash_particlestimer.stop()
@@ -161,13 +160,13 @@ func _on_dash_i_frames_length_timeout() -> void:
 	dashi_frameslength.stop()
 
 func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy"):
+	if area.is_in_group("enemy") or area.is_in_group("enemy_attack"):
 		enemies_in_area += 1
 		combat_eye.emitting = true
 		$"combat eye2".emitting = true
 
 func _on_combat_eye_detection_area_exited(area: Area2D) -> void:
-	if area.is_in_group("enemy"):
+	if area.is_in_group("enemy") or area.is_in_group("enemy_attack"):
 		enemies_in_area -= 1
 		if enemies_in_area == 0:
 			combat_eye.emitting = false
@@ -183,12 +182,15 @@ func parry():
 		parrytimer.start()
 		await get_tree().create_timer(0.15).timeout
 		$parry_detection/CollisionShape2D.disabled = true
-
-func _on_parry_timer_timeout() -> void:
-	parrytimer.stop()
+		if parry_tween == false:
+			var tween = create_tween()
+			tween.tween_property((get_node("../ui/health").parry), "modulate", Color(1, 1, 1), 3)
 
 func _on_parry_detection_area_entered(area):
 	if area.is_in_group("enemy_attack"):
+		parry_tween = true
+		var tween = create_tween()
+		tween.tween_property((get_node("../ui/health").parry), "modulate", Color(1, 1, 1), 1.5)
 		$parriedsfx.play()
 		i_framesss()
 		var effect := parried_particles.instantiate()
@@ -197,6 +199,9 @@ func _on_parry_detection_area_entered(area):
 		if volatility < 5:
 			volatility += 1
 		framefreeze(0.1, 0.3)
+		await get_tree().create_timer(1.5).timeout
+		$ParryTimer.stop()
+		parry_tween = false
 
 func framefreeze(timescale, duration):
 	Engine.time_scale = timescale

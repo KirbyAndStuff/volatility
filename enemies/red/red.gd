@@ -13,7 +13,7 @@ func _ready():
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)
 
-var speed = 300
+var speed = 500
 var player_chase = false
 var player = null
 var attack_player = false
@@ -46,7 +46,7 @@ func _process(delta):
 		await get_tree().create_timer(0.5).timeout
 		if is_stunned == false:
 			$red_dashsfx.play()
-			speed *= 5
+			speed *= 4
 			red_dashlength.start()
 	if red_health < 1:
 		var effect := red_death.instantiate()
@@ -78,7 +78,7 @@ func _on_playerdeath_area_entered(area):
 		red_health -= 2
 
 func _on_red_dash_length_timeout() -> void:
-	speed /= 5
+	speed /= 4
 
 func _on_timer_timeout():
 	$"left eye".emitting = true
@@ -88,7 +88,7 @@ func _on_timer_timeout():
 	$"stunned_eye3".emitting = false
 	$"stunned_eye4".emitting = false
 	is_stunned = false
-	speed = 300
+	speed = 500
 
 func _on_player_detection_area_entered(area):
 	if area.is_in_group("player"):

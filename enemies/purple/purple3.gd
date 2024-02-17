@@ -7,7 +7,7 @@ func _ready():
 	await get_tree().create_timer(0.5).timeout
 	$playerdeath/CollisionShape2D.disabled = false
 
-var speed = 500
+var speed = 700
 var player_chase = false
 var player = null
 var attack_player = false
@@ -48,7 +48,7 @@ func _on_playerdeath_area_entered(area):
 func _on_stunned_timeout():
 	$eye_bottom.speed_scale = 1.5
 	is_stunned = false
-	speed = 500
+	speed = 700
 
 func _on_player_detection_area_entered(area):
 	if area.is_in_group("player") and is_stunned == false:

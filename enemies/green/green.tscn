@@ -88,6 +88,7 @@ visible = false
 shape = SubResource("CircleShape2D_mawf4")
 
 [node name="GunTimer" type="Timer" parent="."]
+wait_time = 0.75
 
 [node name="green_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kbnva")

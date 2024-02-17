@@ -219,9 +219,3 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 5.0
 scale_amount_max = 5.0
-
-[node name="Parry_Cooldown" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-
-[connection signal="timeout" from="Parry_Cooldown" to="." method="_on_parry_cooldown_timeout"]

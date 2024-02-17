@@ -9,7 +9,7 @@ func _ready():
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)
 
-var speed = 200
+var speed = 300
 var player_chase = false
 var player = null
 var attack_player = false
@@ -69,7 +69,7 @@ func _on_stunned_timeout():
 	$eye_left.speed_scale = 0.75
 	$eye_right.speed_scale = 0.75
 	is_stunned = false
-	speed = 200
+	speed = 300
 
 func _on_player_detection_area_entered(area):
 	if area.is_in_group("player") and is_stunned == false:

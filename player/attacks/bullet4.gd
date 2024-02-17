@@ -4,7 +4,7 @@ var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/bullet_death.tscn")
 var enemies_hit = 0
 
-@export var speed := 1500.0
+@export var speed := 2500.0
 
 func _process(_delta):
 	if 1 < enemies_hit:

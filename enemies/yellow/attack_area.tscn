@@ -24,13 +24,13 @@ scale_amount_max = 5.0
 color = Color(1, 1, 0, 1)
 script = ExtResource("1_pure8")
 
-[node name="attack_area_hurtbox" type="Area2D" parent="." groups=["enemy", "enemy_attack"]]
+[node name="attack_area_hurtbox" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area_hurtbox"]
 shape = SubResource("CircleShape2D_6kqa1")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 autostart = true
 
 [connection signal="body_entered" from="attack_area_hurtbox" to="." method="_on_attack_area_hurtbox_body_entered"]

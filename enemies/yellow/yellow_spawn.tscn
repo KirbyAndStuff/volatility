@@ -16,7 +16,7 @@ radius = 10000.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7t6j5"]
 radius = 29.0689
 
-[node name="yellow_spawn" type="CPUParticles2D"]
+[node name="yellow_spawn" type="CPUParticles2D" groups=["spawn"]]
 visible = false
 amount = 20
 local_coords = true

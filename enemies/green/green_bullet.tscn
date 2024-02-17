@@ -81,7 +81,7 @@ color_ramp = SubResource("Gradient_gkvsv")
 wait_time = 1.73
 autostart = true
 
-[node name="green_bullet_hurtbox" type="Area2D" parent="." groups=["enemy", "enemy_attack"]]
+[node name="green_bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="green_bullet_hurtbox"]
 polygon = PackedVector2Array(-25, 0, 0, -9, 8, 0, 0, 9)
