@@ -37,6 +37,9 @@ var is_dead = false
 var volatility = 0
 var stamina_tween = true
 var parry_tween = false
+var melee_order = 1
+var first_weapon = true
+var second_weapon = false
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -45,7 +48,7 @@ func _process(delta):
 	if stamina <= 100:
 		stamina += 25 * delta
 		
-	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and is_dead == false:
+	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and first_weapon and is_dead == false:
 		shoot()
 		
 	if Input.is_action_pressed("dash") and stamina > 50 and dash_particlestimer.is_stopped() and is_dead == false:
@@ -74,8 +77,16 @@ func _process(delta):
 		combat_eye.visible = false
 		$"combat eye2".visible = false
 		is_dead = true
-	if Input.is_action_pressed("right_mouse_button") and $AltGunTimer.is_stopped() and is_dead == false:
+	if Input.is_action_pressed("right_mouse_button") and $AltGunTimer.is_stopped() and first_weapon and is_dead == false:
 		alt_shoot()
+	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false:
+		melee()
+	if Input.is_action_pressed("first_weapon"):
+		first_weapon = true
+		second_weapon = false
+	if Input.is_action_pressed("second_weapon"):
+		first_weapon = false
+		second_weapon = true
 
 func get_input():
 	if input.length() > 0.0:
@@ -123,6 +134,22 @@ func alt_shoot():
 		shot.shoot(global_position, get_global_mouse_position())
 		$AltGunTimer.start()
 		volatility -= 1
+
+func melee():
+	if melee_order == 1:
+		var bullet_scene = preload("res://player/attacks/melee_up.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		$MeleeTimer.start()
+		melee_order += 1
+	else:
+		var bullet_scene = preload("res://player/attacks/melee_down.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		$MeleeTimer.start()
+		melee_order -= 1
 
 func _on_cooldown_timer_timeout() -> void:
 	guntimer.stop()

@@ -159,6 +159,10 @@ wait_time = 0.3
 wait_time = 3.0
 one_shot = true
 
+[node name="MeleeTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
 [node name="combat_eye_detection" type="Area2D" parent="."]
 position = Vector2(0, 22)
 

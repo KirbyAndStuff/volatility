@@ -40,7 +40,7 @@ color_ramp = SubResource("Gradient_qflhe")
 wait_time = 0.4
 autostart = true
 
-[node name="parried_hurtbox" type="Area2D" parent="."]
+[node name="parried_hurtbox" type="Area2D" parent="." groups=["parry"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="parried_hurtbox"]
 visible = false

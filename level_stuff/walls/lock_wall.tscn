@@ -4,6 +4,7 @@
 script/source = "extends CPUParticles2D
 
 var screen_size
+var is_locked = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -12,9 +13,11 @@ func _process(_delta):
 	if get_tree().has_group(\"enemy\") or get_tree().has_group(\"spawn\"):
 		visible = true
 		$StaticBody2D/CollisionShape2D.disabled = false
+		is_locked = true
 	else:
 		visible = false
 		$StaticBody2D/CollisionShape2D.disabled = true
+		is_locked = false
 
 func _on_hide_timeout():
 	var location_dif = global_position - get_node(\"../../player\").global_position
@@ -22,8 +25,9 @@ func _on_hide_timeout():
 		visible = false
 		$StaticBody2D/CollisionShape2D.disabled = true
 	else:
-		visible = true
-		$StaticBody2D/CollisionShape2D.disabled = false
+		if is_locked == true:
+			visible = true
+			$StaticBody2D/CollisionShape2D.disabled = false
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]

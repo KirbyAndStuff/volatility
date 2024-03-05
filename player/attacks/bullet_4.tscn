@@ -36,7 +36,7 @@ color_ramp = SubResource("Gradient_8ek46")
 wait_time = 0.5
 autostart = true
 
-[node name="bullet_hurtbox" type="Area2D" parent="."]
+[node name="bullet_hurtbox" type="Area2D" parent="." groups=["deal 1 damage"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bullet_hurtbox"]
 position = Vector2(44.4683, 1)

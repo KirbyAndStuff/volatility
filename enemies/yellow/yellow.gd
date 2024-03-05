@@ -35,12 +35,12 @@ func _process(_delta):
 		$GunTimer.start()
 
 func _on_player_death_area_entered(area):
-	if area.name == "bullet_hurtbox":
+	if area.is_in_group("deal 1 damage"):
 		var effect := yellow_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		yellow_health -= 1
-	if area.is_in_group("beam"):
+	if area.is_in_group("deal 2 damage"):
 		var effect := yellow_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

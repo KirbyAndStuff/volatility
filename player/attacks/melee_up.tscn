@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb0dw3rdrgb8i"]
+
+[ext_resource type="Script" path="res://player/attacks/melee.gd" id="1_56art"]
+
+[sub_resource type="Curve" id="Curve_y2p55"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_7ocun"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qfnmd"]
+radius = 1.0
+
+[node name="melee_up" type="Area2D" groups=["deal 2 damage"]]
+script = ExtResource("1_56art")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(15, -118)
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.5
+local_coords = true
+spread = 0.0
+gravity = Vector2(1500, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = -1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_y2p55")
+color_ramp = SubResource("Gradient_7ocun")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(10, -118)
+polygon = PackedVector2Array(0, 0, 15, 7, 36, 25, 50, 47, 59, 66, 68, 98, 69, 133, 64, 166, 49, 202, 28, 229, 11, 238, 17, 241, 39, 235, 63, 218, 83, 189, 97, 155, 101, 118, 93, 74, 71, 37, 38, 6, 16, -1, 5, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, 0)
+shape = SubResource("CircleShape2D_qfnmd")
