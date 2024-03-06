@@ -10,6 +10,7 @@ var parried_particles := preload("res://player/attacks/parried_particles.tscn")
 var player_hurt := preload("res://player/player_hurt.tscn")
 var player_death := preload("res://player/player_death.tscn")
 var bullet_explosion := preload("res://player/attacks/bullet_4_explosion.tscn")
+var melee_alt := preload("res://player/attacks/melee_alt.tscn")
 
 @onready var guntimer := $GunTimer
 @onready var dashlength := $DashLength
@@ -26,8 +27,11 @@ func _ready():
 
 var health = 3
 var speed = 700
+var speed_boost = 0
 var accel = 7000
+var accel_boost = 0
 var friction = 4000
+var friction_boost = 0
 var stamina = 100
 var input = Vector2.ZERO
 var i_frames = false
@@ -40,6 +44,7 @@ var parry_tween = false
 var melee_order = 1
 var first_weapon = true
 var second_weapon = false
+var is_dashing = false
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -57,20 +62,21 @@ func _process(delta):
 		get_parent().add_child(effect)
 		dash_particlestimer.start()
 		
-	if Input.is_action_pressed("dash") and stamina > 50 and speed == 700:
+	if Input.is_action_pressed("dash") and stamina > 50 and is_dashing == false:
 		dash()
 		dashi_framesss()
 		stamina_tween = false
 		
 	if i_frames == true and i_frameslength.is_stopped():
 		i_framesss()
-	if Input.is_action_pressed("parry") and is_dead == false:
+	if Input.is_action_pressed("parry") and is_dead == false and $AltMeleeTimer.is_stopped():
 		parry()
 	if health < 1 and is_dead == false:
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		speed = 0
+		speed_boost = 0
 		particlesB.emitting = false
 		particlesL.emitting = false
 		particlesR.emitting = false
@@ -79,8 +85,10 @@ func _process(delta):
 		is_dead = true
 	if Input.is_action_pressed("right_mouse_button") and $AltGunTimer.is_stopped() and first_weapon and is_dead == false:
 		alt_shoot()
-	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false:
+	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and $AltMeleeTimer.is_stopped() and second_weapon and is_dead == false:
 		melee()
+	if Input.is_action_pressed("right_mouse_button") and $MeleeTimer.is_stopped() and $AltMeleeTimer.is_stopped() and second_weapon and is_dead == false:
+		alt_melee()
 	if Input.is_action_pressed("first_weapon"):
 		first_weapon = true
 		second_weapon = false
@@ -103,13 +111,13 @@ func player_movement(delta):
 	input = get_input()
 	
 	if input == Vector2.ZERO:
-		if velocity.length() > (friction * delta):
-			velocity -= velocity.normalized() * (friction * delta)
+		if velocity.length() > ((friction + friction_boost) * delta):
+			velocity -= velocity.normalized() * ((friction + friction_boost) * delta)
 		else:
 			velocity = Vector2.ZERO
 	else:
-		velocity += (input * accel * delta)
-		velocity = velocity.limit_length(speed)
+		velocity += (input * (accel + accel_boost) * delta)
+		velocity = velocity.limit_length(speed + speed_boost)
 		
 	move_and_slide()
 
@@ -151,10 +159,27 @@ func melee():
 		$MeleeTimer.start()
 		melee_order -= 1
 
+func alt_melee():
+	if 2 <= volatility:
+		i_framesss()
+		$body.modulate = Color(1, 1, 1, 0.25)
+		$"left eye node/left eye".modulate = Color(1, 1, 1, 0.25)
+		$"right eye node/right eye".modulate = Color(1, 1, 1, 0.25)
+		var effect := melee_alt.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		$AltMeleeTimer.start()
+		volatility -= 2
+		await get_tree().create_timer(1).timeout
+		$body.modulate = Color(1, 1, 1, 1)
+		$"left eye node/left eye".modulate = Color(1, 1, 1, 1)
+		$"right eye node/right eye".modulate = Color(1, 1, 1, 1)
+
 func _on_cooldown_timer_timeout() -> void:
 	guntimer.stop()
 
 func dash():
+	is_dashing = true
 	stamina -= 50
 	friction *= 3
 	accel *= 5
@@ -171,6 +196,7 @@ func dashi_framesss():
 	dashi_frameslength.start()
 
 func _on_dash_length_timeout() -> void:
+	is_dashing = false
 	friction /= 3
 	accel /= 5
 	speed /= 2
@@ -225,6 +251,11 @@ func _on_parry_detection_area_entered(area):
 		get_parent().call_deferred("add_child", effect)
 		if volatility < 5:
 			volatility += 1
+		if speed_boost < 500:
+			speed_boost += 100
+			accel_boost += 1000
+			friction_boost += 570
+		$SpeedBoostTimer.start()
 		framefreeze(0.1, 0.3)
 		await get_tree().create_timer(1.5).timeout
 		$ParryTimer.stop()
@@ -239,3 +270,8 @@ func player_hurt_particles():
 	var effect := player_hurt.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
+
+func _on_speed_boost_timer_timeout():
+	speed_boost = 0
+	accel_boost = 0
+	friction_boost = 0

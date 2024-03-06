@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var attack_area : = preload("res://enemies/yellow/attack_area.tscn")
+var hit_wall = false
 
 @export var speed := 750.0
 var attack_player = false
@@ -32,10 +33,11 @@ func _process(_delta):
 func _on_yellow_bullet_hurtbox_body_entered(body):
 	if body.name == "player":
 		attack_player = true
-	if body.is_in_group("wall"):
+	if body.is_in_group("wall") and hit_wall == false:
 		var effect := attack_area.instantiate()
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
+		hit_wall = true
 		queue_free()
 
 func _on_yellow_bullet_hurtbox_body_exited(body):

@@ -4,7 +4,7 @@ var directiona := Vector2.ZERO
 
 func _ready():
 	$CPUParticles2D.emitting = true
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.2).timeout
 	queue_free()
 
 func _process(_delta):

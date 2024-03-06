@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://0cj17qc1r5r0"]
+
+[ext_resource type="Script" path="res://player/attacks/melee_alt.gd" id="1_j30s6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ysjva"]
+radius = 200.0
+
+[node name="melee_alt" type="Area2D"]
+script = ExtResource("1_j30s6")
+
+[node name="SlashTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="DieTimer" type="Timer" parent="."]
+wait_time = 1.1
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ysjva")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="timeout" from="SlashTimer" to="." method="_on_slash_timer_timeout"]
+[connection signal="timeout" from="DieTimer" to="." method="_on_die_timer_timeout"]

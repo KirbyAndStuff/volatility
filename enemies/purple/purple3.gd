@@ -4,8 +4,10 @@ var purple_hurt := preload("res://enemies/purple/purple_hurt3.tscn")
 
 func _ready():
 	$playerdeath/CollisionShape2D.disabled = true
-	await get_tree().create_timer(0.5).timeout
+	$hurts_player/CollisionShape2D.disabled = true
+	await get_tree().create_timer(0.3).timeout
 	$playerdeath/CollisionShape2D.disabled = false
+	$hurts_player/CollisionShape2D.disabled = false
 
 var speed = 700
 var player_chase = false
@@ -35,7 +37,7 @@ func _on_playerdeath_area_entered(area):
 		effect.position = position
 		get_parent().add_child(effect)
 		purple_health -= 1
-	if area.is_in_group("deal parry damage"):
+	if area.is_in_group("parry"):
 		speed = 0
 		$eye_bottom.speed_scale = 0.1
 		$Stunned.start()

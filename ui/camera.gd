@@ -18,7 +18,11 @@ func _process(delta):
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength, 0, shakefade * delta)
 		offset = randomoffset()
-	if get_tree().has_group("screen_shake"):
+	if get_tree().has_group("screen_shake 10"):
+		randomstrength = 10
+		apply_shake()
+	if get_tree().has_group("screen_shake 5"):
+		randomstrength = 5
 		apply_shake()
 
 func randomoffset() -> Vector2:

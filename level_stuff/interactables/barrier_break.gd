@@ -17,17 +17,15 @@ func _process(_delta):
 		can_be_hurt = true
 
 func _on_area_entered(area):
-	if area.name == "bullet_hurtbox" and can_be_hurt == true:
+	if area.is_in_group("deal 1 damage") and can_be_hurt == true:
 		var effect := barrier_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		$hurt.play()
 		health -= 1
-	if area.is_in_group("beam") and can_be_hurt == true:
+	if area.is_in_group("deal 2 damage") and can_be_hurt == true:
 		var effect := barrier_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		$hurt.play()
 		health -= 2
-
-  

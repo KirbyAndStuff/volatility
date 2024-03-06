@@ -244,6 +244,7 @@ environment = SubResource("Environment_656hn")
 position = Vector2(1485, 288)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="first_room"]
+visible = false
 position = Vector2(-42.5, -1.5)
 shape = SubResource("RectangleShape2D_js4ge")
 

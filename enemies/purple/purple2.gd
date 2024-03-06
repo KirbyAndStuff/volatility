@@ -6,8 +6,10 @@ var deathsfx := preload("res://enemies/purple/purple_death2sfx.tscn")
 
 func _ready():
 	$playerdeath/CollisionShape2D.disabled = true
-	await get_tree().create_timer(0.5).timeout
+	$hurts_player/CollisionShape2D.disabled = true
+	await get_tree().create_timer(0.3).timeout
 	$playerdeath/CollisionShape2D.disabled = false
+	$hurts_player/CollisionShape2D.disabled = false
 
 var speed = 500
 var player_chase = false
