@@ -15,8 +15,6 @@ var melee_alt := preload("res://player/attacks/melee_alt.tscn")
 @onready var guntimer := $GunTimer
 @onready var dashlength := $DashLength
 @onready var dash_particlestimer := $DashParticles
-@onready var i_frameslength := $I_FramesLength
-@onready var dashi_frameslength := $DashI_FramesLength
 @onready var parrytimer := $ParryTimer
 
 func _ready():
@@ -33,9 +31,9 @@ var accel_boost = 0
 var friction = 4000
 var friction_boost = 0
 var stamina = 100
+var alt_gun_cooldown = 100
+var alt_melee_cooldown = 100
 var input = Vector2.ZERO
-var i_frames = false
-var dashi_frames = false
 var enemies_in_area = 0
 var is_dead = false
 var volatility = 0
@@ -45,6 +43,8 @@ var melee_order = 1
 var first_weapon = true
 var second_weapon = false
 var is_dashing = false
+var attackable = true
+var amount_of_i_frames = 0
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -52,7 +52,11 @@ func _physics_process(delta):
 func _process(delta):
 	if stamina <= 100:
 		stamina += 25 * delta
-		
+	if alt_gun_cooldown <= 100:
+		alt_gun_cooldown += 50 * delta
+	if alt_melee_cooldown <= 100:
+		alt_melee_cooldown += 20 * delta
+	
 	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and first_weapon and is_dead == false:
 		shoot()
 		
@@ -64,12 +68,9 @@ func _process(delta):
 		
 	if Input.is_action_pressed("dash") and stamina > 50 and is_dashing == false:
 		dash()
-		dashi_framesss()
 		stamina_tween = false
 		
-	if i_frames == true and i_frameslength.is_stopped():
-		i_framesss()
-	if Input.is_action_pressed("parry") and is_dead == false and $AltMeleeTimer.is_stopped():
+	if Input.is_action_pressed("parry") and is_dead == false:
 		parry()
 	if health < 1 and is_dead == false:
 		var effect := player_death.instantiate()
@@ -83,11 +84,11 @@ func _process(delta):
 		combat_eye.visible = false
 		$"combat eye2".visible = false
 		is_dead = true
-	if Input.is_action_pressed("right_mouse_button") and $AltGunTimer.is_stopped() and first_weapon and is_dead == false:
+	if Input.is_action_pressed("right_mouse_button") and first_weapon and is_dead == false:
 		alt_shoot()
-	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and $AltMeleeTimer.is_stopped() and second_weapon and is_dead == false:
+	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false:
 		melee()
-	if Input.is_action_pressed("right_mouse_button") and $MeleeTimer.is_stopped() and $AltMeleeTimer.is_stopped() and second_weapon and is_dead == false:
+	if Input.is_action_pressed("right_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false:
 		alt_melee()
 	if Input.is_action_pressed("first_weapon"):
 		first_weapon = true
@@ -95,6 +96,13 @@ func _process(delta):
 	if Input.is_action_pressed("second_weapon"):
 		first_weapon = false
 		second_weapon = true
+	if amount_of_i_frames == 0:
+		attackable = true
+	else:
+		attackable = false
+	if Input.is_action_pressed("heal") and volatility == 5:
+		health += 1
+		volatility -= 5
 
 func get_input():
 	if input.length() > 0.0:
@@ -134,14 +142,13 @@ func shoot():
 	guntimer.start()
 
 func alt_shoot():
-	if 1 <= volatility:
+	if alt_gun_cooldown > 100:
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/beam2.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
-		$AltGunTimer.start()
-		volatility -= 1
+		alt_gun_cooldown = 0
 
 func melee():
 	if melee_order == 1:
@@ -160,25 +167,23 @@ func melee():
 		melee_order -= 1
 
 func alt_melee():
-	if 2 <= volatility:
-		i_framesss()
+	if alt_melee_cooldown > 100:
+		amount_of_i_frames += 1
 		$body.modulate = Color(1, 1, 1, 0.25)
 		$"left eye node/left eye".modulate = Color(1, 1, 1, 0.25)
 		$"right eye node/right eye".modulate = Color(1, 1, 1, 0.25)
 		var effect := melee_alt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		$AltMeleeTimer.start()
-		volatility -= 2
-		await get_tree().create_timer(1).timeout
+		alt_melee_cooldown = 0
+		await get_tree().create_timer(1.5).timeout
 		$body.modulate = Color(1, 1, 1, 1)
 		$"left eye node/left eye".modulate = Color(1, 1, 1, 1)
 		$"right eye node/right eye".modulate = Color(1, 1, 1, 1)
-
-func _on_cooldown_timer_timeout() -> void:
-	guntimer.stop()
+		amount_of_i_frames -= 1
 
 func dash():
+	amount_of_i_frames += 1
 	is_dashing = true
 	stamina -= 50
 	friction *= 3
@@ -187,30 +192,12 @@ func dash():
 	dashlength.start()
 	$dashsfx.play()
 
-func i_framesss():
-	i_frames = true
-	i_frameslength.start()
-	
-func dashi_framesss():
-	dashi_frames = true
-	dashi_frameslength.start()
-
 func _on_dash_length_timeout() -> void:
 	is_dashing = false
 	friction /= 3
 	accel /= 5
 	speed /= 2
-
-func _on_dash_particles_timeout() -> void:
-	dash_particlestimer.stop()
-
-func _on_i_frames_length_timeout() -> void:
-	i_frames = false
-	i_frameslength.stop()
-
-func _on_dash_i_frames_length_timeout() -> void:
-	dashi_frames = false
-	dashi_frameslength.stop()
+	amount_of_i_frames -= 1
 
 func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy") or area.is_in_group("enemy_attack"):
@@ -245,7 +232,7 @@ func _on_parry_detection_area_entered(area):
 		var tween = create_tween()
 		tween.tween_property((get_node("../ui/health").parry), "modulate", Color(1, 1, 1), 1.5)
 		$parriedsfx.play()
-		i_framesss()
+		amount_of_i_frames += 1
 		var effect := parried_particles.instantiate()
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
@@ -257,7 +244,9 @@ func _on_parry_detection_area_entered(area):
 			friction_boost += 570
 		$SpeedBoostTimer.start()
 		framefreeze(0.1, 0.3)
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1).timeout
+		amount_of_i_frames -= 1
+		await get_tree().create_timer(0.5).timeout
 		$ParryTimer.stop()
 		parry_tween = false
 
@@ -275,3 +264,8 @@ func _on_speed_boost_timer_timeout():
 	speed_boost = 0
 	accel_boost = 0
 	friction_boost = 0
+
+func i_frames():
+	amount_of_i_frames += 1
+	await get_tree().create_timer(1).timeout
+	amount_of_i_frames -= 1

@@ -35,7 +35,7 @@ radius = 35.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_k1igs"]
 radius = 22.02
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["attackable"]]
 script = ExtResource("1_ni3np")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -138,9 +138,6 @@ shape = SubResource("CircleShape2D_k4hsi")
 
 [node name="GunTimer" type="Timer" parent="."]
 wait_time = 0.5
-
-[node name="AltGunTimer" type="Timer" parent="."]
-wait_time = 0.75
 one_shot = true
 
 [node name="DashLength" type="Timer" parent="."]
@@ -149,11 +146,7 @@ one_shot = true
 
 [node name="DashParticles" type="Timer" parent="."]
 wait_time = 0.3
-
-[node name="I_FramesLength" type="Timer" parent="."]
-
-[node name="DashI_FramesLength" type="Timer" parent="."]
-wait_time = 0.3
+one_shot = true
 
 [node name="ParryTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -161,9 +154,6 @@ one_shot = true
 
 [node name="MeleeTimer" type="Timer" parent="."]
 wait_time = 0.4
-one_shot = true
-
-[node name="AltMeleeTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="SpeedBoostTimer" type="Timer" parent="."]
@@ -220,11 +210,7 @@ collision_mask = 9
 visible = false
 shape = SubResource("CircleShape2D_k1igs")
 
-[connection signal="timeout" from="GunTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]
-[connection signal="timeout" from="DashParticles" to="." method="_on_dash_particles_timeout"]
-[connection signal="timeout" from="I_FramesLength" to="." method="_on_i_frames_length_timeout"]
-[connection signal="timeout" from="DashI_FramesLength" to="." method="_on_dash_i_frames_length_timeout"]
 [connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_speed_boost_timer_timeout"]
 [connection signal="area_entered" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_entered"]
 [connection signal="area_exited" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_exited"]
