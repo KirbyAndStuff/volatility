@@ -10,7 +10,7 @@ func _ready():
 
 func _on_hide_timeout():
 	var location_dif = global_position - get_node(\"../../../player\").global_position
-	if abs(location_dif.x) > (screen_size.x/2) * 1.4 || abs(location_dif.y) > (screen_size.y/2) * 1.4:
+	if abs(location_dif.x) > (screen_size.x/2) * 2 || abs(location_dif.y) > (screen_size.y/2) * 2:
 		visible = false
 		$StaticBody2D/CollisionShape2D.disabled = true
 	else:
@@ -34,8 +34,8 @@ color = Color(0, 1, 0, 1)
 script = SubResource("GDScript_sghbv")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
-collision_layer = 31
-collision_mask = 31
+collision_layer = 63
+collision_mask = 63
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_kp1fi")

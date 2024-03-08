@@ -194,6 +194,7 @@ position = Vector2(1385, 319)
 
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(1385, 319)
+zoom = Vector2(0.75, 0.75)
 position_smoothing_speed = 20.0
 script = ExtResource("2_6wfxg")
 

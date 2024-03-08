@@ -36,6 +36,11 @@ func _on_playerdeath_area_entered(area):
 		effect.position = position
 		get_parent().add_child(effect)
 		green_health -= 2
+	if area.is_in_group("deal 3 damage"):
+		var effect := green_hurt.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		green_health -= 3
 
 func _on_gun_timer_timeout() -> void:
 	$GunTimer.stop()

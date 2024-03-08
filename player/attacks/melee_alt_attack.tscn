@@ -40,7 +40,7 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_hdxpx")
-color = Color(0, 2.11, 2.55, 1)
+color = Color(0.196078, 2.1098, 2.54902, 1)
 color_ramp = SubResource("Gradient_avo3d")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

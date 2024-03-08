@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/bullet_death.tscn")
+var detonation := preload("res://player/attacks/beam_detonation.tscn")
 var enemies_hit = 0
 
 @export var speed := 2500.0
@@ -39,3 +40,8 @@ func _on_bullet_hurtbox_body_entered(body):
 func _on_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
 		enemies_hit += 1
+	if area.is_in_group("beam"):
+		var effect := detonation.instantiate()
+		effect.position = position
+		get_parent().call_deferred("add_child", effect)
+		queue_free()

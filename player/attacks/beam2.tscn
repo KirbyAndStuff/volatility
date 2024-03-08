@@ -11,16 +11,16 @@ angle_max = 180.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 gravity = Vector3(0, 0, 0)
-scale_min = 10.0
-scale_max = 10.0
+scale_min = 20.0
+scale_max = 20.0
 
 [node name="RayCast2D" type="RayCast2D" groups=["screen_shake 10"]]
-target_position = Vector2(1500, 0)
-collision_mask = 2147483648
+target_position = Vector2(2000, 0)
+collision_mask = 32
 script = ExtResource("1_xhq6l")
 
 [node name="beam_body" type="GPUParticles2D" parent="."]
-modulate = Color(1, 2.11, 2.55, 1)
+modulate = Color(0.588235, 2.1098, 2.54902, 1)
 position = Vector2(522, 0)
 emitting = false
 amount = 750
@@ -32,7 +32,7 @@ local_coords = true
 draw_order = 0
 
 [node name="beam_hurtbox" type="Area2D" parent="." groups=["beam", "deal 2 damage"]]
-scale = Vector2(1, 8)
+scale = Vector2(1, 20)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

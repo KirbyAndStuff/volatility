@@ -88,6 +88,15 @@ heal={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="red"
+2d_physics/layer_3="green"
+2d_physics/layer_4="yellow"
+2d_physics/layer_5="purple"
+2d_physics/layer_6="beam"
+
 [physics]
 
 common/physics_ticks_per_second=240
