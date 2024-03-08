@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc2mhjjj5nm6i"]
+
+[sub_resource type="GDScript" id="GDScript_0ytb7"]
+script/source = "extends Area2D
+
+func _ready():
+	$CPUParticles2D.emitting = true
+
+func _on_timer_timeout() -> void:
+	queue_free()
+"
+
+[sub_resource type="Curve" id="Curve_0ekmd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ol3gt"]
+radius = 127.035
+
+[node name="beam_detonation" type="Area2D" groups=["deal 2 damage"]]
+script = SubResource("GDScript_0ytb7")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 50
+lifetime = 0.5
+explosiveness = 1.0
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_0ekmd")
+color = Color(0, 2.11, 2.55, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ol3gt")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

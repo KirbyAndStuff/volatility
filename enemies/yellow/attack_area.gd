@@ -25,5 +25,5 @@ func _on_attack_area_hurtbox_body_exited(body):
 func _on_timer_timeout():
 	emitting = false
 	is_dead = true
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	queue_free()

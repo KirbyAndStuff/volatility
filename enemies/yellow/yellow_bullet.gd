@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var attack_area : = preload("res://enemies/yellow/attack_area.tscn")
+var detonation := preload("res://player/attacks/beam_detonation.tscn")
 var hit_wall = false
 
 @export var speed := 750.0
@@ -17,7 +18,7 @@ func _physics_process(delta):
 
 func _on_timer_timeout() -> void:
 	$bullet_body.emitting = false
-	await get_tree().create_timer(0.27).timeout
+	await get_tree().create_timer(0.27, false).timeout
 	var effect := attack_area.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
@@ -43,3 +44,10 @@ func _on_yellow_bullet_hurtbox_body_entered(body):
 func _on_yellow_bullet_hurtbox_body_exited(body):
 	if body.name == "player":
 		attack_player = false
+
+func _on_yellow_bullet_hurtbox_area_entered(area):
+	if area.is_in_group("beam"):
+		var effect := detonation.instantiate()
+		effect.position = position
+		get_parent().call_deferred("add_child", effect)
+		queue_free()

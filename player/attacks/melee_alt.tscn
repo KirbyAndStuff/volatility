@@ -13,12 +13,32 @@ wait_time = 0.2
 one_shot = true
 
 [node name="DieTimer" type="Timer" parent="."]
-wait_time = 1.1
+wait_time = 1.5
 one_shot = true
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ysjva")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-5, 193)
+amount = 50
+preprocess = 1.0
+fixed_fps = 120
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1215.0
+initial_velocity_max = 1215.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+color = Color(0, 1, 1, 1)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

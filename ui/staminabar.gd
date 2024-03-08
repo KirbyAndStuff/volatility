@@ -13,7 +13,7 @@ func _process(_delta):
 		var tween = create_tween()
 		tween.tween_property($stamina_bar2, "value", $stamina_bar2.value + 50, 0.075)
 		get_node("../../player").stamina_tween = true
-		await get_tree().create_timer(0.075).timeout
+		await get_tree().create_timer(0.075, false).timeout
 		stamina_actual = true
 		stamina_thingie.start()
 	if $stamina_bar2.value > -50:

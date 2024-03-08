@@ -19,6 +19,7 @@ visible = false
 shape = SubResource("RectangleShape2D_a3kim")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.0980392)
 amount = 40
 emission_shape = 3
 emission_rect_extents = Vector2(30, 30)

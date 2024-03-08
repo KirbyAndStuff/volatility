@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctqgkvsyetsca"]
+
+[ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="1_fiuoo"]
+
+[sub_resource type="GDScript" id="GDScript_nd8yk"]
+script/source = "extends AudioStreamPlayer2D
+
+func _ready():
+	playing = true
+
+func _process(_delta):
+	if !playing:
+		queue_free()
+"
+
+[node name="melee_alt_attack_sfx" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_fiuoo")
+volume_db = -3.0
+script = SubResource("GDScript_nd8yk")

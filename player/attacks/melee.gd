@@ -1,10 +1,14 @@
 extends Area2D
 
 var directiona := Vector2.ZERO
+var sfx := preload("res://player/attacks/melee_sfx.tscn")
 
 func _ready():
+	var effect := sfx.instantiate()
+	effect.position = get_node("../player").position
+	get_parent().add_child(effect)
 	$CPUParticles2D.emitting = true
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.3, false).timeout
 	queue_free()
 
 func _process(_delta):

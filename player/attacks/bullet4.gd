@@ -23,7 +23,7 @@ func _physics_process(delta):
 
 func _on_timer_timeout() -> void:
 	$bullet_body.emitting = false
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.3, false).timeout
 	var effect := bullet_death.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)

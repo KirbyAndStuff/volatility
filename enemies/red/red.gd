@@ -43,7 +43,7 @@ func _process(delta):
 		var effect := red_dash_particles.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.5, false).timeout
 		if is_stunned == false:
 			$red_dashsfx.play()
 			speed *= 4

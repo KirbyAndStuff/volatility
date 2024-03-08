@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="5_2x6xb"]
 [ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="6_c3jba"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="7_2tgkj"]
-[ext_resource type="AudioStream" uid="uid://clt3yv15girww" path="res://audio/laser.wav" id="8_r2dd3"]
+[ext_resource type="AudioStream" uid="uid://clt3yv15girww" path="res://audio/lasersfx.wav" id="8_5hg0t"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="9_uxff7"]
 
 [sub_resource type="Curve" id="Curve_3g2ry"]
@@ -195,7 +195,7 @@ stream = ExtResource("7_2tgkj")
 volume_db = -10.0
 
 [node name="lasersfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_r2dd3")
+stream = ExtResource("8_5hg0t")
 volume_db = -10.0
 
 [node name="hurtsfx" type="AudioStreamPlayer2D" parent="."]

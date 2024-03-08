@@ -27,5 +27,5 @@ func shoot(from: Vector2, to: Vector2):
 func _on_timer_timeout() -> void:
 	beama = false
 	$beam_body.emitting = false
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.25, false).timeout
 	queue_free()
