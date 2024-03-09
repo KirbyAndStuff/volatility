@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy6wgmdha04uc"]
+
+[ext_resource type="Script" path="res://level_stuff/interactables/dummy.gd" id="1_nq1m8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l08nj"]
+radius = 97.3242
+
+[node name="dummy" type="CharacterBody2D"]
+script = ExtResource("1_nq1m8")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 100
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = -1.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+
+[node name="player_death" type="Area2D" parent="." groups=["enemy", "enemy_attack", "enemy_body"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_death"]
+shape = SubResource("CircleShape2D_l08nj")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -420.0
+offset_top = -253.0
+offset_right = 715.0
+offset_bottom = -120.0
+theme_override_font_sizes/font_size = 50
+text = "Single damage: 0  Total damage : 0"
+
+[connection signal="area_entered" from="player_death" to="." method="_on_player_death_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhoylud6i8xce"]
+[gd_scene load_steps=10 format=3 uid="uid://dhoylud6i8xce"]
 
 [ext_resource type="Script" path="res://ui/health.gd" id="1_ird76"]
 
@@ -17,6 +17,24 @@ _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vecto
 point_count = 3
 metadata/_snap_enabled = true
 
+[sub_resource type="Curve" id="Curve_bn7ao"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252747, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_qpn1k"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_2ujde"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_jj6d2"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
 [node name="health" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -27,6 +45,7 @@ grow_vertical = 2
 script = ExtResource("1_ird76")
 
 [node name="health" type="CPUParticles2D" parent="."]
+position = Vector2(-15, 0)
 amount = 50
 lifetime = 0.4
 local_coords = true
@@ -43,7 +62,7 @@ color_ramp = SubResource("Gradient_43cvr")
 color_initial_ramp = SubResource("Gradient_fdwkl")
 
 [node name="health2" type="CPUParticles2D" parent="."]
-position = Vector2(64, 0)
+position = Vector2(49, 0)
 amount = 50
 lifetime = 0.4
 local_coords = true
@@ -60,7 +79,7 @@ color_ramp = SubResource("Gradient_43cvr")
 color_initial_ramp = SubResource("Gradient_fdwkl")
 
 [node name="health3" type="CPUParticles2D" parent="."]
-position = Vector2(128, 0)
+position = Vector2(113, 0)
 amount = 50
 lifetime = 0.4
 local_coords = true
@@ -219,3 +238,46 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 5.0
 scale_amount_max = 5.0
+
+[node name="first_weapon" type="CPUParticles2D" parent="."]
+position = Vector2(246, 0)
+amount = 40
+lifetime = 0.5
+preprocess = 1.0
+speed_scale = 0.5
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(-1000, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_bn7ao")
+color_ramp = SubResource("Gradient_qpn1k")
+
+[node name="second_weapon" type="CPUParticles2D" parent="."]
+position = Vector2(265, 15)
+scale = Vector2(-1, 1)
+emitting = false
+amount = 50
+preprocess = 0.5
+speed_scale = 2.0
+fixed_fps = 240
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, -750)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = -1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_2ujde")
+color_ramp = SubResource("Gradient_jj6d2")

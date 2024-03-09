@@ -24,6 +24,12 @@ func _process(delta):
 	if get_tree().has_group("screen_shake 5"):
 		randomstrength = 5
 		apply_shake()
+	if get_tree().has_group("enemy") or get_tree().has_group("spawn"):
+		var tween = create_tween()
+		tween.tween_property(self, "zoom", Vector2(0.75, 0.75), 1)
+	else:
+		var tween = create_tween()
+		tween.tween_property(self, "zoom", Vector2(1, 1), 1)
 
 func randomoffset() -> Vector2:
 	return Vector2(rng.randf_range(-shake_strength, shake_strength),rng.randf_range(-shake_strength, shake_strength))

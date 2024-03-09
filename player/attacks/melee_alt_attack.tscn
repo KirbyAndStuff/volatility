@@ -45,3 +45,5 @@ color_ramp = SubResource("Gradient_avo3d")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(68, -68, 0, -9, -67, 68, 11, 0)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

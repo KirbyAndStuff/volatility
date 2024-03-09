@@ -39,6 +39,8 @@ func _on_bullet_hurtbox_body_entered(body):
 
 func _on_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
+		if (get_node("../player").heal_cooldown) < 100:
+			(get_node("../player").heal_cooldown) += 5
 		enemies_hit += 1
 	if area.is_in_group("beam"):
 		var effect := detonation.instantiate()

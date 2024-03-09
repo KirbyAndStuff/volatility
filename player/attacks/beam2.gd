@@ -29,3 +29,8 @@ func _on_timer_timeout() -> void:
 	$beam_body.emitting = false
 	await get_tree().create_timer(0.25, false).timeout
 	queue_free()
+
+func _on_beam_hurtbox_area_entered(area):
+	if area.is_in_group("enemy_body"):
+		if (get_node("../player").heal_cooldown) < 100:
+			(get_node("../player").heal_cooldown) += 10

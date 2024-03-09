@@ -18,3 +18,8 @@ func shoot(from: Vector2, to: Vector2):
 	global_position = from
 	directiona = from.direction_to(to)
 	rotation = directiona.angle()
+
+func _on_area_entered(area):
+	if area.is_in_group("enemy_body"):
+		if (get_node("../player").heal_cooldown) < 100:
+			(get_node("../player").heal_cooldown) += 5

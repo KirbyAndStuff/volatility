@@ -39,6 +39,7 @@ func _process(delta):
 	if red_stamina <= 20:
 		red_stamina += 10 * delta
 	if dash_at_player and red_stamina > 19:
+		$is_about_to_dashsfx.play()
 		red_stamina -= 20
 		var effect := red_dash_particles.instantiate()
 		effect.position = position

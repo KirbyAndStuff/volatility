@@ -6,10 +6,8 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
-
-
 func _on_pressed():
+	$Panel.visible = !$Panel.visible
+
+func _on_level_1_pressed() -> void:
 	get_tree().change_scene_to_file("res://level_stuff/levels/level_1.tscn")

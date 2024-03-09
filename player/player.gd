@@ -36,7 +36,6 @@ var alt_melee_cooldown = 100
 var input = Vector2.ZERO
 var enemies_in_area = 0
 var is_dead = false
-var volatility = 0
 var stamina_tween = true
 var parry_tween = false
 var melee_order = 1
@@ -46,6 +45,7 @@ var is_dashing = false
 var attackable = true
 var amount_of_i_frames = 0
 var alt_melee_active = false
+var heal_cooldown = 0
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -57,7 +57,7 @@ func _process(delta):
 		alt_gun_cooldown += 50 * delta
 	if alt_melee_cooldown <= 100:
 		alt_melee_cooldown += 20 * delta
-	
+
 	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and first_weapon and is_dead == false and alt_melee_active == false:
 		shoot()
 		
@@ -101,9 +101,9 @@ func _process(delta):
 		attackable = true
 	else:
 		attackable = false
-	if Input.is_action_pressed("heal") and volatility == 5 and health < 3 and is_dead == false:
+	if Input.is_action_pressed("heal") and heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
-		volatility -= 5
+		heal_cooldown = 0
 
 func get_input():
 	if input.length() > 0.0:
@@ -203,13 +203,13 @@ func _on_dash_length_timeout() -> void:
 	amount_of_i_frames -= 1
 
 func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy") or area.is_in_group("enemy_attack"):
+	if area.is_in_group("enemy") or area.is_in_group("enemy_attack") or area.is_in_group("spawn"):
 		enemies_in_area += 1
 		combat_eye.emitting = true
 		$"combat eye2".emitting = true
 
 func _on_combat_eye_detection_area_exited(area: Area2D) -> void:
-	if area.is_in_group("enemy") or area.is_in_group("enemy_attack"):
+	if area.is_in_group("enemy") or area.is_in_group("enemy_attack") or area.is_in_group("spawn"):
 		enemies_in_area -= 1
 		if enemies_in_area == 0:
 			combat_eye.emitting = false
@@ -239,8 +239,6 @@ func _on_parry_detection_area_entered(area):
 		var effect := parried_particles.instantiate()
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
-		if volatility < 5:
-			volatility += 1
 		if speed_boost < 500:
 			speed_boost += 100
 			accel_boost += 1000
