@@ -44,7 +44,6 @@ var second_weapon = false
 var is_dashing = false
 var attackable = true
 var amount_of_i_frames = 0
-var alt_melee_active = false
 var heal_cooldown = 0
 
 func _physics_process(delta):
@@ -56,9 +55,9 @@ func _process(delta):
 	if alt_gun_cooldown <= 100:
 		alt_gun_cooldown += 50 * delta
 	if alt_melee_cooldown <= 100:
-		alt_melee_cooldown += 20 * delta
+		alt_melee_cooldown += 25 * delta
 
-	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and first_weapon and is_dead == false and alt_melee_active == false:
+	if Input.is_action_pressed("left_mouse_button") and guntimer.is_stopped() and first_weapon and is_dead == false:
 		shoot()
 		
 	if Input.is_action_pressed("dash") and stamina > 50 and dash_particlestimer.is_stopped() and is_dead == false:
@@ -71,7 +70,7 @@ func _process(delta):
 		dash()
 		stamina_tween = false
 		
-	if Input.is_action_pressed("parry") and is_dead == false and alt_melee_active == false:
+	if Input.is_action_pressed("parry") and is_dead == false:
 		parry()
 	if health < 1 and is_dead == false:
 		var effect := player_death.instantiate()
@@ -85,11 +84,11 @@ func _process(delta):
 		combat_eye.visible = false
 		$"combat eye2".visible = false
 		is_dead = true
-	if Input.is_action_pressed("right_mouse_button") and first_weapon and is_dead == false and alt_melee_active == false:
+	if Input.is_action_pressed("right_mouse_button") and first_weapon and is_dead == false:
 		alt_shoot()
-	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false and alt_melee_active == false:
+	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false:
 		melee()
-	if Input.is_action_pressed("right_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false:
+	if Input.is_action_pressed("right_mouse_button") and second_weapon and is_dead == false:
 		alt_melee()
 	if Input.is_action_pressed("first_weapon"):
 		first_weapon = true
@@ -101,7 +100,7 @@ func _process(delta):
 		attackable = true
 	else:
 		attackable = false
-	if Input.is_action_pressed("heal") and heal_cooldown >= 100 and health < 3 and is_dead == false:
+	if heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
 		heal_cooldown = 0
 
@@ -169,21 +168,10 @@ func melee():
 
 func alt_melee():
 	if alt_melee_cooldown > 100:
-		alt_melee_active = true
-		amount_of_i_frames += 1
-		$body.modulate = Color(1, 1, 1, 0.25)
-		$"left eye node/left eye".modulate = Color(1, 1, 1, 0.25)
-		$"right eye node/right eye".modulate = Color(1, 1, 1, 0.25)
 		var effect := melee_alt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		alt_melee_cooldown = 0
-		await get_tree().create_timer(1.5, false).timeout
-		$body.modulate = Color(1, 1, 1, 1)
-		$"left eye node/left eye".modulate = Color(1, 1, 1, 1)
-		$"right eye node/right eye".modulate = Color(1, 1, 1, 1)
-		amount_of_i_frames -= 1
-		alt_melee_active = false
 
 func dash():
 	amount_of_i_frames += 1
@@ -239,10 +227,10 @@ func _on_parry_detection_area_entered(area):
 		var effect := parried_particles.instantiate()
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
-		if speed_boost < 500:
-			speed_boost += 100
-			accel_boost += 1000
-			friction_boost += 570
+		if speed_boost < 300:
+			speed_boost += 300
+			accel_boost += 3000
+			friction_boost += 1710
 		$SpeedBoostTimer.start()
 		framefreeze(0.1, 0.3)
 		await get_tree().create_timer(1, false).timeout

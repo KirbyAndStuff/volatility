@@ -24,7 +24,7 @@ script = ExtResource("1_7ohsw")
 
 [node name="body" type="CPUParticles2D" parent="."]
 scale = Vector2(3, 3)
-amount = 100
+amount = 75
 speed_scale = 1.5
 local_coords = true
 spread = 180.0

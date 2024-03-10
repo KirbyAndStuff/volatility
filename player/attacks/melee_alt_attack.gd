@@ -11,11 +11,11 @@ func _ready():
 	if get_tree().has_group("marked melee alt"):
 		global_position = get_tree().get_first_node_in_group("marked melee alt").global_position
 	else:
-		global_position = global_position
+		global_position = get_node("../melee_alt/Area2D").global_position
 	await get_tree().create_timer(0.2, false).timeout
 	queue_free()
 
 func _on_area_entered(area):
-	if area.is_in_group("enemy_body"):
+	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").health) < 3:
 		if (get_node("../player").heal_cooldown) < 100:
 			(get_node("../player").heal_cooldown) += 5

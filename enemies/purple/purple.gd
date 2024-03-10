@@ -16,6 +16,8 @@ var attack_player = false
 var purple_health = 3
 var is_stunned = false
 
+@onready var eyes = [$eye_bottom, $eye_top, $eye_left, $eye_right]
+
 func _physics_process(_delta):
 	if player_chase:
 		var direction = (player.position-position).normalized()
@@ -52,10 +54,8 @@ func _on_playerdeath_area_entered(area):
 		purple_health -= 1
 	if area.is_in_group("parry"):
 		speed = 0
-		$eye_bottom.speed_scale = 0.1
-		$eye_top.speed_scale = 0.1
-		$eye_left.speed_scale = 0.1
-		$eye_right.speed_scale = 0.1
+		for vol in eyes:
+			vol.speed_scale = 0.1
 		$Stunned.start()
 	if area.is_in_group("deal 2 damage"):
 		var effect := purple_hurt.instantiate()
@@ -69,10 +69,8 @@ func _on_playerdeath_area_entered(area):
 		purple_health -= 3
 
 func _on_stunned_timeout():
-	$eye_bottom.speed_scale = 0.75
-	$eye_top.speed_scale = 0.75
-	$eye_left.speed_scale = 0.75
-	$eye_right.speed_scale = 0.75
+	for vol in eyes:
+		vol.speed_scale = 0.75
 	is_stunned = false
 	speed = 300
 

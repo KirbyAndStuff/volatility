@@ -23,6 +23,8 @@ var red_health = 2
 var is_stunned = false
 
 @onready var red_dashlength = $Red_DashLength
+@onready var eyes = [$"left eye", $"right eye"]
+@onready var stunned_eyes = [$stunned_eye, $stunned_eye2, $stunned_eye3, $stunned_eye4]
 
 func _physics_process(_delta):
 	if player_chase:
@@ -65,12 +67,10 @@ func _on_playerdeath_area_entered(area):
 		is_stunned = true
 		speed = 0
 		dash_at_player = false
-		$"left eye".emitting = false
-		$"right eye".emitting = false
-		$"stunned_eye".emitting = true
-		$"stunned_eye2".emitting = true
-		$"stunned_eye3".emitting = true
-		$"stunned_eye4".emitting = true
+		for vol in eyes:
+			vol.emitting = false
+		for vol in stunned_eyes:
+			vol.emitting = true
 		$Stunned.start()
 	if area.is_in_group("deal 2 damage"):
 		var effect := red_hurt.instantiate()
@@ -87,12 +87,10 @@ func _on_red_dash_length_timeout() -> void:
 	speed /= 4
 
 func _on_timer_timeout():
-	$"left eye".emitting = true
-	$"right eye".emitting = true
-	$"stunned_eye".emitting = false
-	$"stunned_eye2".emitting = false
-	$"stunned_eye3".emitting = false
-	$"stunned_eye4".emitting = false
+	for vol in eyes:
+		vol.emitting = true
+	for vol in stunned_eyes:
+		vol.emitting = false
 	is_stunned = false
 	speed = 500
 

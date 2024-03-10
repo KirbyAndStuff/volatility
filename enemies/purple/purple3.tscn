@@ -23,7 +23,7 @@ collision_mask = 16
 script = ExtResource("1_roert")
 
 [node name="body" type="CPUParticles2D" parent="."]
-amount = 100
+amount = 50
 speed_scale = 2.0
 local_coords = true
 spread = 180.0
@@ -45,13 +45,13 @@ color_ramp = SubResource("Gradient_klyji")
 visible = false
 shape = SubResource("CircleShape2D_2l3fj")
 
-[node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+[node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body", "no heal_cooldown reduction"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 visible = false
 shape = SubResource("CircleShape2D_wt1ba")
 
-[node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
+[node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 visible = false

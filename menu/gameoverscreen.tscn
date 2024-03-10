@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://menu/gameoverscreen.gd" id="1_5cdm2"]
 
-
 [node name="gameoverscreen" type="Control"]
 process_mode = 3
 visible = false

@@ -80,7 +80,7 @@ color_ramp = SubResource("Gradient_q0ctm")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="yellow_bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack"]]
+[node name="yellow_bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="yellow_bullet_hurtbox"]
 polygon = PackedVector2Array(5, -7, 8, 0, 5, 7, -2, 9, -16, 4, -27, 0, -16, -4, -2, -9)

@@ -157,7 +157,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="SpeedBoostTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 one_shot = true
 
 [node name="combat_eye_detection" type="Area2D" parent="."]

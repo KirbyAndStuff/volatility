@@ -47,3 +47,4 @@ visible = false
 shape = SubResource("CircleShape2D_5w6mf")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="parried_hurtbox" to="." method="_on_parried_hurtbox_area_entered"]
