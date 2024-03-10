@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://drugun23oc68q"]
 
-[ext_resource type="Script" path="res://enemies/yellow/attack_area.gd" id="1_pure8"]
+[ext_resource type="Script" path="res://enemies/yellow/yellow_attack_area.gd" id="1_r32f1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kqa1"]
 radius = 1.0
@@ -22,7 +22,7 @@ angle_max = 180.0
 scale_amount_min = 5.0
 scale_amount_max = 5.0
 color = Color(1, 1, 0, 1)
-script = ExtResource("1_pure8")
+script = ExtResource("1_r32f1")
 
 [node name="attack_area_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction"]]
 

@@ -25,7 +25,7 @@ func _physics_process(_delta):
 func _process(_delta):
 	if attack_player and (get_node("../player").attackable) == true and is_stunned == false:
 		(get_node("../player").health) -= 1
-		(get_node("../player").i_frames())
+		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
 	if purple_health < 1:

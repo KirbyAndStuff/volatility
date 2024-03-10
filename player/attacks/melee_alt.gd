@@ -21,6 +21,8 @@ func _process(_delta):
 		$SlashTimer.start()
 	if slashes > 4:
 		queue_free()
+	if get_node("../player").is_dead == true:
+		queue_free()
 
 func _on_die_timer_timeout() -> void:
 	queue_free()

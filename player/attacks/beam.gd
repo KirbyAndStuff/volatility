@@ -31,6 +31,5 @@ func _on_timer_timeout() -> void:
 	queue_free()
 
 func _on_beam_hurtbox_area_entered(area):
-	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").health) < 3:
-		if (get_node("../player").heal_cooldown) < 100:
-			(get_node("../player").heal_cooldown) += 10
+	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100:
+		(get_node("../player").heal_cooldown) += 5

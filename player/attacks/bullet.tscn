@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkuqrtxq3tgfy"]
 
-[ext_resource type="Script" path="res://player/attacks/bullet4.gd" id="1_p2t35"]
+[ext_resource type="Script" path="res://player/attacks/bullet.gd" id="1_p2t35"]
 
 [sub_resource type="Curve" id="Curve_rviok"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252747, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

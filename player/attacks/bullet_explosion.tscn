@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dd6pnpmy0ulwg"]
 
-[ext_resource type="Script" path="res://player/attacks/bullet_4_explosion.gd" id="1_dyvfw"]
+[ext_resource type="Script" path="res://player/attacks/bullet_explosion.gd" id="1_dyvfw"]
 
 [sub_resource type="Curve" id="Curve_xr441"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

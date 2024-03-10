@@ -8,14 +8,20 @@ func _process(_delta):
 	for i in range(0, healthEmitters.size()):
 		healthEmitters[i].emitting = i < health
 
-	if (get_node("../../player").parrytimer).is_stopped():
+	if get_node("../../player").speed_boost == 300:
+		$parry.color = Color(0, 1, 1, 1)
+	else:
+		$parry.color = Color(1, 1, 1, 1)
+	var parry_cooldown = get_node("../../player").parry_cooldown
+	if parry_cooldown > 30:
 		$parry_ready.emitting = true
 		$parry_ready2.emitting = true
 		$parry.modulate = Color(1, 1, 1, 1)
 	else:
 		$parry_ready.emitting = false
 		$parry_ready2.emitting = false
-		$parry.modulate = Color(0, 0, 0, 0)
+		$parry.modulate = Color(1, 1, 1, parry_cooldown / 30)
+
 	if (get_node("../../player").first_weapon) == true:
 		$first_weapon.color = Color(1, 1, 1, 1)
 	else:

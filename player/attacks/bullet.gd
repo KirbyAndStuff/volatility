@@ -39,7 +39,7 @@ func _on_bullet_hurtbox_body_entered(body):
 
 func _on_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
-		if not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100 and (get_node("../player").health) < 3:
+		if not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100:
 			(get_node("../player").heal_cooldown) += 5
 		enemies_hit += 1
 	if area.is_in_group("beam"):

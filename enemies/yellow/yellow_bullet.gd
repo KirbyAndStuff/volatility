@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var direction := Vector2.ZERO
-var attack_area : = preload("res://enemies/yellow/attack_area.tscn")
+var attack_area : = preload("res://enemies/yellow/yellow_attack_area.tscn")
 var detonation := preload("res://player/attacks/beam_detonation.tscn")
 var hit_wall = false
 
@@ -27,7 +27,7 @@ func _on_timer_timeout() -> void:
 func _process(_delta):
 	if attack_player and (get_node("../player").attackable) == true:
 		(get_node("../player").health) -= 1
-		(get_node("../player").i_frames())
+		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
 

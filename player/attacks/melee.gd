@@ -20,6 +20,5 @@ func shoot(from: Vector2, to: Vector2):
 	rotation = directiona.angle()
 
 func _on_area_entered(area):
-	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").health) < 3:
-		if (get_node("../player").heal_cooldown) < 100:
-			(get_node("../player").heal_cooldown) += 5
+	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100:
+		(get_node("../player").heal_cooldown) += 5
