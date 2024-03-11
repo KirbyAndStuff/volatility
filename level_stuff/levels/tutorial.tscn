@@ -1,0 +1,117 @@
+[gd_scene load_steps=16 format=3 uid="uid://cusucgccm5yb8"]
+
+[ext_resource type="Script" path="res://level_stuff/levels/tutorial.gd" id="1_hccw4"]
+[ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_lcn12"]
+[ext_resource type="PackedScene" uid="uid://q5kj08qhck4m" path="res://level_stuff/interactables/level_end.tscn" id="2_1frrj"]
+[ext_resource type="Script" path="res://ui/camera.gd" id="4_5ppks"]
+[ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="5_k438c"]
+[ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="6_ni6oh"]
+[ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="7_ka51l"]
+[ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="8_v5ier"]
+[ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="9_5sklq"]
+[ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="10_pge36"]
+[ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="11_cmhrn"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_uhhrf"]
+scenes/1/scene = ExtResource("5_k438c")
+
+[sub_resource type="TileSet" id="TileSet_ps6mp"]
+sources/0 = SubResource("TileSetScenesCollectionSource_uhhrf")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_238xm"]
+size = Vector2(1033, 20)
+
+[sub_resource type="Environment" id="Environment_2f45m"]
+background_mode = 3
+glow_enabled = true
+glow_levels/2 = 1.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_strength = 2.0
+glow_blend_mode = 0
+glow_hdr_threshold = 4.0
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_hccw4")
+
+[node name="player" parent="." instance=ExtResource("1_lcn12")]
+process_mode = 4
+visible = false
+position = Vector2(4, -2000)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(4, -2000)
+script = ExtResource("4_5ppks")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_ps6mp")
+format = 2
+layer_0/tile_data = PackedInt32Array(327642, 0, 65536, 327643, 0, 65536, 327644, 0, 65536, 327645, 0, 65536, 327646, 0, 65536, 327647, 0, 65536, 327648, 0, 65536, 327649, 0, 65536, 327650, 0, 65536, 327651, 0, 65536, 327652, 0, 65536, 327653, 0, 65536, 327654, 0, 65536, 327655, 0, 65536, 327656, 0, 65536, 327657, 0, 65536, 327658, 0, 65536, 327659, 0, 65536, 327660, 0, 65536, 327661, 0, 65536, 327662, 0, 65536, 327663, 0, 65536, 327664, 0, 65536, 327665, 0, 65536, 327666, 0, 65536, 327667, 0, 65536, 327668, 0, 65536, 327669, 0, 65536, 327670, 0, 65536, 327671, 0, 65536, 327672, 0, 65536, 327673, 0, 65536, 327674, 0, 65536, 327675, 0, 65536, 327676, 0, 65536, 327677, 0, 65536, 327678, 0, 65536, 327679, 0, 65536, 262144, 0, 65536, 262145, 0, 65536, 262146, 0, 65536, 262147, 0, 65536, 262148, 0, 65536, 262149, 0, 65536, 262150, 0, 65536, 262151, 0, 65536, 262152, 0, 65536, 262153, 0, 65536, 262154, 0, 65536, 262155, 0, 65536, 262156, 0, 65536, 262157, 0, 65536, 262158, 0, 65536, 262159, 0, 65536, 262160, 0, 65536, 262161, 0, 65536, 262162, 0, 65536, 262163, 0, 65536, 262164, 0, 65536, 262165, 0, 65536, 262166, 0, 65536, 262167, 0, 65536, 262168, 0, 65536, 262169, 0, 65536, 262170, 0, 65536, 262171, 0, 65536, 262172, 0, 65536, 262173, 0, 65536, 262174, 0, 65536)
+
+[node name="start level" type="Area2D" parent="." groups=["level start"]]
+position = Vector2(-10, 52)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="start level"]
+position = Vector2(-39.5, 0)
+shape = SubResource("RectangleShape2D_238xm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2f45m")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="health" parent="ui" instance=ExtResource("6_ni6oh")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 126.0
+offset_top = 932.0
+offset_right = 126.0
+offset_bottom = 932.0
+grow_horizontal = 1
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="staminabar" parent="ui" instance=ExtResource("7_ka51l")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 56.0
+offset_top = 960.0
+offset_right = 56.0
+offset_bottom = 960.0
+grow_horizontal = 1
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="pausemenu" parent="ui" instance=ExtResource("8_v5ier")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3442.0
+offset_top = -2103.0
+offset_right = 3421.0
+offset_bottom = 2191.0
+
+[node name="gameoverscreen" parent="ui" instance=ExtResource("9_5sklq")]
+
+[node name="level_end" parent="." instance=ExtResource("2_1frrj")]
+position = Vector2(952, -12)
+
+[node name="level_end2" parent="." instance=ExtResource("2_1frrj")]
+position = Vector2(4, -2000)
+collision_layer = 0
+collision_mask = 0
+
+[node name="start_levelsfx" type="AudioStreamPlayer2D" parent="level_end2"]
+stream = ExtResource("10_pge36")
+volume_db = -10.0
+pitch_scale = 0.75
+
+[node name="start_level_chargesfx" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -2000)
+stream = ExtResource("11_cmhrn")
+volume_db = 5.0

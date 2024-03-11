@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b6dph58aj4tme"]
+[gd_scene load_steps=24 format=3 uid="uid://b6dph58aj4tme"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ni3np"]
 [ext_resource type="Script" path="res://player/left eye node.gd" id="2_bfumu"]
@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="7_2tgkj"]
 [ext_resource type="AudioStream" uid="uid://clt3yv15girww" path="res://audio/lasersfx.wav" id="8_5hg0t"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="9_uxff7"]
+[ext_resource type="AudioStream" uid="uid://oi3edt06tvn1" path="res://audio/landing.wav" id="10_o4wf3"]
+[ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="11_kau35"]
 
 [sub_resource type="Curve" id="Curve_3g2ry"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -22,6 +24,74 @@ colors = PackedColorArray(0, 1, 1, 0.694118, 1, 1, 1, 0.247059)
 
 [sub_resource type="Gradient" id="Gradient_irh04"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_xiuxf"]
+resource_name = "left_eye"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 1, 1.6, 1.8, 2.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 0), Vector2(16, 0), Vector2(-8, -2), Vector2(-32, 0), Vector2(-24, 0), Vector2(-8, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.408308, 1.59169, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5j033"]
+_data = {
+"left_eye": SubResource("Animation_xiuxf")
+}
+
+[sub_resource type="Animation" id="Animation_hk8rp"]
+resource_name = "right_eye"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8, 1.4, 2, 2.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 0), Vector2(24, 0), Vector2(32, 0), Vector2(8, -2), Vector2(-16, 0), Vector2(-8, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.80627, 1.99577, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yvklg"]
+_data = {
+"right_eye": SubResource("Animation_hk8rp")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k4hsi"]
 radius = 22.0227
@@ -43,9 +113,6 @@ position = Vector2(0, 10)
 amount = 250
 lifetime = 0.5
 speed_scale = 0.7
-explosiveness = 0.1
-randomness = 0.1
-lifetime_randomness = 0.1
 emission_shape = 1
 emission_sphere_radius = 25.0
 spread = 180.0
@@ -77,6 +144,12 @@ scale_amount_min = 3.0
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_irh04")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="left eye node/left eye"]
+libraries = {
+"": SubResource("AnimationLibrary_5j033")
+}
+speed_scale = 5.0
+
 [node name="right eye node" type="Node2D" parent="."]
 position = Vector2(-8, 6)
 script = ExtResource("3_g7m5p")
@@ -93,6 +166,12 @@ angle_max = 20.0
 scale_amount_min = 3.0
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_irh04")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="right eye node/right eye"]
+libraries = {
+"": SubResource("AnimationLibrary_yvklg")
+}
+speed_scale = 5.0
 
 [node name="combat eye" type="CPUParticles2D" parent="."]
 position = Vector2(-1, 20)
@@ -190,6 +269,14 @@ volume_db = -10.0
 stream = ExtResource("9_uxff7")
 pitch_scale = 2.0
 
+[node name="landingsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_o4wf3")
+pitch_scale = 1.5
+
+[node name="level_end_chargesfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_kau35")
+volume_db = 5.0
+
 [node name="player_hurtbox" type="Area2D" parent="." groups=["player"]]
 collision_layer = 9
 collision_mask = 9
@@ -202,3 +289,4 @@ shape = SubResource("CircleShape2D_k1igs")
 [connection signal="area_entered" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_entered"]
 [connection signal="area_exited" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_exited"]
 [connection signal="area_entered" from="parry_detection" to="." method="_on_parry_detection_area_entered"]
+[connection signal="area_entered" from="player_hurtbox" to="." method="_on_player_hurtbox_area_entered"]

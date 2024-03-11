@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bax76c4teyl8h"]
+[gd_scene load_steps=14 format=3 uid="uid://bax76c4teyl8h"]
 
 [ext_resource type="Script" path="res://start_menu/survival.gd" id="1_qdupt"]
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://level_stuff/pngs/2os250kt.bmp" id="1_t06wf"]
@@ -25,6 +25,9 @@ glow_levels/5 = 0.0
 glow_strength = 2.0
 glow_blend_mode = 0
 glow_hdr_threshold = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wshs"]
+size = Vector2(581, 13)
 
 [node name="survival" type="Node2D"]
 script = ExtResource("1_qdupt")
@@ -193,5 +196,12 @@ autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jp25c")
+
+[node name="start_level" type="Area2D" parent="." groups=["level start"]]
+position = Vector2(-263, 1300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="start_level"]
+position = Vector2(280.5, 56.5)
+shape = SubResource("RectangleShape2D_1wshs")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

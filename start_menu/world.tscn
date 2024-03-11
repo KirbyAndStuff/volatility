@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=13 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
@@ -24,6 +24,9 @@ glow_levels/5 = 0.0
 glow_strength = 2.0
 glow_blend_mode = 0
 glow_hdr_threshold = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bkawm"]
+size = Vector2(581, 13)
 
 [node name="world" type="Node2D"]
 
@@ -93,3 +96,10 @@ offset_right = 2237.0
 offset_bottom = 161.0
 theme_override_font_sizes/font_size = 30
 text = "<--   Dummy"
+
+[node name="start_level" type="Area2D" parent="." groups=["level start"]]
+position = Vector2(-125, 678)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="start_level"]
+position = Vector2(280.5, 56.5)
+shape = SubResource("RectangleShape2D_bkawm")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfykqm448qllb"]
+[gd_scene load_steps=12 format=3 uid="uid://bfykqm448qllb"]
 
 [ext_resource type="Script" path="res://start_menu/start_button.gd" id="1_q1fjm"]
 [ext_resource type="Script" path="res://start_menu/playground.gd" id="2_1oigh"]
@@ -11,9 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://level_stuff/pngs/2os250kt.bmp" id="8_xglv5"]
 [ext_resource type="PackedScene" uid="uid://310650vo12fr" path="res://player/player_immoblie.tscn" id="9_np2n1"]
 [ext_resource type="AudioStream" uid="uid://p1lur1k0r2v5" path="res://music/Chris Christodoulou - Risk of Rain [2023 Remaster] ｜ ROR Returns (2023) [g8iP1TwEB88].wav" id="10_8agby"]
-[ext_resource type="PackedScene" uid="uid://dumyduhpvfdmx" path="res://a.tscn" id="12_d3cul"]
 
-[node name="startmenu" type="Node2D"]
+[node name="startmenu" type="Node2D" groups=["start menu"]]
 process_mode = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -44,12 +43,19 @@ offset_bottom = -61.0
 
 [node name="level_1" type="Button" parent="CanvasLayer/levels/Panel"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 4.0
-offset_right = 370.0
-offset_bottom = 194.0
+offset_left = 764.0
+offset_top = 5.0
+offset_right = 1164.0
+offset_bottom = 205.0
 theme_override_font_sizes/font_size = 100
 text = "Level 1"
+
+[node name="tutorial" type="Button" parent="CanvasLayer/levels/Panel"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 100
+text = "Tutorial"
 
 [node name="playground" type="Button" parent="CanvasLayer"]
 offset_left = 913.0
@@ -213,12 +219,10 @@ position = Vector2(843, 354)
 stream = ExtResource("10_8agby")
 volume_db = -20.0
 
-[node name="a" parent="." instance=ExtResource("12_d3cul")]
-position = Vector2(1564, 1005)
-
 [connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/levels" to="CanvasLayer/levels" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/levels/Panel/level_1" to="CanvasLayer/levels" method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels/Panel/tutorial" to="CanvasLayer/levels" method="_on_tutorial_pressed"]
 [connection signal="pressed" from="CanvasLayer/playground" to="CanvasLayer/playground" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/controls_button" to="CanvasLayer/controls_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/credits_button" to="CanvasLayer/credits_button" method="_on_pressed"]

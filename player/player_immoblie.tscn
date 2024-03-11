@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://310650vo12fr"]
+[gd_scene load_steps=11 format=3 uid="uid://310650vo12fr"]
 
-[ext_resource type="Script" path="res://player/left eye node.gd" id="1_4xlcx"]
-[ext_resource type="Script" path="res://player/right eye node.gd" id="2_2ke82"]
+[ext_resource type="Script" path="res://player/left eye node_immobile.gd" id="1_bdmxs"]
+[ext_resource type="Script" path="res://player/right eye node_immobile.gd" id="2_j2ra6"]
 
 [sub_resource type="Curve" id="Curve_2eg8u"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -16,7 +16,23 @@ colors = PackedColorArray(0, 1, 1, 0.694118, 1, 1, 1, 0.247059)
 [sub_resource type="Gradient" id="Gradient_k0vcs"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="player_immoblie" type="Node2D"]
+[sub_resource type="Animation" id="Animation_g0txf"]
+resource_name = "left_eye"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jfh50"]
+_data = {
+"left_eye": SubResource("Animation_g0txf")
+}
+
+[sub_resource type="Animation" id="Animation_2ko6u"]
+resource_name = "right_eye"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jinm2"]
+_data = {
+"right_eye": SubResource("Animation_2ko6u")
+}
+
+[node name="player_immoblie" type="Node2D" groups=["player immobile"]]
 
 [node name="body" type="CPUParticles2D" parent="."]
 position = Vector2(0, 10)
@@ -42,7 +58,7 @@ color_initial_ramp = SubResource("Gradient_clsgo")
 
 [node name="left eye node" type="Node2D" parent="."]
 position = Vector2(8, 6)
-script = ExtResource("1_4xlcx")
+script = ExtResource("1_bdmxs")
 
 [node name="left eye" type="CPUParticles2D" parent="left eye node"]
 amount = 50
@@ -57,9 +73,14 @@ scale_amount_min = 3.0
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_k0vcs")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="left eye node/left eye"]
+libraries = {
+"": SubResource("AnimationLibrary_jfh50")
+}
+
 [node name="right eye node" type="Node2D" parent="."]
 position = Vector2(-8, 6)
-script = ExtResource("2_2ke82")
+script = ExtResource("2_j2ra6")
 
 [node name="right eye" type="CPUParticles2D" parent="right eye node"]
 amount = 50
@@ -73,3 +94,8 @@ angle_max = 20.0
 scale_amount_min = 3.0
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_k0vcs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="right eye node/right eye"]
+libraries = {
+"": SubResource("AnimationLibrary_jinm2")
+}

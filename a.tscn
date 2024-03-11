@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dumyduhpvfdmx"]
+[gd_scene load_steps=11 format=3 uid="uid://degwsik0m8k27"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_b4iw1"]
 
@@ -20,6 +20,7 @@ func _on_animation_playera_animation_finished(_anim_name: StringName) -> void:
 
 [sub_resource type="Animation" id="Animation_0k1jx"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -88,6 +89,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_4637d"]
 resource_name = "left_eye_new"
 length = 2.4
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -122,6 +124,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_hd12r"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -178,6 +181,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_gndt3"]
 resource_name = "right_eye_new"
 length = 2.4
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -226,7 +230,7 @@ script = null
 [node name="left eye" parent="player/left eye node" index="0"]
 gravity = Vector2(0, -5000)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="player/left eye node/left eye" index="0"]
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="player/left eye node/left eye" index="0"]
 libraries = {
 "": SubResource("AnimationLibrary_uxbdp")
 }
@@ -238,13 +242,13 @@ script = null
 [node name="right eye" parent="player/right eye node" index="0"]
 gravity = Vector2(0, -5000)
 
-[node name="AnimationPlayera" type="AnimationPlayer" parent="player/right eye node/right eye" index="0"]
+[node name="AnimationPlayera3" type="AnimationPlayer" parent="player/right eye node/right eye" index="0"]
 libraries = {
 "": SubResource("AnimationLibrary_33clf")
 }
 speed_scale = 4.0
 
-[connection signal="animation_finished" from="player/left eye node/left eye/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="animation_finished" from="player/right eye node/right eye/AnimationPlayera" to="." method="_on_animation_playera_animation_finished"]
+[connection signal="animation_finished" from="player/left eye node/left eye/AnimationPlayer3" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="player/right eye node/right eye/AnimationPlayera3" to="." method="_on_animation_playera_animation_finished"]
 
 [editable path="player"]

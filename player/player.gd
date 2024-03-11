@@ -7,6 +7,7 @@ var player_hurt := preload("res://player/player_hurt.tscn")
 var player_death := preload("res://player/player_death.tscn")
 var bullet_explosion := preload("res://player/attacks/bullet_explosion.tscn")
 var melee_alt := preload("res://player/attacks/melee_alt.tscn")
+var player_land := preload("res://player/player_land.tscn")
 
 var health = 3
 var speed = 700
@@ -31,9 +32,12 @@ var amount_of_i_frames = 0
 var heal_cooldown = 0
 var parry_cooldown = 30
 var parried = false
+var in_intro = true
+var can_move = true
 
 func _physics_process(delta):
-	player_movement(delta)
+	if can_move:
+		player_movement(delta)
 
 func _process(delta):
 	if stamina <= 100:
@@ -45,11 +49,11 @@ func _process(delta):
 	if parry_cooldown <= 30:
 		parry_cooldown += 10 * delta
 
-	if Input.is_action_pressed("dash") and stamina > 50 and is_dashing == false and is_dead == false:
+	if Input.is_action_pressed("dash") and stamina > 50 and is_dashing == false and is_dead == false and in_intro == false:
 		dash()
 		stamina_tween = false
 		
-	if Input.is_action_pressed("parry") and parry_cooldown > 30 and is_dead == false:
+	if Input.is_action_pressed("parry") and parry_cooldown > 30 and is_dead == false and in_intro == false:
 		parry()
 	if health < 1 and is_dead == false:
 		var effect := player_death.instantiate()
@@ -63,13 +67,13 @@ func _process(delta):
 		$"combat eye".visible = false
 		$"combat eye2".visible = false
 		is_dead = true
-	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and first_weapon and is_dead == false:
+	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and first_weapon and is_dead == false and in_intro == false:
 		shoot()
-	if Input.is_action_pressed("right_mouse_button") and first_weapon and is_dead == false:
+	if Input.is_action_pressed("right_mouse_button") and first_weapon and is_dead == false and in_intro == false:
 		alt_shoot()
-	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false:
+	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false and in_intro == false:
 		melee()
-	if Input.is_action_pressed("right_mouse_button") and second_weapon and is_dead == false:
+	if Input.is_action_pressed("right_mouse_button") and second_weapon and is_dead == false and in_intro == false:
 		alt_melee()
 	if Input.is_action_pressed("first_weapon"):
 		first_weapon = true
@@ -85,6 +89,14 @@ func _process(delta):
 	if heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
 		heal_cooldown = 0
+
+	if in_intro:
+		can_move = false
+		$"left eye node/left eye".lifetime = 0.1
+		$"right eye node/right eye".lifetime = 0.1
+		position.y += 2000 * delta
+	else:
+		can_move = true
 
 func get_input():
 	if input.length() > 0.0:
@@ -236,3 +248,42 @@ func i_frames(duration):
 	amount_of_i_frames += 1
 	await get_tree().create_timer(duration, false).timeout
 	amount_of_i_frames -= 1
+
+func _on_player_hurtbox_area_entered(area):
+	if area.is_in_group("level end") and is_dead == false:
+		speed = 0
+		speed_boost = 0
+		var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_ELASTIC)
+		tween.tween_property(self, "position", Vector2(area.position + Vector2(0, -300)), 1)
+		is_dead = true
+		await get_tree().create_timer(2, false).timeout
+		$level_end_chargesfx.play()
+		add_to_group("screen_shake 10")
+		await get_tree().create_timer(1, false).timeout
+		$dashsfx.play()
+		in_intro = true
+		await get_tree().create_timer(0.15, false).timeout
+		remove_from_group("screen_shake 10")
+		in_intro = false
+		$body.emitting = false
+		$"left eye node/left eye".emitting = false
+		$"right eye node/right eye".emitting = false
+		$"combat eye".emitting = false
+		$"combat eye2".emitting = false
+		var effect := player_death.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		await get_tree().create_timer(3, false).timeout
+		add_to_group("next level")
+	if area.is_in_group("level start"):
+		$"left eye node/left eye".lifetime = 0.2
+		$"right eye node/right eye".lifetime = 0.2
+		$landingsfx.play()
+		in_intro = false
+		var effect := player_land.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		area.remove_from_group("level start")
+		add_to_group("screen_shake 10")
+		await get_tree().create_timer(0.5, false).timeout
+		remove_from_group("screen_shake 10")
