@@ -3,7 +3,7 @@ extends CharacterBody2D
 var yellow_death := preload("res://enemies/yellow/yellow_death.tscn")
 var yellow_hurt := preload("res://enemies/yellow/yellow_hurt.tscn")
 
-var speed = 250
+var speed = 300
 var player_chase = false
 var player = null
 var yellow_health = 2

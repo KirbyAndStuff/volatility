@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqjtbqstoxyd4"]
+
+[ext_resource type="AudioStream" uid="uid://oi3edt06tvn1" path="res://audio/landing.wav" id="1_1mlkn"]
+[ext_resource type="Script" path="res://enemies/purple/purple_death_sfx.gd" id="2_t2r8t"]
+
+[node name="detonationsfx" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_1mlkn")
+pitch_scale = 2.0
+script = ExtResource("2_t2r8t")

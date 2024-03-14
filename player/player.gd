@@ -236,7 +236,7 @@ func framefreeze(timescale, duration):
 	Engine.time_scale = 1.0
 
 func player_hurt_particles():
-	parry_cooldown = 0
+	parry_cooldown = clamp(parry_cooldown - 15, 0, 30)
 	var effect := player_hurt.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
@@ -268,8 +268,8 @@ func _on_player_hurtbox_area_entered(area):
 		$body.emitting = false
 		$"left eye node/left eye".emitting = false
 		$"right eye node/right eye".emitting = false
-		$"combat eye".emitting = false
-		$"combat eye2".emitting = false
+		$"combat eye".visible = false
+		$"combat eye2".visible = false
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

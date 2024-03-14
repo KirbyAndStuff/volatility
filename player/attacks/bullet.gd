@@ -3,6 +3,7 @@ extends CharacterBody2D
 var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/bullet_death.tscn")
 var detonation := preload("res://player/attacks/beam_detonation.tscn")
+var hit_wall = false
 var enemies_hit = 0
 
 @export var speed := 2500.0
@@ -31,10 +32,11 @@ func _on_timer_timeout() -> void:
 	queue_free()
 
 func _on_bullet_hurtbox_body_entered(body):
-	if body.is_in_group("wall"):
+	if body.is_in_group("wall") and hit_wall == false:
 		var effect := bullet_death.instantiate()
-		effect.position = position
+		effect.position = $bullet_body.global_position
 		get_parent().add_child(effect)
+		hit_wall = true
 		queue_free()
 
 func _on_bullet_hurtbox_area_entered(area):

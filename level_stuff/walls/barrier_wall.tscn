@@ -19,6 +19,7 @@ func _on_hide_timeout():
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
+size = Vector2(16, 16)
 
 [node name="barrier_wall" type="CPUParticles2D"]
 amount = 1
@@ -28,8 +29,8 @@ angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 16.0
+scale_amount_max = 16.0
 color = Color(0, 1, 0, 1)
 script = SubResource("GDScript_sghbv")
 

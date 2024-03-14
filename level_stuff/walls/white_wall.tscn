@@ -19,6 +19,7 @@ func _on_hide_timeout():
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
+size = Vector2(16, 16)
 
 [node name="white_wall" type="CPUParticles2D"]
 amount = 1
@@ -31,8 +32,8 @@ angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 16.0
+scale_amount_max = 16.0
 script = SubResource("GDScript_5awpq")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
@@ -40,6 +41,7 @@ collision_layer = 2147483711
 collision_mask = 2147483711
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_kp1fi")
 
 [node name="Hide" type="Timer" parent="."]

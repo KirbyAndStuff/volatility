@@ -43,7 +43,6 @@ autostart = true
 [node name="parried_hurtbox" type="Area2D" parent="." groups=["parry"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="parried_hurtbox"]
-visible = false
 shape = SubResource("CircleShape2D_5w6mf")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

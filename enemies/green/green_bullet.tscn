@@ -7,7 +7,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252809, 1), 0.0, 0.0, 0, 0, Ve
 point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_dx5pk"]
-colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Curve" id="Curve_p4ovv"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.197802, 0), 0.0, 0.0, 0, 0]
@@ -37,6 +37,7 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_phgnu")
+color = Color(0, 1, 0, 1)
 color_ramp = SubResource("Gradient_dx5pk")
 
 [node name="explosion_bottom" type="CPUParticles2D" parent="."]

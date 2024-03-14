@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkfnldkigi17v"]
+
+[ext_resource type="Script" path="res://level_stuff/interactables/tutorial_bullet.gd" id="1_bvo5o"]
+
+[sub_resource type="Curve" id="Curve_cw6p2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_avyqg"]
+size = Vector2(55, 25)
+
+[sub_resource type="Curve" id="Curve_b6rmc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vg27h"]
+offsets = PackedFloat32Array(0, 0.516556)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="tutorial_bullet" type="CharacterBody2D"]
+script = ExtResource("1_bvo5o")
+
+[node name="bullet_body" type="CPUParticles2D" parent="."]
+amount = 40
+lifetime = 0.5
+preprocess = 0.5
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+gravity = Vector2(-400, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_cw6p2")
+
+[node name="bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bullet_hurtbox"]
+position = Vector2(-15.5, 1.5)
+shape = SubResource("RectangleShape2D_avyqg")
+
+[node name="explosion_top" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.85
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_b6rmc")
+color_ramp = SubResource("Gradient_vg27h")
+
+[node name="explosion_bottom" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.85
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_b6rmc")
+color_ramp = SubResource("Gradient_vg27h")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="area_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_entered"]
+[connection signal="body_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

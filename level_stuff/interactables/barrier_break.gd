@@ -12,6 +12,8 @@ func _ready():
 func _process(_delta):
 	if health < 1:
 		$CPUParticles2D.emitting = false
+		var tween = create_tween()
+		tween.tween_property(self, "modulate", Color(0, 0, 0, 0), 1)
 		await get_tree().create_timer(1, false).timeout
 		queue_free()
 	var location_dif = global_position - get_node("../player").global_position
@@ -41,3 +43,9 @@ func _on_area_entered(area):
 		get_parent().add_child(effect)
 		$hurt.play()
 		health -= 2
+	if area.is_in_group("deal 3 damage") and can_be_hurt_view == true and can_be_hurt_enemy:
+		var effect := barrier_hurt.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		$hurt.play()
+		health -= 3
