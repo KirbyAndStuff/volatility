@@ -4,6 +4,7 @@ var beama = true
 var collision_shape = CollisionShape2D.new()
 var segment_shape = SegmentShape2D.new()
 var direction := Vector2.ZERO
+var damage = 2
 
 func _ready():
 	$beam_hurtbox.add_child(collision_shape)

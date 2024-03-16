@@ -1,17 +1,17 @@
 [gd_scene load_steps=34 format=3 uid="uid://bhcec71btiteb"]
 
-[ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_0iqyl"]
-[ext_resource type="Script" path="res://ui/camera.gd" id="2_6wfxg"]
-[ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="3_vemes"]
-[ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="4_skrcm"]
-[ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="5_gmj4d"]
-[ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_nl01r"]
-[ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_c8hyf"]
-[ext_resource type="PackedScene" uid="uid://jr7f5sfdtnk5" path="res://level_stuff/interactables/barrier_break.tscn" id="8_opgi1"]
-[ext_resource type="PackedScene" uid="uid://vx7ndm1qc5xy" path="res://level_stuff/walls/barrier_wall.tscn" id="9_0l7ix"]
-[ext_resource type="PackedScene" uid="uid://ctsrcip8qttp7" path="res://level_stuff/walls/lock_wall.tscn" id="10_154ym"]
-[ext_resource type="PackedScene" uid="uid://q5kj08qhck4m" path="res://level_stuff/interactables/level_end.tscn" id="11_oxn21"]
-[ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="12_lu5iq"]
+[ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="1_2hhul"]
+[ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="2_bkob7"]
+[ext_resource type="Script" path="res://ui/camera.gd" id="3_h6qr2"]
+[ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="4_ujjgw"]
+[ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="5_plt74"]
+[ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="6_1qo3w"]
+[ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="7_tqfuw"]
+[ext_resource type="PackedScene" uid="uid://jr7f5sfdtnk5" path="res://level_stuff/interactables/barrier_break.tscn" id="8_id460"]
+[ext_resource type="PackedScene" uid="uid://vx7ndm1qc5xy" path="res://level_stuff/walls/barrier_wall.tscn" id="9_dibxo"]
+[ext_resource type="PackedScene" uid="uid://ctsrcip8qttp7" path="res://level_stuff/walls/lock_wall.tscn" id="10_bf327"]
+[ext_resource type="PackedScene" uid="uid://q5kj08qhck4m" path="res://level_stuff/interactables/level_end.tscn" id="11_7qpxq"]
+[ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="12_wfag8"]
 
 [sub_resource type="GDScript" id="GDScript_ofcm6"]
 script/source = "extends Node2D
@@ -179,13 +179,13 @@ func spawn_enemy_4(type):
 "
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_1grgl"]
-scenes/1/scene = ExtResource("7_c8hyf")
+scenes/1/scene = ExtResource("1_2hhul")
 
 [sub_resource type="TileSet" id="TileSet_fxld7"]
 sources/0 = SubResource("TileSetScenesCollectionSource_1grgl")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5172s"]
-scenes/1/scene = ExtResource("7_c8hyf")
+scenes/1/scene = ExtResource("1_2hhul")
 
 [sub_resource type="TileSet" id="TileSet_m1d6t"]
 sources/0 = SubResource("TileSetScenesCollectionSource_5172s")
@@ -213,31 +213,31 @@ size = Vector2(1370, 1162)
 size = Vector2(2930, 1473)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_j2u83"]
-scenes/1/scene = ExtResource("9_0l7ix")
+scenes/1/scene = ExtResource("9_dibxo")
 
 [sub_resource type="TileSet" id="TileSet_4e615"]
 sources/0 = SubResource("TileSetScenesCollectionSource_j2u83")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_a0udg"]
-scenes/1/scene = ExtResource("10_154ym")
+scenes/1/scene = ExtResource("10_bf327")
 
 [sub_resource type="TileSet" id="TileSet_vu4nh"]
 sources/1 = SubResource("TileSetScenesCollectionSource_a0udg")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_2dyhl"]
-scenes/1/scene = ExtResource("10_154ym")
+scenes/1/scene = ExtResource("10_bf327")
 
 [sub_resource type="TileSet" id="TileSet_hibn6"]
 sources/1 = SubResource("TileSetScenesCollectionSource_2dyhl")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_wj7tw"]
-scenes/1/scene = ExtResource("10_154ym")
+scenes/1/scene = ExtResource("10_bf327")
 
 [sub_resource type="TileSet" id="TileSet_bvba4"]
 sources/1 = SubResource("TileSetScenesCollectionSource_wj7tw")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_inwdx"]
-scenes/1/scene = ExtResource("10_154ym")
+scenes/1/scene = ExtResource("10_bf327")
 
 [sub_resource type="TileSet" id="TileSet_xb7t2"]
 sources/0 = SubResource("TileSetScenesCollectionSource_inwdx")
@@ -245,7 +245,7 @@ sources/0 = SubResource("TileSetScenesCollectionSource_inwdx")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3n2hn"]
 size = Vector2(581, 13)
 
-[node name="level_1" type="Node2D" groups=["screen_shake 10"]]
+[node name="level" type="Node2D" groups=["screen_shake 10"]]
 script = SubResource("GDScript_ofcm6")
 
 [node name="white_walls" type="TileMap" parent="."]
@@ -261,7 +261,7 @@ tile_set = SubResource("TileSet_m1d6t")
 format = 2
 layer_0/tile_data = PackedInt32Array(-1114067, 0, 65536, -1114066, 0, 65536, -1114065, 0, 65536, -1114064, 0, 65536, -1114063, 0, 65536, -1114062, 0, 65536, -1114061, 0, 65536, -1114060, 0, 65536, -1114059, 0, 65536, -1114058, 0, 65536, -1114057, 0, 65536, -1114056, 0, 65536, -1114055, 0, 65536, -1114054, 0, 65536, -1114053, 0, 65536, -1114052, 0, 65536, -1114051, 0, 65536, -1114050, 0, 65536, -1114049, 0, 65536, -1114048, 0, 65536, -1114047, 0, 65536, -1114046, 0, 65536, -1114045, 0, 65536, -1114044, 0, 65536, -1114043, 0, 65536, -1114042, 0, 65536, -1114041, 0, 65536, -1114040, 0, 65536, -1114039, 0, 65536, -1114038, 0, 65536)
 
-[node name="player" parent="." instance=ExtResource("1_0iqyl")]
+[node name="player" parent="." instance=ExtResource("2_bkob7")]
 process_mode = 4
 visible = false
 position = Vector2(-879, -2022)
@@ -269,11 +269,11 @@ position = Vector2(-879, -2022)
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(-879, -2022)
 position_smoothing_speed = 20.0
-script = ExtResource("2_6wfxg")
+script = ExtResource("3_h6qr2")
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-[node name="health" parent="ui" instance=ExtResource("3_vemes")]
+[node name="health" parent="ui" instance=ExtResource("4_ujjgw")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -285,7 +285,7 @@ grow_horizontal = 1
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="staminabar" parent="ui" instance=ExtResource("4_skrcm")]
+[node name="staminabar" parent="ui" instance=ExtResource("5_plt74")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -297,7 +297,7 @@ grow_horizontal = 1
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="pausemenu" parent="ui" instance=ExtResource("5_gmj4d")]
+[node name="pausemenu" parent="ui" instance=ExtResource("6_1qo3w")]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -309,7 +309,7 @@ offset_top = -2103.0
 offset_right = 3421.0
 offset_bottom = 2191.0
 
-[node name="gameoverscreen" parent="ui" instance=ExtResource("6_nl01r")]
+[node name="gameoverscreen" parent="ui" instance=ExtResource("7_tqfuw")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_656hn")
@@ -358,7 +358,7 @@ shape = SubResource("RectangleShape2D_of0er")
 [node name="SpawnEnemy_4" type="Timer" parent="fourth_room"]
 wait_time = 0.25
 
-[node name="barrier_break" parent="." instance=ExtResource("8_opgi1")]
+[node name="barrier_break" parent="." instance=ExtResource("8_id460")]
 position = Vector2(6923, 304)
 
 [node name="barrier_walls" type="TileMap" parent="barrier_break"]
@@ -395,13 +395,13 @@ position = Vector2(-1149, 783)
 position = Vector2(280.5, 56.5)
 shape = SubResource("RectangleShape2D_3n2hn")
 
-[node name="level_end" parent="." instance=ExtResource("11_oxn21")]
+[node name="level_end" parent="." instance=ExtResource("11_7qpxq")]
 position = Vector2(-879, -2015)
 collision_layer = 0
 collision_mask = 0
 
 [node name="start_levelsfx" type="AudioStreamPlayer2D" parent="level_end"]
-stream = ExtResource("12_lu5iq")
+stream = ExtResource("12_wfag8")
 volume_db = -10.0
 pitch_scale = 0.75
 

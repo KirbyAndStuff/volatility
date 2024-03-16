@@ -56,11 +56,11 @@ func _process(delta):
 		queue_free()
 
 func _on_playerdeath_area_entered(area):
-	if area.is_in_group("deal 1 damage"):
+	if area.is_in_group("player_attack"):
 		var effect := red_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		red_health -= 1
+		red_health -= area.get_parent().damage
 	if area.is_in_group("parry"):
 		is_stunned = true
 		speed = 0
@@ -70,16 +70,6 @@ func _on_playerdeath_area_entered(area):
 		for vol in stunned_eyes:
 			vol.emitting = true
 		$Stunned.start()
-	if area.is_in_group("deal 2 damage"):
-		var effect := red_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		red_health -= 2
-	if area.is_in_group("deal 3 damage"):
-		var effect := red_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		red_health -= 3
 
 func _on_red_dash_length_timeout() -> void:
 	speed /= 4

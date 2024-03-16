@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bfykqm448qllb"]
+[gd_scene load_steps=11 format=3 uid="uid://bfykqm448qllb"]
 
 [ext_resource type="Script" path="res://start_menu/start_button.gd" id="1_q1fjm"]
 [ext_resource type="Script" path="res://start_menu/playground.gd" id="2_1oigh"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://start_menu/credits_close_button.gd" id="5_6crtf"]
 [ext_resource type="Script" path="res://start_menu/quit_game_button.gd" id="6_e8luk"]
 [ext_resource type="Script" path="res://start_menu/settings_button.gd" id="7_7mv0f"]
-[ext_resource type="Texture2D" uid="uid://cb7pupydiyxw4" path="res://level_stuff/pngs/2os250kt.bmp" id="8_xglv5"]
 [ext_resource type="PackedScene" uid="uid://310650vo12fr" path="res://player/player_immoblie.tscn" id="9_np2n1"]
 [ext_resource type="AudioStream" uid="uid://p1lur1k0r2v5" path="res://music/Chris Christodoulou - Risk of Rain [2023 Remaster] ｜ ROR Returns (2023) [g8iP1TwEB88].wav" id="10_8agby"]
 
@@ -41,14 +40,14 @@ offset_top = -484.0
 offset_right = 600.0
 offset_bottom = -61.0
 
-[node name="level_1" type="Button" parent="CanvasLayer/levels/Panel"]
+[node name="level" type="Button" parent="CanvasLayer/levels/Panel"]
 layout_mode = 0
 offset_left = 764.0
 offset_top = 5.0
 offset_right = 1164.0
 offset_bottom = 205.0
 theme_override_font_sizes/font_size = 100
-text = "Level 1"
+text = "Level"
 
 [node name="tutorial" type="Button" parent="CanvasLayer/levels/Panel"]
 layout_mode = 0
@@ -56,6 +55,14 @@ offset_right = 400.0
 offset_bottom = 200.0
 theme_override_font_sizes/font_size = 100
 text = "Tutorial"
+
+[node name="level 1-1" type="Button" parent="CanvasLayer/levels/Panel"]
+layout_mode = 0
+offset_left = 1349.0
+offset_right = 1781.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 100
+text = "Level 1-1"
 
 [node name="playground" type="Button" parent="CanvasLayer"]
 offset_left = 913.0
@@ -156,12 +163,6 @@ offset_bottom = 848.0
 text = "Settings"
 script = ExtResource("7_7mv0f")
 
-[node name="2Os250Kt" type="Sprite2D" parent="."]
-position = Vector2(997, 546.5)
-scale = Vector2(10.0969, 5.57269)
-texture = ExtResource("8_xglv5")
-metadata/_edit_lock_ = true
-
 [node name="TextEdit" type="TextEdit" parent="."]
 offset_left = 743.0
 offset_top = 268.0
@@ -221,8 +222,9 @@ volume_db = -20.0
 
 [connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/levels" to="CanvasLayer/levels" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/levels/Panel/level_1" to="CanvasLayer/levels" method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels/Panel/level" to="CanvasLayer/levels" method="_on_level_pressed"]
 [connection signal="pressed" from="CanvasLayer/levels/Panel/tutorial" to="CanvasLayer/levels" method="_on_tutorial_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels/Panel/level 1-1" to="CanvasLayer/levels" method="_on_level_11_pressed"]
 [connection signal="pressed" from="CanvasLayer/playground" to="CanvasLayer/playground" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/controls_button" to="CanvasLayer/controls_button" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/credits_button" to="CanvasLayer/credits_button" method="_on_pressed"]

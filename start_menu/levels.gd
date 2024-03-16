@@ -9,8 +9,12 @@ func _ready():
 func _on_pressed():
 	$Panel.visible = !$Panel.visible
 
-func _on_level_1_pressed() -> void:
-	get_tree().change_scene_to_file("res://level_stuff/levels/level_1.tscn")
+func _on_level_pressed() -> void:
+	get_tree().change_scene_to_file("res://level_stuff/levels/level.tscn")
 
 func _on_tutorial_pressed() -> void:
 	get_tree().change_scene_to_file("res://level_stuff/levels/tutorial.tscn")
+
+
+func _on_level_11_pressed() -> void:
+	get_tree().change_scene_to_file("res://level_stuff/levels/level_1_1.tscn")

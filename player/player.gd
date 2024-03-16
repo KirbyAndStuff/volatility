@@ -33,11 +33,9 @@ var heal_cooldown = 0
 var parry_cooldown = 30
 var parried = false
 var in_intro = true
-var can_move = true
 
 func _physics_process(delta):
-	if can_move:
-		player_movement(delta)
+	player_movement(delta)
 
 func _process(delta):
 	if stamina <= 100:
@@ -91,12 +89,10 @@ func _process(delta):
 		heal_cooldown = 0
 
 	if in_intro:
-		can_move = false
+		speed = 0
 		$"left eye node/left eye".lifetime = 0.1
 		$"right eye node/right eye".lifetime = 0.1
 		position.y += 2000 * delta
-	else:
-		can_move = true
 
 func get_input():
 	if input.length() > 0.0:
@@ -136,7 +132,7 @@ func shoot():
 	$GunTimer.start()
 
 func alt_shoot():
-	if alt_gun_cooldown > 100:
+	if alt_gun_cooldown > 100 and not get_tree().has_group("not beamable"):
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/beam.tscn")
 		var shot = bullet_scene.instantiate()
@@ -280,6 +276,7 @@ func _on_player_hurtbox_area_entered(area):
 		$"right eye node/right eye".lifetime = 0.2
 		$landingsfx.play()
 		in_intro = false
+		speed = 700
 		var effect := player_land.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

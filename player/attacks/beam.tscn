@@ -31,7 +31,7 @@ visibility_rect = Rect2(-500, -500, 1000, 1000)
 local_coords = true
 draw_order = 0
 
-[node name="beam_hurtbox" type="Area2D" parent="." groups=["beam", "deal 2 damage"]]
+[node name="beam_hurtbox" type="Area2D" parent="." groups=["beam", "player_attack"]]
 scale = Vector2(1, 20)
 
 [node name="Timer" type="Timer" parent="."]

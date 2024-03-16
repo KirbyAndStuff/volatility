@@ -11,8 +11,9 @@ func apply_shake():
 	shake_strength = randomstrength
 
 func _physics_process(_delta):
-	position.x = get_node("../player").position.x
-	position.y = get_node("../player").position.y
+	if not get_tree().has_group("stop following player"):
+		position.x = get_node("../player").position.x
+		position.y = get_node("../player").position.y
 
 func _process(delta):
 	if shake_strength > 0:

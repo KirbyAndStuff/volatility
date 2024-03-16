@@ -1,6 +1,7 @@
 extends Area2D
 
 var sfx := preload("res://player/attacks/melee_alt_attack_sfx.tscn")
+var damage = 2
 
 func _ready():
 	var effect := sfx.instantiate()
@@ -15,6 +16,6 @@ func _ready():
 	await get_tree().create_timer(0.2, false).timeout
 	queue_free()
 
-func _on_area_entered(area):
+func _on_area_2d_area_entered(area):
 	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100:
 		(get_node("../player").heal_cooldown) += 5

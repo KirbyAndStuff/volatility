@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cusucgccm5yb8"]
+[gd_scene load_steps=38 format=3 uid="uid://cusucgccm5yb8"]
 
 [ext_resource type="Script" path="res://level_stuff/levels/tutorial.gd" id="1_hccw4"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_lcn12"]
@@ -85,7 +85,19 @@ metadata/_snap_enabled = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fxqsv"]
 size = Vector2(16, 480)
 
-[node name="Tutorial" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orb5i"]
+size = Vector2(626, 712)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mnkw"]
+size = Vector2(88, 287)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2w3xe"]
+size = Vector2(65, 352)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjm0j"]
+size = Vector2(32, 432)
+
+[node name="Tutorial" type="Node2D" groups=["not beamable"]]
 script = ExtResource("1_hccw4")
 
 [node name="player" parent="." instance=ExtResource("1_lcn12")]
@@ -149,6 +161,17 @@ environment = SubResource("Environment_2f45m")
 
 [node name="ui" type="CanvasLayer" parent="."]
 
+[node name="particle_message" type="CPUParticles2D" parent="ui"]
+visible = false
+position = Vector2(957, 822)
+scale = Vector2(13, 0.75)
+amount = 1
+local_coords = true
+gravity = Vector2(0, 0)
+scale_amount_min = 100.0
+scale_amount_max = 100.0
+color = Color(0, 0, 0, 1)
+
 [node name="health" parent="ui" instance=ExtResource("6_ni6oh")]
 anchors_preset = 0
 anchor_right = 0.0
@@ -186,6 +209,15 @@ offset_right = 3421.0
 offset_bottom = 2191.0
 
 [node name="gameoverscreen" parent="ui" instance=ExtResource("9_5sklq")]
+
+[node name="message" type="Label" parent="ui"]
+offset_top = 682.0
+offset_right = 1920.0
+offset_bottom = 952.0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="level_end" parent="." instance=ExtResource("2_1frrj")]
 position = Vector2(5174, -1354)
@@ -273,6 +305,8 @@ shape = SubResource("RectangleShape2D_4gfso")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="breakable_wall" groups=["wall"]]
 position = Vector2(-2, 0)
+collision_layer = 33
+collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="breakable_wall/StaticBody2D"]
 shape = SubResource("RectangleShape2D_c1ne6")
@@ -344,11 +378,41 @@ color = Color(1, 1, 0, 1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="parry_melee_wall" groups=["wall"]]
 position = Vector2(1, 0)
+collision_layer = 33
+collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="parry_melee_wall/StaticBody2D"]
 visible = false
 position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_fxqsv")
+
+[node name="shoot_message" type="Area2D" parent="." groups=["shoot message"]]
+position = Vector2(29, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shoot_message"]
+position = Vector2(519, -132)
+shape = SubResource("RectangleShape2D_orb5i")
+
+[node name="dash_message" type="Area2D" parent="." groups=["dash message"]]
+position = Vector2(1167, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dash_message"]
+position = Vector2(34, 133.5)
+shape = SubResource("RectangleShape2D_2mnkw")
+
+[node name="parry_message" type="Area2D" parent="." groups=["parry message"]]
+position = Vector2(2593, -873)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parry_message"]
+position = Vector2(29.5, 169)
+shape = SubResource("RectangleShape2D_2w3xe")
+
+[node name="melee_parry_message" type="Area2D" parent="." groups=["melee parry message"]]
+position = Vector2(3855, -1549)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="melee_parry_message"]
+position = Vector2(0, 213)
+shape = SubResource("RectangleShape2D_cjm0j")
 
 [connection signal="area_entered" from="hurt_wall" to="." method="_on_hurt_wall_area_entered"]
 [connection signal="area_exited" from="hurt_wall" to="." method="_on_hurt_wall_area_exited"]
@@ -357,3 +421,7 @@ shape = SubResource("RectangleShape2D_fxqsv")
 [connection signal="area_entered" from="breakable_wall/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="parry_melee/parry_melee_area" to="." method="_on_parry_melee_area_area_entered"]
 [connection signal="area_entered" from="parry_melee2/parry_melee_area" to="." method="_on_parry_melee_area_area_entered"]
+[connection signal="area_entered" from="shoot_message" to="." method="_on_shoot_message_area_entered"]
+[connection signal="area_entered" from="dash_message" to="." method="_on_dash_message_area_entered"]
+[connection signal="area_entered" from="parry_message" to="." method="_on_parry_message_area_entered"]
+[connection signal="area_entered" from="melee_parry_message" to="." method="_on_melee_parry_message_area_entered"]

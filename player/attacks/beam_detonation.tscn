@@ -4,6 +4,7 @@
 script/source = "extends Area2D
 
 var detonationsfx := preload(\"res://player/attacks/detonationsfx.tscn\")
+var damage = 3
 
 func _ready():
 	if not get_tree().has_group(\"beam\"):
@@ -17,7 +18,7 @@ func _ready():
 func _on_timer_timeout() -> void:
 	queue_free()
 
-func _on_area_entered(area):
+func _on_area_2d_area_entered(area):
 	if area.is_in_group(\"enemy_body\") and not area.is_in_group(\"no heal_cooldown reduction\") and (get_node(\"../player\").heal_cooldown) < 100:
 		(get_node(\"../player\").heal_cooldown) += 5
 "
@@ -30,7 +31,7 @@ metadata/_snap_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_ol3gt"]
 radius = 125.0
 
-[node name="beam_detonation" type="Area2D" groups=["deal 3 damage", "screen_shake 10"]]
+[node name="beam_detonation" type="Area2D" groups=["screen_shake 10"]]
 script = SubResource("GDScript_0ytb7")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -55,12 +56,14 @@ scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_0ekmd")
 color = Color(0.196078, 2.1098, 2.54902, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ol3gt")
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[node name="Area2D" type="Area2D" parent="." groups=["beam detonation", "player_attack"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ol3gt")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

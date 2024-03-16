@@ -13,7 +13,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
-[node name="melee_alt_attack" type="Area2D" groups=["deal 2 damage", "screen_shake 5"]]
+[node name="melee_alt_attack" type="Area2D" groups=["screen_shake 5"]]
 top_level = true
 scale = Vector2(4, 4)
 script = ExtResource("1_p5k7y")
@@ -43,7 +43,9 @@ scale_amount_curve = SubResource("Curve_hdxpx")
 color = Color(0.196078, 2.1098, 2.54902, 1)
 color_ramp = SubResource("Gradient_avo3d")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["player_attack"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(68, -68, 0, -9, -67, 68, 11, 0)
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

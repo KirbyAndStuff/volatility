@@ -5,6 +5,7 @@ var attack_area : = preload("res://enemies/yellow/yellow_attack_area.tscn")
 var detonation := preload("res://player/attacks/beam_detonation.tscn")
 var hit_wall = false
 var enemies_hit = 0
+var damage = 2
 
 @export var speed := 750.0
 var attack_player = false
@@ -72,7 +73,7 @@ func _on_yellow_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("parry"):
 		$bullet_body.color = Color(0, 1, 1, 1)
 		add_to_group("parried")
-		$yellow_bullet_hurtbox.add_to_group("deal 2 damage")
+		$yellow_bullet_hurtbox.add_to_group("player_attack")
 		speed = 2500.0
 		shoot(global_position, get_global_mouse_position())
 	if area.is_in_group("enemy") and is_in_group("parried"):

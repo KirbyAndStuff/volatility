@@ -31,21 +31,9 @@ func _process(_delta):
 		$CPUParticles2D.modulate = Color(1, 1, 1, 0.1)
 
 func _on_area_entered(area):
-	if area.is_in_group("deal 1 damage") and can_be_hurt_view == true and can_be_hurt_enemy:
+	if area.is_in_group("player_attack") and can_be_hurt_view == true and can_be_hurt_enemy:
 		var effect := barrier_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		$hurt.play()
-		health -= 1
-	if area.is_in_group("deal 2 damage") and can_be_hurt_view == true and can_be_hurt_enemy:
-		var effect := barrier_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		$hurt.play()
-		health -= 2
-	if area.is_in_group("deal 3 damage") and can_be_hurt_view == true and can_be_hurt_enemy:
-		var effect := barrier_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		$hurt.play()
-		health -= 3
+		health -= area.get_parent().damage

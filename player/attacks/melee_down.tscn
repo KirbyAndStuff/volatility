@@ -16,7 +16,7 @@ metadata/_snap_count = 20
 [sub_resource type="CircleShape2D" id="CircleShape2D_jhhhb"]
 radius = 1.0
 
-[node name="melee_down" type="Area2D" groups=["deal 2 damage"]]
+[node name="melee_down" type="Area2D"]
 script = ExtResource("1_0pkew")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -41,13 +41,15 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_ykxx0")
 color_ramp = SubResource("Gradient_2fij7")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["player_attack"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(10, 118)
 scale = Vector2(1, -1)
 polygon = PackedVector2Array(0, 0, 15, 7, 36, 25, 50, 47, 59, 66, 68, 98, 69, 133, 64, 166, 49, 202, 28, 229, 11, 238, 17, 241, 39, 235, 63, 218, 83, 189, 97, 155, 101, 118, 93, 74, 71, 37, 38, 6, 16, -1, 5, -3)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(6, 0)
 shape = SubResource("CircleShape2D_jhhhb")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -33,6 +33,6 @@ offset_top = -253.0
 offset_right = 715.0
 offset_bottom = -120.0
 theme_override_font_sizes/font_size = 50
-text = "Single damage: 0  Total damage : 0"
+text = "Single damage: 0  Total damage: 0"
 
 [connection signal="area_entered" from="player_death" to="." method="_on_player_death_area_entered"]
