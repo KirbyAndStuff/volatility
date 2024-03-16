@@ -183,13 +183,13 @@ func _on_dash_length_timeout() -> void:
 	speed /= 2
 	amount_of_i_frames -= 1
 
-func _on_combat_eye_detection_area_entered(area: Area2D) -> void:
+func _on_combat_eye_detection_area_entered(area):
 	if area.is_in_group("enemy") or area.is_in_group("enemy_attack") or area.is_in_group("spawn"):
 		enemies_in_area += 1
 		$"combat eye".emitting = true
 		$"combat eye2".emitting = true
 
-func _on_combat_eye_detection_area_exited(area: Area2D) -> void:
+func _on_combat_eye_detection_area_exited(area):
 	if area.is_in_group("enemy") or area.is_in_group("enemy_attack") or area.is_in_group("spawn"):
 		enemies_in_area -= 1
 		if enemies_in_area == 0:
