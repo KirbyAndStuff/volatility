@@ -24,3 +24,7 @@ func _on_resume_game_pressed():
 func _on_quit_pressed():
 	self.is_paused = false
 	get_tree().change_scene_to_file("res://start_menu/startmenu.tscn")
+
+func _on_restart_level_pressed():
+	self.is_paused = false
+	get_tree().reload_current_scene()

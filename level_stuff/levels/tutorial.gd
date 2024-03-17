@@ -27,12 +27,11 @@ func _process(_delta):
 func _ready():
 	await get_tree().create_timer(2, false).timeout
 	$start_level_chargesfx.play()
-	add_to_group("screen_shake 10")
+	$camera.apply_shake(10, 2)
 	await get_tree().create_timer(1, false).timeout
 	$start_level_chargesfx.play()
 	await get_tree().create_timer(1, false).timeout
 	$level_end2/start_levelsfx.play()
-	remove_from_group("screen_shake 10")
 	var effect := level_start.instantiate()
 	effect.position = $level_end2.position + Vector2(0, 75)
 	get_parent().add_child(effect)
@@ -57,7 +56,7 @@ func _on_bullet_timer_timeout():
 	$bullet_sfx.play()
 	var tutorial_bullet = preload("res://level_stuff/interactables/tutorial_bullet.tscn")
 	var shot = tutorial_bullet.instantiate()
-	get_parent().add_child(shot)
+	add_child(shot)
 	shot.shoot(Vector2(2827, -345), Vector2(2828, -345))
 
 func _on_area_2d_area_entered(area):

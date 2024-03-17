@@ -13,7 +13,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
-[node name="melee_alt_attack" type="Area2D" groups=["screen_shake 5"]]
+[node name="melee_alt_attack" type="Area2D"]
 top_level = true
 scale = Vector2(4, 4)
 script = ExtResource("1_p5k7y")

@@ -7,13 +7,14 @@ var detonationsfx := preload(\"res://player/attacks/detonationsfx.tscn\")
 var damage = 3
 
 func _ready():
+	get_node(\"../camera\").apply_shake(10, 0.5)
 	if not get_tree().has_group(\"beam\"):
 		var effect := detonationsfx.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 	$CPUParticles2D.emitting = true
 	await get_tree().create_timer(0.2, false).timeout
-	remove_from_group(\"deal 3 damage\")
+	$Area2D.queue_free()
 
 func _on_timer_timeout() -> void:
 	queue_free()
@@ -31,7 +32,7 @@ metadata/_snap_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_ol3gt"]
 radius = 125.0
 
-[node name="beam_detonation" type="Area2D" groups=["screen_shake 10"]]
+[node name="beam_detonation" type="Area2D"]
 script = SubResource("GDScript_0ytb7")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

@@ -11,10 +11,10 @@ func _ready():
 func _on_hide_timeout():
 	var location_dif = global_position - get_node(\"../../player\").global_position
 	if abs(location_dif.x) > (screen_size.x/2) * 2 || abs(location_dif.y) > (screen_size.y/2) * 2:
-		visible = false
+		hide()
 		$StaticBody2D/CollisionShape2D.disabled = true
 	else:
-		visible = true
+		show()
 		$StaticBody2D/CollisionShape2D.disabled = false
 "
 

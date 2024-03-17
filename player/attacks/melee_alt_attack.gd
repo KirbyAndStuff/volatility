@@ -4,6 +4,7 @@ var sfx := preload("res://player/attacks/melee_alt_attack_sfx.tscn")
 var damage = 2
 
 func _ready():
+	get_node("../camera").apply_shake(5, 0.2)
 	var effect := sfx.instantiate()
 	effect.position = get_node("../player").position
 	get_parent().add_child(effect)

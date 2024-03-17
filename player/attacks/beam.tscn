@@ -14,7 +14,7 @@ gravity = Vector3(0, 0, 0)
 scale_min = 20.0
 scale_max = 20.0
 
-[node name="RayCast2D" type="RayCast2D" groups=["beam", "screen_shake 10"]]
+[node name="RayCast2D" type="RayCast2D" groups=["beam"]]
 target_position = Vector2(2000, 0)
 collision_mask = 32
 script = ExtResource("1_xhq6l")

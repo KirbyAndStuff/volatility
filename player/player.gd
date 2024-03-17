@@ -254,12 +254,11 @@ func _on_player_hurtbox_area_entered(area):
 		is_dead = true
 		await get_tree().create_timer(2, false).timeout
 		$level_end_chargesfx.play()
-		add_to_group("screen_shake 10")
+		get_node("../camera").apply_shake(10, 1.15)
 		await get_tree().create_timer(1, false).timeout
 		$dashsfx.play()
 		in_intro = true
 		await get_tree().create_timer(0.15, false).timeout
-		remove_from_group("screen_shake 10")
 		in_intro = false
 		$body.emitting = false
 		$"left eye node/left eye".emitting = false
@@ -281,6 +280,4 @@ func _on_player_hurtbox_area_entered(area):
 		effect.position = position
 		get_parent().add_child(effect)
 		area.remove_from_group("level start")
-		add_to_group("screen_shake 10")
-		await get_tree().create_timer(0.5, false).timeout
-		remove_from_group("screen_shake 10")
+		get_node("../camera").apply_shake(10, 0.5)

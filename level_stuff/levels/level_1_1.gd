@@ -21,7 +21,7 @@ func _process(_delta):
 		get_node("player/lasersfx").play()
 		var bullet_scene = preload("res://player/attacks/beam.tscn")
 		var shot = bullet_scene.instantiate()
-		get_parent().add_child(shot)
+		add_child(shot)
 		shot.shoot($player.global_position, get_global_mouse_position())
 		get_node("player").alt_gun_cooldown = 0
 
@@ -30,9 +30,9 @@ func _process(_delta):
 		red_intro_died = true
 
 func _ready():
+	$camera.apply_shake(10, 0.5)
 	await get_tree().create_timer(0.5, false).timeout
 	$level_end/start_levelsfx.play()
-	remove_from_group("screen_shake 10")
 	var effect := level_start.instantiate()
 	effect.position = $level_end.position + Vector2(0, 75)
 	get_parent().add_child(effect)
@@ -55,11 +55,19 @@ func _on_hurt_wall_area_exited(area):
 
 func _on_red_intro_area_area_entered(area):
 	if area.is_in_group("beam"):
+		$red_intro/hurt.play()
 		red_intro_health -= 1
 		$red_intro.amount -= 50
+		if red_intro_health == 2:
+			$red_intro/damage.amount = 50
+		else:
+			$red_intro/damage.lifetime = 1
+			$red_intro/damage.speed_scale = 1.5
+			$red_intro/damage.amount = 200
 		$red_intro/damage.emitting = true
 
 func red_intro_thing():
+	$white_interactable.emitting = false
 	(get_node("player").is_dead) = true
 	(get_node("player").speed) = 0
 	$red_spawndec.queue_free()
@@ -69,35 +77,48 @@ func red_intro_thing():
 	get_node("white_interactable").interacted = false
 	$white_interactable.emitting = false
 	await get_tree().create_timer(1, false).timeout
+
 	$white_interactable.process_mode = Node.PROCESS_MODE_DISABLED
 	$body_interactable.process_mode = Node.PROCESS_MODE_DISABLED
 	create_tween().tween_property($white_interactable/interactable_walls, "modulate", Color(0, 0, 0, 0), 1)
 	add_to_group("enemy")
 	await get_tree().create_timer(2, false).timeout
+
 	add_to_group("stop following player")
 	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(3690, 0), 2)
 	await get_tree().create_timer(1, false).timeout
+
 	please_press_m2 = true
 
 func red_intro_die():
+	$red_intro/die.play()
 	please_press_m2 = false
 	$red_intro.emitting = false
 	$red_intro/death.emitting = true
-	add_to_group("screen_shake 20")
+	$camera.apply_shake(20, 2)
 	await get_tree().create_timer(2, false).timeout
+
 	$red_intro/death.emitting = false
-	remove_from_group("screen_shake 20")
 	await get_tree().create_timer(2, false).timeout
-	remove_from_group("stop following player")
+
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO)
-	tween.tween_property($camera, "position", Vector2($player.global_position), 1)
-	await get_tree().create_timer(1, false).timeout
+	tween.tween_property($camera, "position", Vector2($player.global_position.x, $player.global_position.y + 500), 1)
+	await get_tree().create_timer(2, false).timeout
+
+	$red_spawn.orbit_velocity_min = 1
+	$red_spawn.orbit_velocity_max = 1
+	$red_spawn.speed_scale = 1
+	$red_spawn2.orbit_velocity_min = 1
+	$red_spawn2.orbit_velocity_max = 1
+	$red_spawn2.speed_scale = 1
+	$camera.apply_shake(10, 1)
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2($player.global_position.x, $player.global_position.y), 1)
+	await get_tree().create_timer(2, false).timeout
+
+	remove_from_group("stop following player")
 	remove_from_group("not beamable")
 	(get_node("player").is_dead) = false
 	(get_node("player").speed) = 700
-	$red_spawn.emitting = true
-	$red_spawn2.emitting = true
-	await get_tree().create_timer(1, false).timeout
 	add_to_group("spawn enemy")
 	remove_from_group("enemy")
 	$red_intro.queue_free()

@@ -105,7 +105,7 @@ process_mode = 4
 visible = false
 position = Vector2(4, -2000)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="camera" type="Camera2D" parent="."]
 position = Vector2(4, -2000)
 script = ExtResource("4_5ppks")
 
@@ -197,7 +197,6 @@ grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="pausemenu" parent="ui" instance=ExtResource("8_v5ier")]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -214,7 +213,7 @@ offset_bottom = 2191.0
 offset_top = 682.0
 offset_right = 1920.0
 offset_bottom = 952.0
-theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 50
 horizontal_alignment = 1
 vertical_alignment = 1

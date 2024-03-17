@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=15 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_hqghg"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_rnoq1"]
+[ext_resource type="PackedScene" uid="uid://c8codwb0jmyiu" path="res://enemies/purple/purple.tscn" id="9_61m8v"]
+[ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="10_6ar8y"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -70,7 +72,6 @@ grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="pausemenu" parent="ui" instance=ExtResource("5_mxfgi")]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -103,3 +104,9 @@ position = Vector2(-125, 678)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="start_level"]
 position = Vector2(280.5, 56.5)
 shape = SubResource("RectangleShape2D_bkawm")
+
+[node name="purple" parent="." instance=ExtResource("9_61m8v")]
+position = Vector2(772, 253)
+
+[node name="green" parent="." instance=ExtResource("10_6ar8y")]
+position = Vector2(299, 23)

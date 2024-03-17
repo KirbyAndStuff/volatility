@@ -45,6 +45,7 @@ disabled = true
 [node name="wall_check" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall_check"]
+visible = false
 shape = SubResource("CircleShape2D_yqwce")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

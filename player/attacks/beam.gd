@@ -7,6 +7,7 @@ var direction := Vector2.ZERO
 var damage = 2
 
 func _ready():
+	get_node("../camera").apply_shake(10, 0.75)
 	$beam_hurtbox.add_child(collision_shape)
 
 func _physics_process(_delta):

@@ -11,7 +11,7 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.794702)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="player_hurt" type="CPUParticles2D" groups=["screen_shake 5"]]
+[node name="player_hurt" type="CPUParticles2D"]
 emitting = false
 amount = 30
 lifetime = 0.5
