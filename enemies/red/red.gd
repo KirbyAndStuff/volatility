@@ -7,6 +7,7 @@ var red_dash_particles := preload("res://enemies/red/red_dash_particles.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 
 func _ready():
+	$spawnsfx.play()
 	var effect := red_hurt.instantiate()
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)

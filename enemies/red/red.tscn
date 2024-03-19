@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=15 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="2_wjcl0"]
 [ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="3_6gapp"]
+[ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="4_8lp8t"]
 
 [sub_resource type="Curve" id="Curve_8jx83"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -129,6 +130,11 @@ pitch_scale = 0.75
 stream = ExtResource("3_6gapp")
 volume_db = -15.0
 pitch_scale = 2.0
+
+[node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_8lp8t")
+volume_db = -5.0
+pitch_scale = 3.0
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false

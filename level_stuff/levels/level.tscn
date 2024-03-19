@@ -29,9 +29,9 @@ var credits = [3, 5, 7, 15]
 @onready var locks = [$lock1, $locks2, $locks3, $locks4]
 
 func _ready():
+	get_node(\"camera\").apply_shake(10, 0.5)
 	await get_tree().create_timer(0.5, false).timeout
 	$level_end/start_levelsfx.play()
-	remove_from_group(\"screen_shake 10\")
 	var effect := level_start.instantiate()
 	effect.position = $level_end.position + Vector2(0, 75)
 	get_parent().add_child(effect)
@@ -245,7 +245,7 @@ sources/0 = SubResource("TileSetScenesCollectionSource_inwdx")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3n2hn"]
 size = Vector2(581, 13)
 
-[node name="level" type="Node2D" groups=["screen_shake 10"]]
+[node name="level" type="Node2D"]
 script = SubResource("GDScript_ofcm6")
 
 [node name="white_walls" type="TileMap" parent="."]
@@ -298,7 +298,6 @@ grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="pausemenu" parent="ui" instance=ExtResource("6_1qo3w")]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

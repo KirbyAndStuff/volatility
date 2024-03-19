@@ -14,7 +14,7 @@ func _physics_process(_delta):
 	if is_colliding():
 		target_position = to_local(get_collision_point())
 	$beam_body.position = target_position * 0.5
-	$beam_body.process_material.emission_box_extents.x = target_position.length() * 0.5 + -15
+	$beam_body.emission_rect_extents.x = target_position.length() * 0.5 + -15
 	if beama:
 		$beam_body.emitting = true
 	segment_shape.a = Vector2(0, 0)

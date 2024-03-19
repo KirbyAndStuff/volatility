@@ -7,6 +7,7 @@ var green_health = 3
 var shoot_at_player = false
 
 func _ready():
+	$spawnsfx.play()
 	var effect := green_hurt.instantiate()
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)

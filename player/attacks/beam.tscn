@@ -1,35 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://qqrgrc3cq65s"]
+[gd_scene load_steps=2 format=3 uid="uid://qqrgrc3cq65s"]
 
 [ext_resource type="Script" path="res://player/attacks/beam.gd" id="1_xhq6l"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s56by"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(0, 0, 0)
-angle_min = -180.0
-angle_max = 180.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-gravity = Vector3(0, 0, 0)
-scale_min = 20.0
-scale_max = 20.0
 
 [node name="RayCast2D" type="RayCast2D" groups=["beam"]]
 target_position = Vector2(2000, 0)
 collision_mask = 32
 script = ExtResource("1_xhq6l")
 
-[node name="beam_body" type="GPUParticles2D" parent="."]
+[node name="beam_body" type="CPUParticles2D" parent="."]
 modulate = Color(0.588235, 2.1098, 2.54902, 1)
 position = Vector2(522, 0)
 emitting = false
 amount = 750
-process_material = SubResource("ParticleProcessMaterial_s56by")
 lifetime = 0.25
-fixed_fps = 0
-visibility_rect = Rect2(-500, -500, 1000, 1000)
 local_coords = true
-draw_order = 0
+emission_shape = 3
+emission_rect_extents = Vector2(0, 0)
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
 
 [node name="beam_hurtbox" type="Area2D" parent="." groups=["beam", "player_attack"]]
 scale = Vector2(1, 20)

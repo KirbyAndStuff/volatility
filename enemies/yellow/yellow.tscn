@@ -80,6 +80,11 @@ stream = ExtResource("2_4p1av")
 volume_db = -3.0
 pitch_scale = 0.75
 
+[node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4p1av")
+volume_db = -5.0
+pitch_scale = 3.0
+
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_4mdx1")

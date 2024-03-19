@@ -25,3 +25,9 @@ func _on_attack_area_hurtbox_body_entered(body):
 func _on_attack_area_hurtbox_body_exited(body):
 	if body.name == "player":
 		attack_player = false
+
+func _on_timer_timeout() -> void:
+	emitting = false
+	$attack_area_hurtbox/CollisionShape2D.disabled = true
+	await get_tree().create_timer(1, false).timeout
+	queue_free()

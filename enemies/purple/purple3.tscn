@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://enemies/purple/purple3.gd" id="1_roert"]
 
 [sub_resource type="Gradient" id="Gradient_klyji"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.784314)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2l3fj"]
 radius = 1710.29
@@ -23,7 +23,7 @@ collision_mask = 16
 script = ExtResource("1_roert")
 
 [node name="body" type="CPUParticles2D" parent="."]
-amount = 50
+amount = 25
 speed_scale = 2.0
 local_coords = true
 spread = 180.0
@@ -59,7 +59,7 @@ shape = SubResource("CircleShape2D_yu0gh")
 
 [node name="eye_bottom" type="CPUParticles2D" parent="."]
 position = Vector2(0, 25)
-amount = 80
+amount = 20
 speed_scale = 1.5
 explosiveness = 0.9
 local_coords = true

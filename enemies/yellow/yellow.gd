@@ -10,6 +10,7 @@ var yellow_health = 2
 var shoot_at_player = false
 
 func _ready():
+	$spawnsfx.play()
 	var effect := yellow_hurt.instantiate()
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)

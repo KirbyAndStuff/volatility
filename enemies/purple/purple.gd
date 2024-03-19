@@ -5,6 +5,7 @@ var purple2 := preload("res://enemies/purple/purple2.tscn")
 var deathsfx := preload("res://enemies/purple/purple_death1sfx.tscn")
 
 func _ready():
+	$spawnsfx.play()
 	var effect := purple_hurt.instantiate()
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)

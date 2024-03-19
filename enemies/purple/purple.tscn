@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8codwb0jmyiu"]
+[gd_scene load_steps=8 format=3 uid="uid://c8codwb0jmyiu"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple.gd" id="1_p8b53"]
+[ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_hyedg"]
 
 [sub_resource type="Gradient" id="Gradient_wvx04"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -62,7 +63,7 @@ shape = SubResource("CircleShape2D_xg16w")
 
 [node name="eye_bottom" type="CPUParticles2D" parent="."]
 position = Vector2(0, 96)
-amount = 80
+amount = 20
 speed_scale = 0.75
 explosiveness = 0.9
 local_coords = true
@@ -81,7 +82,7 @@ scale_amount_max = 20.0
 
 [node name="eye_top" type="CPUParticles2D" parent="."]
 position = Vector2(0, -96)
-amount = 80
+amount = 20
 speed_scale = 0.75
 explosiveness = 0.9
 local_coords = true
@@ -101,7 +102,7 @@ scale_amount_max = 20.0
 
 [node name="eye_left" type="CPUParticles2D" parent="."]
 position = Vector2(-96, 0)
-amount = 80
+amount = 20
 speed_scale = 0.75
 explosiveness = 0.9
 local_coords = true
@@ -121,7 +122,7 @@ scale_amount_max = 20.0
 
 [node name="eye_right" type="CPUParticles2D" parent="."]
 position = Vector2(96, 0)
-amount = 80
+amount = 20
 speed_scale = 0.75
 explosiveness = 0.9
 local_coords = true
@@ -144,6 +145,11 @@ visible = false
 shape = SubResource("CircleShape2D_voi8f")
 
 [node name="Stunned" type="Timer" parent="."]
+
+[node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_hyedg")
+volume_db = -5.0
+pitch_scale = 3.0
 
 [connection signal="area_entered" from="player_detection" to="." method="_on_player_detection_area_entered"]
 [connection signal="area_exited" from="player_detection" to="." method="_on_player_detection_area_exited"]

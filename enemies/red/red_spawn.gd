@@ -4,14 +4,9 @@ var spawn_red := preload("res://enemies/red/red.tscn")
 var player_detected = false
 
 func _process(_delta):
-	if get_tree().has_group("spawn enemy") and player_detected:
-		$wall_check.add_to_group("spawn")
-		emitting = false
-		await get_tree().create_timer(1, false).timeout
-		var effect := spawn_red.instantiate()
-		effect.position = position
-		get_parent().call_deferred("add_child", effect)
-		queue_free()
+	if not get_tree().has_group("cant spawn enemy") and player_detected:
+		spawn_enemy()
+		player_detected = false
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("player"):
@@ -25,3 +20,12 @@ func _on_wall_check_body_entered(body):
 func _ready():
 	await get_tree().create_timer(1, false).timeout
 	$Area2D/CollisionShape2D.disabled = false
+
+func spawn_enemy():
+	$wall_check.add_to_group("spawn")
+	emitting = false
+	await get_tree().create_timer(1, false).timeout
+	var effect := spawn_red.instantiate()
+	effect.position = position
+	get_parent().call_deferred("add_child", effect)
+	queue_free()

@@ -6,6 +6,7 @@ var hurt_player = false
 var please_press_m2 = false
 var red_intro_health = 3
 var red_intro_died = false
+var pressed_m2 = false
 
 func _process(_delta):
 	if hurt_player and (get_node("player").attackable) == true:
@@ -18,6 +19,8 @@ func _process(_delta):
 		red_intro_thing()
 
 	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").alt_gun_cooldown > 100:
+		$ui/message.text = ""
+		pressed_m2 = true
 		get_node("player/lasersfx").play()
 		var bullet_scene = preload("res://player/attacks/beam.tscn")
 		var shot = bullet_scene.instantiate()
@@ -67,6 +70,7 @@ func _on_red_intro_area_area_entered(area):
 		$red_intro/damage.emitting = true
 
 func red_intro_thing():
+	$ui/message.text = ""
 	$white_interactable.emitting = false
 	(get_node("player").is_dead) = true
 	(get_node("player").speed) = 0
@@ -78,6 +82,8 @@ func red_intro_thing():
 	$white_interactable.emitting = false
 	await get_tree().create_timer(1, false).timeout
 
+	$lock_walls1.process_mode = Node.PROCESS_MODE_INHERIT
+	create_tween().tween_property($lock_walls1, "modulate", Color(1, 1, 1, 1), 1)
 	$white_interactable.process_mode = Node.PROCESS_MODE_DISABLED
 	$body_interactable.process_mode = Node.PROCESS_MODE_DISABLED
 	create_tween().tween_property($white_interactable/interactable_walls, "modulate", Color(0, 0, 0, 0), 1)
@@ -87,8 +93,10 @@ func red_intro_thing():
 	add_to_group("stop following player")
 	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(3690, 0), 2)
 	await get_tree().create_timer(1, false).timeout
-
 	please_press_m2 = true
+	await get_tree().create_timer(3, false).timeout
+	if pressed_m2 == false:
+		$ui/message.text = "Press Right Click"
 
 func red_intro_die():
 	$red_intro/die.play()
@@ -105,20 +113,33 @@ func red_intro_die():
 	tween.tween_property($camera, "position", Vector2($player.global_position.x, $player.global_position.y + 500), 1)
 	await get_tree().create_timer(2, false).timeout
 
+	$lock_walls2.process_mode = Node.PROCESS_MODE_INHERIT
+	create_tween().tween_property($lock_walls2, "modulate", Color(1, 1, 1, 1), 1)
 	$red_spawn.orbit_velocity_min = 1
 	$red_spawn.orbit_velocity_max = 1
 	$red_spawn.speed_scale = 1
 	$red_spawn2.orbit_velocity_min = 1
 	$red_spawn2.orbit_velocity_max = 1
 	$red_spawn2.speed_scale = 1
-	$camera.apply_shake(10, 1)
+	$camera.apply_shake(10, 2.5)
+	$reds_spawning.play()
 	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2($player.global_position.x, $player.global_position.y), 1)
 	await get_tree().create_timer(2, false).timeout
-
 	remove_from_group("stop following player")
 	remove_from_group("not beamable")
 	(get_node("player").is_dead) = false
 	(get_node("player").speed) = 700
-	add_to_group("spawn enemy")
+	remove_from_group("cant spawn enemy")
 	remove_from_group("enemy")
 	$red_intro.queue_free()
+	create_tween().tween_property($reds_spawning, "volume_db", -50, 1)
+	await get_tree().create_timer(1, false).timeout
+	$reds_spawning.stop()
+
+func _on_interact_message_area_entered(area):
+	if area.is_in_group("player"):
+		$ui/message.text = "Press E to Interact"
+		$interact_message.queue_free()
+
+func _on_reds_spawning_finished() -> void:
+	$reds_spawning.play()

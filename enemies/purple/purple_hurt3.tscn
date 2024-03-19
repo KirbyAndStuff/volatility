@@ -13,7 +13,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="purple_hurt3" type="CPUParticles2D"]
 emitting = false
-amount = 50
+amount = 25
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0

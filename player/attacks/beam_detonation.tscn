@@ -7,8 +7,8 @@ var detonationsfx := preload(\"res://player/attacks/detonationsfx.tscn\")
 var damage = 3
 
 func _ready():
-	get_node(\"../camera\").apply_shake(10, 0.5)
 	if not get_tree().has_group(\"beam\"):
+		get_node(\"../camera\").apply_shake(10, 0.5)
 		var effect := detonationsfx.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

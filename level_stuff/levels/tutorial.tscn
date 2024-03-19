@@ -164,13 +164,22 @@ environment = SubResource("Environment_2f45m")
 [node name="particle_message" type="CPUParticles2D" parent="ui"]
 visible = false
 position = Vector2(957, 822)
-scale = Vector2(13, 0.75)
+scale = Vector2(6.5, 0.75)
 amount = 1
 local_coords = true
 gravity = Vector2(0, 0)
 scale_amount_min = 100.0
 scale_amount_max = 100.0
 color = Color(0, 0, 0, 1)
+
+[node name="message" type="Label" parent="ui"]
+offset_top = 682.0
+offset_right = 1920.0
+offset_bottom = 952.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="health" parent="ui" instance=ExtResource("6_ni6oh")]
 anchors_preset = 0
@@ -208,15 +217,6 @@ offset_right = 3421.0
 offset_bottom = 2191.0
 
 [node name="gameoverscreen" parent="ui" instance=ExtResource("9_5sklq")]
-
-[node name="message" type="Label" parent="ui"]
-offset_top = 682.0
-offset_right = 1920.0
-offset_bottom = 952.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 50
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="level_end" parent="." instance=ExtResource("2_1frrj")]
 position = Vector2(5174, -1354)

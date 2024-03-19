@@ -80,8 +80,8 @@ func _on_parry_melee_area_area_entered(area):
 func _on_shoot_message_area_entered(area):
 	if area.is_in_group("player"):
 		$ui/particle_message.visible = true
-		$ui/particle_message.scale = Vector2(9, 0.75)
-		$ui/message.text = "Press Left Mouse Button to Shoot"
+		$ui/particle_message.scale = Vector2(6.5, 0.75)
+		$ui/message.text = "Press Left Click to Shoot"
 		$shoot_message.queue_free()
 
 func _on_dash_message_area_entered(area):

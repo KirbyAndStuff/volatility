@@ -17,8 +17,6 @@ func _process(_delta):
 		stamina_actual = true
 		stamina_thingie.start()
 	if $stamina_bar2.value > -50:
-		var color = Color(1.0, 0.0, 0.0)
-		$filling.process_material.set("color", color)
+		$filling.color = Color(1, 0, 0)
 	else:
-		var default_color = Color(0, 0.827, 1)
-		$filling.process_material.set("color", default_color)
+		$filling.color = Color(0, 0.827, 1)
