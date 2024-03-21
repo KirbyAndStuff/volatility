@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b6dph58aj4tme"]
+[gd_scene load_steps=25 format=3 uid="uid://b6dph58aj4tme"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ni3np"]
 [ext_resource type="Script" path="res://player/left eye node.gd" id="2_bfumu"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="9_uxff7"]
 [ext_resource type="AudioStream" uid="uid://oi3edt06tvn1" path="res://audio/landing.wav" id="10_o4wf3"]
 [ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="11_kau35"]
+[ext_resource type="AudioStream" uid="uid://drghbrtqd160c" path="res://audio/healsfx.wav" id="12_4kvd2"]
 
 [sub_resource type="Curve" id="Curve_3g2ry"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -276,6 +277,11 @@ pitch_scale = 1.5
 [node name="level_end_chargesfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_kau35")
 volume_db = 5.0
+
+[node name="healsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_4kvd2")
+volume_db = -15.0
+pitch_scale = 1.5
 
 [node name="player_hurtbox" type="Area2D" parent="." groups=["player"]]
 collision_layer = 9

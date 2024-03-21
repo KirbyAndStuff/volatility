@@ -86,6 +86,7 @@ func _process(delta):
 		attackable = false
 	if heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
+		heal_particles()
 		heal_cooldown = 0
 
 	if in_intro:
@@ -281,3 +282,10 @@ func _on_player_hurtbox_area_entered(area):
 		get_parent().add_child(effect)
 		area.remove_from_group("level start")
 		get_node("../camera").apply_shake(10, 0.5)
+
+func heal_particles():
+	var effect := dash_particles.instantiate()
+	effect.position = position
+	effect.color = Color(1, 1, 1, 1)
+	get_parent().add_child(effect)
+	$healsfx.play()
