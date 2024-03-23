@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b6dph58aj4tme"]
+[gd_scene load_steps=24 format=3 uid="uid://b6dph58aj4tme"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ni3np"]
 [ext_resource type="Script" path="res://player/left eye node.gd" id="2_bfumu"]
@@ -96,9 +96,6 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k4hsi"]
 radius = 22.0227
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xt0ek"]
-radius = 1200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lc2ci"]
 radius = 35.0
@@ -228,14 +225,6 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
-[node name="combat_eye_detection" type="Area2D" parent="."]
-position = Vector2(0, 22)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="combat_eye_detection"]
-visible = false
-position = Vector2(0, -18)
-shape = SubResource("CircleShape2D_xt0ek")
-
 [node name="parry_detection" type="Area2D" parent="."]
 position = Vector2(0, 25)
 
@@ -292,7 +281,5 @@ visible = false
 shape = SubResource("CircleShape2D_k1igs")
 
 [connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]
-[connection signal="area_entered" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_entered"]
-[connection signal="area_exited" from="combat_eye_detection" to="." method="_on_combat_eye_detection_area_exited"]
 [connection signal="area_entered" from="parry_detection" to="." method="_on_parry_detection_area_entered"]
 [connection signal="area_entered" from="player_hurtbox" to="." method="_on_player_hurtbox_area_entered"]

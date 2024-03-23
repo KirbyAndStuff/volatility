@@ -7,9 +7,8 @@ var please_press_m2 = false
 var red_intro_health = 3
 var red_intro_died = false
 var pressed_m2 = false
-var first_room_activated = false
-var first_room_cleared = false
-var second_room_activated = false
+var room_cleared = [false, false]
+var room_activated = [false, false, false]
 
 func _process(_delta):
 	if hurt_player and (get_node("player").attackable) == true:
@@ -35,19 +34,34 @@ func _process(_delta):
 		red_intro_die()
 		red_intro_died = true
 
-	if not get_tree().has_group("reds spawning") and not get_tree().has_group("enemy") and first_room_activated == false:
+	if not get_tree().has_group("reds spawning") and not get_tree().has_group("enemy") and room_activated[0] == false:
 		spawn_first_room_second_wave()
-		first_room_activated = true
-	if first_room_activated and first_room_cleared == false:
+		room_activated[0] = true
+	if room_activated[0] and room_cleared[0] == false:
 		if not get_tree().has_group("spawn") and not get_tree().has_group("enemy"):
+			$barrier_break/barrier_walls.process_mode = Node.PROCESS_MODE_INHERIT
+			create_tween().tween_property($barrier_break/barrier_walls, "modulate", Color(1, 1, 1, 1), 1)
+			$lock_walls1.process_mode = Node.PROCESS_MODE_DISABLED
+			create_tween().tween_property($lock_walls1, "modulate", Color(0, 0, 0, 0), 1)
 			$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
 			create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
 			$white_walls2.process_mode = Node.PROCESS_MODE_INHERIT
 			create_tween().tween_property($white_walls2, "modulate", Color(1, 1, 1, 1), 1)
-			first_room_cleared = true
-	if second_room_activated:
-		spawn_second_room()
-		second_room_activated = false
+			room_cleared[0] = true
+
+	if room_activated[1] and not get_tree().has_group("enemy") and not get_tree().has_group("spawn"):
+		$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
+		create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
+		room_activated[1] = false
+
+	if room_activated[2] and not get_tree().has_group("enemy") and not get_tree().has_group("spawn"):
+		spawn_second_room_second_wave()
+		room_cleared[1] = true
+		room_activated[2] = false
+	if room_activated[2] == false and room_cleared[1]:
+		if not get_tree().has_group("spawn") and not get_tree().has_group("enemy"):
+			$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
+			create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
 
 func _ready():
 	$camera.apply_shake(10, 0.5)
@@ -104,7 +118,7 @@ func red_intro_thing():
 	$white_interactable.process_mode = Node.PROCESS_MODE_DISABLED
 	$body_interactable.process_mode = Node.PROCESS_MODE_DISABLED
 	create_tween().tween_property($white_interactable/interactable_walls, "modulate", Color(0, 0, 0, 0), 1)
-	add_to_group("enemy")
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "zoom", Vector2(0.75, 0.75), 1)
 	await get_tree().create_timer(2, false).timeout
 
 	add_to_group("stop following player")
@@ -150,7 +164,6 @@ func red_intro_die():
 	$red_spawn.add_to_group("enemy_spawn")
 	$red_spawn2.add_to_group("enemy_spawn")
 	get_tree().call_group("enemy_spawn", "spawn_enemy")
-	remove_from_group("enemy")
 	$red_intro.queue_free()
 	create_tween().tween_property($reds_spawning, "volume_db", -50, 1)
 	await get_tree().create_timer(1.1, false).timeout
@@ -182,14 +195,36 @@ func spawn_first_room_second_wave():
 	await get_tree().create_timer(0.25, false).timeout
 	spawna($red_spawn5)
 
-func spawn_second_room():
-	$lock_walls3.process_mode = Node.PROCESS_MODE_INHERIT
-	create_tween().tween_property($lock_walls3, "modulate", Color(1, 1, 1, 1), 1)
-	spawna($red_spawn6)
-	await get_tree().create_timer(0.25, false).timeout
-	spawna($red_spawn7)
+func spawn_second_room_second_wave():
+	add_to_group("spawn")
+	await get_tree().create_timer(0.5, false).timeout
+	remove_from_group("spawn")
+	spawna($red_spawn11)
+	await get_tree().create_timer(0.1, false).timeout
+	spawna($red_spawn12)
+	await get_tree().create_timer(0.1, false).timeout
+	spawna($red_spawn13)
+	await get_tree().create_timer(0.1, false).timeout
+	spawna($red_spawn14)
 
 func _on_hallway_area_area_entered(area):
 	if area.is_in_group("player"):
-		second_room_activated = true
 		$hallway_area.queue_free()
+		$lock_walls3.process_mode = Node.PROCESS_MODE_INHERIT
+		create_tween().tween_property($lock_walls3, "modulate", Color(1, 1, 1, 1), 1)
+		spawna($red_spawn6)
+		await get_tree().create_timer(0.25, false).timeout
+		spawna($red_spawn7)
+		room_activated[1] = true
+
+func _on_second_room_area_area_entered(area):
+	if area.is_in_group("player"):
+		$second_room_area.queue_free()
+		$lock_walls3.process_mode = Node.PROCESS_MODE_INHERIT
+		create_tween().tween_property($lock_walls3, "modulate", Color(1, 1, 1, 1), 1)
+		spawna($red_spawn8)
+		await get_tree().create_timer(0.25, false).timeout
+		spawna($red_spawn9)
+		await get_tree().create_timer(0.25, false).timeout
+		spawna($red_spawn10)
+		room_activated[2] = true

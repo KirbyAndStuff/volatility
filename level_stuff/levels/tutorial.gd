@@ -1,7 +1,18 @@
 extends Node2D
 
 var level_start = preload("res://level_stuff/interactables/level_start_particle.tscn")
+var green_death := preload("res://enemies/green/green_death.tscn")
+var green_hurt := preload("res://enemies/green/green_hurt.tscn")
 var hurt_player = false
+var enemy1_health = 2
+var enemy2_health = 2
+var enemy3_health = 2
+var enemy_walls_tweened = false
+var killed_enemy1 = false
+var killed_enemy2 = false
+var killed_enemy3 = false
+var seen_bullet = false
+var messages = [false, false, false, false]
 
 func _process(_delta):
 	if get_tree().has_group("next level"):
@@ -11,18 +22,47 @@ func _process(_delta):
 		(get_node("player").i_frames(3))
 		(get_node("player").player_hurt_particles())
 		(get_node("player").framefreeze(0.4, 0.3))
-	if Input.is_action_pressed("left_mouse_button") and not get_tree().has_group("shoot message"):
+	if Input.is_action_pressed("left_mouse_button") and not get_tree().has_group("shoot message") and messages[0] == false:
 		$ui/particle_message.visible = false
 		$ui/message.text = ""
-	if Input.is_action_pressed("dash") and not get_tree().has_group("dash message"):
+		messages[0] = true
+	if Input.is_action_pressed("dash") and not get_tree().has_group("dash message") and messages[1] == false:
 		$ui/particle_message.visible = false
 		$ui/message.text = ""
-	if Input.is_action_pressed("parry") and not get_tree().has_group("parry message"):
+		messages[1] = true
+	if Input.is_action_pressed("parry") and not get_tree().has_group("parry message") and messages[2] == false:
 		$ui/particle_message.visible = false
 		$ui/message.text = ""
-	if Input.is_action_pressed("parry") and not get_tree().has_group("melee parry message"):
+		messages[2] = true
+	if Input.is_action_pressed("left_mouse_button") and not get_tree().has_group("heal message") and messages[3] == false:
 		$ui/particle_message.visible = false
 		$ui/message.text = ""
+		$ui/message2.text = ""
+		$ui/message3.text = ""
+		messages[3] = true
+	if enemy_walls_tweened == false:
+		if not get_tree().has_group("enemy_body"):
+			create_tween().tween_property($enemy_walls, "modulate", Color(0, 0, 0, 0), 1)
+			$enemy_walls.process_mode = Node.PROCESS_MODE_DISABLED
+			enemy_walls_tweened = true
+	if enemy1_health < 1 and killed_enemy1 == false:
+		var effect := green_death.instantiate()
+		effect.position = $heal_enemy.position
+		get_parent().add_child(effect)
+		$heal_enemy.queue_free()
+		killed_enemy1 = true
+	if enemy2_health < 1 and killed_enemy2 == false:
+		var effect := green_death.instantiate()
+		effect.position = $heal_enemy2.position
+		get_parent().add_child(effect)
+		$heal_enemy2.queue_free()
+		killed_enemy2 = true
+	if enemy3_health < 1 and killed_enemy3 == false:
+		var effect := green_death.instantiate()
+		effect.position = $heal_enemy3.position
+		get_parent().add_child(effect)
+		$heal_enemy3.queue_free()
+		killed_enemy3 = true
 
 func _ready():
 	await get_tree().create_timer(2, false).timeout
@@ -57,25 +97,9 @@ func _on_bullet_timer_timeout():
 	var tutorial_bullet = preload("res://level_stuff/interactables/tutorial_bullet.tscn")
 	var shot = tutorial_bullet.instantiate()
 	add_child(shot)
+	if seen_bullet:
+		shot.get_node("bullet_hurtbox").add_to_group("enemy_attack")
 	shot.shoot(Vector2(2827, -345), Vector2(2828, -345))
-
-func _on_area_2d_area_entered(area):
-	if area.is_in_group("beam detonation"):
-		$breakable_wall.emitting = false
-		await get_tree().create_timer(1, false).timeout
-		$breakable_wall.process_mode = Node.PROCESS_MODE_DISABLED
-
-func _on_parry_melee_area_area_entered(area):
-	if area.is_in_group("parry"):
-		$parry_melee.speed_scale = 0.1
-		$parry_melee2.speed_scale = 0.1
-		$parry_melee_wall/StaticBody2D.process_mode = Node.PROCESS_MODE_DISABLED
-		$parry_melee_wall.emitting = false
-		await get_tree().create_timer(1.5, false).timeout
-		$parry_melee.speed_scale = 1
-		$parry_melee2.speed_scale = 1
-		$parry_melee_wall/StaticBody2D.process_mode = Node.PROCESS_MODE_INHERIT
-		$parry_melee_wall.emitting = true
 
 func _on_shoot_message_area_entered(area):
 	if area.is_in_group("player"):
@@ -93,14 +117,54 @@ func _on_dash_message_area_entered(area):
 
 func _on_parry_message_area_entered(area):
 	if area.is_in_group("player"):
+		seen_bullet = true
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(5.5, 0.75)
 		$ui/message.text = "Press Space to Parry"
 		$parry_message.queue_free()
 
-func _on_melee_parry_message_area_entered(area):
+func _on_heal_message_area_entered(area):
 	if area.is_in_group("player"):
+		seen_bullet = false
+		$ui/particle_message.position = Vector2(957, 847)
 		$ui/particle_message.visible = true
-		$ui/particle_message.scale = Vector2(13, 0.75)
-		$ui/message.text = "Parrying a Melee Enemy will cause it to be Stunned"
-		$melee_parry_message.queue_free()
+		$ui/particle_message.scale = Vector2(13, 1.5)
+		$ui/message.text = "Damaging any Enemy will slowly charge up a         "
+		$ui/message2.text = "This is the only way to replenish your Health"
+		$ui/message3.text = "Heal"
+		$heal_message.queue_free()
+
+func _on_enemy_1_area_entered(area):
+	if area.is_in_group("player_attack"):
+		var effect := green_hurt.instantiate()
+		effect.position = $heal_enemy.position
+		get_parent().add_child(effect)
+		enemy1_health -= 1
+
+func _on_enemy_2_area_entered(area):
+	if area.is_in_group("player_attack"):
+		var effect := green_hurt.instantiate()
+		effect.position = $heal_enemy2.position
+		get_parent().add_child(effect)
+		enemy2_health -= 1
+
+func _on_enemy_3_area_entered(area):
+	if area.is_in_group("player_attack"):
+		var effect := green_hurt.instantiate()
+		effect.position = $heal_enemy3.position
+		get_parent().add_child(effect)
+		enemy3_health -= 1
+
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("beam detonation"):
+		$breakable_wall.emitting = false
+		await get_tree().create_timer(1, false).timeout
+		$breakable_wall.process_mode = Node.PROCESS_MODE_DISABLED
+
+func _on_parry_insurance_area_entered(area):
+	if area.is_in_group("player"):
+		seen_bullet = true
+
+func _on_parry_insurance_2_area_entered(area):
+	if area.is_in_group("player"):
+		seen_bullet = false

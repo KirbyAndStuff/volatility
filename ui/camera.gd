@@ -23,11 +23,11 @@ func _process(delta):
 		shake_strength = lerpf(shake_strength, 0, clamp(shakefade, 0, 10) * delta)
 		offset = randomoffset()
 	if get_tree().has_group("enemy") or get_tree().has_group("spawn"):
-		if zoomed_out == false:
+		if zoomed_out == false and not get_tree().has_group("stop following player"):
 			zoom_out()
 			zoomed_out = true
 			zoomed_in = false
-	elif zoomed_in == false:
+	elif zoomed_in == false and not get_tree().has_group("stop following player"):
 		zoom_in()
 		zoomed_in = true
 		zoomed_out = false

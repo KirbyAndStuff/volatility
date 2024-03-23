@@ -89,6 +89,14 @@ func _process(delta):
 		heal_particles()
 		heal_cooldown = 0
 
+	if get_tree().has_group("enemy") or get_tree().has_group("enemy_attack") or get_tree().has_group("spawn"):
+		if $"combat eye".emitting == false:
+			$"combat eye".emitting = true
+			$"combat eye2".emitting = true
+	elif $"combat eye".emitting == true:
+		$"combat eye".emitting = false
+		$"combat eye2".emitting = false
+
 	if in_intro:
 		speed = 0
 		$"left eye node/left eye".lifetime = 0.1
@@ -183,19 +191,6 @@ func _on_dash_length_timeout() -> void:
 	accel /= 5
 	speed /= 2
 	amount_of_i_frames -= 1
-
-func _on_combat_eye_detection_area_entered(area):
-	if area.is_in_group("enemy") or area.is_in_group("enemy_attack") or area.is_in_group("spawn"):
-		enemies_in_area += 1
-		$"combat eye".emitting = true
-		$"combat eye2".emitting = true
-
-func _on_combat_eye_detection_area_exited(area):
-	if area.is_in_group("enemy") or area.is_in_group("enemy_attack") or area.is_in_group("spawn"):
-		enemies_in_area -= 1
-		if enemies_in_area == 0:
-			$"combat eye".emitting = false
-			$"combat eye2".emitting = false
 
 func parry():
 	$parrysfx.play()

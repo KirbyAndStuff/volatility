@@ -37,7 +37,7 @@ scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_cw6p2")
 
-[node name="bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction"]]
+[node name="bullet_hurtbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bullet_hurtbox"]
 position = Vector2(-15.5, 1.5)
