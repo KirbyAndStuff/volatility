@@ -5,24 +5,19 @@ var purple3 := preload("res://enemies/purple/purple3.tscn")
 var deathsfx := preload("res://enemies/purple/purple_death2sfx.tscn")
 
 func _ready():
-	$playerdeath/CollisionShape2D.disabled = true
-	$hurts_player/CollisionShape2D.disabled = true
 	await get_tree().create_timer(0.3, false).timeout
 	$playerdeath/CollisionShape2D.disabled = false
 	$hurts_player/CollisionShape2D.disabled = false
 
 var speed = 500
-var player_chase = false
-var player = null
 var attack_player = false
 var purple_health = 2
 var is_stunned = false
 
 func _physics_process(_delta):
-	if player_chase:
-		var direction = (player.position-position).normalized()
-		velocity=direction*speed
-		move_and_slide()
+	var direction = (get_node("../player").position-position).normalized()
+	velocity=direction*speed
+	move_and_slide()
 
 func _process(_delta):
 	if attack_player and (get_node("../player").attackable) == true and is_stunned == false:
@@ -64,16 +59,6 @@ func _on_stunned_timeout():
 	$eye_top.speed_scale = 1
 	is_stunned = false
 	speed = 500
-
-func _on_player_detection_area_entered(area):
-	if area.is_in_group("player") and is_stunned == false:
-		player = area.get_parent()
-		player_chase = true
-
-func _on_player_detection_area_exited(area):
-	if area.is_in_group("player"):
-		player = null
-		player_chase = false
 
 func _on_hurts_player_area_entered(area):
 	if area.is_in_group("player"):

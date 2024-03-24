@@ -1,23 +1,17 @@
 extends CharacterBody2D
 
-var particlesL: CPUParticles2D
-var particlesR: CPUParticles2D
 var red_death := preload("res://enemies/red/red_death.tscn")
 var red_dash_particles := preload("res://enemies/red/red_dash_particles.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 
 func _ready():
-	$spawnsfx.play()
 	var effect := red_hurt.instantiate()
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)
 
 var speed = 500
-var player_chase = false
-var player = null
 var attack_player = false
 var dash_at_player = false
-var red_stamina = 20
 var red_health = 2
 var is_stunned = false
 
@@ -26,22 +20,19 @@ var is_stunned = false
 @onready var stunned_eyes = [$stunned_eye, $stunned_eye2, $stunned_eye3, $stunned_eye4]
 
 func _physics_process(_delta):
-	if player_chase:
-		var direction = (player.position-position).normalized()
-		velocity=direction*speed
-		move_and_slide()
+	var direction = (get_node("../player").position-position).normalized()
+	velocity=direction*speed
+	move_and_slide()
 
-func _process(delta):
+func _process(_delta):
 	if attack_player and (get_node("../player").attackable) == true and is_stunned == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
-	if red_stamina <= 20:
-		red_stamina += 10 * delta
-	if dash_at_player and red_stamina > 19:
+	if dash_at_player and $Red_DashCooldown.is_stopped():
 		$is_about_to_dashsfx.play()
-		red_stamina -= 20
+		$Red_DashCooldown.start()
 		var effect := red_dash_particles.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
@@ -82,20 +73,6 @@ func _on_timer_timeout():
 		vol.emitting = false
 	is_stunned = false
 	speed = 500
-
-func _on_player_detection_area_entered(area):
-	if area.is_in_group("player"):
-		player = area.get_parent()
-		player_chase = true
-		$"left eye".lifetime = 0.1
-		$"right eye".lifetime = 0.1
-
-func _on_player_detection_area_exited(area):
-	if area.is_in_group("player"):
-		player = null
-		player_chase = false
-		$"left eye".lifetime = 0.2
-		$"right eye".lifetime = 0.2
 
 func _on_hurts_player_area_entered(area):
 	if area.is_in_group("player"):

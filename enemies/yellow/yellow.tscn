@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1cslbdxweiuv"]
+[gd_scene load_steps=7 format=3 uid="uid://d1cslbdxweiuv"]
 
 [ext_resource type="Script" path="res://enemies/yellow/yellow.gd" id="1_ryoiu"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_4p1av"]
@@ -8,9 +8,6 @@ colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i2kge"]
 radius = 19.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dtirm"]
-radius = 1518.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqeec"]
 radius = 1087.0
@@ -60,12 +57,6 @@ scale_amount_max = 5.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_death"]
 shape = SubResource("CircleShape2D_i2kge")
 
-[node name="player_detection" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
-visible = false
-shape = SubResource("CircleShape2D_dtirm")
-
 [node name="player_shoot_distance" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_shoot_distance"]
@@ -74,6 +65,7 @@ shape = SubResource("CircleShape2D_iqeec")
 
 [node name="GunTimer" type="Timer" parent="."]
 wait_time = 2.5
+one_shot = true
 
 [node name="yellow_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_4p1av")
@@ -84,14 +76,12 @@ pitch_scale = 0.75
 stream = ExtResource("2_4p1av")
 volume_db = -5.0
 pitch_scale = 3.0
+autoplay = true
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_4mdx1")
 
 [connection signal="area_entered" from="player_death" to="." method="_on_player_death_area_entered"]
-[connection signal="area_entered" from="player_detection" to="." method="_on_player_detection_area_entered"]
-[connection signal="area_exited" from="player_detection" to="." method="_on_player_detection_area_exited"]
 [connection signal="area_entered" from="player_shoot_distance" to="." method="_on_player_shoot_distance_area_entered"]
 [connection signal="area_exited" from="player_shoot_distance" to="." method="_on_player_shoot_distance_area_exited"]
-[connection signal="timeout" from="GunTimer" to="." method="_on_gun_timer_timeout"]

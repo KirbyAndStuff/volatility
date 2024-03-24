@@ -1,11 +1,6 @@
 extends CPUParticles2D
 
 func _ready():
-	$deathsfx.play()
 	emitting = true
-	$"left eye".emitting = true
-	$"right eye".emitting = true
-
-func _process(_delta):
-	if !emitting:
-		queue_free()
+	await get_tree().create_timer(1, false).timeout
+	queue_free()

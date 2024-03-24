@@ -3,13 +3,10 @@ extends CPUParticles2D
 var directiona := Vector2.ZERO
 
 func _ready():
-	emitting = true
 	$explosion_top.emitting = true
 	$explosion_bottom.emitting = true
-
-func _process(_delta):
-	if !emitting:
-		queue_free()
+	await get_tree().create_timer(0.85, false).timeout
+	queue_free()
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from

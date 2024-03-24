@@ -261,9 +261,9 @@ scale_amount_curve = SubResource("Curve_bn7ao")
 color_ramp = SubResource("Gradient_qpn1k")
 
 [node name="second_weapon" type="CPUParticles2D" parent="."]
+modulate = Color(0, 0, 0, 0.01)
 position = Vector2(265, 15)
 scale = Vector2(-1, 1)
-emitting = false
 amount = 50
 preprocess = 0.5
 speed_scale = 2.0

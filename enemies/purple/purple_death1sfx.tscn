@@ -6,4 +6,5 @@
 [node name="purple_death1sfx" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_fa0u3")
 pitch_scale = 0.5
+autoplay = true
 script = ExtResource("2_3xbia")

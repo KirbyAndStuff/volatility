@@ -37,3 +37,4 @@ script = ExtResource("1_60sk7")
 [node name="hurtsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_o8af2")
 pitch_scale = 2.0
+autoplay = true

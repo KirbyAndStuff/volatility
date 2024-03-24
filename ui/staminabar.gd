@@ -2,8 +2,6 @@ extends Control
 
 var stamina_actual = true
 
-@onready var stamina_thingie := $stamina_thingie
-
 func _process(_delta):
 	if stamina_actual == true:
 		$stamina_bar2.value = 0 - (get_node("../../player").stamina)
@@ -15,8 +13,7 @@ func _process(_delta):
 		get_node("../../player").stamina_tween = true
 		await get_tree().create_timer(0.075, false).timeout
 		stamina_actual = true
-		stamina_thingie.start()
-	if $stamina_bar2.value > -50:
+	if $stamina_bar2.value > -50 and not $filling.color == Color(1, 0, 0):
 		$filling.color = Color(1, 0, 0)
-	else:
+	if $stamina_bar2.value < -50 and not $filling.color == Color(0, 0.827, 1):
 		$filling.color = Color(0, 0.827, 1)

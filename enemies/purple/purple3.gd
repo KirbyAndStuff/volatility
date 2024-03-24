@@ -3,24 +3,19 @@ extends CharacterBody2D
 var purple_hurt := preload("res://enemies/purple/purple_hurt3.tscn")
 
 func _ready():
-	$playerdeath/CollisionShape2D.disabled = true
-	$hurts_player/CollisionShape2D.disabled = true
 	await get_tree().create_timer(0.3, false).timeout
 	$playerdeath/CollisionShape2D.disabled = false
 	$hurts_player/CollisionShape2D.disabled = false
 
 var speed = 700
-var player_chase = false
-var player = null
 var attack_player = false
 var purple_health = 1
 var is_stunned = false
 
 func _physics_process(_delta):
-	if player_chase:
-		var direction = (player.position-position).normalized()
-		velocity=direction*speed
-		move_and_slide()
+	var direction = (get_node("../player").position-position).normalized()
+	velocity=direction*speed
+	move_and_slide()
 
 func _process(_delta):
 	if attack_player and (get_node("../player").attackable) == true and is_stunned == false:
@@ -46,16 +41,6 @@ func _on_stunned_timeout():
 	$eye_bottom.speed_scale = 1.5
 	is_stunned = false
 	speed = 700
-
-func _on_player_detection_area_entered(area):
-	if area.is_in_group("player") and is_stunned == false:
-		player = area.get_parent()
-		player_chase = true
-
-func _on_player_detection_area_exited(area):
-	if area.is_in_group("player"):
-		player = null
-		player_chase = false
 
 func _on_hurts_player_area_entered(area):
 	if area.is_in_group("player"):

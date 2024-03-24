@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://605ng3t3lwhu"]
+[gd_scene load_steps=6 format=3 uid="uid://605ng3t3lwhu"]
 
 [ext_resource type="Script" path="res://enemies/red/red_death.gd" id="1_22xqq"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_hh56o"]
@@ -13,16 +13,6 @@ colors = PackedColorArray(1, 0, 0, 0.501961, 1, 1, 1, 0.501961)
 
 [sub_resource type="Gradient" id="Gradient_ye5px"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0.235294)
-
-[sub_resource type="Curve" id="Curve_7ksf7"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_r8ml1"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_2iyk7"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="red_death" type="CPUParticles2D"]
 position = Vector2(1, -2)
@@ -53,52 +43,7 @@ color_ramp = SubResource("Gradient_nke3o")
 color_initial_ramp = SubResource("Gradient_ye5px")
 script = ExtResource("1_22xqq")
 
-[node name="left eye" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2(10, -8)
-emitting = false
-amount = 50
-lifetime = 0.5
-one_shot = true
-speed_scale = 0.7
-explosiveness = 1.0
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector2(0, 0)
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 15.0
-initial_velocity_max = 15.0
-angle_min = -20.0
-angle_max = 20.0
-scale_amount_min = 3.0
-scale_amount_max = 3.0
-scale_amount_curve = SubResource("Curve_7ksf7")
-color_ramp = SubResource("Gradient_r8ml1")
-
-[node name="right eye" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2(-8, -8)
-emitting = false
-amount = 50
-lifetime = 0.5
-one_shot = true
-speed_scale = 0.7
-explosiveness = 1.0
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector2(0, 0)
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 15.0
-initial_velocity_max = 15.0
-angle_min = -20.0
-angle_max = 20.0
-scale_amount_min = 3.0
-scale_amount_max = 3.0
-scale_amount_curve = SubResource("Curve_7ksf7")
-color_ramp = SubResource("Gradient_2iyk7")
-
 [node name="deathsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_hh56o")
 volume_db = 3.0
+autoplay = true

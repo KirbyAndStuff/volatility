@@ -88,7 +88,3 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_1yuyo")
-
-[node name="stamina_thingie" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true

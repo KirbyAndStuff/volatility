@@ -5,14 +5,11 @@ var purple2 := preload("res://enemies/purple/purple2.tscn")
 var deathsfx := preload("res://enemies/purple/purple_death1sfx.tscn")
 
 func _ready():
-	$spawnsfx.play()
 	var effect := purple_hurt.instantiate()
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)
 
 var speed = 300
-var player_chase = false
-var player = null
 var attack_player = false
 var purple_health = 3
 var is_stunned = false
@@ -20,10 +17,9 @@ var is_stunned = false
 @onready var eyes = [$eye_bottom, $eye_top, $eye_left, $eye_right]
 
 func _physics_process(_delta):
-	if player_chase:
-		var direction = (player.position-position).normalized()
-		velocity=direction*speed
-		move_and_slide()
+	var direction = (get_node("../player").position-position).normalized()
+	velocity=direction*speed
+	move_and_slide()
 
 func _process(_delta):
 	if attack_player and (get_node("../player").attackable) == true and is_stunned == false:
@@ -64,16 +60,6 @@ func _on_stunned_timeout():
 		vol.speed_scale = 0.75
 	is_stunned = false
 	speed = 300
-
-func _on_player_detection_area_entered(area):
-	if area.is_in_group("player") and is_stunned == false:
-		player = area.get_parent()
-		player_chase = true
-
-func _on_player_detection_area_exited(area):
-	if area.is_in_group("player"):
-		player = null
-		player_chase = false
 
 func _on_hurts_player_area_entered(area):
 	if area.is_in_group("player"):

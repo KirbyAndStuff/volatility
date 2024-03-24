@@ -6,4 +6,5 @@
 [node name="purple_death2sfx" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_le5mf")
 volume_db = -3.0
+autoplay = true
 script = ExtResource("2_bpaq0")

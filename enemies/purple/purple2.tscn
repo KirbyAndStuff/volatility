@@ -1,12 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://o7kjrn46nqd"]
+[gd_scene load_steps=6 format=3 uid="uid://o7kjrn46nqd"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple2.gd" id="1_7ohsw"]
 
 [sub_resource type="Gradient" id="Gradient_bu8hp"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.392157)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_2l3fj"]
-radius = 796.049
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wt1ba"]
 radius = 37.0259
@@ -40,25 +37,20 @@ scale_amount_max = 10.0
 color = Color(0.372549, 0, 1, 1)
 color_ramp = SubResource("Gradient_bu8hp")
 
-[node name="player_detection" type="Area2D" parent="."]
-scale = Vector2(3, 3)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
-visible = false
-shape = SubResource("CircleShape2D_2l3fj")
-
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
 scale = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 visible = false
 shape = SubResource("CircleShape2D_wt1ba")
+disabled = true
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 visible = false
 shape = SubResource("CircleShape2D_aqbt7")
+disabled = true
 
 [node name="eye_bottom" type="CPUParticles2D" parent="."]
 position = Vector2(0, 60)
@@ -104,8 +96,6 @@ shape = SubResource("CircleShape2D_kdq7s")
 [node name="Stunned" type="Timer" parent="."]
 wait_time = 0.75
 
-[connection signal="area_entered" from="player_detection" to="." method="_on_player_detection_area_entered"]
-[connection signal="area_exited" from="player_detection" to="." method="_on_player_detection_area_exited"]
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="area_entered" from="hurts_player" to="." method="_on_hurts_player_area_entered"]
 [connection signal="area_exited" from="hurts_player" to="." method="_on_hurts_player_area_exited"]

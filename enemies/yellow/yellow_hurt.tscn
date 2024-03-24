@@ -11,16 +11,16 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="yellow_hurt" type="CPUParticles2D"]
 emitting = false
-amount = 30
+amount = 50
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 emission_shape = 1
-emission_sphere_radius = 10.0
+emission_sphere_radius = 20.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 150.0
-initial_velocity_max = 150.0
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 angle_min = -180.0

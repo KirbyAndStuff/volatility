@@ -1,8 +1,5 @@
 extends AudioStreamPlayer2D
 
 func _ready():
-	playing = true
-
-func _process(_delta):
-	if !playing:
-		queue_free()
+	await get_tree().create_timer(1.2, false).timeout
+	queue_free()

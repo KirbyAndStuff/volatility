@@ -44,3 +44,4 @@ script = ExtResource("1_lkrjy")
 [node name="deathsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_64h4m")
 volume_db = 3.0
+autoplay = true

@@ -6,4 +6,5 @@
 [node name="detonationsfx" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_1mlkn")
 pitch_scale = 2.0
+autoplay = true
 script = ExtResource("2_t2r8t")

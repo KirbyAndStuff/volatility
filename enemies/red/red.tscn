@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=14 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="2_wjcl0"]
@@ -20,9 +20,6 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4iuuo"]
 radius = 38.0526
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_sdnrw"]
-radius = 9000.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g07hy"]
 radius = 25.318
@@ -64,7 +61,7 @@ color_initial_ramp = SubResource("Gradient_548fa")
 [node name="left eye" type="CPUParticles2D" parent="."]
 position = Vector2(10, -8)
 amount = 50
-lifetime = 0.2
+lifetime = 0.1
 speed_scale = 0.5
 emission_shape = 1
 emission_sphere_radius = 1.0
@@ -78,7 +75,7 @@ color_ramp = SubResource("Gradient_na7al")
 [node name="right eye" type="CPUParticles2D" parent="."]
 position = Vector2(-8, -8)
 amount = 50
-lifetime = 0.2
+lifetime = 0.1
 speed_scale = 0.5
 emission_shape = 1
 emission_sphere_radius = 1.0
@@ -95,13 +92,6 @@ color_ramp = SubResource("Gradient_na7al")
 visible = false
 position = Vector2(1, -20)
 shape = SubResource("CircleShape2D_4iuuo")
-
-[node name="player_detection" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
-visible = false
-position = Vector2(1, -20)
-shape = SubResource("CircleShape2D_sdnrw")
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
 
@@ -135,6 +125,7 @@ pitch_scale = 2.0
 stream = ExtResource("4_8lp8t")
 volume_db = -5.0
 pitch_scale = 3.0
+autoplay = true
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false
@@ -204,9 +195,11 @@ color_ramp = SubResource("Gradient_vradg")
 [node name="Stunned" type="Timer" parent="."]
 one_shot = true
 
+[node name="Red_DashCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
-[connection signal="area_entered" from="player_detection" to="." method="_on_player_detection_area_entered"]
-[connection signal="area_exited" from="player_detection" to="." method="_on_player_detection_area_exited"]
 [connection signal="area_entered" from="hurts_player" to="." method="_on_hurts_player_area_entered"]
 [connection signal="area_exited" from="hurts_player" to="." method="_on_hurts_player_area_exited"]
 [connection signal="area_entered" from="player_dash_distance" to="." method="_on_player_dash_distance_area_entered"]

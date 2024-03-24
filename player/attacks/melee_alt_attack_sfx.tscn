@@ -6,14 +6,12 @@
 script/source = "extends AudioStreamPlayer2D
 
 func _ready():
-	playing = true
-
-func _process(_delta):
-	if !playing:
-		queue_free()
+	await get_tree().create_timer(1.18, false).timeout
+	queue_free()
 "
 
 [node name="melee_alt_attack_sfx" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_fiuoo")
 volume_db = -3.0
+autoplay = true
 script = SubResource("GDScript_nd8yk")

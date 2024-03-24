@@ -36,8 +36,6 @@ var in_intro = true
 
 func _physics_process(delta):
 	player_movement(delta)
-
-func _process(delta):
 	if stamina <= 100:
 		stamina += 25 * delta
 	if alt_gun_cooldown <= 100:
@@ -46,11 +44,16 @@ func _process(delta):
 		alt_melee_cooldown += 25 * delta
 	if parry_cooldown <= 30:
 		parry_cooldown += 10 * delta
+	if in_intro:
+		speed = 0
+		$"left eye node/left eye".lifetime = 0.1
+		$"right eye node/right eye".lifetime = 0.1
+		position.y += 2000 * delta
 
+func _process(_delta):
 	if Input.is_action_pressed("dash") and stamina > 50 and is_dashing == false and is_dead == false and in_intro == false:
 		dash()
 		stamina_tween = false
-		
 	if Input.is_action_pressed("parry") and parry_cooldown > 30 and is_dead == false and in_intro == false:
 		parry()
 	if health < 1 and is_dead == false:
@@ -79,7 +82,6 @@ func _process(delta):
 	if Input.is_action_pressed("second_weapon"):
 		first_weapon = false
 		second_weapon = true
-
 	if amount_of_i_frames == 0:
 		attackable = true
 	else:
@@ -88,7 +90,6 @@ func _process(delta):
 		health += 1
 		heal_particles()
 		heal_cooldown = 0
-
 	if get_tree().has_group("enemy") or get_tree().has_group("enemy_attack") or get_tree().has_group("spawn"):
 		if $"combat eye".emitting == false:
 			$"combat eye".emitting = true
@@ -96,12 +97,6 @@ func _process(delta):
 	elif $"combat eye".emitting == true:
 		$"combat eye".emitting = false
 		$"combat eye2".emitting = false
-
-	if in_intro:
-		speed = 0
-		$"left eye node/left eye".lifetime = 0.1
-		$"right eye node/right eye".lifetime = 0.1
-		position.y += 2000 * delta
 
 func get_input():
 	if input.length() > 0.0:
