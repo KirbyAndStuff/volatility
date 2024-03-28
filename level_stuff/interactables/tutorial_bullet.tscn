@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkfnldkigi17v"]
+[gd_scene load_steps=7 format=3 uid="uid://bkfnldkigi17v"]
 
 [ext_resource type="Script" path="res://level_stuff/interactables/tutorial_bullet.gd" id="1_bvo5o"]
 
@@ -17,6 +17,9 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_vg27h"]
 offsets = PackedFloat32Array(0, 0.516556)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fm3vi"]
+size = Vector2(134, 65)
 
 [node name="tutorial_bullet" type="CharacterBody2D"]
 script = ExtResource("1_bvo5o")
@@ -40,6 +43,7 @@ scale_amount_curve = SubResource("Curve_cw6p2")
 [node name="bullet_hurtbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bullet_hurtbox"]
+visible = false
 position = Vector2(-15.5, 1.5)
 shape = SubResource("RectangleShape2D_avyqg")
 
@@ -85,6 +89,14 @@ color_ramp = SubResource("Gradient_vg27h")
 wait_time = 3.0
 autostart = true
 
+[node name="parry_hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parry_hurtbox"]
+position = Vector2(-8, 1.5)
+shape = SubResource("RectangleShape2D_fm3vi")
+
 [connection signal="area_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_entered"]
 [connection signal="body_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="parry_hurtbox" to="." method="_on_parry_hurtbox_area_entered"]
+[connection signal="area_exited" from="parry_hurtbox" to="." method="_on_parry_hurtbox_area_exited"]

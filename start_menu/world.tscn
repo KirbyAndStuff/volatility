@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_hqghg"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_rnoq1"]
-[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="9_4sudk"]
+[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="9_g8dr3"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -104,5 +104,5 @@ position = Vector2(-125, 678)
 position = Vector2(280.5, 56.5)
 shape = SubResource("RectangleShape2D_bkawm")
 
-[node name="red" parent="." instance=ExtResource("9_4sudk")]
-position = Vector2(584, -25)
+[node name="red" parent="." instance=ExtResource("9_g8dr3")]
+position = Vector2(961, 116)

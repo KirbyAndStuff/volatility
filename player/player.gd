@@ -20,7 +20,6 @@ var stamina = 100
 var alt_gun_cooldown = 100
 var alt_melee_cooldown = 100
 var input = Vector2.ZERO
-var enemies_in_area = 0
 var is_dead = false
 var stamina_tween = true
 var melee_order = 1
@@ -32,7 +31,7 @@ var amount_of_i_frames = 0
 var heal_cooldown = 0
 var parry_cooldown = 30
 var parried = false
-var in_intro = true
+var in_intro = false
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -60,13 +59,12 @@ func _process(_delta):
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		modulate = Color(0, 0, 0, 0)
 		speed = 0
 		speed_boost = 0
 		$body.emitting = false
 		$"left eye node/left eye".emitting = false
 		$"right eye node/right eye".emitting = false
-		$"combat eye".visible = false
-		$"combat eye2".visible = false
 		is_dead = true
 	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and first_weapon and is_dead == false and in_intro == false:
 		shoot()
@@ -90,19 +88,24 @@ func _process(_delta):
 		health += 1
 		heal_particles()
 		heal_cooldown = 0
-	if get_tree().has_group("enemy") or get_tree().has_group("enemy_attack") or get_tree().has_group("spawn"):
-		if $"combat eye".emitting == false:
-			$"combat eye".emitting = true
-			$"combat eye2".emitting = true
-	elif $"combat eye".emitting == true:
+	if is_dead == false:
+		if get_tree().has_group("enemy") or get_tree().has_group("enemy_attack") or get_tree().has_group("spawn"):
+			if $"combat eye".emitting == false:
+				$"combat eye".emitting = true
+				$"combat eye2".emitting = true
+		elif $"combat eye".emitting == true:
+			$"combat eye".emitting = false
+			$"combat eye2".emitting = false
+	elif  $"combat eye".emitting == true:
 		$"combat eye".emitting = false
 		$"combat eye2".emitting = false
 
 func get_input():
 	if input.length() > 0.0:
-		$"left eye node/left eye".lifetime = 0.1
-		$"right eye node/right eye".lifetime = 0.1
-	else:
+		if $"left eye node/left eye".lifetime == 0.2:
+			$"left eye node/left eye".lifetime = 0.1
+			$"right eye node/right eye".lifetime = 0.1
+	elif $"left eye node/left eye".lifetime == 0.1:
 		$"left eye node/left eye".lifetime = 0.2
 		$"right eye node/right eye".lifetime = 0.2
 	input.x = int(Input.is_action_pressed("blue_right")) - int(Input.is_action_pressed("blue_left"))
@@ -218,18 +221,20 @@ func _on_parry_detection_area_entered(area):
 		parried = false
 
 func framefreeze(timescale, duration):
-	Engine.time_scale = timescale
-	await(get_tree().create_timer(duration * timescale).timeout)
-	Engine.time_scale = 1.0
+	if is_dead == false:
+		Engine.time_scale = timescale
+		await(get_tree().create_timer(duration * timescale).timeout)
+		Engine.time_scale = 1.0
 
 func player_hurt_particles():
-	parry_cooldown = clamp(parry_cooldown - 15, 0, 30)
-	var effect := player_hurt.instantiate()
-	effect.position = position
-	get_parent().add_child(effect)
-	speed_boost = 0
-	accel_boost = 0
-	friction_boost = 0
+	if is_dead == false:
+		parry_cooldown = clamp(parry_cooldown - 15, 0, 30)
+		var effect := player_hurt.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		speed_boost = 0
+		accel_boost = 0
+		friction_boost = 0
 
 func i_frames(duration):
 	amount_of_i_frames += 1

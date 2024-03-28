@@ -19,9 +19,9 @@ var is_stunned = false
 @onready var eyes = [$"left eye", $"right eye"]
 @onready var stunned_eyes = [$stunned_eye, $stunned_eye2, $stunned_eye3, $stunned_eye4]
 
-func _physics_process(_delta):
-	var direction = (get_node("../player").position-position).normalized()
-	velocity=direction*speed
+func _physics_process(delta):
+	if speed <= 500:
+		position += (get_node("../player").position - position).normalized() * speed * delta
 	move_and_slide()
 
 func _process(_delta):
@@ -40,12 +40,16 @@ func _process(_delta):
 		if is_stunned == false:
 			$red_dashsfx.play()
 			speed *= 4
+			var direction = (get_node("../player").position-position).normalized()
+			velocity=direction*speed
 			red_dashlength.start()
 	if red_health < 1:
 		var effect := red_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		queue_free()
+	if not velocity == Vector2.ZERO:
+		velocity = lerp(velocity, Vector2.ZERO, 0.003)
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack"):
@@ -55,6 +59,7 @@ func _on_playerdeath_area_entered(area):
 		red_health -= area.get_parent().damage
 	if area.is_in_group("parry"):
 		is_stunned = true
+		velocity = Vector2.ZERO
 		speed = 0
 		dash_at_player = false
 		for vol in eyes:

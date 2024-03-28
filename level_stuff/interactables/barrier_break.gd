@@ -21,7 +21,7 @@ func _process(_delta):
 		can_be_hurt_view = false
 	else:
 		can_be_hurt_view = true
-	if get_tree().has_group("enemy") or get_tree().has_group("spawn"):
+	if get_tree().has_group("enemy") or get_tree().has_group("spawn") or get_tree().has_group("enemy_attack"):
 		can_be_hurt_enemy = false
 	else:
 		can_be_hurt_enemy = true

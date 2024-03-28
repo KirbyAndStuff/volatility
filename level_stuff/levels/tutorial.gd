@@ -11,8 +11,8 @@ var enemy_walls_tweened = false
 var killed_enemy1 = false
 var killed_enemy2 = false
 var killed_enemy3 = false
-var seen_bullet = false
 var messages = [false, false, false, false]
+var checkpoint = null
 
 func _process(_delta):
 	if get_tree().has_group("next level"):
@@ -65,6 +65,7 @@ func _process(_delta):
 		killed_enemy3 = true
 
 func _ready():
+	Engine.time_scale = 1.0
 	await get_tree().create_timer(2, false).timeout
 	$start_level_chargesfx.play()
 	$camera.apply_shake(10, 2)
@@ -77,6 +78,7 @@ func _ready():
 	get_parent().add_child(effect)
 	$player.visible = true
 	$player.process_mode = Node.PROCESS_MODE_INHERIT
+	get_node("player").in_intro = true
 
 func _on_start_level_area_entered(area):
 	if area.is_in_group("player"):
@@ -97,8 +99,6 @@ func _on_bullet_timer_timeout():
 	var tutorial_bullet = preload("res://level_stuff/interactables/tutorial_bullet.tscn")
 	var shot = tutorial_bullet.instantiate()
 	add_child(shot)
-	if seen_bullet:
-		shot.get_node("bullet_hurtbox").add_to_group("enemy_attack")
 	shot.shoot(Vector2(2827, -345), Vector2(2828, -345))
 
 func _on_shoot_message_area_entered(area):
@@ -117,7 +117,6 @@ func _on_dash_message_area_entered(area):
 
 func _on_parry_message_area_entered(area):
 	if area.is_in_group("player"):
-		seen_bullet = true
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(5.5, 0.75)
 		$ui/message.text = "Press Space to Parry"
@@ -125,7 +124,6 @@ func _on_parry_message_area_entered(area):
 
 func _on_heal_message_area_entered(area):
 	if area.is_in_group("player"):
-		seen_bullet = false
 		$ui/particle_message.position = Vector2(957, 847)
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(13, 1.5)
@@ -160,11 +158,3 @@ func _on_area_2d_area_entered(area):
 		$breakable_wall.emitting = false
 		await get_tree().create_timer(1, false).timeout
 		$breakable_wall.process_mode = Node.PROCESS_MODE_DISABLED
-
-func _on_parry_insurance_area_entered(area):
-	if area.is_in_group("player"):
-		seen_bullet = true
-
-func _on_parry_insurance_2_area_entered(area):
-	if area.is_in_group("player"):
-		seen_bullet = false

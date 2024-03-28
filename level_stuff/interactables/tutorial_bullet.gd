@@ -44,3 +44,11 @@ func _on_bullet_hurtbox_area_entered(area) -> void:
 
 func _on_timer_timeout():
 	queue_free()
+
+func _on_parry_hurtbox_area_entered(area) -> void:
+	if area.is_in_group("player"):
+		$parry_hurtbox.add_to_group("enemy_attack")
+
+func _on_parry_hurtbox_area_exited(area) -> void:
+	if area.is_in_group("player"):
+		$parry_hurtbox.remove_from_group("enemy_attack")

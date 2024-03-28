@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cusucgccm5yb8"]
+[gd_scene load_steps=40 format=3 uid="uid://cusucgccm5yb8"]
 
 [ext_resource type="Script" path="res://level_stuff/levels/tutorial.gd" id="1_hccw4"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_lcn12"]
@@ -102,12 +102,6 @@ scenes/1/scene = ExtResource("5_k438c")
 
 [sub_resource type="TileSet" id="TileSet_6dc7t"]
 sources/0 = SubResource("TileSetScenesCollectionSource_tnq47")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkpd4"]
-size = Vector2(384, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_si31p"]
-size = Vector2(16, 432)
 
 [node name="Tutorial" type="Node2D" groups=["not beamable"]]
 script = ExtResource("1_hccw4")
@@ -449,20 +443,6 @@ tile_set = SubResource("TileSet_6dc7t")
 format = 2
 layer_0/tile_data = PackedInt32Array(-6487780, 0, 65536, -6422244, 0, 65536, -6356708, 0, 65536, -6291172, 0, 65536, -6225636, 0, 65536, -6160100, 0, 65536, -6094564, 0, 65536, -6029028, 0, 65536, -5963492, 0, 65536, -5897956, 0, 65536, -5832420, 0, 65536, -5766884, 0, 65536, -5701348, 0, 65536, -5635812, 0, 65536, -5570276, 0, 65536, -5504740, 0, 65536, -5439204, 0, 65536, -5373668, 0, 65536, -5308132, 0, 65536, -5242596, 0, 65536, -5177060, 0, 65536, -5111524, 0, 65536, -5045988, 0, 65536, -4980452, 0, 65536, -4914916, 0, 65536, -4849380, 0, 65536, -4783844, 0, 65536, -4718308, 0, 65536, -4652772, 0, 65536, -4587236, 0, 65536)
 
-[node name="parry_insurance" type="Area2D" parent="."]
-position = Vector2(3193, -950)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="parry_insurance"]
-position = Vector2(182, -2)
-shape = SubResource("RectangleShape2D_xkpd4")
-
-[node name="parry_insurance2" type="Area2D" parent="."]
-position = Vector2(3807, -1551)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="parry_insurance2"]
-position = Vector2(8, 215)
-shape = SubResource("RectangleShape2D_si31p")
-
 [connection signal="area_entered" from="hurt_wall" to="." method="_on_hurt_wall_area_entered"]
 [connection signal="area_exited" from="hurt_wall" to="." method="_on_hurt_wall_area_exited"]
 [connection signal="area_entered" from="start level" to="." method="_on_start_level_area_entered"]
@@ -475,5 +455,3 @@ shape = SubResource("RectangleShape2D_si31p")
 [connection signal="area_entered" from="heal_enemy/enemy1" to="." method="_on_enemy_1_area_entered"]
 [connection signal="area_entered" from="heal_enemy2/enemy2" to="." method="_on_enemy_2_area_entered"]
 [connection signal="area_entered" from="heal_enemy3/enemy3" to="." method="_on_enemy_3_area_entered"]
-[connection signal="area_entered" from="parry_insurance" to="." method="_on_parry_insurance_area_entered"]
-[connection signal="area_entered" from="parry_insurance2" to="." method="_on_parry_insurance_2_area_entered"]
