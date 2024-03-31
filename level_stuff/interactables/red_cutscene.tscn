@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://du36p17bqu2bc"]
+
+[ext_resource type="Script" path="res://level_stuff/interactables/red_cutscene.gd" id="1_lndox"]
+
+[sub_resource type="Curve" id="Curve_8jx83"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_8qyx3"]
+colors = PackedColorArray(1, 0, 0, 0.501961, 1, 1, 1, 0.501961)
+
+[sub_resource type="Gradient" id="Gradient_548fa"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_na7al"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4iuuo"]
+radius = 38.0526
+
+[node name="red_cutscene" type="Node2D"]
+script = ExtResource("1_lndox")
+
+[node name="body" type="CPUParticles2D" parent="."]
+position = Vector2(1, -2)
+amount = 250
+lifetime = 0.5
+speed_scale = 0.7
+emission_shape = 1
+emission_sphere_radius = 25.0
+spread = 180.0
+gravity = Vector2(0, -1000)
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_8jx83")
+color_ramp = SubResource("Gradient_8qyx3")
+color_initial_ramp = SubResource("Gradient_548fa")
+
+[node name="left eye" type="CPUParticles2D" parent="."]
+position = Vector2(10, -8)
+amount = 50
+lifetime = 0.1
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -1000)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_na7al")
+
+[node name="right eye" type="CPUParticles2D" parent="."]
+position = Vector2(-8, -8)
+amount = 50
+lifetime = 0.1
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -1000)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_na7al")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(1, -20)
+shape = SubResource("CircleShape2D_4iuuo")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

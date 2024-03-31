@@ -52,10 +52,6 @@ vertical_alignment = 1
 layout_mode = 2
 text = "Resume Game"
 
-[node name="Last Checkpoint" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Last Checkpoint"
-
 [node name="Restart Level" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Restart Level"
@@ -65,6 +61,5 @@ layout_mode = 2
 text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer/Resume Game" to="." method="_on_resume_game_pressed"]
-[connection signal="pressed" from="VBoxContainer/Last Checkpoint" to="." method="_on_last_checkpoint_pressed"]
 [connection signal="pressed" from="VBoxContainer/Restart Level" to="." method="_on_restart_level_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

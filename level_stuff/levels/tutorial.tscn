@@ -103,7 +103,7 @@ scenes/1/scene = ExtResource("5_k438c")
 [sub_resource type="TileSet" id="TileSet_6dc7t"]
 sources/0 = SubResource("TileSetScenesCollectionSource_tnq47")
 
-[node name="Tutorial" type="Node2D" groups=["not beamable"]]
+[node name="Tutorial" type="Node2D" groups=["dont zoom out", "not beamable"]]
 script = ExtResource("1_hccw4")
 
 [node name="player" parent="." instance=ExtResource("1_lcn12")]
@@ -267,6 +267,7 @@ stream = ExtResource("17_4u65x")
 max_distance = 1000.0
 
 [node name="BulletTimer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [node name="bullet_spawn" type="CPUParticles2D" parent="."]
@@ -305,7 +306,7 @@ scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_54wya")
 
-[node name="breakable_wall" type="CPUParticles2D" parent="."]
+[node name="breakable_wall" type="CPUParticles2D" parent="." groups=["breakable wall"]]
 position = Vector2(3377, -872)
 amount = 150
 local_coords = true

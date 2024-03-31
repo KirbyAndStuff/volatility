@@ -22,7 +22,7 @@ func _process(delta):
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength, 0, clamp(shakefade, 0, 10) * delta)
 		offset = randomoffset()
-	if get_tree().has_group("enemy") or get_tree().has_group("spawn") or get_tree().has_group("enemy_attack"):
+	if get_tree().has_group("enemy") or get_tree().has_group("spawn"):
 		if zoomed_out == false and not get_tree().has_group("stop following player"):
 			zoom_out()
 			zoomed_out = true
