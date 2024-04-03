@@ -7,9 +7,9 @@ var red_intro_health = 3
 var red_intro_died = false
 var pressed_m2 = false
 var room_cleared = [false, false, false]
-var room_activated = [false, false, false, false]
-var checkpoint = null
-var checkpoint_number = 0
+var room_activated = [false, false, false, false, false]
+var checkpoint = Vector2(4966, 2316)
+var checkpoint_number = 4
 var restarts = 0
 var shot_green_meteor = false
 
@@ -85,6 +85,10 @@ func _process(_delta):
 		$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
 		create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
 		room_activated[3] = false
+		checkpoint_number += 1
+	if room_activated[4] and not get_tree().has_group("spawn") and not get_tree().has_group("enemy"):
+		$green_meteor_die_spawn.queue_free()
+		room_activated[4] = false
 
 	if get_node("ui/gameoverscreen").restarted:
 		get_node("ui/gameoverscreen").restarted = false
@@ -114,6 +118,8 @@ func _process(_delta):
 				$red_room_area2.call_deferred("set_process_mode", PROCESS_MODE_INHERIT)
 			$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
 			$lock_walls3.modulate = Color(0, 0, 0, 0)
+		if checkpoint_number == 5:
+			room_activated[4] = false
 
 func _ready():
 	Engine.time_scale = 1.0
@@ -125,7 +131,6 @@ func _ready():
 	get_parent().add_child(effect)
 	$player.visible = true
 	$player.process_mode = Node.PROCESS_MODE_INHERIT
-	get_node("player").in_intro = true
 
 func _on_start_level_area_entered(area):
 	if area.is_in_group("player") and $intro_walls.process_mode == PROCESS_MODE_DISABLED:
@@ -357,6 +362,8 @@ func delete_enemy_and_spawn(duration):
 		enemy.queue_free()
 	for spawn in get_tree().get_nodes_in_group("spawn"):
 		spawn.queue_free()
+	for enemy_attack in get_tree().get_nodes_in_group("enemy_attack"):
+		enemy_attack.queue_free()
 
 func _on_green_meteor_area_entered(area):
 	if area.is_in_group("player") or area.is_in_group("enemy"):
@@ -370,6 +377,7 @@ func _on_green_meteor_area_entered(area):
 func _on_green_meteor_red_area_entered(area):
 	if area.is_in_group("player"):
 		$green_meteor_red.queue_free()
+		checkpoint = Vector2(8167, 2333)
 		$lock_walls3.process_mode = Node.PROCESS_MODE_INHERIT
 		create_tween().tween_property($lock_walls3, "modulate", Color(1, 1, 1, 1), 1)
 		add_to_group("stop following player")
@@ -390,6 +398,7 @@ func _on_kill_green_meteor_area_entered(area):
 	if area.is_in_group("green meteor"):
 		$camera.apply_shake(30, 1.5)
 		get_node("player").speed = 0
+		get_node("player").player_hurt_particles()
 		if is_instance_valid($red_cutscene):
 			get_node("red_cutscene").die()
 		if is_instance_valid($red_cutscene2):
@@ -416,6 +425,14 @@ func _on_kill_green_meteor_area_entered(area):
 		await get_tree().create_timer(1, false).timeout
 		get_node("player").speed = 700
 		remove_from_group("stop following player")
+		room_activated[4] = true
 
 func _on_green_meteor_coming_finished() -> void:
 	$green_meteor_coming.play()
+
+func _on_green_meteor_die_spawn_area_entered(area):
+	if area.is_in_group("player") and $green_meteor_walls2.visible == true:
+		if not get_tree().has_group("enemy") and not get_tree().has_group("spawn"):
+			spawna("green", Vector2(10496, 2239), 1)
+			await get_tree().create_timer(0.5, false).timeout
+			spawna("green", Vector2(10498, 2372), 1)

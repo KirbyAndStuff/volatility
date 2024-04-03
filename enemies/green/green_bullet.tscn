@@ -17,7 +17,7 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.145695)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="green_bullet" type="CharacterBody2D"]
+[node name="green_bullet" type="CharacterBody2D" groups=["enemy_attack"]]
 script = ExtResource("1_2bm86")
 
 [node name="bullet_body" type="CPUParticles2D" parent="."]
