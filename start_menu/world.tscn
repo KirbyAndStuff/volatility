@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=12 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
@@ -7,9 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="5_mxfgi"]
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_hqghg"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
-[ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_rnoq1"]
-[ext_resource type="PackedScene" uid="uid://cojkl0mivsjj4" path="res://level_stuff/interactables/green_meteor.tscn" id="9_hf83p"]
-[ext_resource type="PackedScene" uid="uid://du36p17bqu2bc" path="res://level_stuff/interactables/red_cutscene.tscn" id="9_opm1n"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -87,26 +84,9 @@ offset_bottom = 2191.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y6h7w")
 
-[node name="dummy" parent="." instance=ExtResource("8_rnoq1")]
-position = Vector2(1924, 136)
-
-[node name="Label" type="Label" parent="."]
-offset_left = 2061.0
-offset_top = 119.0
-offset_right = 2237.0
-offset_bottom = 161.0
-theme_override_font_sizes/font_size = 30
-text = "<--   Dummy"
-
 [node name="start_level" type="Area2D" parent="." groups=["level start"]]
 position = Vector2(-125, 678)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="start_level"]
 position = Vector2(280.5, 56.5)
 shape = SubResource("RectangleShape2D_bkawm")
-
-[node name="green_meteor" parent="." instance=ExtResource("9_hf83p")]
-position = Vector2(734, 5)
-
-[node name="red_cutscene" parent="." instance=ExtResource("9_opm1n")]
-position = Vector2(599, 518)

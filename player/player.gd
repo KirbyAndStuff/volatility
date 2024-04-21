@@ -139,7 +139,7 @@ func shoot():
 	$GunTimer.start()
 
 func alt_shoot():
-	if alt_gun_cooldown > 100 and not get_tree().has_group("not beamable"):
+	if alt_gun_cooldown > 100 and get_node("/root/player_global").got_beam:
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/beam.tscn")
 		var shot = bullet_scene.instantiate()

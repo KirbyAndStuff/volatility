@@ -1,20 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8codwb0jmyiu"]
+[gd_scene load_steps=10 format=3 uid="uid://c8codwb0jmyiu"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple.gd" id="1_p8b53"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_hyedg"]
 
+[sub_resource type="Curve" id="Curve_kso2c"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
 [sub_resource type="Gradient" id="Gradient_wvx04"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_count = 20
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_73jtp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_yayy4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxq5g"]
-radius = 37.0259
+radius = 26.0069
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xg16w"]
-radius = 184.272
+radius = 130.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_voi8f"]
-radius = 183.003
+radius = 130.062
 
 [node name="purple" type="CharacterBody2D"]
 collision_layer = 16
@@ -23,112 +39,102 @@ script = ExtResource("1_p8b53")
 
 [node name="body" type="CPUParticles2D" parent="."]
 scale = Vector2(5, 5)
-amount = 100
-local_coords = true
+amount = 200
+emission_shape = 1
+emission_sphere_radius = 32.5
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
 angle_min = -360.0
 angle_max = 360.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
+scale_amount_min = 50.0
+scale_amount_max = 50.0
+scale_amount_curve = SubResource("Curve_kso2c")
 color = Color(0.372549, 0, 1, 1)
 color_ramp = SubResource("Gradient_wvx04")
+
+[node name="eye_top" type="CPUParticles2D" parent="."]
+position = Vector2(0, -40)
+amount = 20
+lifetime = 0.4
+speed_scale = 0.5
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_73jtp")
+
+[node name="eye_bottom" type="CPUParticles2D" parent="."]
+position = Vector2(0, 40)
+amount = 20
+lifetime = 0.4
+speed_scale = 0.5
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_yayy4")
+
+[node name="eye_left" type="CPUParticles2D" parent="."]
+position = Vector2(-40, 0)
+amount = 20
+lifetime = 0.4
+speed_scale = 0.5
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_yayy4")
+
+[node name="eye_right" type="CPUParticles2D" parent="."]
+position = Vector2(40, 0)
+amount = 20
+lifetime = 0.4
+speed_scale = 0.5
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_73jtp")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
 scale = Vector2(5, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
-visible = false
 shape = SubResource("CircleShape2D_wxq5g")
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
-visible = false
 shape = SubResource("CircleShape2D_xg16w")
-
-[node name="eye_bottom" type="CPUParticles2D" parent="."]
-position = Vector2(0, 96)
-amount = 20
-speed_scale = 0.75
-explosiveness = 0.9
-local_coords = true
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 600.0
-initial_velocity_max = 600.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
-
-[node name="eye_top" type="CPUParticles2D" parent="."]
-position = Vector2(0, -96)
-amount = 20
-speed_scale = 0.75
-explosiveness = 0.9
-local_coords = true
-direction = Vector2(-1, 0)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 600.0
-initial_velocity_max = 600.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
-
-[node name="eye_left" type="CPUParticles2D" parent="."]
-position = Vector2(-96, 0)
-amount = 20
-speed_scale = 0.75
-explosiveness = 0.9
-local_coords = true
-direction = Vector2(0, 1)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 600.0
-initial_velocity_max = 600.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
-
-[node name="eye_right" type="CPUParticles2D" parent="."]
-position = Vector2(96, 0)
-amount = 20
-speed_scale = 0.75
-explosiveness = 0.9
-local_coords = true
-direction = Vector2(0, -1)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 600.0
-initial_velocity_max = 600.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false

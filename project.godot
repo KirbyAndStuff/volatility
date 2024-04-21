@@ -18,6 +18,10 @@ boot_splash/show_image=false
 config/icon="res://icon.PNG"
 config/windows_native_icon="res://icon.ico"
 
+[autoload]
+
+player_global="*res://player/player_global.gd"
+
 [display]
 
 window/size/viewport_width=1920

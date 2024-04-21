@@ -1,18 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://o7kjrn46nqd"]
+[gd_scene load_steps=9 format=3 uid="uid://o7kjrn46nqd"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple2.gd" id="1_7ohsw"]
 
-[sub_resource type="Gradient" id="Gradient_bu8hp"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.392157)
+[sub_resource type="Curve" id="Curve_o483f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_b66v4"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_count = 20
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_pf7yo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_3qo66"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wt1ba"]
-radius = 37.0259
+radius = 26.6667
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aqbt7"]
-radius = 110.114
+radius = 80.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdq7s"]
-radius = 109.115
+radius = 80.025
 
 [node name="purple2" type="CharacterBody2D"]
 collision_layer = 16
@@ -20,74 +37,70 @@ collision_mask = 16
 script = ExtResource("1_7ohsw")
 
 [node name="body" type="CPUParticles2D" parent="."]
-scale = Vector2(3, 3)
-amount = 50
+scale = Vector2(5, 5)
+amount = 150
 speed_scale = 1.5
-local_coords = true
+emission_shape = 1
+emission_sphere_radius = 20.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
 angle_min = -360.0
 angle_max = 360.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
+scale_amount_min = 35.0
+scale_amount_max = 35.0
+scale_amount_curve = SubResource("Curve_o483f")
 color = Color(0.372549, 0, 1, 1)
-color_ramp = SubResource("Gradient_bu8hp")
+color_ramp = SubResource("Gradient_b66v4")
+
+[node name="eye_left" type="CPUParticles2D" parent="."]
+position = Vector2(-30, 0)
+amount = 20
+lifetime = 0.3
+speed_scale = 0.75
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_pf7yo")
+
+[node name="eye_right" type="CPUParticles2D" parent="."]
+position = Vector2(30, 0)
+amount = 20
+lifetime = 0.3
+speed_scale = 0.75
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_3qo66")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
 scale = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
-visible = false
 shape = SubResource("CircleShape2D_wt1ba")
 disabled = true
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
-visible = false
 shape = SubResource("CircleShape2D_aqbt7")
 disabled = true
-
-[node name="eye_bottom" type="CPUParticles2D" parent="."]
-position = Vector2(0, 60)
-amount = 20
-explosiveness = 0.9
-local_coords = true
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 400.0
-initial_velocity_max = 400.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 15.0
-scale_amount_max = 15.0
-
-[node name="eye_top" type="CPUParticles2D" parent="."]
-position = Vector2(0, -60)
-amount = 20
-explosiveness = 0.9
-local_coords = true
-direction = Vector2(-1, 0)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 400.0
-initial_velocity_max = 400.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 15.0
-scale_amount_max = 15.0
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false

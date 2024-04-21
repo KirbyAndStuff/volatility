@@ -79,7 +79,7 @@ func _process(_delta):
 			checkpoint_number += 1
 	if room_activated[3] and room_cleared[2] == false and not get_tree().has_group("spawn") and not get_tree().has_group("enemy"):
 		spawn_red_room_second_wave()
-	if room_activated[3] and room_cleared[2] and not get_tree().has_group("spawn") and not get_tree().has_group("enemy"):
+	if room_activated[3] and room_cleared[2] and not get_tree().has_group("spawn") and not get_tree().has_group("enemy") and $red_room_area2.process_mode == PROCESS_MODE_DISABLED:
 		$red_room_area.queue_free()
 		$red_room_area2.queue_free()
 		$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
@@ -171,6 +171,7 @@ func red_intro_thing():
 	$red_spawndec4.queue_free()
 	get_node("white_interactable").interacted = false
 	$white_interactable.emitting = false
+	get_node("/root/player_global").got_beam = true
 	await get_tree().create_timer(1, false).timeout
 
 	$lock_walls1.process_mode = Node.PROCESS_MODE_INHERIT

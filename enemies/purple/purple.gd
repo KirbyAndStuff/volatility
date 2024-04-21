@@ -57,7 +57,7 @@ func _on_playerdeath_area_entered(area):
 
 func _on_stunned_timeout():
 	for vol in eyes:
-		vol.speed_scale = 0.75
+		vol.speed_scale = 0.5
 	is_stunned = false
 	speed = 300
 

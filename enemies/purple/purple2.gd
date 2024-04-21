@@ -50,13 +50,13 @@ func _on_playerdeath_area_entered(area):
 		purple_health -= area.get_parent().damage
 	if area.is_in_group("parry"):
 		speed = 0
-		$eye_bottom.speed_scale = 0.1
-		$eye_top.speed_scale = 0.1
+		$eye_left.speed_scale = 0.1
+		$eye_right.speed_scale = 0.1
 		$Stunned.start()
 
 func _on_stunned_timeout():
-	$eye_bottom.speed_scale = 1
-	$eye_top.speed_scale = 1
+	$eye_left.speed_scale = 0.75
+	$eye_right.speed_scale = 0.75
 	is_stunned = false
 	speed = 500
 

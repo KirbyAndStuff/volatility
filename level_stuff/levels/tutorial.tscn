@@ -103,7 +103,7 @@ scenes/1/scene = ExtResource("5_k438c")
 [sub_resource type="TileSet" id="TileSet_6dc7t"]
 sources/0 = SubResource("TileSetScenesCollectionSource_tnq47")
 
-[node name="Tutorial" type="Node2D" groups=["dont zoom out", "not beamable"]]
+[node name="Tutorial" type="Node2D" groups=["dont zoom out"]]
 script = ExtResource("1_hccw4")
 
 [node name="player" parent="." instance=ExtResource("1_lcn12")]

@@ -211,7 +211,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5e6jj"]
 size = Vector2(16, 304)
 
-[node name="level 1-1" type="Node2D" groups=["cant spawn enemy", "not beamable"]]
+[node name="level 1-1" type="Node2D" groups=["cant spawn enemy"]]
 script = ExtResource("1_nrsi2")
 
 [node name="player" parent="." instance=ExtResource("1_qyvy7")]
