@@ -2,6 +2,7 @@ extends CPUParticles2D
 
 var spawn_red := preload("res://enemies/red/red.tscn")
 var player_detected = false
+@export var event = "0"
 
 func _process(_delta):
 	if not get_tree().has_group("cant spawn enemy") and player_detected:
@@ -27,5 +28,6 @@ func spawn_enemy():
 	await get_tree().create_timer(1, false).timeout
 	var effect := spawn_red.instantiate()
 	effect.position = position
+	effect.add_to_group(event)
 	get_parent().call_deferred("add_child", effect)
 	queue_free()

@@ -1,22 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkv4xhrs4iujk"]
 
-[sub_resource type="GDScript" id="GDScript_5awpq"]
-script/source = "extends CPUParticles2D
-
-var screen_size
-
-func _ready():
-	screen_size = get_viewport_rect().size
-
-func _on_hide_timeout():
-	var location_dif = global_position - get_node(\"../../player\").global_position
-	if abs(location_dif.x) > (screen_size.x/2) * 2 || abs(location_dif.y) > (screen_size.y/2) * 2:
-		hide()
-		$StaticBody2D/CollisionShape2D.disabled = true
-	else:
-		show()
-		$StaticBody2D/CollisionShape2D.disabled = false
-"
+[ext_resource type="Script" path="res://level_stuff/walls/white_wall.gd" id="1_35ju2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36w16"]
 size = Vector2(16, 16)
@@ -34,7 +18,7 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 16.0
 scale_amount_max = 16.0
-script = SubResource("GDScript_5awpq")
+script = ExtResource("1_35ju2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
 collision_layer = 2147483711

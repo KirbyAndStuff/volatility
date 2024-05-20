@@ -4,7 +4,6 @@ var direction := Vector2.ZERO
 var attack_area : = preload("res://enemies/yellow/yellow_attack_area.tscn")
 var detonation := preload("res://player/attacks/beam_detonation.tscn")
 var hit_wall = false
-var enemies_hit = 0
 var damage = 2
 
 @export var speed := 750.0
@@ -37,11 +36,6 @@ func _process(_delta):
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
-	if 1 < enemies_hit:
-		var effect := detonation.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		queue_free()
 
 func _on_yellow_bullet_hurtbox_body_entered(body):
 	if body.name == "player":
@@ -77,4 +71,7 @@ func _on_yellow_bullet_hurtbox_area_entered(area):
 		speed = 2500.0
 		shoot(global_position, get_global_mouse_position())
 	if area.is_in_group("enemy") and is_in_group("parried"):
-		enemies_hit += 1
+		var effect := detonation.instantiate()
+		effect.position = position
+		get_parent().call_deferred("add_child", effect)
+		queue_free()

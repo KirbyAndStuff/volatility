@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://qqrgrc3cq65s"]
+[gd_scene load_steps=3 format=3 uid="uid://qqrgrc3cq65s"]
 
 [ext_resource type="Script" path="res://player/attacks/beam.gd" id="1_xhq6l"]
+
+[sub_resource type="Curve" id="Curve_8w73t"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
 
 [node name="RayCast2D" type="RayCast2D" groups=["beam"]]
 target_position = Vector2(2000, 0)
@@ -17,15 +22,12 @@ local_coords = true
 emission_shape = 3
 emission_rect_extents = Vector2(0, 0)
 gravity = Vector2(0, 0)
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 40.0
+scale_amount_max = 40.0
+scale_amount_curve = SubResource("Curve_8w73t")
 
 [node name="beam_hurtbox" type="Area2D" parent="." groups=["beam", "player_attack"]]
-scale = Vector2(1, 20)
+scale = Vector2(1, 25)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

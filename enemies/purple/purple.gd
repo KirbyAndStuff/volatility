@@ -38,6 +38,7 @@ func _process(_delta):
 		var offset = Vector2(50, 0)
 		purple2_1.position = position - offset
 		purple2_2.position = position + offset
+		purple2_2.rotation = 90
 		
 		get_parent().add_child(purple2_1)
 		get_parent().add_child(purple2_2)
