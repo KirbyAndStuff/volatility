@@ -5,8 +5,10 @@ var can_be_hurt_view = false
 var can_be_hurt_enemy = false
 var barrier_hurt := preload("res://enemies/green/green_hurt.tscn")
 var screen_size
+@export var event = "0"
 
 func _ready():
+	add_to_group(event)
 	screen_size = get_viewport_rect().size
 
 func _process(_delta):
@@ -21,8 +23,9 @@ func _process(_delta):
 		can_be_hurt_view = false
 	else:
 		can_be_hurt_view = true
-	if get_tree().has_group("enemy") or get_tree().has_group("spawn") or get_tree().has_group("enemy_attack"):
-		can_be_hurt_enemy = false
+	if not get_tree().has_group("ignore enemy"):
+		if get_tree().has_group("enemy") or get_tree().has_group("spawn") or get_tree().has_group("enemy_attack"):
+			can_be_hurt_enemy = false
 	else:
 		can_be_hurt_enemy = true
 	if can_be_hurt_view and can_be_hurt_enemy:

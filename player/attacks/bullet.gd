@@ -11,10 +11,7 @@ var damage = 1
 
 func _process(_delta):
 	if 1 < enemies_hit:
-		var effect := bullet_death.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		queue_free()
+		die()
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
@@ -34,11 +31,8 @@ func _on_timer_timeout() -> void:
 
 func _on_bullet_hurtbox_body_entered(body):
 	if body.is_in_group("wall") and hit_wall == false:
-		var effect := bullet_death.instantiate()
-		effect.position = $bullet_body.global_position
-		get_parent().add_child(effect)
 		hit_wall = true
-		queue_free()
+		die()
 
 func _on_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
@@ -50,3 +44,9 @@ func _on_bullet_hurtbox_area_entered(area):
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
 		queue_free()
+
+func die():
+	var effect := bullet_death.instantiate()
+	effect.position = $bullet_body.global_position
+	get_parent().add_child(effect)
+	queue_free()

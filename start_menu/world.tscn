@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="5_mxfgi"]
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_hqghg"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
-[ext_resource type="PackedScene" uid="uid://c8codwb0jmyiu" path="res://enemies/purple/purple.tscn" id="8_pswo5"]
+[ext_resource type="PackedScene" uid="uid://jr7f5sfdtnk5" path="res://level_stuff/interactables/barrier_break.tscn" id="8_jgrfi"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -92,5 +92,6 @@ position = Vector2(-125, 678)
 position = Vector2(280.5, 56.5)
 shape = SubResource("RectangleShape2D_bkawm")
 
-[node name="purple" parent="." instance=ExtResource("8_pswo5")]
-position = Vector2(812, 35)
+[node name="barrier_break" parent="." instance=ExtResource("8_jgrfi")]
+position = Vector2(806, 116)
+event = "5"

@@ -24,6 +24,7 @@ colors = PackedColorArray(0, 1, 1, 0.694118, 1, 1, 1, 0.247059)
 
 [sub_resource type="Gradient" id="Gradient_irh04"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_count = 20
 
 [sub_resource type="Animation" id="Animation_xiuxf"]
 resource_name = "left_eye"
@@ -272,7 +273,6 @@ collision_layer = 9
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hurtbox"]
-visible = false
 shape = SubResource("CircleShape2D_k1igs")
 
 [connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]

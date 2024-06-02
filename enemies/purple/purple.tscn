@@ -147,6 +147,7 @@ stream = ExtResource("2_hyedg")
 volume_db = -5.0
 pitch_scale = 3.0
 autoplay = true
+max_distance = 1000.0
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="area_entered" from="hurts_player" to="." method="_on_hurts_player_area_entered"]
