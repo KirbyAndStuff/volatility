@@ -23,8 +23,9 @@ var input = Vector2.ZERO
 var is_dead = false
 var stamina_tween = true
 var melee_order = 1
-var first_weapon = true
-var second_weapon = false
+var active_weapon = 1
+var can_scroll_up = true
+var can_scroll_down = true
 var is_dashing = false
 var attackable = true
 var amount_of_i_frames = 0
@@ -66,20 +67,32 @@ func _process(_delta):
 		$"left eye node/left eye".emitting = false
 		$"right eye node/right eye".emitting = false
 		is_dead = true
-	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and first_weapon and is_dead == false and in_intro == false:
+	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false:
 		shoot()
-	if Input.is_action_pressed("right_mouse_button") and first_weapon and is_dead == false and in_intro == false:
+	if Input.is_action_pressed("right_mouse_button") and active_weapon == 1 and is_dead == false and in_intro == false:
 		alt_shoot()
-	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and second_weapon and is_dead == false and in_intro == false:
+	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and active_weapon == 2 and is_dead == false and in_intro == false:
 		melee()
-	if Input.is_action_pressed("right_mouse_button") and second_weapon and is_dead == false and in_intro == false:
+	if Input.is_action_pressed("right_mouse_button") and active_weapon == 2 and is_dead == false and in_intro == false:
 		alt_melee()
 	if Input.is_action_pressed("first_weapon"):
-		first_weapon = true
-		second_weapon = false
+		active_weapon = 1
 	if Input.is_action_pressed("second_weapon"):
-		first_weapon = false
-		second_weapon = true
+		active_weapon = 2
+	if Input.is_action_just_pressed("scroll_up") and can_scroll_up:
+		can_scroll_up = false
+		active_weapon += 1
+		if active_weapon > get_node("/root/player_global").weapon_list.size() + 1:
+			active_weapon = 1
+		await get_tree().create_timer(0.2, false).timeout
+		can_scroll_up = true
+	if Input.is_action_just_pressed("scroll_down") and can_scroll_down:
+		can_scroll_down = false
+		active_weapon -= 1
+		if active_weapon < 1:
+			active_weapon = get_node("/root/player_global").weapon_list.size() + 1
+		await get_tree().create_timer(0.2, false).timeout
+		can_scroll_down = true
 	if amount_of_i_frames == 0:
 		attackable = true
 	else:

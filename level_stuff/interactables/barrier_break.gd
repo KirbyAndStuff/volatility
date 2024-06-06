@@ -16,6 +16,7 @@ func _process(_delta):
 		$CPUParticles2D.emitting = false
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color(0, 0, 0, 0), 1)
+		remove_from_group(event)
 		await get_tree().create_timer(1, false).timeout
 		queue_free()
 	var location_dif = global_position - get_node("../player").global_position
@@ -26,6 +27,8 @@ func _process(_delta):
 	if not get_tree().has_group("ignore enemy"):
 		if get_tree().has_group("enemy") or get_tree().has_group("spawn") or get_tree().has_group("enemy_attack"):
 			can_be_hurt_enemy = false
+		else:
+			can_be_hurt_enemy = true
 	else:
 		can_be_hurt_enemy = true
 	if can_be_hurt_view and can_be_hurt_enemy:

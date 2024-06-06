@@ -12,8 +12,9 @@ func _ready():
 var speed = 500
 var attack_player = false
 var dash_at_player = false
-var red_health = 2
+var health = 2
 var is_stunned = false
+var guarded = false
 
 @onready var red_dashlength = $Red_DashLength
 @onready var eyes = [$"left eye", $"right eye"]
@@ -43,7 +44,7 @@ func _process(_delta):
 			var direction = (get_node("../player").position-position).normalized()
 			velocity=direction*speed
 			red_dashlength.start()
-	if red_health < 1:
+	if health < 1:
 		var effect := red_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
@@ -52,12 +53,12 @@ func _process(_delta):
 		velocity = lerp(velocity, Vector2.ZERO, 0.003)
 
 func _on_playerdeath_area_entered(area):
-	if area.is_in_group("player_attack"):
+	if area.is_in_group("player_attack") and guarded == false:
 		var effect := red_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		red_health -= area.get_parent().damage
-	if area.is_in_group("parry"):
+		health -= area.get_parent().damage
+	if area.is_in_group("parry") and guarded == false:
 		is_stunned = true
 		velocity = Vector2.ZERO
 		speed = 0

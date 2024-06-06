@@ -1,8 +1,8 @@
 extends Node2D
 
 var level_start = preload("res://level_stuff/interactables/level_start_particle.tscn")
-var green_death := preload("res://enemies/green/green_death.tscn")
-var green_hurt := preload("res://enemies/green/green_hurt.tscn")
+var death := preload("res://enemies/yellow/yellow_death.tscn")
+var hurt := preload("res://enemies/yellow/yellow_hurt.tscn")
 var hurt_player = false
 var enemy1_health = 2
 var enemy2_health = 2
@@ -14,6 +14,7 @@ var killed_enemy3 = false
 var messages = [false, false, false, false]
 var checkpoint = null
 var add_enemy_attack = false
+var guarded = false
 
 func _process(_delta):
 	if get_tree().has_group("next level"):
@@ -47,22 +48,25 @@ func _process(_delta):
 			$enemy_walls.process_mode = Node.PROCESS_MODE_DISABLED
 			enemy_walls_tweened = true
 	if enemy1_health < 1 and killed_enemy1 == false:
-		var effect := green_death.instantiate()
+		var effect := death.instantiate()
 		effect.position = $heal_enemy.position
 		get_parent().add_child(effect)
 		$heal_enemy.queue_free()
+		$enemy1.queue_free()
 		killed_enemy1 = true
 	if enemy2_health < 1 and killed_enemy2 == false:
-		var effect := green_death.instantiate()
+		var effect := death.instantiate()
 		effect.position = $heal_enemy2.position
 		get_parent().add_child(effect)
 		$heal_enemy2.queue_free()
+		$enemy2.queue_free()
 		killed_enemy2 = true
 	if enemy3_health < 1 and killed_enemy3 == false:
-		var effect := green_death.instantiate()
+		var effect := death.instantiate()
 		effect.position = $heal_enemy3.position
 		get_parent().add_child(effect)
 		$heal_enemy3.queue_free()
+		$enemy3.queue_free()
 		killed_enemy3 = true
 
 func _ready():
@@ -86,6 +90,8 @@ func _on_start_level_area_entered(area):
 		$intro_walls.process_mode = Node.PROCESS_MODE_INHERIT
 		var tween = create_tween()
 		tween.tween_property($intro_walls, "modulate", Color(1, 1, 1, 1,), 1)
+		create_tween().tween_property($ui/health, "modulate", Color(1, 1, 1, 1,), 1)
+		create_tween().tween_property($ui/staminabar, "modulate", Color(1, 1, 1, 1,), 1)
 
 func _on_hurt_wall_area_entered(area):
 	if area.is_in_group("player"):
@@ -140,21 +146,21 @@ func _on_heal_message_area_entered(area):
 
 func _on_enemy_1_area_entered(area):
 	if area.is_in_group("player_attack"):
-		var effect := green_hurt.instantiate()
+		var effect := hurt.instantiate()
 		effect.position = $heal_enemy.position
 		get_parent().add_child(effect)
 		enemy1_health -= 1
 
 func _on_enemy_2_area_entered(area):
 	if area.is_in_group("player_attack"):
-		var effect := green_hurt.instantiate()
+		var effect := hurt.instantiate()
 		effect.position = $heal_enemy2.position
 		get_parent().add_child(effect)
 		enemy2_health -= 1
 
 func _on_enemy_3_area_entered(area):
 	if area.is_in_group("player_attack"):
-		var effect := green_hurt.instantiate()
+		var effect := hurt.instantiate()
 		effect.position = $heal_enemy3.position
 		get_parent().add_child(effect)
 		enemy3_health -= 1

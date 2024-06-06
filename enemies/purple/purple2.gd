@@ -11,8 +11,9 @@ func _ready():
 
 var speed = 500
 var attack_player = false
-var purple_health = 2
+var health = 2
 var is_stunned = false
+var guarded = false
 
 func _physics_process(_delta):
 	var direction = (get_node("../player").position-position).normalized()
@@ -25,7 +26,7 @@ func _process(_delta):
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
-	if purple_health < 1:
+	if health < 1:
 		var effect := deathsfx.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
@@ -43,12 +44,12 @@ func _process(_delta):
 		queue_free()
 
 func _on_playerdeath_area_entered(area):
-	if area.is_in_group("player_attack"):
+	if area.is_in_group("player_attack") and guarded == false:
 		var effect := purple_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		purple_health -= area.get_parent().damage
-	if area.is_in_group("parry"):
+		health -= area.get_parent().damage
+	if area.is_in_group("parry") and guarded == false:
 		speed = 0
 		$eye_left.speed_scale = 0.1
 		$eye_right.speed_scale = 0.1

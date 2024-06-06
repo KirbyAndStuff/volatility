@@ -24,14 +24,14 @@ func _process(_delta):
 			$parry_ready2.emitting = false
 		$parry.modulate = Color(1, parry_cooldown / 30, parry_cooldown / 30, parry_cooldown / 30)
 
-	if (get_node("../../player").first_weapon) == true and not $first_weapon.color == Color(1, 1, 1, 1):
+	if (get_node("../../player").active_weapon) == 1 and not $first_weapon.color == Color(1, 1, 1, 1):
 		$first_weapon.color = Color(1, 1, 1, 1)
-	if (get_node("../../player").first_weapon) == false and not $first_weapon.color == Color(0, 0, 0, 0.01):
+	if not (get_node("../../player").active_weapon) == 1 and not $first_weapon.color == Color(0, 0, 0, 0.01):
 		$first_weapon.color = Color(0, 0, 0, 0.01)
 
-	if (get_node("../../player").second_weapon) == true and not $second_weapon.color == Color(1, 1, 1, 1):
+	if (get_node("../../player").active_weapon) == 2 and not $second_weapon.color == Color(1, 1, 1, 1):
 		$second_weapon.color = Color(1, 1, 1, 1)
-	if (get_node("../../player").second_weapon) == false and not $second_weapon.color == Color(0, 0, 0, 0.01):
+	if not (get_node("../../player").active_weapon) == 2 and not $second_weapon.color == Color(0, 0, 0, 0.01):
 		$second_weapon.color = Color(0, 0, 0, 0.01)
 
 	var laser_cooldown = (get_node("../../player").alt_gun_cooldown)

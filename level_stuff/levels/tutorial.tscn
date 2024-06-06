@@ -94,16 +94,16 @@ metadata/_snap_enabled = true
 [sub_resource type="Gradient" id="Gradient_v13km"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_csemh"]
-radius = 36.2215
-
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_tnq47"]
 scenes/1/scene = ExtResource("5_k438c")
 
 [sub_resource type="TileSet" id="TileSet_6dc7t"]
 sources/0 = SubResource("TileSetScenesCollectionSource_tnq47")
 
-[node name="Tutorial" type="Node2D" groups=["dont zoom out"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_csemh"]
+radius = 31.0
+
+[node name="Tutorial" type="Node2D" groups=["dont zoom out", "ignore enemy"]]
 script = ExtResource("1_hccw4")
 
 [node name="player" parent="." instance=ExtResource("1_lcn12")]
@@ -207,6 +207,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="health" parent="ui" instance=ExtResource("6_ni6oh")]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -219,6 +220,7 @@ grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="staminabar" parent="ui" instance=ExtResource("7_ka51l")]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -370,8 +372,8 @@ amount = 20
 local_coords = true
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
+initial_velocity_min = 75.0
+initial_velocity_max = 75.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 orbit_velocity_min = 1.0
@@ -381,13 +383,8 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_ew47q")
-color = Color(0, 1, 0, 1)
+color = Color(1, 1, 0, 1)
 color_ramp = SubResource("Gradient_v13km")
-
-[node name="enemy1" type="Area2D" parent="heal_enemy" groups=["enemy_body"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="heal_enemy/enemy1"]
-shape = SubResource("CircleShape2D_csemh")
 
 [node name="heal_enemy2" type="CPUParticles2D" parent="."]
 position = Vector2(4233, -1368)
@@ -395,8 +392,8 @@ amount = 20
 local_coords = true
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
+initial_velocity_min = 75.0
+initial_velocity_max = 75.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 orbit_velocity_min = 1.0
@@ -406,13 +403,8 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_ew47q")
-color = Color(0, 1, 0, 1)
+color = Color(1, 1, 0, 1)
 color_ramp = SubResource("Gradient_v13km")
-
-[node name="enemy2" type="Area2D" parent="heal_enemy2" groups=["enemy_body"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="heal_enemy2/enemy2"]
-shape = SubResource("CircleShape2D_csemh")
 
 [node name="heal_enemy3" type="CPUParticles2D" parent="."]
 position = Vector2(4338, -1237)
@@ -420,8 +412,8 @@ amount = 20
 local_coords = true
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
+initial_velocity_min = 75.0
+initial_velocity_max = 75.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 orbit_velocity_min = 1.0
@@ -431,18 +423,31 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_ew47q")
-color = Color(0, 1, 0, 1)
+color = Color(1, 1, 0, 1)
 color_ramp = SubResource("Gradient_v13km")
-
-[node name="enemy3" type="Area2D" parent="heal_enemy3" groups=["enemy_body"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="heal_enemy3/enemy3"]
-shape = SubResource("CircleShape2D_csemh")
 
 [node name="enemy_walls" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_6dc7t")
 format = 2
 layer_0/tile_data = PackedInt32Array(-6487780, 0, 65536, -6422244, 0, 65536, -6356708, 0, 65536, -6291172, 0, 65536, -6225636, 0, 65536, -6160100, 0, 65536, -6094564, 0, 65536, -6029028, 0, 65536, -5963492, 0, 65536, -5897956, 0, 65536, -5832420, 0, 65536, -5766884, 0, 65536, -5701348, 0, 65536, -5635812, 0, 65536, -5570276, 0, 65536, -5504740, 0, 65536, -5439204, 0, 65536, -5373668, 0, 65536, -5308132, 0, 65536, -5242596, 0, 65536, -5177060, 0, 65536, -5111524, 0, 65536, -5045988, 0, 65536, -4980452, 0, 65536, -4914916, 0, 65536, -4849380, 0, 65536, -4783844, 0, 65536, -4718308, 0, 65536, -4652772, 0, 65536, -4587236, 0, 65536)
+
+[node name="enemy1" type="Area2D" parent="." groups=["enemy_body"]]
+position = Vector2(4342, -1495)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy1"]
+shape = SubResource("CircleShape2D_csemh")
+
+[node name="enemy2" type="Area2D" parent="." groups=["enemy_body"]]
+position = Vector2(4233, -1368)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy2"]
+shape = SubResource("CircleShape2D_csemh")
+
+[node name="enemy3" type="Area2D" parent="." groups=["enemy_body"]]
+position = Vector2(4338, -1237)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy3"]
+shape = SubResource("CircleShape2D_csemh")
 
 [connection signal="area_entered" from="hurt_wall" to="." method="_on_hurt_wall_area_entered"]
 [connection signal="area_exited" from="hurt_wall" to="." method="_on_hurt_wall_area_exited"]
@@ -453,6 +458,6 @@ layer_0/tile_data = PackedInt32Array(-6487780, 0, 65536, -6422244, 0, 65536, -63
 [connection signal="area_entered" from="dash_message" to="." method="_on_dash_message_area_entered"]
 [connection signal="area_entered" from="parry_message" to="." method="_on_parry_message_area_entered"]
 [connection signal="area_entered" from="heal_message" to="." method="_on_heal_message_area_entered"]
-[connection signal="area_entered" from="heal_enemy/enemy1" to="." method="_on_enemy_1_area_entered"]
-[connection signal="area_entered" from="heal_enemy2/enemy2" to="." method="_on_enemy_2_area_entered"]
-[connection signal="area_entered" from="heal_enemy3/enemy3" to="." method="_on_enemy_3_area_entered"]
+[connection signal="area_entered" from="enemy1" to="." method="_on_enemy_1_area_entered"]
+[connection signal="area_entered" from="enemy2" to="." method="_on_enemy_2_area_entered"]
+[connection signal="area_entered" from="enemy3" to="." method="_on_enemy_3_area_entered"]

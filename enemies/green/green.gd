@@ -3,7 +3,8 @@ extends CharacterBody2D
 var green_death := preload("res://enemies/green/green_death.tscn")
 var green_hurt := preload("res://enemies/green/green_hurt.tscn")
 
-var green_health = 3
+var health = 3
+var guarded = false
 
 func _ready():
 	#var delay = RandomNumberGenerator.new().randf_range(0, 0.25)
@@ -14,7 +15,7 @@ func _ready():
 	get_parent().call_deferred("add_child", effect)
 
 func _process(_delta):
-	if green_health < 1:
+	if health < 1:
 		var effect := green_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
@@ -30,8 +31,8 @@ func _process(_delta):
 		$GunTimer.start()
 
 func _on_playerdeath_area_entered(area):
-	if area.is_in_group("player_attack"):
+	if area.is_in_group("player_attack") and guarded == false:
 		var effect := green_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		green_health -= area.get_parent().damage
+		health -= area.get_parent().damage

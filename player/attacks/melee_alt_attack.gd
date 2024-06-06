@@ -18,5 +18,5 @@ func _ready():
 	queue_free()
 
 func _on_area_2d_area_entered(area):
-	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100:
+	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100 and area.get_parent().guarded == false:
 		(get_node("../player").heal_cooldown) += 5

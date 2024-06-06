@@ -11,8 +11,9 @@ func _ready():
 
 var speed = 300
 var attack_player = false
-var purple_health = 3
+var health = 3
 var is_stunned = false
+var guarded = false
 
 @onready var eyes = [$eye_bottom, $eye_top, $eye_left, $eye_right]
 
@@ -27,7 +28,7 @@ func _process(_delta):
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
-	if purple_health < 1:
+	if health < 1:
 		var effect := deathsfx.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
@@ -45,12 +46,12 @@ func _process(_delta):
 		queue_free()
 
 func _on_playerdeath_area_entered(area):
-	if area.is_in_group("player_attack"):
+	if area.is_in_group("player_attack") and guarded == false:
 		var effect := purple_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		purple_health -= area.get_parent().damage
-	if area.is_in_group("parry"):
+		health -= area.get_parent().damage
+	if area.is_in_group("parry") and guarded == false:
 		speed = 0
 		for vol in eyes:
 			vol.speed_scale = 0.1
