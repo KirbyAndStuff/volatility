@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var damage_took = 0
+var guarded = false
 
 func _on_player_death_area_entered(area):
 	if area.is_in_group("player_attack"):

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://m11eqcc8yob5"]
 
-[ext_resource type="Script" path="res://player/attacks/melee_alt_attack.gd" id="1_p5k7y"]
+[ext_resource type="Script" path="res://player/attacks/meleem2_attack.gd" id="1_te8l6"]
 
 [sub_resource type="Curve" id="Curve_hdxpx"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -13,10 +13,10 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
-[node name="melee_alt_attack" type="Area2D"]
+[node name="meleem2_attack" type="Area2D"]
 top_level = true
 scale = Vector2(4, 4)
-script = ExtResource("1_p5k7y")
+script = ExtResource("1_te8l6")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(72, -71)

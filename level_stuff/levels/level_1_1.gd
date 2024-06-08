@@ -25,7 +25,7 @@ func _process(_delta):
 	if get_node("white_interactable").interacted == true:
 		red_intro_thing()
 
-	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").alt_gun_cooldown > 100:
+	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100:
 		$ui/message.text = ""
 		pressed_m2 = true
 		get_node("player/lasersfx").play()
@@ -33,7 +33,7 @@ func _process(_delta):
 		var shot = bullet_scene.instantiate()
 		add_child(shot)
 		shot.shoot($player.global_position, get_global_mouse_position())
-		get_node("player").alt_gun_cooldown = 0
+		get_node("player").gunm2_cooldown = 0
 
 	if red_intro_health < 1 and red_intro_died == false:
 		red_intro_die()

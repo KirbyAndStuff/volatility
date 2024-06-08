@@ -131,7 +131,7 @@ scale = Vector2(5, 5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 shape = SubResource("CircleShape2D_wxq5g")
 
-[node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack"]]
+[node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 shape = SubResource("CircleShape2D_xg16w")

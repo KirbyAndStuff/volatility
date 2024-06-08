@@ -6,7 +6,6 @@ var parried_particles := preload("res://player/attacks/parried_particles.tscn")
 var player_hurt := preload("res://player/player_hurt.tscn")
 var player_death := preload("res://player/player_death.tscn")
 var bullet_explosion := preload("res://player/attacks/bullet_explosion.tscn")
-var melee_alt := preload("res://player/attacks/melee_alt.tscn")
 var player_land := preload("res://player/player_land.tscn")
 
 var health = 3
@@ -17,13 +16,14 @@ var accel_boost = 0
 var friction = 4000
 var friction_boost = 0
 var stamina = 100
-var alt_gun_cooldown = 100
-var alt_melee_cooldown = 100
+var gunm2_cooldown = 100
+var meleem2_cooldown = 100
 var input = Vector2.ZERO
 var is_dead = false
 var stamina_tween = true
 var melee_order = 1
-var active_weapon = 1
+var active_weapon = 1.0
+var variant_weapon = false
 var can_scroll_up = true
 var can_scroll_down = true
 var is_dashing = false
@@ -38,10 +38,10 @@ func _physics_process(delta):
 	player_movement(delta)
 	if stamina <= 100:
 		stamina += 25 * delta
-	if alt_gun_cooldown <= 100:
-		alt_gun_cooldown += 50 * delta
-	if alt_melee_cooldown <= 100:
-		alt_melee_cooldown += 25 * delta
+	if gunm2_cooldown <= 100:
+		gunm2_cooldown += 50 * delta
+	if meleem2_cooldown <= 100:
+		meleem2_cooldown += 25 * delta
 	if parry_cooldown <= 30:
 		parry_cooldown += 10 * delta
 	if in_intro:
@@ -67,21 +67,32 @@ func _process(_delta):
 		$"left eye node/left eye".emitting = false
 		$"right eye node/right eye".emitting = false
 		is_dead = true
-	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false:
+	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false and variant_weapon == false:
 		shoot()
 	if Input.is_action_pressed("right_mouse_button") and active_weapon == 1 and is_dead == false and in_intro == false:
+		shootm2()
+	if Input.is_action_pressed("left_mouse_button") and $Alt_GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false and variant_weapon:
 		alt_shoot()
 	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and active_weapon == 2 and is_dead == false and in_intro == false:
 		melee()
 	if Input.is_action_pressed("right_mouse_button") and active_weapon == 2 and is_dead == false and in_intro == false:
-		alt_melee()
-	if Input.is_action_pressed("first_weapon"):
+		meleem2()
+	if Input.is_action_just_pressed("first_weapon"):
+		if active_weapon == 1:
+			variant_weapon = !variant_weapon
+		else:
+			variant_weapon = false
 		active_weapon = 1
-	if Input.is_action_pressed("second_weapon"):
+	if Input.is_action_just_pressed("second_weapon"):
+		if active_weapon == 2:
+			variant_weapon = !variant_weapon
+		else:
+			variant_weapon = false
 		active_weapon = 2
 	if Input.is_action_just_pressed("scroll_up") and can_scroll_up:
 		can_scroll_up = false
 		active_weapon += 1
+		variant_weapon = false
 		if active_weapon > get_node("/root/player_global").weapon_list.size() + 1:
 			active_weapon = 1
 		await get_tree().create_timer(0.2, false).timeout
@@ -89,10 +100,13 @@ func _process(_delta):
 	if Input.is_action_just_pressed("scroll_down") and can_scroll_down:
 		can_scroll_down = false
 		active_weapon -= 1
+		variant_weapon = false
 		if active_weapon < 1:
 			active_weapon = get_node("/root/player_global").weapon_list.size() + 1
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_down = true
+	if Input.is_action_just_pressed("switch_variant"):
+		variant_weapon = !variant_weapon
 	if amount_of_i_frames == 0:
 		attackable = true
 	else:
@@ -151,14 +165,21 @@ func shoot():
 	effect.shoot(global_position, get_global_mouse_position())
 	$GunTimer.start()
 
-func alt_shoot():
-	if alt_gun_cooldown > 100 and get_node("/root/player_global").got_beam:
+func shootm2():
+	if gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/beam.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
-		alt_gun_cooldown = 0
+		gunm2_cooldown = 0
+
+func alt_shoot():
+	var bullet_scene = preload("res://player/attacks/alt_bullet.tscn")
+	var shot = bullet_scene.instantiate() 
+	get_parent().add_child(shot)
+	shot.shoot(global_position, get_global_mouse_position())
+	$Alt_GunTimer.start()
 
 func melee():
 	if melee_order == 1:
@@ -176,12 +197,12 @@ func melee():
 		$MeleeTimer.start()
 		melee_order -= 1
 
-func alt_melee():
-	if alt_melee_cooldown > 100:
-		var effect := melee_alt.instantiate()
+func meleem2():
+	if meleem2_cooldown > 100:
+		var effect := preload("res://player/attacks/meleem2.tscn").instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		alt_melee_cooldown = 0
+		meleem2_cooldown = 0
 
 func dash():
 	var effect := dash_particles.instantiate()
@@ -214,22 +235,23 @@ func parry():
 	$parry_detection/CollisionShape2D.disabled = true
 
 func _on_parry_detection_area_entered(area):
-	if area.is_in_group("enemy_attack"):
+	if area.is_in_group("parryable"):
 		var tween = create_tween()
 		tween.tween_property((get_node("../ui/health").parry), "modulate", Color(1, 1, 1), 1.5)
 		$parriedsfx.play()
-		i_frames(1.5)
 		var effect := parried_particles.instantiate()
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
 		if parried == false:
 			parry_cooldown += 15
 			parried = true
-		if speed_boost < 300:
-			speed_boost += 300
-			accel_boost += 3000
-			friction_boost += 1710
 		framefreeze(0.1, 0.3)
+		if area.is_in_group("enemy_attack"):
+			i_frames(1.5)
+			if speed_boost < 300:
+				speed_boost += 300
+				accel_boost += 3000
+				friction_boost += 1710
 		await get_tree().create_timer(1.5, false).timeout
 		parried = false
 

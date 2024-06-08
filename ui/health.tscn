@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dhoylud6i8xce"]
+[gd_scene load_steps=12 format=3 uid="uid://dhoylud6i8xce"]
 
 [ext_resource type="Script" path="res://ui/health.gd" id="1_ird76"]
 
@@ -22,6 +22,15 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252747, 1), 0.0, 0.0, 0, 0, Ve
 point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_qpn1k"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_ny7oa"]
+_data = [Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_6qg4h"]
+offsets = PackedFloat32Array(0, 0.993197)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Curve" id="Curve_2ujde"]
@@ -260,6 +269,44 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_bn7ao")
 color_ramp = SubResource("Gradient_qpn1k")
 
+[node name="first_alt" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(246, 0)
+amount = 50
+preprocess = 1.0
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 6.0
+scale_amount_max = 6.0
+
+[node name="flames" type="CPUParticles2D" parent="first_alt"]
+scale = Vector2(2, 2)
+amount = 100
+lifetime = 0.5
+speed_scale = 0.5
+emission_shape = 2
+emission_sphere_radius = 10.0
+gravity = Vector2(-1000, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+radial_accel_min = -200.0
+radial_accel_max = -200.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_ny7oa")
+color_ramp = SubResource("Gradient_6qg4h")
+
 [node name="second_weapon" type="CPUParticles2D" parent="."]
 modulate = Color(0, 0, 0, 0.01)
 position = Vector2(265, 15)
@@ -281,3 +328,6 @@ scale_amount_min = 15.0
 scale_amount_max = 15.0
 scale_amount_curve = SubResource("Curve_2ujde")
 color_ramp = SubResource("Gradient_jj6d2")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false

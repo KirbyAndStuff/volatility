@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0igxnnwh8j42"]
+[gd_scene load_steps=4 format=3 uid="uid://did2usu3fx4j"]
 
-[ext_resource type="Script" path="res://player/attacks/bullet_death.gd" id="1_rtsd2"]
+[ext_resource type="Script" path="res://player/attacks/bullet_death.gd" id="1_6n6ie"]
 
 [sub_resource type="Curve" id="Curve_fblxs"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -12,22 +12,22 @@ offsets = PackedFloat32Array(0, 0.8)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 
-[node name="bullet_death" type="CPUParticles2D"]
+[node name="alt_bullet_death" type="CPUParticles2D"]
 emitting = false
-amount = 40
-lifetime = 0.8
+amount = 60
+lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
+initial_velocity_min = 125.0
+initial_velocity_max = 125.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_fblxs")
 color_ramp = SubResource("Gradient_naxm6")
-script = ExtResource("1_rtsd2")
+script = ExtResource("1_6n6ie")
