@@ -6,6 +6,7 @@ var parried_particles := preload("res://player/attacks/parried_particles.tscn")
 var player_hurt := preload("res://player/player_hurt.tscn")
 var player_death := preload("res://player/player_death.tscn")
 var bullet_explosion := preload("res://player/attacks/bullet_explosion.tscn")
+var alt_bullet_explosion := preload("res://player/attacks/alt_bullet_explosion.tscn")
 var player_land := preload("res://player/player_land.tscn")
 
 var health = 3
@@ -175,10 +176,15 @@ func shootm2():
 		gunm2_cooldown = 0
 
 func alt_shoot():
+	$alt_bulletsfx.play()
 	var bullet_scene = preload("res://player/attacks/alt_bullet.tscn")
 	var shot = bullet_scene.instantiate() 
 	get_parent().add_child(shot)
 	shot.shoot(global_position, get_global_mouse_position())
+	var effect := alt_bullet_explosion.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)
+	effect.shoot(global_position, get_global_mouse_position())
 	$Alt_GunTimer.start()
 
 func melee():

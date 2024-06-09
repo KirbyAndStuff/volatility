@@ -103,7 +103,7 @@ sources/0 = SubResource("TileSetScenesCollectionSource_tnq47")
 [sub_resource type="CircleShape2D" id="CircleShape2D_csemh"]
 radius = 31.0
 
-[node name="Tutorial" type="Node2D" groups=["dont zoom out", "ignore enemy"]]
+[node name="Tutorial" type="Node2D"]
 script = ExtResource("1_hccw4")
 
 [node name="player" parent="." instance=ExtResource("1_lcn12")]

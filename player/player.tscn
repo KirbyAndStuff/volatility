@@ -246,6 +246,10 @@ volume_db = -8.0
 stream = ExtResource("5_2x6xb")
 pitch_scale = 2.0
 
+[node name="alt_bulletsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2x6xb")
+pitch_scale = 1.75
+
 [node name="parrysfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_c3jba")
 volume_db = -15.0

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dof4vpoy5wjb5"]
+[gd_scene load_steps=8 format=3 uid="uid://dof4vpoy5wjb5"]
 
 [ext_resource type="Script" path="res://player/attacks/alt_bullet.gd" id="1_8vnb5"]
+[ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="2_7mikt"]
 
 [sub_resource type="Curve" id="Curve_ny7oa"]
 _data = [Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -165,6 +166,11 @@ scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_svu7v")
 color = Color(1, 1, 1, 0)
+
+[node name="chargedsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_7mikt")
+volume_db = -5.0
+pitch_scale = 0.75
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]

@@ -7,7 +7,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2
 point_count = 3
 metadata/_snap_enabled = true
 
-[sub_resource type="Gradient" id="Gradient_naxm6"]
+[sub_resource type="Gradient" id="Gradient_1tyuj"]
 offsets = PackedFloat32Array(0, 0.8)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
@@ -15,7 +15,7 @@ metadata/_snap_enabled = true
 [node name="bullet_death" type="CPUParticles2D"]
 emitting = false
 amount = 40
-lifetime = 0.8
+lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 spread = 180.0
@@ -29,5 +29,5 @@ angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_fblxs")
-color_ramp = SubResource("Gradient_naxm6")
+color_ramp = SubResource("Gradient_1tyuj")
 script = ExtResource("1_rtsd2")

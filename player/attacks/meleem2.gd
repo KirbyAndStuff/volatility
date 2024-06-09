@@ -19,9 +19,7 @@ func _process(_delta):
 	$Area2D.position = dir * min(dist, max_dist)
 	if $SlashTimer.is_stopped() and activate:
 		$SlashTimer.start()
-	if slashes > 4:
-		queue_free()
-	if get_node("../player").is_dead == true:
+	if slashes > 4 or get_node("../player").is_dead == true:
 		queue_free()
 
 func _on_die_timer_timeout() -> void:

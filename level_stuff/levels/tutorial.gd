@@ -13,7 +13,6 @@ var killed_enemy2 = false
 var killed_enemy3 = false
 var messages = [false, false, false, false]
 var checkpoint = null
-var add_enemy_attack = false
 var guarded = false
 
 func _process(_delta):
@@ -102,14 +101,11 @@ func _on_hurt_wall_area_exited(area):
 		hurt_player = false
 
 func _on_bullet_timer_timeout():
-	if get_tree().has_group("breakable wall"):
-		$bullet_sfx.play()
-		var tutorial_bullet = preload("res://level_stuff/interactables/tutorial_bullet.tscn")
-		var shot = tutorial_bullet.instantiate()
-		add_child(shot)
-		if add_enemy_attack:
-			shot.get_node("bullet_hurtbox").add_to_group("enemy_attack")
-		shot.shoot(Vector2(2827, -345), Vector2(2828, -345))
+	$bullet_sfx.play()
+	var tutorial_bullet = preload("res://level_stuff/interactables/tutorial_bullet.tscn")
+	var shot = tutorial_bullet.instantiate()
+	add_child(shot)
+	shot.shoot(Vector2(2827, -345), Vector2(2828, -345))
 
 func _on_shoot_message_area_entered(area):
 	if area.is_in_group("player"):
@@ -127,7 +123,6 @@ func _on_dash_message_area_entered(area):
 
 func _on_parry_message_area_entered(area):
 	if area.is_in_group("player"):
-		add_enemy_attack = true
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(5.5, 0.75)
 		$ui/message.text = "Press Space to Parry"
@@ -135,7 +130,6 @@ func _on_parry_message_area_entered(area):
 
 func _on_heal_message_area_entered(area):
 	if area.is_in_group("player"):
-		add_enemy_attack = false
 		$ui/particle_message.position = Vector2(957, 847)
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(13, 1.5)
@@ -149,21 +143,21 @@ func _on_enemy_1_area_entered(area):
 		var effect := hurt.instantiate()
 		effect.position = $heal_enemy.position
 		get_parent().add_child(effect)
-		enemy1_health -= 1
+		enemy1_health -= area.get_parent().damage
 
 func _on_enemy_2_area_entered(area):
 	if area.is_in_group("player_attack"):
 		var effect := hurt.instantiate()
 		effect.position = $heal_enemy2.position
 		get_parent().add_child(effect)
-		enemy2_health -= 1
+		enemy2_health -= area.get_parent().damage
 
 func _on_enemy_3_area_entered(area):
 	if area.is_in_group("player_attack"):
 		var effect := hurt.instantiate()
 		effect.position = $heal_enemy3.position
 		get_parent().add_child(effect)
-		enemy3_health -= 1
+		enemy3_health -= area.get_parent().damage
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("beam detonation"):

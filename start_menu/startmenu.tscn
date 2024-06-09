@@ -100,10 +100,10 @@ Dash - Left Shift"
 horizontal_alignment = 1
 
 [node name="Settings" type="Button" parent="CanvasLayer"]
-offset_left = -209.0
-offset_top = 492.0
-offset_right = -105.0
-offset_bottom = 551.0
+offset_left = 1270.0
+offset_top = 723.0
+offset_right = 1528.0
+offset_bottom = 802.0
 text = "Settings"
 
 [node name="credits_button" type="Button" parent="CanvasLayer"]
@@ -155,7 +155,6 @@ text = "Quit Game"
 script = ExtResource("6_e8luk")
 
 [node name="settings_button" type="Button" parent="CanvasLayer"]
-visible = false
 offset_left = 868.0
 offset_top = 768.0
 offset_right = 1072.0
@@ -182,6 +181,7 @@ virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 
 [node name="TextEdit3" type="TextEdit" parent="."]
+visible = false
 offset_left = 936.0
 offset_top = 389.0
 offset_right = 1100.0

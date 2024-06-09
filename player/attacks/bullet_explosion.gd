@@ -1,4 +1,4 @@
-extends CPUParticles2D
+extends Node2D
 
 var directiona := Vector2.ZERO
 

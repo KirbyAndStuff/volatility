@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var direction := Vector2.ZERO
-var bullet_death := preload("res://player/attacks/bullet_death.tscn")
+var bullet_death := preload("res://player/attacks/alt_bullet_death.tscn")
 var detonation := preload("res://player/attacks/beam_detonation.tscn")
 var hit_wall = false
 
@@ -29,7 +29,6 @@ func _on_bullet_hurtbox_body_entered(body):
 			queue_free()
 		else:
 			var effect := bullet_death.instantiate()
-			effect.scale = Vector2(5, 5)
 			effect.position = $bullet_body.global_position
 			get_parent().add_child(effect)
 			hit_wall = true

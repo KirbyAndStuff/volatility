@@ -26,6 +26,7 @@ func _process(_delta):
 			vol.emitting = true
 			vol.modulate = Color(1, 3, 3, 1)
 		charged = true
+		$chargedsfx.play()
 	for vol in blades:
 		vol.color = Color(beam_progress / 70, beam_progress / 70, beam_progress / 70, beam_progress / 70)
 
