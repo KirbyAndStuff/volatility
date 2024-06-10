@@ -26,7 +26,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(_delta):
-	if attack_player and (get_node("../player").attackable) == true and is_stunned == false:
+	if attack_player and (get_node("../player").amount_of_i_frames) < 1 and is_stunned == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
@@ -37,6 +37,7 @@ func _process(_delta):
 		var effect := red_dash_particles.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.die(0.5)
 		await get_tree().create_timer(0.5, false).timeout
 		if is_stunned == false:
 			$red_dashsfx.play()
@@ -48,6 +49,7 @@ func _process(_delta):
 		var effect := red_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.die(1)
 		queue_free()
 	if not velocity == Vector2.ZERO:
 		velocity = lerp(velocity, Vector2.ZERO, 0.003)
@@ -57,6 +59,7 @@ func _on_playerdeath_area_entered(area):
 		var effect := red_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.die(0.5)
 		health -= area.get_parent().damage
 	if area.is_in_group("parry") and guarded == false:
 		is_stunned = true

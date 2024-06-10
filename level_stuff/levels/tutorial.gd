@@ -18,7 +18,7 @@ var guarded = false
 func _process(_delta):
 	if get_tree().has_group("next level"):
 		get_tree().change_scene_to_file("res://level_stuff/levels/level_1_1.tscn")
-	if hurt_player and (get_node("player").attackable) == true:
+	if hurt_player and (get_node("player").amount_of_i_frames) < 1:
 		(get_node("player").health) -= 1
 		(get_node("player").i_frames(3))
 		(get_node("player").player_hurt_particles())

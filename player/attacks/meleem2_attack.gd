@@ -8,6 +8,7 @@ func _ready():
 	var effect := sfx.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
+	effect.die(1.18)
 	rotation = randf_range(-180, 180)
 	$CPUParticles2D.emitting = true
 	if get_tree().has_group("marked melee alt"):

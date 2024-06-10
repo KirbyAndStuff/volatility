@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://lkssal8rg0kj"]
 
-[ext_resource type="Script" path="res://player/player_hurt.gd" id="1_60sk7"]
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_two1p"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_o8af2"]
 
 [sub_resource type="Curve" id="Curve_50ee8"]
@@ -32,7 +32,7 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_50ee8")
 color = Color(0, 0.827451, 1, 1)
 color_ramp = SubResource("Gradient_gdqb6")
-script = ExtResource("1_60sk7")
+script = ExtResource("1_two1p")
 
 [node name="hurtsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_o8af2")

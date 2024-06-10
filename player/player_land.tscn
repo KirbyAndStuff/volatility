@@ -1,5 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dy6f7w71pb2uv"]
 
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_51myr"]
+
 [sub_resource type="Curve" id="Curve_cwe5q"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -10,15 +12,6 @@ colors = PackedColorArray(0, 0.827451, 1, 0.501961, 1, 1, 1, 0.501961)
 
 [sub_resource type="Gradient" id="Gradient_coq8h"]
 colors = PackedColorArray(0, 1, 1, 1, 1, 1, 1, 0.235294)
-
-[sub_resource type="GDScript" id="GDScript_5516v"]
-script/source = "extends CPUParticles2D
-
-func _ready():
-	emitting = true
-	await get_tree().create_timer(0.4, false).timeout
-	queue_free()
-"
 
 [node name="player_land" type="CPUParticles2D"]
 emitting = false
@@ -42,4 +35,4 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_cwe5q")
 color_ramp = SubResource("Gradient_nlgnx")
 color_initial_ramp = SubResource("Gradient_coq8h")
-script = SubResource("GDScript_5516v")
+script = ExtResource("1_51myr")

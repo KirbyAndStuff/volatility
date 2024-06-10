@@ -1,18 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfykqm448qllb"]
+[gd_scene load_steps=4 format=3 uid="uid://bfykqm448qllb"]
 
-[ext_resource type="Script" path="res://start_menu/start_button.gd" id="1_q1fjm"]
-[ext_resource type="Script" path="res://start_menu/playground.gd" id="2_1oigh"]
-[ext_resource type="Script" path="res://start_menu/levels.gd" id="2_wgb50"]
-[ext_resource type="Script" path="res://start_menu/controls_button.gd" id="3_k40w0"]
-[ext_resource type="Script" path="res://start_menu/credits_button.gd" id="4_tfxyc"]
-[ext_resource type="Script" path="res://start_menu/credits_close_button.gd" id="5_6crtf"]
-[ext_resource type="Script" path="res://start_menu/quit_game_button.gd" id="6_e8luk"]
-[ext_resource type="Script" path="res://start_menu/settings_button.gd" id="7_7mv0f"]
+[ext_resource type="Script" path="res://start_menu/startmenu.gd" id="1_1a6te"]
 [ext_resource type="PackedScene" uid="uid://310650vo12fr" path="res://player/player_immoblie.tscn" id="9_np2n1"]
 [ext_resource type="AudioStream" uid="uid://p1lur1k0r2v5" path="res://music/Chris Christodoulou - Risk of Rain [2023 Remaster] ｜ ROR Returns (2023) [g8iP1TwEB88].wav" id="10_8agby"]
 
 [node name="startmenu" type="Node2D" groups=["start menu"]]
 process_mode = 3
+script = ExtResource("1_1a6te")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -22,7 +16,6 @@ offset_top = 545.0
 offset_right = 1110.0
 offset_bottom = 625.0
 text = "Start Game"
-script = ExtResource("1_q1fjm")
 
 [node name="levels" type="Button" parent="CanvasLayer"]
 offset_left = 1266.0
@@ -30,7 +23,6 @@ offset_top = 549.0
 offset_right = 1526.0
 offset_bottom = 629.0
 text = "Levels"
-script = ExtResource("2_wgb50")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/levels"]
 visible = false
@@ -70,81 +62,6 @@ offset_top = 865.0
 offset_right = 1010.0
 offset_bottom = 896.0
 text = "Playground"
-script = ExtResource("2_1oigh")
-
-[node name="controls_button" type="Button" parent="CanvasLayer"]
-offset_left = 852.0
-offset_top = 638.0
-offset_right = 1108.0
-offset_bottom = 707.0
-text = "Controls"
-script = ExtResource("3_k40w0")
-
-[node name="controls_panel" type="Panel" parent="CanvasLayer/controls_button"]
-visible = false
-layout_mode = 0
-offset_left = -590.0
-offset_top = -500.0
-offset_right = 873.0
-offset_bottom = 288.0
-
-[node name="Label" type="Label" parent="CanvasLayer/controls_button/controls_panel"]
-layout_mode = 0
-offset_left = 637.0
-offset_top = 301.0
-offset_right = 798.0
-offset_bottom = 376.0
-text = "Movement - WASD
-Shoot - Left Click
-Dash - Left Shift"
-horizontal_alignment = 1
-
-[node name="Settings" type="Button" parent="CanvasLayer"]
-offset_left = 1270.0
-offset_top = 723.0
-offset_right = 1528.0
-offset_bottom = 802.0
-text = "Settings"
-
-[node name="credits_button" type="Button" parent="CanvasLayer"]
-offset_left = -190.0
-offset_top = 603.0
-offset_right = -68.0
-offset_bottom = 653.0
-text = "Credits"
-script = ExtResource("4_tfxyc")
-
-[node name="credits_panel" type="Panel" parent="CanvasLayer/credits_button"]
-visible = false
-layout_mode = 0
-offset_left = -646.0
-offset_top = -641.0
-offset_right = 855.0
-offset_bottom = 195.0
-
-[node name="credits_close_button" type="Button" parent="CanvasLayer/credits_button/credits_panel"]
-layout_mode = 0
-offset_left = 1273.0
-offset_top = 33.0
-offset_right = 1461.0
-offset_bottom = 190.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 56
-text = "X"
-script = ExtResource("5_6crtf")
-
-[node name="credits_label" type="Label" parent="CanvasLayer/credits_button/credits_panel"]
-layout_mode = 0
-offset_left = 342.0
-offset_top = 142.0
-offset_right = 1110.0
-offset_bottom = 553.0
-text = "Credits
-
-Videospiel von Choi
-
-"
-horizontal_alignment = 1
 
 [node name="quit_game_button" type="Button" parent="CanvasLayer"]
 offset_left = 850.0
@@ -152,15 +69,21 @@ offset_top = 726.0
 offset_right = 1110.0
 offset_bottom = 786.0
 text = "Quit Game"
-script = ExtResource("6_e8luk")
 
 [node name="settings_button" type="Button" parent="CanvasLayer"]
-offset_left = 868.0
-offset_top = 768.0
-offset_right = 1072.0
-offset_bottom = 848.0
+offset_left = 851.0
+offset_top = 635.0
+offset_right = 1111.0
+offset_bottom = 716.0
 text = "Settings"
-script = ExtResource("7_7mv0f")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/settings_button"]
+visible = false
+layout_mode = 0
+offset_left = -665.0
+offset_top = -486.0
+offset_right = 913.0
+offset_bottom = 306.0
 
 [node name="TextEdit" type="TextEdit" parent="."]
 offset_left = 743.0
@@ -220,14 +143,11 @@ position = Vector2(843, 354)
 stream = ExtResource("10_8agby")
 volume_db = -20.0
 
-[connection signal="pressed" from="CanvasLayer/start_button" to="CanvasLayer/start_button" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/levels" to="CanvasLayer/levels" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/levels/Panel/level" to="CanvasLayer/levels" method="_on_level_pressed"]
-[connection signal="pressed" from="CanvasLayer/levels/Panel/tutorial" to="CanvasLayer/levels" method="_on_tutorial_pressed"]
-[connection signal="pressed" from="CanvasLayer/levels/Panel/level 1-1" to="CanvasLayer/levels" method="_on_level_11_pressed"]
-[connection signal="pressed" from="CanvasLayer/playground" to="CanvasLayer/playground" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/controls_button" to="CanvasLayer/controls_button" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/credits_button" to="CanvasLayer/credits_button" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/credits_button/credits_panel/credits_close_button" to="CanvasLayer/credits_button/credits_panel/credits_close_button" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/quit_game_button" to="CanvasLayer/quit_game_button" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/settings_button" to="CanvasLayer/settings_button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels" to="." method="_on_levels_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels/Panel/level" to="." method="_on_level_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels/Panel/tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="CanvasLayer/levels/Panel/level 1-1" to="." method="_on_level_11_pressed"]
+[connection signal="pressed" from="CanvasLayer/playground" to="." method="_on_playground_pressed"]
+[connection signal="pressed" from="CanvasLayer/quit_game_button" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/settings_button" to="." method="_on_settings_button_pressed"]

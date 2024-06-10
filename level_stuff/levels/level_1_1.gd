@@ -16,7 +16,7 @@ var spawned_green_5_2 = false
 var spawned_red_5_2 = false
 
 func _process(_delta):
-	if hurt_player and (get_node("player").attackable) == true:
+	if hurt_player and (get_node("player").amount_of_i_frames) < 1:
 		(get_node("player").health) -= 1
 		(get_node("player").i_frames(1))
 		(get_node("player").player_hurt_particles())

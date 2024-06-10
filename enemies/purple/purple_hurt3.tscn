@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwngqqjhctkow"]
 
-[ext_resource type="Script" path="res://enemies/green/green_hurt.gd" id="1_6qmbs"]
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_wnvj2"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_rm00h"]
 
 [sub_resource type="Curve" id="Curve_rlgok"]
@@ -32,7 +32,7 @@ scale_amount_max = 15.0
 scale_amount_curve = SubResource("Curve_rlgok")
 color = Color(0.372549, 0, 1, 1)
 color_ramp = SubResource("Gradient_s1dw7")
-script = ExtResource("1_6qmbs")
+script = ExtResource("1_wnvj2")
 
 [node name="deathsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_rm00h")

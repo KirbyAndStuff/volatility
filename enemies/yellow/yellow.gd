@@ -23,6 +23,7 @@ func _process(_delta):
 		var effect := yellow_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.die(1)
 		queue_free()
 	if shoot_at_player and $GunTimer.is_stopped():
 		$yellow_bulletsfx.play()
@@ -37,6 +38,7 @@ func _on_player_death_area_entered(area):
 		var effect := yellow_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.die(0.5)
 		health -= area.get_parent().damage
 
 func _on_player_shoot_distance_area_entered(area):

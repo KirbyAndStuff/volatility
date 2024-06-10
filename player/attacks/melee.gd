@@ -8,6 +8,7 @@ func _ready():
 	var effect := sfx.instantiate()
 	effect.position = get_node("../player").position
 	get_parent().add_child(effect)
+	effect.die(0.59)
 	$CPUParticles2D.emitting = true
 	await get_tree().create_timer(0.3, false).timeout
 	queue_free()

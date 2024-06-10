@@ -23,7 +23,7 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func _process(_delta):
-	if attack_player and (get_node("../player").attackable) == true and is_stunned == false:
+	if attack_player and (get_node("../player").amount_of_i_frames) < 1 and is_stunned == false:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
@@ -32,7 +32,7 @@ func _process(_delta):
 		var effect := deathsfx.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		
+		effect.die(1.2)
 		var purple2_1 := purple2.instantiate()
 		var purple2_2 := purple2.instantiate()
 		

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcqu666b30hjn"]
 
-[ext_resource type="Script" path="res://enemies/green/green_bullet_death.gd" id="1_73dsc"]
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_51axa"]
 
 [sub_resource type="Curve" id="Curve_etr61"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252747, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -28,4 +28,4 @@ scale_amount_min = 7.0
 scale_amount_max = 7.0
 scale_amount_curve = SubResource("Curve_etr61")
 color_ramp = SubResource("Gradient_ek7y6")
-script = ExtResource("1_73dsc")
+script = ExtResource("1_51axa")

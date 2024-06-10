@@ -1,22 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://vx7ndm1qc5xy"]
 
-[sub_resource type="GDScript" id="GDScript_sghbv"]
-script/source = "extends CPUParticles2D
-
-var screen_size
-
-func _ready():
-	screen_size = get_viewport_rect().size
-
-func _on_hide_timeout():
-	var location_dif = global_position - get_node(\"../../../player\").global_position
-	if abs(location_dif.x) > (screen_size.x/2) * 2 || abs(location_dif.y) > (screen_size.y/2) * 2:
-		visible = false
-		$StaticBody2D/CollisionShape2D.disabled = true
-	else:
-		visible = true
-		$StaticBody2D/CollisionShape2D.disabled = false
-"
+[ext_resource type="Script" path="res://level_stuff/walls/white_wall.gd" id="1_wh6a2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
 size = Vector2(16, 16)
@@ -32,7 +16,7 @@ angle_max = 180.0
 scale_amount_min = 16.0
 scale_amount_max = 16.0
 color = Color(0, 1, 0, 1)
-script = SubResource("GDScript_sghbv")
+script = ExtResource("1_wh6a2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
 collision_layer = 63

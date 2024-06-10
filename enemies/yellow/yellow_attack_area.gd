@@ -7,7 +7,7 @@ func _ready():
 	tween.tween_property($attack_area_hurtbox/CollisionShape2D, "scale", Vector2(258, 258), 0.75)
 
 func _process(_delta):
-	if attack_player and (get_node("../player").attackable) == true:
+	if attack_player and (get_node("../player").amount_of_i_frames) < 1:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())

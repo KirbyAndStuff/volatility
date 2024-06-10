@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://sodyi3iqjxko"]
 
-[ext_resource type="Script" path="res://enemies/yellow/yellow_hurt.gd" id="1_tjht3"]
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_8bpex"]
 
 [sub_resource type="Curve" id="Curve_oneen"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -30,4 +30,4 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_oneen")
 color = Color(1, 1, 0, 1)
 color_ramp = SubResource("Gradient_vklqw")
-script = ExtResource("1_tjht3")
+script = ExtResource("1_8bpex")

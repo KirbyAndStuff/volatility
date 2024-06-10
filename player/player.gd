@@ -27,12 +27,9 @@ var active_weapon = 1.0
 var variant_weapon = false
 var can_scroll_up = true
 var can_scroll_down = true
-var is_dashing = false
-var attackable = true
 var amount_of_i_frames = 0
 var heal_cooldown = 0
 var parry_cooldown = 30
-var parried = false
 var in_intro = false
 
 func _physics_process(delta):
@@ -52,7 +49,7 @@ func _physics_process(delta):
 		position.y += 2000 * delta
 
 func _process(_delta):
-	if Input.is_action_pressed("dash") and stamina > 50 and is_dashing == false and is_dead == false and in_intro == false:
+	if Input.is_action_pressed("dash") and stamina > 50 and $DashLength.is_stopped() and is_dead == false and in_intro == false:
 		dash()
 		stamina_tween = false
 	if Input.is_action_pressed("parry") and parry_cooldown > 30 and is_dead == false and in_intro == false:
@@ -61,6 +58,7 @@ func _process(_delta):
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.die(1)
 		modulate = Color(0, 0, 0, 0)
 		speed = 0
 		speed_boost = 0
@@ -108,10 +106,6 @@ func _process(_delta):
 		can_scroll_down = true
 	if Input.is_action_just_pressed("switch_variant"):
 		variant_weapon = !variant_weapon
-	if amount_of_i_frames == 0:
-		attackable = true
-	else:
-		attackable = false
 	if heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
 		heal_particles()
@@ -214,8 +208,8 @@ func dash():
 	var effect := dash_particles.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
+	effect.die(0.5)
 	amount_of_i_frames += 1
-	is_dashing = true
 	stamina -= 50
 	friction *= 3
 	accel *= 5
@@ -224,7 +218,6 @@ func dash():
 	$dashsfx.play()
 
 func _on_dash_length_timeout() -> void:
-	is_dashing = false
 	friction /= 3
 	accel /= 5
 	speed /= 2
@@ -235,6 +228,7 @@ func parry():
 	var effect := parry_particles.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
+	effect.die(0.2)
 	$parry_detection/CollisionShape2D.disabled = false
 	parry_cooldown = 0
 	await get_tree().create_timer(0.15, false).timeout
@@ -242,24 +236,19 @@ func parry():
 
 func _on_parry_detection_area_entered(area):
 	if area.is_in_group("parryable"):
-		var tween = create_tween()
-		tween.tween_property((get_node("../ui/health").parry), "modulate", Color(1, 1, 1), 1.5)
 		$parriedsfx.play()
 		var effect := parried_particles.instantiate()
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
-		if parried == false:
+		if parry_cooldown < 15:
 			parry_cooldown += 15
-			parried = true
 		framefreeze(0.1, 0.3)
 		if area.is_in_group("enemy_attack"):
-			i_frames(1.5)
+			i_frames(1)
 			if speed_boost < 300:
 				speed_boost += 300
 				accel_boost += 3000
 				friction_boost += 1710
-		await get_tree().create_timer(1.5, false).timeout
-		parried = false
 
 func framefreeze(timescale, duration):
 	if is_dead == false:
@@ -273,6 +262,8 @@ func player_hurt_particles():
 		var effect := player_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		get_node("../camera").apply_shake(5, 0.1)
+		effect.die(0.5)
 		speed_boost = 0
 		accel_boost = 0
 		friction_boost = 0
@@ -316,6 +307,7 @@ func _on_player_hurtbox_area_entered(area):
 		var effect := player_land.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.die(0.4)
 		area.remove_from_group("level start")
 		get_node("../camera").apply_shake(10, 0.5)
 

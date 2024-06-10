@@ -1,28 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cc2mhjjj5nm6i"]
 
-[sub_resource type="GDScript" id="GDScript_0ytb7"]
-script/source = "extends Area2D
-
-var detonationsfx := preload(\"res://player/attacks/detonationsfx.tscn\")
-var damage = 3
-
-func _ready():
-	if not get_tree().has_group(\"beam\"):
-		get_node(\"../camera\").apply_shake(10, 0.5)
-		var effect := detonationsfx.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-	$CPUParticles2D.emitting = true
-	await get_tree().create_timer(0.2, false).timeout
-	$Area2D.queue_free()
-
-func _on_timer_timeout() -> void:
-	queue_free()
-
-func _on_area_2d_area_entered(area):
-	if area.is_in_group(\"enemy_body\") and not area.is_in_group(\"no heal_cooldown reduction\") and (get_node(\"../player\").heal_cooldown) < 100:
-		(get_node(\"../player\").heal_cooldown) = clamp((get_node(\"../player\").heal_cooldown) + 5, 0, 100)
-"
+[ext_resource type="Script" path="res://player/attacks/beam_detonation.gd" id="1_2ddn4"]
 
 [sub_resource type="Curve" id="Curve_0ekmd"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -33,7 +11,7 @@ metadata/_snap_enabled = true
 radius = 125.0
 
 [node name="beam_detonation" type="Area2D"]
-script = SubResource("GDScript_0ytb7")
+script = ExtResource("1_2ddn4")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false

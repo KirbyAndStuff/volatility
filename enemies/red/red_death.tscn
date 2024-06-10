@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://605ng3t3lwhu"]
 
-[ext_resource type="Script" path="res://enemies/red/red_death.gd" id="1_22xqq"]
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_e0ox0"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_hh56o"]
 
 [sub_resource type="Curve" id="Curve_gc8rw"]
@@ -15,7 +15,6 @@ colors = PackedColorArray(1, 0, 0, 0.501961, 1, 1, 1, 0.501961)
 colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0.235294)
 
 [node name="red_death" type="CPUParticles2D"]
-position = Vector2(1, -2)
 emitting = false
 amount = 250
 lifetime = 0.5
@@ -41,7 +40,7 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_gc8rw")
 color_ramp = SubResource("Gradient_nke3o")
 color_initial_ramp = SubResource("Gradient_ye5px")
-script = ExtResource("1_22xqq")
+script = ExtResource("1_e0ox0")
 
 [node name="deathsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_hh56o")

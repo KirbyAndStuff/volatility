@@ -31,7 +31,7 @@ func _on_timer_timeout() -> void:
 	queue_free()
 
 func _process(_delta):
-	if attack_player and (get_node("../player").attackable) == true:
+	if attack_player and (get_node("../player").amount_of_i_frames) < 1:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames(1))
 		(get_node("../player").player_hurt_particles())
