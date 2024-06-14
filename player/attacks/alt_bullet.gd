@@ -21,7 +21,7 @@ func _ready():
 func _process(_delta):
 	if 2 < enemies_hit:
 		die()
-	if beam_progress >= 70 and charged == false:
+	if beam_progress >= 50 and charged == false:
 		for vol in blades:
 			vol.emitting = true
 			vol.modulate = Color(1, 3, 3, 1)
@@ -48,9 +48,11 @@ func _physics_process(delta):
 		$hurtbox.add_to_group("parryable")
 	if come_back:
 		shoot(position, get_node("../player").position)
-		in_beam = false
 	if in_beam:
-		speed += 3000.0 * delta
+		if come_back:
+			speed -= 3000.0 * delta
+		else:
+			speed += 3000.0 * delta
 		beam_progress += 100 * delta
 
 func _on_hurtbox_area_entered(area):
@@ -63,7 +65,6 @@ func _on_hurtbox_area_entered(area):
 	if area.is_in_group("parry"):
 		come_back = false
 		$Timer.start()
-		damage = 0
 		$player_death.queue_free()
 		$body.color = Color(0, 1, 1, 1)
 		$flames.color = Color(0, 1, 1, 1)
@@ -106,5 +107,3 @@ func _on_timer_timeout():
 func _on_hurtbox_area_exited(area):
 	if area.is_in_group("beam"):
 		in_beam = false
-		if charged == false:
-			beam_progress = 0

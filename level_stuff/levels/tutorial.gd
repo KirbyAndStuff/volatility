@@ -4,9 +4,9 @@ var level_start = preload("res://level_stuff/interactables/level_start_particle.
 var death := preload("res://enemies/yellow/yellow_death.tscn")
 var hurt := preload("res://enemies/yellow/yellow_hurt.tscn")
 var hurt_player = false
-var enemy1_health = 2
-var enemy2_health = 2
-var enemy3_health = 2
+var enemy1_health = 2.0
+var enemy2_health = 2.0
+var enemy3_health = 2.0
 var enemy_walls_tweened = false
 var killed_enemy1 = false
 var killed_enemy2 = false
@@ -111,7 +111,7 @@ func _on_shoot_message_area_entered(area):
 	if area.is_in_group("player"):
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(6.5, 0.75)
-		$ui/message.text = "Press Left Click to Shoot"
+		$ui/message.text = "Press M1 to Shoot"
 		$shoot_message.queue_free()
 
 func _on_dash_message_area_entered(area):

@@ -3,7 +3,7 @@ extends CharacterBody2D
 var green_death := preload("res://enemies/green/green_death.tscn")
 var green_hurt := preload("res://enemies/green/green_hurt.tscn")
 
-var health = 3
+var health = 3.0
 var guarded = false
 
 func _ready():

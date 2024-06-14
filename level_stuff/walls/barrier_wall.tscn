@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://vx7ndm1qc5xy"]
 
-[ext_resource type="Script" path="res://level_stuff/walls/white_wall.gd" id="1_wh6a2"]
+[ext_resource type="Script" path="res://level_stuff/walls/barrier_wall.gd" id="1_b3um2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
 size = Vector2(16, 16)
@@ -16,7 +16,7 @@ angle_max = 180.0
 scale_amount_min = 16.0
 scale_amount_max = 16.0
 color = Color(0, 1, 0, 1)
-script = ExtResource("1_wh6a2")
+script = ExtResource("1_b3um2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
 collision_layer = 63

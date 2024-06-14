@@ -195,6 +195,9 @@ func _on_red_intro_area_area_entered(area):
 			$red_intro/damage.speed_scale = 1.5
 			$red_intro/damage.amount = 200
 		$red_intro/damage.emitting = true
+		$red_intro/red_intro_area.set_deferred("monitoring", false)
+		await get_tree().create_timer(1.5, false).timeout
+		$red_intro/red_intro_area.set_deferred("monitoring", true)
 
 func red_intro_thing():
 	$ui/message.text = ""
@@ -224,7 +227,7 @@ func red_intro_thing():
 	please_press_m2 = true
 	await get_tree().create_timer(3, false).timeout
 	if pressed_m2 == false:
-		$ui/message.text = "Press Right Click"
+		$ui/message.text = "Press M2"
 
 func red_intro_die():
 	$red_intro/die.play()
@@ -500,7 +503,7 @@ func _on_kill_green_meteor_area_entered(area):
 		await get_tree().create_timer(1, false).timeout
 		get_node("player").speed = 700
 		remove_from_group("stop following player")
-		await get_tree().create_timer(3, false).timeout
+		await get_tree().create_timer(3.5, false).timeout
 		room_in_action = 4_1
 
 func _on_green_meteor_coming_finished() -> void:

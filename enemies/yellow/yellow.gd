@@ -4,7 +4,7 @@ var yellow_death := preload("res://enemies/yellow/yellow_death.tscn")
 var yellow_hurt := preload("res://enemies/yellow/yellow_hurt.tscn")
 
 var speed = 300
-var health = 2
+var health = 2.0
 var shoot_at_player = false
 var guarded = false
 

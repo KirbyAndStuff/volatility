@@ -11,7 +11,7 @@ func _ready():
 
 var speed = 300
 var attack_player = false
-var health = 3
+var health = 3.0
 var is_stunned = false
 var guarded = false
 

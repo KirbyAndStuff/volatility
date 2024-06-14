@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://qqrgrc3cq65s"]
+
+[ext_resource type="Script" path="res://player/attacks/beam.gd" id="1_xhq6l"]
+
+[sub_resource type="Curve" id="Curve_8w73t"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[node name="RayCast2D" type="RayCast2D" groups=["beam"]]
+target_position = Vector2(2000, 0)
+collision_mask = 32
+script = ExtResource("1_xhq6l")
+
+[node name="beam_body" type="CPUParticles2D" parent="."]
+modulate = Color(0.588235, 2.1098, 2.54902, 1)
+position = Vector2(522, 0)
+emitting = false
+amount = 750
+lifetime = 0.25
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 40.0
+scale_amount_max = 40.0
+scale_amount_curve = SubResource("Curve_8w73t")
+
+[node name="beam_hurtbox" type="Area2D" parent="." groups=["beam", "player_attack"]]
+scale = Vector2(1, 25)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="area_entered" from="beam_hurtbox" to="." method="_on_beam_hurtbox_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
