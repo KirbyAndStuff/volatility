@@ -169,8 +169,9 @@ color = Color(1, 1, 1, 0)
 
 [node name="chargedsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_7mikt")
-volume_db = -5.0
+volume_db = -10.0
 pitch_scale = 0.75
+max_distance = 10000.0
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]

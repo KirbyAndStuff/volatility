@@ -65,7 +65,7 @@ func _on_hurtbox_area_entered(area):
 	if area.is_in_group("parry"):
 		come_back = false
 		$Timer.start()
-		$player_death.queue_free()
+		$player_death.monitoring = false
 		$body.color = Color(0, 1, 1, 1)
 		$flames.color = Color(0, 1, 1, 1)
 		add_to_group("parried")

@@ -84,9 +84,8 @@ one_shot = true
 
 [node name="green_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kbnva")
-volume_db = -5.0
+volume_db = -3.0
 pitch_scale = 2.0
-max_distance = 1500.0
 
 [node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kbnva")
