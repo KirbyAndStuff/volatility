@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cc2mhjjj5nm6i"]
 
-[ext_resource type="Script" path="res://player/attacks/beam_detonation.gd" id="1_2ddn4"]
+[ext_resource type="Script" path="res://player/attacks/bullet/beam_detonation.gd" id="1_2ddn4"]
 
 [sub_resource type="Curve" id="Curve_0ekmd"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

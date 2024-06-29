@@ -1,0 +1,289 @@
+[gd_scene load_steps=23 format=3 uid="uid://b6dph58aj4tme"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_ni3np"]
+[ext_resource type="Script" path="res://player/left eye node.gd" id="2_bfumu"]
+[ext_resource type="Script" path="res://player/right eye node.gd" id="3_g7m5p"]
+[ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="4_nynlh"]
+[ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="5_2x6xb"]
+[ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="6_c3jba"]
+[ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="7_2tgkj"]
+[ext_resource type="AudioStream" uid="uid://clt3yv15girww" path="res://audio/lasersfx.wav" id="8_5hg0t"]
+[ext_resource type="AudioStream" uid="uid://oi3edt06tvn1" path="res://audio/landing.wav" id="10_o4wf3"]
+[ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="11_kau35"]
+[ext_resource type="AudioStream" uid="uid://drghbrtqd160c" path="res://audio/healsfx.wav" id="12_4kvd2"]
+
+[sub_resource type="Curve" id="Curve_3g2ry"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_748se"]
+colors = PackedColorArray(0, 0.827451, 1, 0.392157, 1, 1, 1, 0.501961)
+
+[sub_resource type="Gradient" id="Gradient_ovceo"]
+colors = PackedColorArray(0, 1, 1, 0.694118, 1, 1, 1, 0.247059)
+
+[sub_resource type="Gradient" id="Gradient_irh04"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_count = 20
+
+[sub_resource type="Animation" id="Animation_xiuxf"]
+resource_name = "left_eye"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 1, 1.6, 1.8, 2.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 0), Vector2(16, 0), Vector2(-8, -2), Vector2(-32, 0), Vector2(-24, 0), Vector2(-8, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.408308, 1.59169, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5j033"]
+_data = {
+"left_eye": SubResource("Animation_xiuxf")
+}
+
+[sub_resource type="Animation" id="Animation_hk8rp"]
+resource_name = "right_eye"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8, 1.4, 2, 2.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 0), Vector2(24, 0), Vector2(32, 0), Vector2(8, -2), Vector2(-16, 0), Vector2(-8, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.80627, 1.99577, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yvklg"]
+_data = {
+"right_eye": SubResource("Animation_hk8rp")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k4hsi"]
+radius = 22.0227
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lc2ci"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k1igs"]
+radius = 22.02
+
+[node name="player" type="CharacterBody2D" groups=["attackable"]]
+script = ExtResource("1_ni3np")
+
+[node name="body" type="CPUParticles2D" parent="."]
+position = Vector2(0, 10)
+amount = 250
+lifetime = 0.5
+speed_scale = 0.7
+emission_shape = 1
+emission_sphere_radius = 25.0
+spread = 180.0
+gravity = Vector2(0, -1000)
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_3g2ry")
+color_ramp = SubResource("Gradient_748se")
+color_initial_ramp = SubResource("Gradient_ovceo")
+
+[node name="left eye node" type="Node2D" parent="."]
+position = Vector2(8, 6)
+script = ExtResource("2_bfumu")
+
+[node name="left eye" type="CPUParticles2D" parent="left eye node"]
+amount = 50
+lifetime = 0.2
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -1000)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_irh04")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="left eye node/left eye"]
+libraries = {
+"": SubResource("AnimationLibrary_5j033")
+}
+speed_scale = 5.0
+
+[node name="right eye node" type="Node2D" parent="."]
+position = Vector2(-8, 6)
+script = ExtResource("3_g7m5p")
+
+[node name="right eye" type="CPUParticles2D" parent="right eye node"]
+amount = 50
+lifetime = 0.2
+speed_scale = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -1000)
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_irh04")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="right eye node/right eye"]
+libraries = {
+"": SubResource("AnimationLibrary_yvklg")
+}
+speed_scale = 5.0
+
+[node name="combat eye" type="CPUParticles2D" parent="."]
+position = Vector2(-1, 20)
+emitting = false
+amount = 30
+lifetime = 0.26
+fixed_fps = 120
+local_coords = true
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+
+[node name="combat eye2" type="CPUParticles2D" parent="."]
+position = Vector2(1, 20)
+emitting = false
+amount = 30
+lifetime = 0.26
+fixed_fps = 120
+local_coords = true
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+orbit_velocity_min = -2.0
+orbit_velocity_max = -2.0
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+
+[node name="wall_hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_k4hsi")
+
+[node name="GunTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Alt_GunTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="DashLength" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="MeleeTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="parry_detection" type="Area2D" parent="."]
+position = Vector2(0, 25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parry_detection"]
+visible = false
+position = Vector2(0, -22)
+shape = SubResource("CircleShape2D_lc2ci")
+disabled = true
+
+[node name="dashsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_nynlh")
+volume_db = -8.0
+
+[node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2x6xb")
+pitch_scale = 2.0
+
+[node name="alt_bulletsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2x6xb")
+pitch_scale = 1.75
+
+[node name="parrysfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_c3jba")
+volume_db = -15.0
+pitch_scale = 2.2
+
+[node name="parriedsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_2tgkj")
+volume_db = -10.0
+
+[node name="lasersfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_5hg0t")
+volume_db = -10.0
+
+[node name="landingsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_o4wf3")
+pitch_scale = 1.5
+
+[node name="level_end_chargesfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_kau35")
+volume_db = 5.0
+
+[node name="healsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_4kvd2")
+volume_db = -15.0
+pitch_scale = 1.5
+
+[node name="player_hurtbox" type="Area2D" parent="." groups=["player"]]
+visible = false
+collision_layer = 9
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hurtbox"]
+shape = SubResource("CircleShape2D_k1igs")
+
+[connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]
+[connection signal="area_entered" from="parry_detection" to="." method="_on_parry_detection_area_entered"]
+[connection signal="area_entered" from="player_hurtbox" to="." method="_on_player_hurtbox_area_entered"]

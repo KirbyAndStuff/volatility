@@ -1,7 +1,7 @@
 extends Area2D
 
 var directiona := Vector2.ZERO
-var sfx := preload("res://player/attacks/melee_sfx.tscn")
+var sfx := preload("res://player/attacks/melee/melee_sfx.tscn")
 var damage = 2
 
 func _ready():

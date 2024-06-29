@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var attack_area : = preload("res://enemies/yellow/yellow_attack_area.tscn")
-var detonation := preload("res://player/attacks/beam_detonation.tscn")
+var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
 var hit_wall = false
 var damage = 2
 

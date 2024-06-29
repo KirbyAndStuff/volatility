@@ -1,0 +1,190 @@
+[gd_scene load_steps=9 format=3 uid="uid://dof4vpoy5wjb5"]
+
+[ext_resource type="Script" path="res://player/attacks/alt_bullet.gd" id="1_8vnb5"]
+[ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="2_7mikt"]
+
+[sub_resource type="Curve" id="Curve_ny7oa"]
+_data = [Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_6qg4h"]
+offsets = PackedFloat32Array(0, 0.993197)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2kep"]
+radius = 37.0135
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ydrb"]
+radius = 1.0
+
+[sub_resource type="Curve" id="Curve_svu7v"]
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wfxu"]
+radius = 75.0
+
+[node name="alt_bullet" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_8vnb5")
+
+[node name="body" type="CPUParticles2D" parent="."]
+amount = 50
+preprocess = 1.0
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+
+[node name="flames" type="CPUParticles2D" parent="."]
+scale = Vector2(2, 2)
+amount = 100
+lifetime = 0.2
+emission_shape = 2
+emission_sphere_radius = 20.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+radial_accel_min = -500.0
+radial_accel_max = -500.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_ny7oa")
+color_ramp = SubResource("Gradient_6qg4h")
+
+[node name="hurtbox" type="Area2D" parent="." groups=["player_attack"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_g2kep")
+
+[node name="player_death" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_death"]
+shape = SubResource("CircleShape2D_4ydrb")
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="blade" type="CPUParticles2D" parent="."]
+position = Vector2(0, 64)
+lifetime = 0.25
+speed_scale = 0.5
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_svu7v")
+color = Color(1, 1, 1, 0)
+
+[node name="blade2" type="CPUParticles2D" parent="."]
+position = Vector2(64, 0)
+lifetime = 0.25
+speed_scale = 0.5
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_svu7v")
+color = Color(1, 1, 1, 0)
+
+[node name="blade3" type="CPUParticles2D" parent="."]
+position = Vector2(0, -64)
+lifetime = 0.25
+speed_scale = 0.5
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_svu7v")
+color = Color(1, 1, 1, 0)
+
+[node name="blade4" type="CPUParticles2D" parent="."]
+position = Vector2(-64, 0)
+lifetime = 0.25
+speed_scale = 0.5
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_svu7v")
+color = Color(1, 1, 1, 0)
+
+[node name="chargedsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_7mikt")
+volume_db = -10.0
+pitch_scale = 0.75
+max_distance = 10000.0
+
+[node name="stop_follow_player" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stop_follow_player"]
+shape = SubResource("CircleShape2D_0wfxu")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="area_entered" from="player_death" to="." method="_on_player_death_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="stop_follow_player" to="." method="_on_stop_follow_player_area_entered"]
+[connection signal="area_exited" from="stop_follow_player" to="." method="_on_stop_follow_player_area_exited"]

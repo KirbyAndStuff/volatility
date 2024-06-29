@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 var direction := Vector2.ZERO
-var bullet_death := preload("res://player/attacks/alt_bullet_death.tscn")
-var detonation := preload("res://player/attacks/beam_detonation.tscn")
+var bullet_death := preload("res://player/attacks/alt_bullet/alt_bullet_death.tscn")
+var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
 var hit_wall = false
 
 @export var speed := 1000.0

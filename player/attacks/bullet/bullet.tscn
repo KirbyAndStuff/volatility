@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkuqrtxq3tgfy"]
 
-[ext_resource type="Script" path="res://player/attacks/bullet.gd" id="1_p2t35"]
+[ext_resource type="Script" path="res://player/attacks/bullet/bullet.gd" id="1_xt3it"]
 
 [sub_resource type="Curve" id="Curve_rviok"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252747, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -10,7 +10,7 @@ point_count = 3
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="bullet4" type="CharacterBody2D"]
-script = ExtResource("1_p2t35")
+script = ExtResource("1_xt3it")
 
 [node name="bullet_body" type="CPUParticles2D" parent="."]
 position = Vector2(47, 0)

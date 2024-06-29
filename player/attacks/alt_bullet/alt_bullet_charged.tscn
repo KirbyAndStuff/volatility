@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ec5sx6bspivh"]
 
-[ext_resource type="Script" path="res://player/attacks/alt_bullet_charged.gd" id="1_6kg6q"]
+[ext_resource type="Script" path="res://player/attacks/alt_bullet/alt_bullet_charged.gd" id="1_6kg6q"]
 
 [sub_resource type="Curve" id="Curve_ek3x6"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

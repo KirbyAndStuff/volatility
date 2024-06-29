@@ -1,6 +1,6 @@
 extends Area2D
 
-var detonationsfx := preload("res://player/attacks/detonationsfx.tscn")
+var detonationsfx := preload("res://player/attacks/bullet/detonationsfx.tscn")
 var damage = 3
 
 func _ready():

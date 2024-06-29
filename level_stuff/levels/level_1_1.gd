@@ -29,7 +29,7 @@ func _process(_delta):
 		$ui/message.text = ""
 		pressed_m2 = true
 		get_node("player/lasersfx").play()
-		var bullet_scene = preload("res://player/attacks/beam.tscn")
+		var bullet_scene = preload("res://player/attacks/bullet/beam.tscn")
 		var shot = bullet_scene.instantiate()
 		add_child(shot)
 		shot.shoot($player.global_position, get_global_mouse_position())

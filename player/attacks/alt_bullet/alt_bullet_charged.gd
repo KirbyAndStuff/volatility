@@ -1,20 +1,18 @@
 extends Area2D
 
-var sfx := preload("res://player/attacks/meleem2_attack_sfx.tscn")
+var sfx := preload("res://player/attacks/melee/meleem2_attack_sfx.tscn")
 var damage = 2
+@onready var blades = [$CPUParticles2D, $CPUParticles2D2, $CPUParticles2D3, $CPUParticles2D4]
 
 func _ready():
 	get_node("../camera").apply_shake(5, 0.1)
 	var effect := sfx.instantiate()
 	effect.position = position
+	effect.volume_db = 0
 	get_parent().add_child(effect)
-	effect.die(1.18)
 	rotation = randf_range(-180, 180)
-	$CPUParticles2D.emitting = true
-	if get_tree().has_group("marked melee alt"):
-		global_position = get_tree().get_first_node_in_group("marked melee alt").global_position
-	else:
-		global_position = get_node("../meleem2/Area2D").global_position
+	for vol in blades:
+		vol.emitting = true
 	await get_tree().create_timer(0.2, false).timeout
 	queue_free()
 

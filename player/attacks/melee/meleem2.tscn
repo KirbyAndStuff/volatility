@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dluneu07c0l5y"]
 
-[ext_resource type="Script" path="res://player/attacks/meleem2.gd" id="1_ye6fw"]
+[ext_resource type="Script" path="res://player/attacks/melee/meleem2.gd" id="1_ye6fw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bskb"]
 radius = 200.0

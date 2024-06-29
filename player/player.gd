@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 var dash_particles := preload("res://player/player_dash_particles.tscn")
-var parry_particles := preload("res://player/attacks/parry_particles.tscn")
-var parried_particles := preload("res://player/attacks/parried_particles.tscn")
+var parry_particles := preload("res://player/attacks/parry/parry_particles.tscn")
+var parried_particles := preload("res://player/attacks/parry/parried_particles.tscn")
 var player_hurt := preload("res://player/player_hurt.tscn")
 var player_death := preload("res://player/player_death.tscn")
-var bullet_explosion := preload("res://player/attacks/bullet_explosion.tscn")
-var alt_bullet_explosion := preload("res://player/attacks/alt_bullet_explosion.tscn")
+var bullet_explosion := preload("res://player/attacks/bullet/bullet_explosion.tscn")
+var alt_bullet_explosion := preload("res://player/attacks/alt_bullet/alt_bullet_explosion.tscn")
 var player_land := preload("res://player/player_land.tscn")
 
 var health = 3
@@ -150,7 +150,7 @@ func player_movement(delta):
 
 func shoot():
 	$bulletsfx.play()
-	var bullet_scene = preload("res://player/attacks/bullet.tscn")
+	var bullet_scene = preload("res://player/attacks/bullet/bullet.tscn")
 	var shot = bullet_scene.instantiate() 
 	get_parent().add_child(shot)
 	shot.shoot(global_position, get_global_mouse_position())
@@ -163,7 +163,7 @@ func shoot():
 func shootm2():
 	if gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
 		$lasersfx.play()
-		var bullet_scene = preload("res://player/attacks/beam.tscn")
+		var bullet_scene = preload("res://player/attacks/bullet/beam.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
@@ -171,7 +171,7 @@ func shootm2():
 
 func alt_shoot():
 	$alt_bulletsfx.play()
-	var bullet_scene = preload("res://player/attacks/alt_bullet.tscn")
+	var bullet_scene = preload("res://player/attacks/alt_bullet/alt_bullet.tscn")
 	var shot = bullet_scene.instantiate() 
 	get_parent().add_child(shot)
 	shot.shoot(global_position, get_global_mouse_position())
@@ -183,14 +183,14 @@ func alt_shoot():
 
 func melee():
 	if melee_order == 1:
-		var bullet_scene = preload("res://player/attacks/melee_up.tscn")
+		var bullet_scene = preload("res://player/attacks/melee/melee_up.tscn")
 		var shot = bullet_scene.instantiate() 
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
 		$MeleeTimer.start()
 		melee_order += 1
 	else:
-		var bullet_scene = preload("res://player/attacks/melee_down.tscn")
+		var bullet_scene = preload("res://player/attacks/melee/melee_down.tscn")
 		var shot = bullet_scene.instantiate() 
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
@@ -199,7 +199,7 @@ func melee():
 
 func meleem2():
 	if meleem2_cooldown > 100:
-		var effect := preload("res://player/attacks/meleem2.tscn").instantiate()
+		var effect := preload("res://player/attacks/melee/meleem2.tscn").instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		meleem2_cooldown = 0
@@ -236,6 +236,7 @@ func parry():
 
 func _on_parry_detection_area_entered(area):
 	if area.is_in_group("parryable"):
+		$parry_detection/CollisionShape2D.set_deferred("disabled", true)
 		$parriedsfx.play()
 		var effect := parried_particles.instantiate()
 		effect.position = position

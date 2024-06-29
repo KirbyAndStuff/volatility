@@ -2,7 +2,7 @@ extends Node2D
 
 var activate = false
 var slashes = 0
-var slash := preload("res://player/attacks/meleem2_attack.tscn")
+var slash := preload("res://player/attacks/melee/meleem2_attack.tscn")
 var max_dist = 300
 
 func _on_slash_timer_timeout() -> void:

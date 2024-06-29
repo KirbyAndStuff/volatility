@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qqrgrc3cq65s"]
 
-[ext_resource type="Script" path="res://player/attacks/beam.gd" id="1_xhq6l"]
+[ext_resource type="Script" path="res://player/attacks/bullet/beam.gd" id="1_vnbyi"]
 
 [sub_resource type="Curve" id="Curve_7kjgh"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -10,7 +10,7 @@ metadata/_snap_enabled = true
 [node name="RayCast2D" type="RayCast2D" groups=["beam", "player_attack"]]
 target_position = Vector2(2000, 0)
 collision_mask = 32
-script = ExtResource("1_xhq6l")
+script = ExtResource("1_vnbyi")
 
 [node name="beam_hurtbox" type="Area2D" parent="." groups=["beam", "player_attack"]]
 
