@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://m11eqcc8yob5"]
 
-[ext_resource type="Script" path="res://player/attacks/melee/meleem2_attack.gd" id="1_te8l6"]
+[ext_resource type="Script" path="res://player/attacks/melee/meleem2_attack.gd" id="1_2dpro"]
 
 [sub_resource type="Curve" id="Curve_hdxpx"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -16,7 +16,7 @@ metadata/_snap_count = 20
 [node name="meleem2_attack" type="Area2D"]
 top_level = true
 scale = Vector2(4, 4)
-script = ExtResource("1_te8l6")
+script = ExtResource("1_2dpro")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(72, -71)

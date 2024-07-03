@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://2telwtu8rbs7"]
+
+[ext_resource type="AudioStream" uid="uid://bnc1iuu0qrp6h" path="res://audio/alt_bullet_dodge_sfx.wav" id="1_yvh3n"]
+[ext_resource type="Script" path="res://audio/audio_die_global.gd" id="2_4khli"]
+
+[node name="alt_bullet_dodge_sfx" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_yvh3n")
+volume_db = -3.0
+autoplay = true
+script = ExtResource("2_4khli")

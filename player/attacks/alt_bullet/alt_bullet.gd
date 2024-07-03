@@ -54,7 +54,8 @@ func _physics_process(delta):
 			speed -= 3000.0 * delta
 		else:
 			speed += 3000.0 * delta
-		beam_progress += 100 * delta
+		if beam_progress < 70:
+			beam_progress += 100 * delta
 	$stop_follow_player.scale = Vector2(speed, speed) / 2500.0
 
 func _on_hurtbox_area_entered(area):
@@ -121,7 +122,7 @@ func _on_stop_follow_player_area_exited(area):
 		if speed > 1500.0:
 			speed = 1500.0
 		enemies_hit = 0
-		await get_tree().create_timer(0.1, false).timeout
+		await get_tree().create_timer(0.001, false).timeout
 		if get_tree().has_group("enemy_body"):
 			var closest_distance = INF
 			for enemy in get_tree().get_nodes_in_group("enemy_body"):

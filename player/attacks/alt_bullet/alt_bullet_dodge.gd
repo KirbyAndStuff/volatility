@@ -5,15 +5,20 @@ var direction := Vector2.ZERO
 var damage = 1
 var rotation_speed = 1
 var closest_enemy = null
+var sfx := preload("res://player/attacks/alt_bullet/alt_bullet_dodge_sfx.tscn")
 
 func _ready():
 	$beam_hurtbox.add_child(collision_polygon)
+	var effect := sfx.instantiate()
+	effect.position = position
+	get_parent().add_child(effect)
+	effect.die(1.25)
 
 func _physics_process(delta):
 	if is_colliding():
 		target_position = to_local(get_collision_point()) + Vector2(1000, 0)
 		collision_polygon.polygon = [Vector2(0, 25), Vector2(target_position.x - 1000, 25), Vector2(target_position.x - 1000, -25), Vector2(0, -25)]
-		$Line2D.points[1] = target_position - Vector2(1015, 0)
+		$Line2D.points[1] = target_position - Vector2(1000, 0)
 	else:
 		collision_polygon.polygon = [Vector2(0, 25), Vector2(2000, 25), Vector2(2000, -25), Vector2(0, -25)]
 		$Line2D.points[1] = Vector2(2000, 0)

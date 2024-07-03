@@ -170,16 +170,17 @@ func shootm2():
 		gunm2_cooldown = 0
 
 func alt_shoot():
-	$alt_bulletsfx.play()
-	var bullet_scene = preload("res://player/attacks/alt_bullet/alt_bullet.tscn")
-	var shot = bullet_scene.instantiate() 
-	get_parent().add_child(shot)
-	shot.shoot(global_position, get_global_mouse_position())
-	var effect := alt_bullet_explosion.instantiate()
-	effect.position = position
-	get_parent().add_child(effect)
-	effect.shoot(global_position, get_global_mouse_position())
-	$Alt_GunTimer.start()
+	if not get_tree().has_group("alt_bullet"):
+		$alt_bulletsfx.play()
+		var bullet_scene = preload("res://player/attacks/alt_bullet/alt_bullet.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		var effect := alt_bullet_explosion.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		effect.shoot(global_position, get_global_mouse_position())
+		$Alt_GunTimer.start()
 
 func melee():
 	if melee_order == 1:
