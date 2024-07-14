@@ -183,20 +183,25 @@ func alt_shoot():
 		$Alt_GunTimer.start()
 
 func melee():
-	if melee_order == 1:
-		var bullet_scene = preload("res://player/attacks/melee/melee_up.tscn")
-		var shot = bullet_scene.instantiate() 
-		get_parent().add_child(shot)
-		shot.shoot(global_position, get_global_mouse_position())
-		$MeleeTimer.start()
-		melee_order += 1
-	else:
-		var bullet_scene = preload("res://player/attacks/melee/melee_down.tscn")
-		var shot = bullet_scene.instantiate() 
-		get_parent().add_child(shot)
-		shot.shoot(global_position, get_global_mouse_position())
-		$MeleeTimer.start()
-		melee_order -= 1
+	var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
+	var shot = bullet_scene.instantiate() 
+	get_parent().add_child(shot)
+	shot.shoot(global_position, get_global_mouse_position())
+	$MeleeTimer.start()
+	#if melee_order == 1:
+		#var bullet_scene = preload("res://player/attacks/melee/melee_up.tscn")
+		#var shot = bullet_scene.instantiate() 
+		#get_parent().add_child(shot)
+		#shot.shoot(global_position, get_global_mouse_position())
+		#$MeleeTimer.start()
+		#melee_order += 1
+	#else:
+		#var bullet_scene = preload("res://player/attacks/melee/melee_down.tscn")
+		#var shot = bullet_scene.instantiate() 
+		#get_parent().add_child(shot)
+		#shot.shoot(global_position, get_global_mouse_position())
+		#$MeleeTimer.start()
+		#melee_order -= 1
 
 func meleem2():
 	if meleem2_cooldown > 100:
@@ -255,7 +260,7 @@ func _on_parry_detection_area_entered(area):
 func framefreeze(timescale, duration):
 	if is_dead == false:
 		Engine.time_scale = timescale
-		await(get_tree().create_timer(duration * timescale).timeout)
+		await get_tree().create_timer(duration, true, false, true).timeout
 		Engine.time_scale = 1.0
 
 func player_hurt_particles():

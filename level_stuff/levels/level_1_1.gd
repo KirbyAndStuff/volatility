@@ -7,7 +7,7 @@ var red_intro_health = 3
 var red_intro_died = false
 var pressed_m2 = false
 var checkpoint = null
-var checkpoint_number = 0
+var checkpoint_number = 7
 var restarts = 0
 var shot_green_meteor = false
 var room_in_action = null
@@ -164,7 +164,6 @@ func _ready():
 	get_parent().add_child(effect)
 	$player.visible = true
 	$player.process_mode = Node.PROCESS_MODE_INHERIT
-	$player.in_intro = true
 
 func _on_start_level_area_entered(area):
 	if area.is_in_group("player") and $intro_walls.process_mode == PROCESS_MODE_DISABLED:

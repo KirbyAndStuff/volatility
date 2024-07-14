@@ -1,0 +1,192 @@
+[gd_scene load_steps=9 format=3 uid="uid://s3yi84hf8otx"]
+
+[ext_resource type="Script" path="res://player/attacks/melee/melee_new.gd" id="1_ykjae"]
+
+[sub_resource type="Curve" id="Curve_jm575"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_5r8vc"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Curve" id="Curve_rlo6f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_qhdyq"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Curve" id="Curve_g444i"]
+_data = [Vector2(0, 0), 0.0, 3.33333, 0, 0, Vector2(0.3, 1), 3.33333, 0.0, 1, 1, Vector2(0.7, 1), 0.0, -3.33333, 0, 1, Vector2(1, 0), -3.33333, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_cf0nn"]
+offsets = PackedFloat32Array(0.00680272, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4iyb1"]
+radius = 1.0
+
+[node name="melee_new" type="Node2D"]
+script = ExtResource("1_ykjae")
+
+[node name="melee1" type="CPUParticles2D" parent="."]
+position = Vector2(0, 160)
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.5
+fixed_fps = 240
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 0.5
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_jm575")
+color_ramp = SubResource("Gradient_5r8vc")
+
+[node name="melee2" type="CPUParticles2D" parent="."]
+position = Vector2(0, -160)
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.5
+fixed_fps = 240
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -0.5
+orbit_velocity_max = -0.5
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_rlo6f")
+color_ramp = SubResource("Gradient_qhdyq")
+
+[node name="melee3" type="CPUParticles2D" parent="."]
+position = Vector2(0, 160)
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.5
+fixed_fps = 240
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 0.5
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_jm575")
+color_ramp = SubResource("Gradient_5r8vc")
+
+[node name="melee4" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 100
+lifetime = 1.5
+one_shot = true
+speed_scale = 10.0
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 40.0
+scale_amount_max = 40.0
+scale_amount_curve = SubResource("Curve_g444i")
+color_ramp = SubResource("Gradient_cf0nn")
+
+[node name="melee5" type="CPUParticles2D" parent="."]
+position = Vector2(0, -160)
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.5
+fixed_fps = 240
+local_coords = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -0.5
+orbit_velocity_max = -0.5
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_rlo6f")
+color_ramp = SubResource("Gradient_qhdyq")
+
+[node name="DieTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="WaitPlease" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+autostart = true
+
+[node name="HitBoxGoAway" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="melee1_hurtbox" type="Area2D" parent="." groups=["player_attack"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="melee1_hurtbox"]
+polygon = PackedVector2Array(6, 160, 32, 156, 65, 142, 105, 107, 135, 40, 136, -36, 107, -101, 74, -134, 44, -150, 6, -158, 22, -159, 52, -154, 86, -142, 125, -118, 153, -88, 175, -48, 181, -16, 178, 37, 164, 74, 136, 112, 92, 141, 48, 157, 24, 160)
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="melee1_hurtbox"]
+shape = SubResource("CircleShape2D_4iyb1")
+
+[node name="melee4_hurtbox" type="Area2D" parent="." groups=["player_attack"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="melee4_hurtbox"]
+polygon = PackedVector2Array(24, 0, 195, -29, 470, -29, 603, 0, 470, 29, 195, 29)
+disabled = true
+
+[connection signal="timeout" from="DieTimer" to="." method="_on_die_timer_timeout"]
+[connection signal="timeout" from="HitBoxGoAway" to="." method="_on_hit_box_go_away_timeout"]
+[connection signal="area_entered" from="melee1_hurtbox" to="." method="_on_melee_1_hurtbox_area_entered"]
+[connection signal="area_entered" from="melee4_hurtbox" to="." method="_on_melee_4_hurtbox_area_entered"]
