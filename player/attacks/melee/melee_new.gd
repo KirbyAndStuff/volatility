@@ -63,18 +63,7 @@ func _process(_delta):
 			#$DieTimer.wait_time = 0.75
 			#$WaitPlease.wait_time = 0.3
 		if melee_order == 3:
-			damage = 3
-			get_node("../camera").apply_shake(5, 0.25)
-			shoot(global_position, get_global_mouse_position())
-			$melee4.emitting = true
-			$melee4_hurtbox/CollisionPolygon2D.disabled = false
-			var effect := sfx.instantiate()
-			effect.position = get_node("../player").position
-			effect.pitch_scale = 1
-			get_parent().add_child(effect)
-			effect.die(1.18)
-			#effect.die(2.36)
-			#$DieTimer.wait_time = 0.3
+			a()
 		$WaitPlease.start()
 		$DieTimer.start()
 		$HitBoxGoAway.start()
@@ -103,3 +92,22 @@ func _on_hit_box_go_away_timeout():
 	$melee1_hurtbox/CollisionPolygon2D.set_deferred("disabled", true)
 	$melee1_hurtbox/CollisionShape2D.set_deferred("disabled", true)
 	$melee4_hurtbox/CollisionPolygon2D.set_deferred("disabled", true)
+
+func a():
+			damage = 3
+			get_node("../camera").apply_shake(5, 0.25)
+			shoot(global_position, get_global_mouse_position())
+			$melee4.emitting = true
+			$melee4_hurtbox/CollisionPolygon2D.disabled = false
+			var effect := sfx.instantiate()
+			effect.position = get_node("../player").position
+			effect.pitch_scale = 1
+			get_parent().add_child(effect)
+			effect.die(1.18)
+			#effect.die(2.36)
+			#$DieTimer.wait_time = 0.3
+			b()
+
+func b():
+			await get_tree().create_timer(0.07, false).timeout
+			$melee8.emitting = true

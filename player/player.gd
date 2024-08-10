@@ -183,25 +183,25 @@ func alt_shoot():
 		$Alt_GunTimer.start()
 
 func melee():
-	var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
-	var shot = bullet_scene.instantiate() 
-	get_parent().add_child(shot)
-	shot.shoot(global_position, get_global_mouse_position())
-	$MeleeTimer.start()
-	#if melee_order == 1:
-		#var bullet_scene = preload("res://player/attacks/melee/melee_up.tscn")
-		#var shot = bullet_scene.instantiate() 
-		#get_parent().add_child(shot)
-		#shot.shoot(global_position, get_global_mouse_position())
-		#$MeleeTimer.start()
-		#melee_order += 1
-	#else:
-		#var bullet_scene = preload("res://player/attacks/melee/melee_down.tscn")
-		#var shot = bullet_scene.instantiate() 
-		#get_parent().add_child(shot)
-		#shot.shoot(global_position, get_global_mouse_position())
-		#$MeleeTimer.start()
-		#melee_order -= 1
+	#var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
+	#var shot = bullet_scene.instantiate() 
+	#get_parent().add_child(shot)
+	#shot.shoot(global_position, get_global_mouse_position())
+	#$MeleeTimer.start()
+	if melee_order == 1:
+		var bullet_scene = preload("res://player/attacks/melee/melee_up.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		$MeleeTimer.start()
+		melee_order += 1
+	else:
+		var bullet_scene = preload("res://player/attacks/melee/melee_down.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		$MeleeTimer.start()
+		melee_order -= 1
 
 func meleem2():
 	if meleem2_cooldown > 100:

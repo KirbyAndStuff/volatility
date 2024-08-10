@@ -29,7 +29,6 @@ func _ready():
 		print("Label not found. Check the path in the script.")
 	else:
 		seconds_lived = 0
-		$Timer.connect("timeout", Callable(self, "_on_timer_timeout"))
 		$Timer.start()
 	
 func _on_timer_timeout():

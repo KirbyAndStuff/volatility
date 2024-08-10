@@ -8,22 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="6_hqghg"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
+[ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
 
 [sub_resource type="TileSet" id="TileSet_cpcic"]
 sources/0 = SubResource("TileSetScenesCollectionSource_n61h1")
-
-[sub_resource type="Environment" id="Environment_y6h7w"]
-background_mode = 3
-glow_enabled = true
-glow_levels/2 = 1.0
-glow_levels/3 = 0.0
-glow_levels/5 = 0.0
-glow_strength = 2.0
-glow_blend_mode = 0
-glow_hdr_threshold = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkawm"]
 size = Vector2(581, 13)
@@ -83,7 +74,7 @@ offset_bottom = 2191.0
 [node name="gameoverscreen" parent="ui" instance=ExtResource("6_hqghg")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_y6h7w")
+environment = ExtResource("8_vtqmd")
 
 [node name="start_level" type="Area2D" parent="." groups=["level start"]]
 position = Vector2(-125, 678)

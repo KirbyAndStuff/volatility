@@ -226,7 +226,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.4
 one_shot = true
 
 [node name="parry_detection" type="Area2D" parent="."]
