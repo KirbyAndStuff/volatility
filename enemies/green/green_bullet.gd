@@ -69,7 +69,7 @@ func _on_green_bullet_hurtbox_area_entered(area):
 		$bullet_body.color = Color(0, 1, 1, 1)
 		add_to_group("parried")
 		$green_bullet_hurtbox.add_to_group("player_attack")
-		speed = 2500.0
+		speed += 1500.0
 		shoot(global_position, get_global_mouse_position())
 	if area.is_in_group("enemy") and is_in_group("parried"):
 		var effect := detonation.instantiate()

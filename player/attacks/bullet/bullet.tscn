@@ -5,6 +5,7 @@
 [sub_resource type="Curve" id="Curve_rviok"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252747, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_8ek46"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)

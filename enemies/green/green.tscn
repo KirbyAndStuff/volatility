@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6sg1b6ucnje7"]
+[gd_scene load_steps=7 format=3 uid="uid://b6sg1b6ucnje7"]
 
 [ext_resource type="Script" path="res://enemies/green/green.gd" id="1_t7t5q"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_kbnva"]
+[ext_resource type="AudioStream" uid="uid://bnc1iuu0qrp6h" path="res://audio/alt_bullet_dodge_sfx.wav" id="3_mmepp"]
 
 [sub_resource type="Gradient" id="Gradient_v453m"]
 offsets = PackedFloat32Array(0, 0.556291, 1)
@@ -82,10 +83,19 @@ shape = SubResource("CircleShape2D_1ikm5")
 wait_time = 0.75
 one_shot = true
 
+[node name="LaserTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [node name="green_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kbnva")
 volume_db = -3.0
 pitch_scale = 2.0
+
+[node name="green_lasersfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_mmepp")
+volume_db = -10.0
+max_distance = 5000.0
 
 [node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kbnva")

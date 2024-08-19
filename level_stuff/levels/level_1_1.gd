@@ -6,14 +6,14 @@ var please_press_m2 = false
 var red_intro_health = 3
 var red_intro_died = false
 var pressed_m2 = false
-var checkpoint = null
+var checkpoint = Vector2(10113, 1578)
 var checkpoint_number = 7
 var restarts = 0
-var shot_green_meteor = false
-var room_in_action = null
+var shot_green_meteor = true
+var room_in_action = 5_4
 
-var spawned_green_5_2 = false
-var spawned_red_5_2 = false
+var spawned_green_5_2 = true
+var spawned_red_5_2 = true
 
 func _process(_delta):
 	if hurt_player and (get_node("player").amount_of_i_frames) < 1:
@@ -114,6 +114,8 @@ func _process(_delta):
 		room_in_action = 5_4
 	if room_in_action == 5_4 and not get_tree().has_group("5-3 shield"):
 		remove_from_group("ignore enemy")
+		$lock_walls6.process_mode = Node.PROCESS_MODE_DISABLED
+		create_tween().tween_property($lock_walls6, "modulate", Color(0, 0, 0, 0), 1)
 		room_in_action = 0
 
 	if get_node("ui/gameoverscreen").restarted:
@@ -527,9 +529,9 @@ func _on__activate_area_entered(area):
 func _on__1_room_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
 		room_in_action = 0
-		create_tween().tween_property($lockwalls5, "modulate", Color(1, 1, 1, 1), 1)
-		$lockwalls5.visible = true
-		$lockwalls5.process_mode = Node.PROCESS_MODE_INHERIT
+		create_tween().tween_property($lock_walls5, "modulate", Color(1, 1, 1, 1), 1)
+		$lock_walls5.visible = true
+		$lock_walls5.process_mode = Node.PROCESS_MODE_INHERIT
 		spawna("green", Vector2(9413, 1261), 1, "5-1 green", 0)
 		spawna("green", Vector2(10897, 1286), 1, "5-1 green", 0)
 		spawna("red", Vector2(10892, 615), 1, "5-1 red", 0)
