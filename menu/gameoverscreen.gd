@@ -1,5 +1,6 @@
 extends Control
 
+var has_checkpoint = null
 var restarted = false
 var is_paused = false:
 	set(value):
@@ -8,7 +9,7 @@ var is_paused = false:
 		visible = is_paused
 	get:
 		return is_paused
-	
+
 func set_is_paused(value):
 	is_paused = value
 	get_tree().paused = is_paused
@@ -25,7 +26,7 @@ func _on_retry_pressed():
 	restarted = true
 	get_node("../../player").heal_cooldown = 0
 	get_node("../../player").health = 3
-	if not get_parent().get_parent().checkpoint == null:
+	if has_checkpoint and not get_parent().get_parent().checkpoint == null:
 		get_node("../../player").global_position = get_parent().get_parent().checkpoint
 		get_node("../../player/body").emitting = true
 		get_node("../../player/left eye node/left eye").emitting = true
@@ -40,3 +41,9 @@ func _on_retry_pressed():
 func _on_quit_to_main_menu_pressed():
 	self.is_paused = false
 	get_tree().change_scene_to_file("res://start_menu/startmenu.tscn")
+
+func _ready():
+	has_checkpoint = check_checkpoint()
+
+func check_checkpoint():
+	return "checkpoint" in get_parent().get_parent()

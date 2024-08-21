@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=15 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
 [ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="10_04ca5"]
+[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="11_v58v5"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -88,13 +89,13 @@ shape = SubResource("RectangleShape2D_bkawm")
 position = Vector2(1678, 148)
 
 [node name="green" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(1320, -296)
+position = Vector2(1767, -261)
 
-[node name="green2" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(2304, -296)
+[node name="red" parent="." instance=ExtResource("11_v58v5")]
+position = Vector2(1359, -277)
 
-[node name="green3" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(2292, 496)
+[node name="red2" parent="." instance=ExtResource("11_v58v5")]
+position = Vector2(1327, 142)
 
-[node name="green4" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(1322, 496)
+[node name="red3" parent="." instance=ExtResource("11_v58v5")]
+position = Vector2(1329, 438)

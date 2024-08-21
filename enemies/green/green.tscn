@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6sg1b6ucnje7"]
+[gd_scene load_steps=8 format=3 uid="uid://b6sg1b6ucnje7"]
 
 [ext_resource type="Script" path="res://enemies/green/green.gd" id="1_t7t5q"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_kbnva"]
@@ -14,7 +14,10 @@ radius = 56.0803
 [sub_resource type="CircleShape2D" id="CircleShape2D_ynvg1"]
 radius = 53.0094
 
-[node name="green" type="CharacterBody2D" groups=["enemy"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_kj6gw"]
+radius = 2000.0
+
+[node name="green" type="CharacterBody2D" groups=["enemy", "green"]]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_t7t5q")
@@ -107,4 +110,16 @@ max_distance = 1000.0
 visible = false
 shape = SubResource("CircleShape2D_ynvg1")
 
+[node name="check_player_wall" type="RayCast2D" parent="."]
+visible = false
+target_position = Vector2(5000, 0)
+
+[node name="update_raycast" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="update_raycast"]
+shape = SubResource("CircleShape2D_kj6gw")
+
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
+[connection signal="area_entered" from="update_raycast" to="." method="_on_update_raycast_area_entered"]
+[connection signal="area_exited" from="update_raycast" to="." method="_on_update_raycast_area_exited"]
