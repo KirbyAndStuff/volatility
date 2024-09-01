@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bi4kfgiywfilj" path="res://enemies/red/red_spawn.tscn" id="14_x2njw"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="15_tbgps"]
 [ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="16_ax1tn"]
-[ext_resource type="PackedScene" uid="uid://jr7f5sfdtnk5" path="res://level_stuff/interactables/barrier_break.tscn" id="16_d2m0h"]
+[ext_resource type="PackedScene" uid="uid://c0bd18xd2ewqv" path="res://level_stuff/interactables/barrier_break.tscn" id="16_d2m0h"]
 [ext_resource type="PackedScene" uid="uid://vx7ndm1qc5xy" path="res://level_stuff/walls/barrier_wall.tscn" id="17_m4vpe"]
 [ext_resource type="PackedScene" uid="uid://du36p17bqu2bc" path="res://level_stuff/interactables/red_cutscene.tscn" id="18_am5wh"]
 [ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="19_eq65h"]
@@ -592,14 +592,12 @@ shape = SubResource("RectangleShape2D_you5q")
 [node name="barrier_break" parent="." instance=ExtResource("16_d2m0h")]
 position = Vector2(3680, 3667)
 
-[node name="barrier_walls" type="TileMap" parent="barrier_break"]
+[node name="barrier_walls" type="TileMapLayer" parent="barrier_break"]
 process_mode = 4
-visible = false
-modulate = Color(1, 1, 1, 0)
+use_parent_material = true
 position = Vector2(-1, -3)
+tile_map_data = PackedByteArray("AAAPAKL/AAAAAAAAAQAPAKP/AAAAAAAAAQAPAKT/AAAAAAAAAQAPAKX/AAAAAAAAAQAPAKb/AAAAAAAAAQAPAKf/AAAAAAAAAQAPAKj/AAAAAAAAAQAPAKn/AAAAAAAAAQAPAKr/AAAAAAAAAQAPAKv/AAAAAAAAAQAPAKz/AAAAAAAAAQAPAK3/AAAAAAAAAQAPAK7/AAAAAAAAAQAPAK//AAAAAAAAAQAPALD/AAAAAAAAAQAPALH/AAAAAAAAAQAPALL/AAAAAAAAAQAPALP/AAAAAAAAAQAPALT/AAAAAAAAAQA=")
 tile_set = SubResource("TileSet_uduqe")
-format = 2
-layer_0/tile_data = PackedInt32Array(-6160369, 0, 65536, -6094833, 0, 65536, -6029297, 0, 65536, -5963761, 0, 65536, -5898225, 0, 65536, -5832689, 0, 65536, -5767153, 0, 65536, -5701617, 0, 65536, -5636081, 0, 65536, -5570545, 0, 65536, -5505009, 0, 65536, -5439473, 0, 65536, -5373937, 0, 65536, -5308401, 0, 65536, -5242865, 0, 65536, -5177329, 0, 65536, -5111793, 0, 65536, -5046257, 0, 65536, -4980721, 0, 65536)
 
 [node name="hurt_walls2" type="TileMapLayer" parent="."]
 process_mode = 4

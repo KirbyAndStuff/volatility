@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cusucgccm5yb8"]
+[gd_scene load_steps=40 format=4 uid="uid://cusucgccm5yb8"]
 
 [ext_resource type="Script" path="res://level_stuff/levels/tutorial.gd" id="1_hccw4"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_lcn12"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="9_5sklq"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="10_pge36"]
 [ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="11_cmhrn"]
-[ext_resource type="PackedScene" uid="uid://jr7f5sfdtnk5" path="res://level_stuff/interactables/barrier_break.tscn" id="12_8iu8j"]
+[ext_resource type="PackedScene" uid="uid://c0bd18xd2ewqv" path="res://level_stuff/interactables/barrier_break.tscn" id="12_8iu8j"]
 [ext_resource type="PackedScene" uid="uid://vx7ndm1qc5xy" path="res://level_stuff/walls/barrier_wall.tscn" id="13_oaoy0"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="17_4u65x"]
 
@@ -32,12 +32,6 @@ scenes/1/scene = ExtResource("5_k438c")
 
 [sub_resource type="TileSet" id="TileSet_0ohrk"]
 sources/0 = SubResource("TileSetScenesCollectionSource_gb828")
-
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_c0rmi"]
-scenes/1/scene = ExtResource("13_oaoy0")
-
-[sub_resource type="TileSet" id="TileSet_lxbun"]
-sources/0 = SubResource("TileSetScenesCollectionSource_c0rmi")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvas2"]
 size = Vector2(16, 224)
@@ -103,6 +97,12 @@ sources/0 = SubResource("TileSetScenesCollectionSource_tnq47")
 [sub_resource type="CircleShape2D" id="CircleShape2D_csemh"]
 radius = 31.0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_c0rmi"]
+scenes/1/scene = ExtResource("13_oaoy0")
+
+[sub_resource type="TileSet" id="TileSet_lxbun"]
+sources/0 = SubResource("TileSetScenesCollectionSource_c0rmi")
+
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("1_hccw4")
 
@@ -134,15 +134,6 @@ position = Vector2(-16, 0)
 tile_set = SubResource("TileSet_0ohrk")
 format = 2
 layer_0/tile_data = PackedInt32Array(65661, 0, 65536, 131197, 0, 65536, 196733, 0, 65536, 262269, 0, 65536, 327805, 0, 65536, 393341, 0, 65536, 458877, 0, 65536, 524413, 0, 65536, 589949, 0, 65536, 655485, 0, 65536, 721021, 0, 65536, 786557, 0, 65536, 852093, 0, 65536, 917629, 0, 65536, -2097003, 0, 65536, -2097004, 0, 65536, -2097005, 0, 65536, -2097006, 0, 65536, -2097007, 0, 65536, -2097008, 0, 65536, -2097009, 0, 65536, -2097010, 0, 65536, -2097011, 0, 65536, -2097012, 0, 65536, -2097013, 0, 65536, -2097014, 0, 65536, -2097015, 0, 65536, -2097016, 0, 65536, -2097017, 0, 65536, -2097018, 0, 65536, -2097019, 0, 65536, -2097020, 0, 65536, -2097021, 0, 65536, -2097022, 0, 65536, -2097023, 0, 65536, -2097024, 0, 65536, -2097025, 0, 65536, -2097026, 0, 65536)
-
-[node name="barrier_break" parent="." instance=ExtResource("12_8iu8j")]
-position = Vector2(684, -216)
-
-[node name="barrier_walls" type="TileMap" parent="barrier_break"]
-position = Vector2(19, 8)
-tile_set = SubResource("TileSet_lxbun")
-format = 2
-layer_0/tile_data = PackedInt32Array(917516, 0, 65536, 983052, 0, 65536, 1048588, 0, 65536, 1114124, 0, 65536, 1179660, 0, 65536, 1245196, 0, 65536, 1310732, 0, 65536, 1376268, 0, 65536, 1441804, 0, 65536, 1507340, 0, 65536, 1572876, 0, 65536, 1638412, 0, 65536, 1703948, 0, 65536, 1769484, 0, 65536)
 
 [node name="hurt_wall" type="Area2D" parent="."]
 position = Vector2(889, -486)
@@ -448,6 +439,15 @@ position = Vector2(4338, -1237)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy3"]
 shape = SubResource("CircleShape2D_csemh")
+
+[node name="barrier_break" parent="." instance=ExtResource("12_8iu8j")]
+position = Vector2(684, -216)
+
+[node name="barrier_walls" type="TileMapLayer" parent="barrier_break"]
+use_parent_material = true
+position = Vector2(19, 8)
+tile_map_data = PackedByteArray("AAAMAA4AAAAAAAAAAQAMAA8AAAAAAAAAAQAMABAAAAAAAAAAAQAMABEAAAAAAAAAAQAMABIAAAAAAAAAAQAMABMAAAAAAAAAAQAMABQAAAAAAAAAAQAMABUAAAAAAAAAAQAMABYAAAAAAAAAAQAMABcAAAAAAAAAAQAMABgAAAAAAAAAAQAMABkAAAAAAAAAAQAMABoAAAAAAAAAAQAMABsAAAAAAAAAAQA=")
+tile_set = SubResource("TileSet_lxbun")
 
 [connection signal="area_entered" from="hurt_wall" to="." method="_on_hurt_wall_area_entered"]
 [connection signal="area_exited" from="hurt_wall" to="." method="_on_hurt_wall_area_exited"]

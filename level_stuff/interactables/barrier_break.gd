@@ -1,10 +1,11 @@
-extends Area2D
+extends Node2D
 
 var health = 3.0
 var can_be_hurt_view = false
 var can_be_hurt_enemy = false
 var barrier_hurt := preload("res://enemies/green/green_hurt.tscn")
 var screen_size
+var guarded = false
 @export var event = "0"
 
 func _ready():
@@ -36,7 +37,7 @@ func _process(_delta):
 	else:
 		$CPUParticles2D.modulate = Color(1, 1, 1, 0.1)
 
-func _on_area_entered(area):
+func _on_area_2d_area_entered(area):
 	if area.is_in_group("player_attack") and can_be_hurt_view == true and can_be_hurt_enemy:
 		var effect := barrier_hurt.instantiate()
 		effect.position = position

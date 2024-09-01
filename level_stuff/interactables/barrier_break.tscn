@@ -1,22 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://jr7f5sfdtnk5"]
+[gd_scene load_steps=5 format=3 uid="uid://c0bd18xd2ewqv"]
 
 [ext_resource type="Script" path="res://level_stuff/interactables/barrier_break.gd" id="1_v022d"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_vxtf1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3kim"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucjvr"]
 size = Vector2(70, 70)
 
-[sub_resource type="Curve" id="Curve_n7ahq"]
+[sub_resource type="Curve" id="Curve_1ykfo"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.494382, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
-[node name="barrier_break" type="Area2D"]
+[node name="barrier_break" type="Node2D"]
 script = ExtResource("1_v022d")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["enemy_body"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
-shape = SubResource("RectangleShape2D_a3kim")
+shape = SubResource("RectangleShape2D_ucjvr")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 modulate = Color(1, 1, 1, 0.0980392)
@@ -30,11 +32,11 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
-scale_amount_curve = SubResource("Curve_n7ahq")
+scale_amount_curve = SubResource("Curve_1ykfo")
 color = Color(0, 1, 0, 1)
 
 [node name="hurt" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_vxtf1")
 pitch_scale = 2.0
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

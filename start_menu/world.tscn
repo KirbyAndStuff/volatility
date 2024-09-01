@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=16 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
-[ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="10_04ca5"]
+[ext_resource type="PackedScene" uid="uid://b6sg1b6ucnje7" path="res://enemies/green/green.tscn" id="10_p4rvl"]
+[ext_resource type="PackedScene" uid="uid://dsqtvpswreaqy" path="res://enemies/green_guardian/green_guardian.tscn" id="11_a5n32"]
+[ext_resource type="PackedScene" uid="uid://c0bd18xd2ewqv" path="res://level_stuff/interactables/barrier_break.tscn" id="12_sve4m"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -20,7 +22,7 @@ sources/0 = SubResource("TileSetScenesCollectionSource_n61h1")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkawm"]
 size = Vector2(581, 13)
 
-[node name="world" type="Node2D"]
+[node name="world" type="Node2D" groups=["ignore enemy"]]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_cpcic")
@@ -87,14 +89,25 @@ shape = SubResource("RectangleShape2D_bkawm")
 [node name="dummy" parent="." instance=ExtResource("8_c4gwh")]
 position = Vector2(1678, 148)
 
-[node name="green" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(1320, -296)
+[node name="green" parent="." groups=["bap"] instance=ExtResource("10_p4rvl")]
+process_mode = 4
+visible = false
+position = Vector2(1294, 107)
 
-[node name="green2" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(2304, -296)
+[node name="green_guardian" parent="." instance=ExtResource("11_a5n32")]
+process_mode = 4
+visible = false
+position = Vector2(1294, 107)
+event = "sap"
+target = "bap"
+stationary = true
+layer_and_mask = 3
 
-[node name="green3" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(2292, 496)
+[node name="barrier_break" parent="." instance=ExtResource("12_sve4m")]
+process_mode = 4
+visible = false
+position = Vector2(1800, -173)
+event = "sap"
 
-[node name="green4" parent="." instance=ExtResource("10_04ca5")]
-position = Vector2(1322, 496)
+[node name="green2" parent="." instance=ExtResource("10_p4rvl")]
+position = Vector2(913, 31)

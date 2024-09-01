@@ -13,15 +13,15 @@ func apply_shake(power, duration):
 	await get_tree().create_timer(duration, false).timeout
 	shakefade += 10
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if not get_tree().has_group("stop following player"):
 		position.x = get_node("../player").position.x
 		position.y = get_node("../player").position.y
-
-func _process(delta):
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength, 0, clamp(shakefade, 0, 10) * delta)
 		offset = randomoffset()
+
+func _process(_delta):
 	if get_tree().has_group("enemy") or get_tree().has_group("spawn"):
 		if zoomed_out == false and not get_tree().has_group("stop following player"):
 			zoom_out()

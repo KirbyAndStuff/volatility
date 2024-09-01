@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bhcec71btiteb"]
+[gd_scene load_steps=34 format=4 uid="uid://bhcec71btiteb"]
 
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="1_2hhul"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="2_bkob7"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="5_plt74"]
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="6_1qo3w"]
 [ext_resource type="PackedScene" uid="uid://mdr2cg4tof1l" path="res://menu/gameoverscreen.tscn" id="7_tqfuw"]
-[ext_resource type="PackedScene" uid="uid://jr7f5sfdtnk5" path="res://level_stuff/interactables/barrier_break.tscn" id="8_id460"]
+[ext_resource type="PackedScene" uid="uid://c0bd18xd2ewqv" path="res://level_stuff/interactables/barrier_break.tscn" id="8_id460"]
 [ext_resource type="PackedScene" uid="uid://vx7ndm1qc5xy" path="res://level_stuff/walls/barrier_wall.tscn" id="9_dibxo"]
 [ext_resource type="PackedScene" uid="uid://ctsrcip8qttp7" path="res://level_stuff/walls/lock_wall.tscn" id="10_bf327"]
 [ext_resource type="PackedScene" uid="uid://q5kj08qhck4m" path="res://level_stuff/interactables/level_end.tscn" id="11_7qpxq"]
@@ -214,12 +214,6 @@ size = Vector2(1370, 1162)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of0er"]
 size = Vector2(2930, 1473)
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_j2u83"]
-scenes/1/scene = ExtResource("9_dibxo")
-
-[sub_resource type="TileSet" id="TileSet_4e615"]
-sources/0 = SubResource("TileSetScenesCollectionSource_j2u83")
-
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_a0udg"]
 scenes/1/scene = ExtResource("10_bf327")
 
@@ -246,6 +240,12 @@ sources/0 = SubResource("TileSetScenesCollectionSource_inwdx")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3n2hn"]
 size = Vector2(581, 13)
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_j2u83"]
+scenes/1/scene = ExtResource("9_dibxo")
+
+[sub_resource type="TileSet" id="TileSet_4e615"]
+sources/0 = SubResource("TileSetScenesCollectionSource_j2u83")
 
 [node name="level" type="Node2D"]
 script = SubResource("GDScript_ofcm6")
@@ -359,15 +359,6 @@ shape = SubResource("RectangleShape2D_of0er")
 [node name="SpawnEnemy_4" type="Timer" parent="fourth_room"]
 wait_time = 0.25
 
-[node name="barrier_break" parent="." instance=ExtResource("8_id460")]
-position = Vector2(6923, 304)
-
-[node name="barrier_walls" type="TileMap" parent="barrier_break"]
-position = Vector2(-6924, -304)
-tile_set = SubResource("TileSet_4e615")
-format = 2
-layer_0/tile_data = PackedInt32Array(-1507106, 0, 65536, -1507105, 0, 65536, -1507104, 0, 65536, -1507103, 0, 65536, -1507102, 0, 65536, -1507101, 0, 65536, -1507100, 0, 65536, -1507099, 0, 65536, -1507098, 0, 65536, -1507097, 0, 65536, -1507096, 0, 65536, -1507095, 0, 65536, -1507094, 0, 65536, -1507093, 0, 65536, -1507092, 0, 65536, -1507091, 0, 65536, -1507090, 0, 65536, -1507089, 0, 65536, -1507088, 0, 65536, -1507087, 0, 65536, -1507086, 0, 65536, -1507085, 0, 65536, -1507084, 0, 65536, -1507083, 0, 65536, -1507082, 0, 65536, -1507081, 0, 65536, -1507080, 0, 65536, -1507079, 0, 65536, -1507078, 0, 65536, -1507077, 0, 65536, -1507076, 0, 65536, -1507075, 0, 65536, -1507074, 0, 65536, -1507073, 0, 65536)
-
 [node name="lock1" type="TileMap" parent="."]
 position = Vector2(1485, 288)
 tile_set = SubResource("TileSet_vu4nh")
@@ -405,6 +396,15 @@ collision_mask = 0
 stream = ExtResource("12_wfag8")
 volume_db = -10.0
 pitch_scale = 0.75
+
+[node name="barrier_break" parent="." instance=ExtResource("8_id460")]
+position = Vector2(6923, 304)
+
+[node name="barrier_walls" type="TileMapLayer" parent="barrier_break"]
+use_parent_material = true
+position = Vector2(-6924, -304)
+tile_map_data = PackedByteArray("AADeAOn/AAAAAAAAAQDfAOn/AAAAAAAAAQDgAOn/AAAAAAAAAQDhAOn/AAAAAAAAAQDiAOn/AAAAAAAAAQDjAOn/AAAAAAAAAQDkAOn/AAAAAAAAAQDlAOn/AAAAAAAAAQDmAOn/AAAAAAAAAQDnAOn/AAAAAAAAAQDoAOn/AAAAAAAAAQDpAOn/AAAAAAAAAQDqAOn/AAAAAAAAAQDrAOn/AAAAAAAAAQDsAOn/AAAAAAAAAQDtAOn/AAAAAAAAAQDuAOn/AAAAAAAAAQDvAOn/AAAAAAAAAQDwAOn/AAAAAAAAAQDxAOn/AAAAAAAAAQDyAOn/AAAAAAAAAQDzAOn/AAAAAAAAAQD0AOn/AAAAAAAAAQD1AOn/AAAAAAAAAQD2AOn/AAAAAAAAAQD3AOn/AAAAAAAAAQD4AOn/AAAAAAAAAQD5AOn/AAAAAAAAAQD6AOn/AAAAAAAAAQD7AOn/AAAAAAAAAQD8AOn/AAAAAAAAAQD9AOn/AAAAAAAAAQD+AOn/AAAAAAAAAQD/AOn/AAAAAAAAAQA=")
+tile_set = SubResource("TileSet_4e615")
 
 [connection signal="area_entered" from="first_room" to="." method="_on_first_room_area_entered"]
 [connection signal="area_exited" from="first_room" to="." method="_on_first_room_area_exited"]
