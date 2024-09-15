@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var purple_hurt := preload("res://enemies/purple/purple_hurt2.tscn")
 var purple3 := preload("res://enemies/purple/purple3.tscn")
-var deathsfx := preload("res://enemies/purple/purple_death2sfx.tscn")
+var death := preload("res://enemies/purple/purple_death_2.tscn")
 
 func _ready():
 	await get_tree().create_timer(0.3, false).timeout
@@ -27,10 +27,9 @@ func _process(_delta):
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
 	if health < 1:
-		var effect := deathsfx.instantiate()
+		var effect := death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(0.6)
 		var purple3_1 := purple3.instantiate()
 		var purple3_2 := purple3.instantiate()
 		
@@ -45,9 +44,10 @@ func _process(_delta):
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		var effect := purple_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
+		if health > 1:
+			var effect := purple_hurt.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
 		health -= area.get_parent().damage
 	if area.is_in_group("parry") and guarded == false:
 		speed = 0

@@ -42,6 +42,4 @@ func _on_area_2d_area_entered(area):
 		var effect := barrier_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(0.5)
-		$hurt.play()
 		health -= area.get_parent().damage

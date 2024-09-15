@@ -12,7 +12,6 @@ func _ready():
 	var effect := sfx.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
-	effect.die(1.25)
 
 func _physics_process(delta):
 	if is_colliding():

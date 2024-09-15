@@ -9,7 +9,6 @@ func _ready():
 		var effect := detonationsfx.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(1.75)
 	$CPUParticles2D.emitting = true
 	await get_tree().create_timer(0.2, false).timeout
 	$Area2D.queue_free()

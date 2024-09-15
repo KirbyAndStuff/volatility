@@ -11,7 +11,6 @@ func _ready():
 	effect.position = get_node("../player").position
 	effect.pitch_scale = 1.25
 	get_parent().add_child(effect)
-	effect.die(0.95)
 	$melee1.emitting = true
 	$melee1_hurtbox/CollisionPolygon2D.disabled = false
 	$melee1_hurtbox/CollisionShape2D.disabled = false
@@ -34,7 +33,6 @@ func _process(_delta):
 			#effect.position = get_node("../player").position
 			#effect.pitch_scale = 2
 			#get_parent().add_child(effect)
-			#effect.die(0.59)
 		if melee_order == 1:
 			damage = 2
 			shoot(global_position, get_global_mouse_position())
@@ -45,7 +43,6 @@ func _process(_delta):
 			effect.position = get_node("../player").position
 			effect.pitch_scale = 2
 			get_parent().add_child(effect)
-			effect.die(0.59)
 			#$WaitPlease.wait_time = 0.2
 		if melee_order == 2:
 			shoot(global_position, get_global_mouse_position())
@@ -56,7 +53,6 @@ func _process(_delta):
 			effect.position = get_node("../player").position
 			effect.pitch_scale = 2
 			get_parent().add_child(effect)
-			effect.die(0.59)
 			$DieTimer.wait_time = 0.75
 			$WaitPlease.wait_time = 0.5
 			$HitBoxGoAway.wait_time = 0.3
@@ -103,8 +99,6 @@ func a():
 			effect.position = get_node("../player").position
 			effect.pitch_scale = 1
 			get_parent().add_child(effect)
-			effect.die(1.18)
-			#effect.die(2.36)
 			#$DieTimer.wait_time = 0.3
 			b()
 

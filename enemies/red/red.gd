@@ -5,9 +5,9 @@ var red_dash_particles := preload("res://enemies/red/red_dash_particles.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 
 func _ready():
-	var effect := red_hurt.instantiate()
-	effect.position = position
-	get_parent().call_deferred("add_child", effect)
+	$spawn.emitting = true
+	await  $spawn.finished
+	$spawn.queue_free()
 
 var speed = 500
 var attack_player = false
@@ -37,7 +37,6 @@ func _process(_delta):
 		var effect := red_dash_particles.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(0.5)
 		await get_tree().create_timer(0.5, false).timeout
 		if is_stunned == false:
 			$red_dashsfx.play()
@@ -49,17 +48,16 @@ func _process(_delta):
 		var effect := red_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(1)
 		queue_free()
 	if not velocity == Vector2.ZERO:
 		velocity = lerp(velocity, Vector2.ZERO, 0.003)
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		var effect := red_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		effect.die(0.5)
+		if health > 1:
+			var effect := red_hurt.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
 		health -= area.get_parent().damage
 	if area.is_in_group("parry") and guarded == false:
 		is_stunned = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6sg1b6ucnje7"]
+[gd_scene load_steps=9 format=3 uid="uid://b6sg1b6ucnje7"]
 
 [ext_resource type="Script" path="res://enemies/green/green.gd" id="1_t7t5q"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_kbnva"]
@@ -11,11 +11,16 @@ colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ikm5"]
 radius = 56.0803
 
+[sub_resource type="Curve" id="Curve_rlgok"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_s1dw7"]
+offsets = PackedFloat32Array(0.013245, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ynvg1"]
 radius = 53.0094
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kj6gw"]
-radius = 2000.0
 
 [node name="green" type="CharacterBody2D" groups=["enemy", "green"]]
 collision_layer = 4
@@ -100,10 +105,33 @@ stream = ExtResource("3_mmepp")
 volume_db = -10.0
 max_distance = 5000.0
 
+[node name="spawn" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 25.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_rlgok")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_s1dw7")
+
 [node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kbnva")
 volume_db = -5.0
 pitch_scale = 3.0
+autoplay = true
 max_distance = 1000.0
 
 [node name="wall-hitbox" type="CollisionShape2D" parent="."]
@@ -114,12 +142,4 @@ shape = SubResource("CircleShape2D_ynvg1")
 visible = false
 target_position = Vector2(5000, 0)
 
-[node name="update_raycast" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="update_raycast"]
-shape = SubResource("CircleShape2D_kj6gw")
-
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
-[connection signal="area_entered" from="update_raycast" to="." method="_on_update_raycast_area_entered"]
-[connection signal="area_exited" from="update_raycast" to="." method="_on_update_raycast_area_exited"]

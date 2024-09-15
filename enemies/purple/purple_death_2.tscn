@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4t8hdoxbdwg1"]
+
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_2f4pq"]
+[ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="1_p5yvi"]
+
+[sub_resource type="Curve" id="Curve_ynih3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_wpuv2"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="purple_death2" type="CPUParticles2D"]
+emitting = false
+amount = 150
+lifetime = 0.55
+one_shot = true
+explosiveness = 1.0
+randomness = 0.1
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 350.0
+initial_velocity_max = 450.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_ynih3")
+color = Color(0.372549, 0, 1, 1)
+color_ramp = SubResource("Gradient_wpuv2")
+script = ExtResource("1_2f4pq")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_p5yvi")
+volume_db = -3.0
+autoplay = true

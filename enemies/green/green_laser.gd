@@ -54,7 +54,6 @@ func _on_timer_attack_timeout():
 	var effect := sfx.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
-	effect.die(0.9)
 	$line.visible = false
 	$attack.visible = true
 	$hurtbox.add_child(collision_polygon)

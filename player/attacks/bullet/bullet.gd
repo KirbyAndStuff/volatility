@@ -27,7 +27,6 @@ func _on_timer_timeout() -> void:
 	var effect := bullet_death.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
-	effect.die(0.5)
 	queue_free()
 
 func _on_bullet_hurtbox_body_entered(body):
@@ -50,5 +49,4 @@ func die():
 	var effect := bullet_death.instantiate()
 	effect.position = $bullet_body.global_position
 	get_parent().add_child(effect)
-	effect.die(0.5)
 	queue_free()

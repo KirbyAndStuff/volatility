@@ -37,5 +37,5 @@ script = ExtResource("1_wnvj2")
 [node name="deathsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_rm00h")
 volume_db = -6.0
-pitch_scale = 1.5
+pitch_scale = 2.5
 autoplay = true

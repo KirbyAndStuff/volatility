@@ -1,5 +1,5 @@
 extends AudioStreamPlayer2D
 
-func die(duration):
-	await get_tree().create_timer(duration, false).timeout
+func _ready():
+	await finished
 	queue_free()

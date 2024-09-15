@@ -2,12 +2,12 @@ extends CharacterBody2D
 
 var purple_hurt := preload("res://enemies/purple/purple_hurt1.tscn")
 var purple2 := preload("res://enemies/purple/purple2.tscn")
-var deathsfx := preload("res://enemies/purple/purple_death1sfx.tscn")
+var death := preload("res://enemies/purple/purple_death_1.tscn")
 
 func _ready():
-	var effect := purple_hurt.instantiate()
-	effect.position = position
-	get_parent().call_deferred("add_child", effect)
+	$spawn.emitting = true
+	await  $spawn.finished
+	$spawn.queue_free()
 
 var speed = 300
 var attack_player = false
@@ -29,10 +29,9 @@ func _process(_delta):
 		(get_node("../player").player_hurt_particles())
 		(get_node("../player").framefreeze(0.4, 0.3))
 	if health < 1:
-		var effect := deathsfx.instantiate()
+		var effect := death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(1.2)
 		var purple2_1 := purple2.instantiate()
 		var purple2_2 := purple2.instantiate()
 		
@@ -47,9 +46,10 @@ func _process(_delta):
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		var effect := purple_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
+		if health > 1:
+			var effect := purple_hurt.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
 		health -= area.get_parent().damage
 	if area.is_in_group("parry") and guarded == false:
 		speed = 0

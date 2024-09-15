@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0bd18xd2ewqv"]
+[gd_scene load_steps=4 format=3 uid="uid://c0bd18xd2ewqv"]
 
 [ext_resource type="Script" path="res://level_stuff/interactables/barrier_break.gd" id="1_v022d"]
-[ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_vxtf1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucjvr"]
 size = Vector2(70, 70)
@@ -34,9 +33,5 @@ scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_1ykfo")
 color = Color(0, 1, 0, 1)
-
-[node name="hurt" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_vxtf1")
-pitch_scale = 2.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

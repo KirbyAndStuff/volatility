@@ -8,7 +8,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2
 point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_hurmf"]
-colors = PackedColorArray(1, 1, 0, 0.501961, 1, 1, 0, 0)
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 0)
 
 [sub_resource type="Gradient" id="Gradient_76xie"]
 colors = PackedColorArray(1, 1, 0, 0.784314, 1, 1, 1, 0)
@@ -26,8 +26,8 @@ emission_shape = 1
 emission_sphere_radius = 25.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 150.0
-initial_velocity_max = 150.0
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 radial_accel_min = 100.0

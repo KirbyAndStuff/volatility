@@ -58,7 +58,6 @@ func _process(_delta):
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(1)
 		modulate = Color(0, 0, 0, 0)
 		speed = 0
 		speed_boost = 0
@@ -214,7 +213,6 @@ func dash():
 	var effect := dash_particles.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
-	effect.die(0.5)
 	amount_of_i_frames += 1
 	stamina -= 50
 	friction *= 3
@@ -234,7 +232,6 @@ func parry():
 	var effect := parry_particles.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
-	effect.die(0.2)
 	$parry_detection/CollisionShape2D.disabled = false
 	parry_cooldown = 0
 	await get_tree().create_timer(0.15, false).timeout
@@ -270,7 +267,6 @@ func player_hurt_particles():
 		effect.position = position
 		get_parent().add_child(effect)
 		get_node("../camera").apply_shake(5, 0.1)
-		effect.die(0.5)
 		speed_boost = 0
 		accel_boost = 0
 		friction_boost = 0
@@ -314,7 +310,6 @@ func _on_player_hurtbox_area_entered(area):
 		var effect := player_land.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(0.4)
 		area.remove_from_group("level start")
 		get_node("../camera").apply_shake(10, 0.5)
 

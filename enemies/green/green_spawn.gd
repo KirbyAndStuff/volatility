@@ -2,6 +2,7 @@ extends CPUParticles2D
 
 var spawn_green := preload("res://enemies/green/green.tscn")
 var player_detected = false
+var can_fire_laser = true
 @export var event = "0"
 
 func _process(_delta):
@@ -13,10 +14,10 @@ func _on_area_2d_area_entered(area):
 	if area.is_in_group("player"):
 		player_detected = true
 
-func _on_wall_check_body_entered(body):
-	if body.is_in_group("wall"):
-		get_parent().give_credit = true
-		queue_free()
+#func _on_wall_check_body_entered(body):
+	#if body.is_in_group("wall"):
+		#get_parent().give_credit = true
+		#queue_free()
 
 func _ready():
 	await get_tree().create_timer(1, false).timeout
@@ -29,5 +30,6 @@ func spawn_enemy():
 	var effect := spawn_green.instantiate()
 	effect.position = position
 	effect.add_to_group(event)
+	effect.can_fire_laser = can_fire_laser
 	get_parent().call_deferred("add_child", effect)
 	queue_free()

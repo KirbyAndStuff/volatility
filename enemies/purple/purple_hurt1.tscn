@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpgwrekqkq8lb"]
+[gd_scene load_steps=5 format=3 uid="uid://dpgwrekqkq8lb"]
 
 [ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_e3os6"]
+[ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="2_ms35y"]
 
-[sub_resource type="Curve" id="Curve_rlgok"]
+[sub_resource type="Curve" id="Curve_fwsgj"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+metadata/_snap_enabled = true
 
-[sub_resource type="Gradient" id="Gradient_s1dw7"]
-offsets = PackedFloat32Array(0.013245, 1)
+[sub_resource type="Gradient" id="Gradient_cg2b4"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="purple1_hurt" type="CPUParticles2D"]
@@ -28,7 +29,13 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 30.0
 scale_amount_max = 30.0
-scale_amount_curve = SubResource("Curve_rlgok")
+scale_amount_curve = SubResource("Curve_fwsgj")
 color = Color(0.372549, 0, 1, 1)
-color_ramp = SubResource("Gradient_s1dw7")
+color_ramp = SubResource("Gradient_cg2b4")
 script = ExtResource("1_e3os6")
+
+[node name="hurtsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ms35y")
+volume_db = -3.0
+pitch_scale = 1.5
+autoplay = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8codwb0jmyiu"]
+[gd_scene load_steps=12 format=3 uid="uid://c8codwb0jmyiu"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple.gd" id="1_p8b53"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_hyedg"]
@@ -31,6 +31,14 @@ radius = 130.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_voi8f"]
 radius = 130.062
+
+[sub_resource type="Curve" id="Curve_sjx32"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_nl4b1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="purple" type="CharacterBody2D"]
 collision_layer = 16
@@ -141,6 +149,28 @@ visible = false
 shape = SubResource("CircleShape2D_voi8f")
 
 [node name="Stunned" type="Timer" parent="."]
+
+[node name="spawn" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 600.0
+initial_velocity_max = 600.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_sjx32")
+color = Color(0.372549, 0, 1, 1)
+color_ramp = SubResource("Gradient_nl4b1")
 
 [node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_hyedg")

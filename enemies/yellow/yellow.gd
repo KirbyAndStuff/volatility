@@ -9,9 +9,9 @@ var shoot_at_player = false
 var guarded = false
 
 func _ready():
-	var effect := yellow_hurt.instantiate()
-	effect.position = position
-	get_parent().call_deferred("add_child", effect)
+	$spawn.emitting = true
+	await  $spawn.finished
+	$spawn.queue_free()
 
 func _physics_process(_delta):
 	var direction = (get_node("../player").position-position).normalized()
@@ -23,7 +23,6 @@ func _process(_delta):
 		var effect := yellow_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		effect.die(1)
 		queue_free()
 	if shoot_at_player and $GunTimer.is_stopped():
 		$yellow_bulletsfx.play()
@@ -35,10 +34,10 @@ func _process(_delta):
 
 func _on_player_death_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		var effect := yellow_hurt.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		effect.die(0.5)
+		if health > 1:
+			var effect := yellow_hurt.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
 		health -= area.get_parent().damage
 
 func _on_player_shoot_distance_area_entered(area):
