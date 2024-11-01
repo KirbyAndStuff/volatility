@@ -217,6 +217,10 @@ shape = SubResource("CircleShape2D_k4hsi")
 wait_time = 0.5
 one_shot = true
 
+[node name="Bullet_OrderTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
 [node name="Alt_GunTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
@@ -226,7 +230,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.6
 one_shot = true
 
 [node name="parry_detection" type="Area2D" parent="."]
@@ -245,6 +249,15 @@ volume_db = -8.0
 [node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
 pitch_scale = 2.0
+
+[node name="fresh_bulletsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2x6xb")
+volume_db = 3.0
+
+[node name="fresh_bullet2sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_2tgkj")
+volume_db = -15.0
+pitch_scale = 0.75
 
 [node name="alt_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
@@ -284,6 +297,7 @@ collision_mask = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hurtbox"]
 shape = SubResource("CircleShape2D_k1igs")
 
+[connection signal="timeout" from="Bullet_OrderTimer" to="." method="_on_bullet_order_timer_timeout"]
 [connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]
 [connection signal="area_entered" from="parry_detection" to="." method="_on_parry_detection_area_entered"]
 [connection signal="area_entered" from="player_hurtbox" to="." method="_on_player_hurtbox_area_entered"]

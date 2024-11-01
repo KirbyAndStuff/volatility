@@ -2,10 +2,11 @@ extends Area2D
 
 var detonationsfx := preload("res://player/attacks/bullet/detonationsfx.tscn")
 var damage = 3
+var shake = 10
 
 func _ready():
 	if not get_tree().has_group("beam"):
-		get_node("../camera").apply_shake(10, 0.5)
+		get_node("../camera").apply_shake(shake, 0.5)
 		var effect := detonationsfx.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

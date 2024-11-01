@@ -22,6 +22,7 @@ var meleem2_cooldown = 100
 var input = Vector2.ZERO
 var is_dead = false
 var stamina_tween = true
+var bullet_order = 1
 var melee_order = 1
 var active_weapon = 1.0
 var variant_weapon = false
@@ -148,15 +149,33 @@ func player_movement(delta):
 	move_and_slide()
 
 func shoot():
-	$bulletsfx.play()
-	var bullet_scene = preload("res://player/attacks/bullet/bullet.tscn")
-	var shot = bullet_scene.instantiate() 
-	get_parent().add_child(shot)
-	shot.shoot(global_position, get_global_mouse_position())
-	var effect := bullet_explosion.instantiate()
-	effect.position = position
-	get_parent().add_child(effect)
-	effect.shoot(global_position, get_global_mouse_position())
+	if bullet_order >= 4:
+		$fresh_bulletsfx.play()
+		$fresh_bullet2sfx.play()
+		var bullet_scene = preload("res://player/attacks/bullet/big_bullet.tscn")
+		var shot = bullet_scene.instantiate()
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		var effect := alt_bullet_explosion.instantiate()
+		effect.position = position
+		effect.modulate = Color(0, 1, 1, 1)
+		get_parent().add_child(effect)
+		effect.shoot(global_position, get_global_mouse_position())
+		get_node("../camera").apply_shake(5, 0.25)
+		bullet_order = 1
+	else:
+		$bulletsfx.play()
+		$Bullet_OrderTimer.wait_time = 0.75
+		var bullet_scene = preload("res://player/attacks/bullet/bullet.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		var effect := bullet_explosion.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		effect.shoot(global_position, get_global_mouse_position())
+		bullet_order += 1
+		$Bullet_OrderTimer.start()
 	$GunTimer.start()
 
 func shootm2():
@@ -182,25 +201,23 @@ func alt_shoot():
 		$Alt_GunTimer.start()
 
 func melee():
-	#var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
-	#var shot = bullet_scene.instantiate() 
-	#get_parent().add_child(shot)
-	#shot.shoot(global_position, get_global_mouse_position())
-	#$MeleeTimer.start()
+	var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
+	var shot = bullet_scene.instantiate()
+	var radius = 200
+	var offset = get_global_mouse_position() - global_position
+	if offset.length() > radius:
+		offset = offset.normalized() * radius
+	var spawn_position = global_position + offset
+	shot.offset = offset
+	shot.global_position = spawn_position
 	if melee_order == 1:
-		var bullet_scene = preload("res://player/attacks/melee/melee_up.tscn")
-		var shot = bullet_scene.instantiate() 
-		get_parent().add_child(shot)
-		shot.shoot(global_position, get_global_mouse_position())
-		$MeleeTimer.start()
+		shot.scale = Vector2(3, 3)
 		melee_order += 1
 	else:
-		var bullet_scene = preload("res://player/attacks/melee/melee_down.tscn")
-		var shot = bullet_scene.instantiate() 
-		get_parent().add_child(shot)
-		shot.shoot(global_position, get_global_mouse_position())
-		$MeleeTimer.start()
+		shot.scale = Vector2(-3, -3)
 		melee_order -= 1
+	get_parent().add_child(shot)
+	$MeleeTimer.start()
 
 func meleem2():
 	if meleem2_cooldown > 100:
@@ -319,3 +336,6 @@ func heal_particles():
 	effect.color = Color(1, 1, 1, 1)
 	get_parent().add_child(effect)
 	$healsfx.play()
+
+func _on_bullet_order_timer_timeout():
+	bullet_order = 1
