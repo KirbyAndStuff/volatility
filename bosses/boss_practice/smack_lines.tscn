@@ -1,0 +1,170 @@
+[gd_scene load_steps=11 format=3 uid="uid://cavyx8gm0geua"]
+
+[ext_resource type="Script" path="res://bosses/boss_practice/smack_lines.gd" id="1_jsm2a"]
+[ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="2_psgbe"]
+
+[sub_resource type="Curve" id="Curve_ush4o"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_2xgnx"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Curve" id="Curve_5o6qc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_lvg7f"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Curve" id="Curve_wt7og"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_sf31w"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Curve" id="Curve_drtlo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_loas1"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[node name="smack_lines" type="Node2D"]
+script = ExtResource("1_jsm2a")
+
+[node name="smack_line1" type="CPUParticles2D" parent="."]
+scale = Vector2(1.5, 1.5)
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+preprocess = 0.1
+speed_scale = 2.0
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+direction = Vector2(-1, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_ush4o")
+color = Color(3, 3, 3, 1)
+color_ramp = SubResource("Gradient_2xgnx")
+
+[node name="smack_line2" type="CPUParticles2D" parent="."]
+scale = Vector2(1.5, 1.5)
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+preprocess = 0.1
+speed_scale = 2.0
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+direction = Vector2(1, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_5o6qc")
+color = Color(3, 3, 3, 1)
+color_ramp = SubResource("Gradient_lvg7f")
+
+[node name="smack_line3" type="CPUParticles2D" parent="."]
+scale = Vector2(1.5, 1.5)
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+preprocess = 0.1
+speed_scale = 2.0
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+direction = Vector2(1, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_wt7og")
+color = Color(3, 3, 3, 1)
+color_ramp = SubResource("Gradient_sf31w")
+
+[node name="smack_line4" type="CPUParticles2D" parent="."]
+scale = Vector2(1.5, 1.5)
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+preprocess = 0.1
+speed_scale = 2.0
+explosiveness = 0.75
+fixed_fps = 240
+local_coords = true
+direction = Vector2(-1, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_drtlo")
+color = Color(3, 3, 3, 1)
+color_ramp = SubResource("Gradient_loas1")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="strike" type="CollisionPolygon2D" parent="hitbox"]
+position = Vector2(-115, -193)
+rotation = -0.561996
+polygon = PackedVector2Array(-405.463, 315.458, -20.9863, 249.136, 85.0157, 623.147, 19.0067, 240.049, 402.672, 131.854, 7.2561, 204.287, -97.6481, -180.85, -30.0725, 209.143)
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_psgbe")
+pitch_scale = 0.9
+autoplay = true
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]

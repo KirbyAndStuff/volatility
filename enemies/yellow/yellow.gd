@@ -9,6 +9,7 @@ var shoot_at_player = false
 var guarded = false
 
 func _ready():
+	$spawnsfx.global_position = get_node("../player").global_position
 	$spawn.emitting = true
 	await  $spawn.finished
 	$spawn.queue_free()

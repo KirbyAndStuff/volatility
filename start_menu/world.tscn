@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
-[ext_resource type="Script" path="res://ui/camera.gd" id="2_c276a"]
+[ext_resource type="PackedScene" uid="uid://ck8b4pddxyoqp" path="res://ui/camera.tscn" id="3_0o8ed"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="3_siq2p"]
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="4_gvlwj"]
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="5_mxfgi"]
@@ -31,10 +31,8 @@ layer_0/tile_data = PackedInt32Array(-2031628, 0, 65536, -1966092, 0, 65536, -19
 [node name="player" parent="." instance=ExtResource("1_qdwvq")]
 position = Vector2(117, 138)
 
-[node name="camera" type="Camera2D" parent="."]
+[node name="camera" parent="." instance=ExtResource("3_0o8ed")]
 position = Vector2(117, 138)
-position_smoothing_speed = 20.0
-script = ExtResource("2_c276a")
 
 [node name="ui" type="CanvasLayer" parent="."]
 

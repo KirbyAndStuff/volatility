@@ -5,6 +5,7 @@ var purple2 := preload("res://enemies/purple/purple2.tscn")
 var death := preload("res://enemies/purple/purple_death_1.tscn")
 
 func _ready():
+	$spawnsfx.global_position = get_node("../player").global_position
 	$spawn.emitting = true
 	await  $spawn.finished
 	$spawn.queue_free()

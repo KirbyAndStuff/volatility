@@ -5,6 +5,7 @@ var red_dash_particles := preload("res://enemies/red/red_dash_particles.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 
 func _ready():
+	$spawnsfx.global_position = get_node("../player").global_position
 	$spawn.emitting = true
 	await  $spawn.finished
 	$spawn.queue_free()

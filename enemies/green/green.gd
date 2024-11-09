@@ -11,6 +11,7 @@ var attack_player = false
 var player_behind_wall = false
 
 func _ready():
+	$spawnsfx.global_position = get_node("../player").global_position
 	$spawn.emitting = true
 	await  $spawn.finished
 	$spawn.queue_free()

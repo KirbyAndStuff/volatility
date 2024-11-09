@@ -174,7 +174,7 @@ color_ramp = SubResource("Gradient_nl4b1")
 
 [node name="spawnsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_hyedg")
-volume_db = -5.0
+volume_db = -13.0
 pitch_scale = 3.0
 autoplay = true
 max_distance = 1000.0
