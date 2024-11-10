@@ -4,6 +4,7 @@ var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/alt_bullet/alt_bullet_death.tscn")
 var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
 var charged_blades := preload("res://player/attacks/alt_bullet/alt_bullet_charged.tscn")
+var charged_sfx := preload("res://player/attacks/alt_bullet/alt_bullet_charged_sfx.tscn")
 var speed = 2500.0
 var drain_speed = true
 var come_back = false
@@ -11,7 +12,6 @@ var hit_wall = false
 var enemies_hit = 0
 var damage = 1
 var in_beam = false
-var beam_progress = 0.0
 var charged = false
 var closest_enemy = null
 @onready var blades = [$blade, $blade2, $blade3, $blade4]
@@ -22,14 +22,6 @@ func _ready():
 func _process(_delta):
 	if 2 < enemies_hit:
 		die()
-	if beam_progress >= 50 and charged == false:
-		for vol in blades:
-			vol.emitting = true
-			vol.modulate = Color(1, 3, 3, 1)
-		charged = true
-		$chargedsfx.play()
-	for vol in blades:
-		vol.color = Color(beam_progress / 70, beam_progress / 70, beam_progress / 70, beam_progress / 70)
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
@@ -50,12 +42,18 @@ func _physics_process(delta):
 	if come_back:
 		direction = global_position.direction_to(get_node("../player").position)
 	if in_beam:
+		if charged == false:
+			charged = true
+			var effect := charged_sfx.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
+			for vol in blades:
+				vol.emitting = true
+				vol.modulate = Color(1, 3, 3, 1)
 		if come_back:
 			speed -= 3000.0 * delta
 		else:
 			speed += 3000.0 * delta
-		if beam_progress < 70:
-			beam_progress += 100 * delta
 	$stop_follow_player.scale = Vector2(speed, speed) / 2500.0
 
 func _on_hurtbox_area_entered(area):

@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dof4vpoy5wjb5"]
+[gd_scene load_steps=8 format=3 uid="uid://dof4vpoy5wjb5"]
 
 [ext_resource type="Script" path="res://player/attacks/alt_bullet/alt_bullet.gd" id="1_plcqa"]
-[ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="2_tuodp"]
 
 [sub_resource type="Curve" id="Curve_ny7oa"]
 _data = [Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -80,7 +79,9 @@ disabled = true
 [node name="Timer" type="Timer" parent="."]
 
 [node name="blade" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(0, 64)
+emitting = false
 lifetime = 0.25
 speed_scale = 0.5
 explosiveness = 0.75
@@ -99,10 +100,11 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_svu7v")
-color = Color(1, 1, 1, 0)
 
 [node name="blade2" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(64, 0)
+emitting = false
 lifetime = 0.25
 speed_scale = 0.5
 explosiveness = 0.75
@@ -122,10 +124,11 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_svu7v")
-color = Color(1, 1, 1, 0)
 
 [node name="blade3" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(0, -64)
+emitting = false
 lifetime = 0.25
 speed_scale = 0.5
 explosiveness = 0.75
@@ -145,10 +148,11 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_svu7v")
-color = Color(1, 1, 1, 0)
 
 [node name="blade4" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(-64, 0)
+emitting = false
 lifetime = 0.25
 speed_scale = 0.5
 explosiveness = 0.75
@@ -168,13 +172,6 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_svu7v")
-color = Color(1, 1, 1, 0)
-
-[node name="chargedsfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_tuodp")
-volume_db = -10.0
-pitch_scale = 0.75
-max_distance = 10000.0
 
 [node name="stop_follow_player" type="Area2D" parent="."]
 visible = false

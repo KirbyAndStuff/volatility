@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnyfays7rkv4m"]
+
+[ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="1_mr634"]
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_unb00"]
+[ext_resource type="Script" path="res://audio/audio_die_global.gd" id="1_xoqnp"]
+
+[sub_resource type="Curve" id="Curve_eskos"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[node name="alt_bullet_charged_sfx" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_mr634")
+volume_db = -10.0
+pitch_scale = 0.75
+autoplay = true
+max_distance = 10000.0
+script = ExtResource("1_xoqnp")
+
+[node name="parried_particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_eskos")
+color = Color(0.2, 2.11, 2.55, 1)
+script = ExtResource("1_unb00")

@@ -34,14 +34,6 @@ func shoot(from: Vector2, to: Vector2):
 	direction = from.direction_to(to)
 	rotation = direction.angle()
 
-func _on_timer_timeout() -> void:
-	create_tween().tween_property($Line2D, "width", 0, 0.25)
-	create_tween().tween_property($beam_hurtbox, "scale", Vector2(1, 0), 0.25)
-	$beam_end.speed_scale = 4
-	$beam_end.emitting = false
-	await get_tree().create_timer(0.25, false).timeout
-	queue_free()
-
 func _on_beam_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
 		if not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100 and area.get_parent().guarded == false:
@@ -51,3 +43,11 @@ func _on_beam_hurtbox_area_entered(area):
 		await get_tree().create_timer(0.25, false).timeout
 		$beam_hurtbox.add_to_group("player_attack")
 		$beam_hurtbox.set_deferred("monitoring", true)
+
+func _on_timer_timeout():
+	create_tween().tween_property($Line2D, "width", 0, 0.25)
+	create_tween().tween_property($beam_hurtbox, "scale", Vector2(1, 0), 0.25)
+	$beam_end.speed_scale = 4
+	$beam_end.emitting = false
+	await get_tree().create_timer(0.25, false).timeout
+	queue_free()

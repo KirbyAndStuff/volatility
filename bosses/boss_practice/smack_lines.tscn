@@ -163,7 +163,6 @@ polygon = PackedVector2Array(-405.463, 315.458, -20.9863, 249.136, 85.0157, 623.
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_psgbe")
-pitch_scale = 0.9
 autoplay = true
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
