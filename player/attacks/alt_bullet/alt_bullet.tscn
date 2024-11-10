@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dof4vpoy5wjb5"]
+[gd_scene load_steps=9 format=3 uid="uid://dof4vpoy5wjb5"]
 
 [ext_resource type="Script" path="res://player/attacks/alt_bullet/alt_bullet.gd" id="1_plcqa"]
 
@@ -17,7 +17,12 @@ radius = 37.0135
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ydrb"]
 radius = 1.0
 
-[sub_resource type="Curve" id="Curve_svu7v"]
+[sub_resource type="Curve" id="Curve_lh4m8"]
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_d7kms"]
 _data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
@@ -99,7 +104,7 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
-scale_amount_curve = SubResource("Curve_svu7v")
+scale_amount_curve = SubResource("Curve_lh4m8")
 
 [node name="blade2" type="CPUParticles2D" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -123,7 +128,7 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
-scale_amount_curve = SubResource("Curve_svu7v")
+scale_amount_curve = SubResource("Curve_d7kms")
 
 [node name="blade3" type="CPUParticles2D" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -147,7 +152,7 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
-scale_amount_curve = SubResource("Curve_svu7v")
+scale_amount_curve = SubResource("Curve_d7kms")
 
 [node name="blade4" type="CPUParticles2D" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -171,7 +176,7 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
-scale_amount_curve = SubResource("Curve_svu7v")
+scale_amount_curve = SubResource("Curve_d7kms")
 
 [node name="stop_follow_player" type="Area2D" parent="."]
 visible = false

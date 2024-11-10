@@ -212,9 +212,11 @@ func melee():
 	shot.global_position = spawn_position
 	if melee_order == 1:
 		shot.scale = Vector2(3, 3)
+		shot.square_collision_pos = Vector2(17, 0)
 		melee_order += 1
 	else:
 		shot.scale = Vector2(-3, -3)
+		shot.square_collision_pos = Vector2(-17, 0)
 		melee_order -= 1
 	get_parent().add_child(shot)
 	$MeleeTimer.start()

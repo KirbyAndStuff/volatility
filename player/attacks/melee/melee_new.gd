@@ -4,6 +4,7 @@ extends Node2D
 @onready var offset
 var sfx := preload("res://player/attacks/melee/meleem2_attack_sfx.tscn")
 var damage = 2
+var square_collision_pos = Vector2(17, 0)
 
 func _process(_delta):
 	position = get_node("../player").position + offset
@@ -18,6 +19,7 @@ func _ready():
 	look_at(player.global_position + Vector2(randf_range(-60, 60), randf_range(-60, 60)))
 	#look_at(player.global_position)
 	$CPUParticles2D.emitting = true
+	$Area2D/CollisionShape2D.position = square_collision_pos
 	await get_tree().create_timer(0.2, false).timeout
 	queue_free()
 

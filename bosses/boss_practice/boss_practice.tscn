@@ -1,9 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://chdl1cq3itxu4"]
+[gd_scene load_steps=25 format=3 uid="uid://chdl1cq3itxu4"]
 
 [ext_resource type="Script" path="res://bosses/boss_practice/boss_practice.gd" id="1_iqgvb"]
-[ext_resource type="Script" path="res://bosses/boss_practice/boss_practice_arm.gd" id="2_5yex4"]
 [ext_resource type="AudioStream" uid="uid://bk7033durq4ve" path="res://audio/roar_boss_practice.wav" id="3_4ful5"]
 [ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="4_xk6be"]
+
+[sub_resource type="Curve" id="Curve_ehj5s"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_cu3p2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
 
 [sub_resource type="Curve" id="Curve_3dkoi"]
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
@@ -197,11 +206,53 @@ tracks/2/keys = {
 "values": [true, false, true]
 }
 
+[sub_resource type="Animation" id="Animation_dto7x"]
+resource_name = "smack_left_parried"
+length = 2.5
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1.2, 1.8, 2.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2, 0.5, 1),
+"update": 0,
+"values": [Vector2(-175, 200), Vector2(-600, -175), Vector2(-600, -175), Vector2(-600, -140), Vector2(-500, 150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45, 1.2, 1.8, 2.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2, 0.5, 1),
+"update": 0,
+"values": [-0.575959, 3.31613, 3.31613, 2.0944, 1.09083]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hitbox_left/triangle:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjphg"]
 _data = {
 "RESET": SubResource("Animation_qqvbq"),
 "smack_left": SubResource("Animation_117ae"),
 "smack_left_again": SubResource("Animation_ojm1v"),
+"smack_left_parried": SubResource("Animation_dto7x"),
 "smack_right": SubResource("Animation_kug8x")
 }
 
@@ -379,39 +430,99 @@ tracks/2/keys = {
 "values": [true, false, true]
 }
 
+[sub_resource type="Animation" id="Animation_c4wke"]
+resource_name = "smack_right_parried"
+length = 2.5
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1.2, 1.8, 2.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2, 0.5, 1),
+"update": 0,
+"values": [Vector2(175, 200), Vector2(600, -175), Vector2(600, -175), Vector2(600, -140), Vector2(500, 150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45, 1.2, 1.8, 2.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2, 0.5, 1),
+"update": 0,
+"values": [0.575959, -3.31613, -3.31613, -2.0944, -1.09083]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hitbox_right/triangle:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g3ftt"]
 _data = {
 "RESET": SubResource("Animation_deu47"),
 "smack_left": SubResource("Animation_hu1xp"),
 "smack_right": SubResource("Animation_oaxo7"),
-"smack_right_again": SubResource("Animation_g27p8")
+"smack_right_again": SubResource("Animation_g27p8"),
+"smack_right_parried": SubResource("Animation_c4wke")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7y1sy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_log68"]
+radius = 148.122
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nnhuc"]
+radius = 54.0093
 
 [node name="boss_practice" type="CharacterBody2D"]
 script = ExtResource("1_iqgvb")
 
 [node name="body" type="CPUParticles2D" parent="."]
-amount = 50
-preprocess = 1.0
+amount = 20
+lifetime = 0.2
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 40.0
+scale_amount_max = 40.0
+scale_amount_curve = SubResource("Curve_ehj5s")
+color = Color(3, 3, 3, 1)
+
+[node name="eyes" type="CPUParticles2D" parent="."]
+amount = 100
 local_coords = true
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = -1.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_cu3p2")
 
 [node name="arm_left" type="CharacterBody2D" parent="."]
-scale = Vector2(1.5, 1.5)
-script = ExtResource("2_5yex4")
+scale = Vector2(2, 2)
 
 [node name="base_particle" type="CPUParticles2D" parent="arm_left"]
 position = Vector2(54.0001, 296)
@@ -501,10 +612,10 @@ scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_xulac")
 color_ramp = SubResource("Gradient_081qi")
 
-[node name="hitbox_left" type="Area2D" parent="arm_left"]
+[node name="hitbox_left" type="Area2D" parent="arm_left" groups=["enemy_attack", "parryable"]]
 
 [node name="triangle" type="CollisionPolygon2D" parent="arm_left/hitbox_left"]
-polygon = PackedVector2Array(-50, 192, 57, 192, 4, 290)
+polygon = PackedVector2Array(23, 192, 57, 192, 4, 290, -48, 192, -14, 192, -14, 135, 23, 135)
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="arm_left"]
@@ -513,9 +624,7 @@ libraries = {
 }
 
 [node name="arm_right" type="CharacterBody2D" parent="."]
-scale = Vector2(1.5, 1.5)
-script = ExtResource("2_5yex4")
-is_left = false
+scale = Vector2(2, 2)
 
 [node name="base_particle" type="CPUParticles2D" parent="arm_right"]
 position = Vector2(54.0001, 296)
@@ -604,10 +713,10 @@ scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_xulac")
 color_ramp = SubResource("Gradient_081qi")
 
-[node name="hitbox_right" type="Area2D" parent="arm_right"]
+[node name="hitbox_right" type="Area2D" parent="arm_right" groups=["enemy_attack", "parryable"]]
 
 [node name="triangle" type="CollisionPolygon2D" parent="arm_right/hitbox_right"]
-polygon = PackedVector2Array(-50, 192, 57, 192, 4, 290)
+polygon = PackedVector2Array(23, 192, 57, 192, 4, 290, -48, 192, -14, 192, -14, 135, 23, 135)
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="arm_right"]
@@ -616,9 +725,21 @@ libraries = {
 }
 
 [node name="camera_anchor" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_anchor"]
 shape = SubResource("CircleShape2D_7y1sy")
+
+[node name="player_death_body" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_death_body"]
+shape = SubResource("CircleShape2D_log68")
+
+[node name="player_death_eye" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_death_eye"]
+shape = SubResource("CircleShape2D_nnhuc")
+disabled = true
 
 [node name="roarsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_4ful5")
@@ -628,8 +749,10 @@ pitch_scale = 0.75
 [node name="about_to_smacksfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_xk6be")
 
-[connection signal="area_entered" from="arm_left/hitbox_left" to="arm_left" method="_on_hitbox_left_area_entered"]
-[connection signal="area_exited" from="arm_left/hitbox_left" to="arm_left" method="_on_hitbox_left_area_exited"]
-[connection signal="area_entered" from="arm_right/hitbox_right" to="arm_right" method="_on_hitbox_right_area_entered"]
-[connection signal="area_exited" from="arm_right/hitbox_right" to="arm_right" method="_on_hitbox_right_area_exited"]
+[connection signal="area_entered" from="arm_left/hitbox_left" to="." method="_on_hitbox_left_area_entered"]
+[connection signal="area_exited" from="arm_left/hitbox_left" to="." method="_on_hitbox_left_area_exited"]
+[connection signal="area_entered" from="arm_right/hitbox_right" to="." method="_on_hitbox_right_area_entered"]
+[connection signal="area_exited" from="arm_right/hitbox_right" to="." method="_on_hitbox_right_area_exited"]
+[connection signal="area_entered" from="player_death_body" to="." method="_on_player_death_body_area_entered"]
+[connection signal="area_entered" from="player_death_eye" to="." method="_on_player_death_eye_area_entered"]
 [connection signal="finished" from="about_to_smacksfx" to="." method="_on_about_to_smacksfx_finished"]
