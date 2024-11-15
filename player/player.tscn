@@ -103,7 +103,7 @@ radius = 35.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_k1igs"]
 radius = 22.02
 
-[node name="player" type="CharacterBody2D" groups=["attackable"]]
+[node name="player" type="CharacterBody2D"]
 script = ExtResource("1_ni3np")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -234,10 +234,10 @@ wait_time = 0.6
 one_shot = true
 
 [node name="parry_detection" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, 25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="parry_detection"]
-visible = false
 position = Vector2(0, -22)
 shape = SubResource("CircleShape2D_lc2ci")
 disabled = true

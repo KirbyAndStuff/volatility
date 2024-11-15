@@ -28,6 +28,8 @@ func _physics_process(delta):
 func _process(_delta):
 	if Input.is_action_just_pressed("interact") and anim_playing == false and smack_parried == false:
 		smack()
+	#if $SmackTimer.is_stopped() and anim_playing == false and smack_parried == false:
+		#smack()
 	if attacks_in_player > 0 and (get_node("../player").amount_of_i_frames) < 1:
 		(get_node("../player").health) -= 1
 		(get_node("../player").i_frames(1))
@@ -41,6 +43,7 @@ func _process(_delta):
 		queue_free()
 
 func smack():
+	$SmackTimer.start()
 	anim_playing = true
 	$roarsfx.pitch_scale = randf_range(0.7, 0.8)
 	$roarsfx.play()
@@ -66,13 +69,14 @@ func shake_smack(time1, time2, scale_effect, sfx, loud, speeda):
 	get_node("../camera").apply_shake(50, 0.25)
 	await get_tree().create_timer(time2, false).timeout
 	$about_to_smacksfx.stop()
-	var effect := smack_lines.instantiate()
-	effect.position = position + Vector2(0, 500)
-	effect.scale = Vector2(scale_effect, scale_effect)
-	effect.sfx = sfx
-	effect.loud = loud
-	effect.speed = speeda
-	get_parent().add_child(effect)
+	if smack_parried == false:
+		var effect := smack_lines.instantiate()
+		effect.position = position + Vector2(0, 500)
+		effect.scale = Vector2(scale_effect, scale_effect)
+		effect.sfx = sfx
+		effect.loud = loud
+		effect.speed = speeda
+		get_parent().add_child(effect)
 
 func smack_speed(time1, time2):
 	await get_tree().create_timer(time1, false).timeout
@@ -152,6 +156,8 @@ func parried_smack():
 	$eyes.emitting = false
 	$player_death_body/CollisionShape2D.set_deferred("disabled", true)
 	$player_death_eye/CollisionShape2D.set_deferred("disabled", false)
+	get_node("../camera").failsafe_just_in_case()
+	$parriedsfx.play()
 	await get_tree().create_timer(2.5, false).timeout
 	stay_above_player = true
 	smack_parried = false
@@ -162,9 +168,7 @@ func parried_smack():
 func _on_player_death_body_area_entered(area):
 	if area.is_in_group("player_attack"):
 		health -= area.get_parent().damage
-		print(health)
 
 func _on_player_death_eye_area_entered(area):
 	if area.is_in_group("player_attack"):
 		health -= area.get_parent().damage * 2
-		print(health)

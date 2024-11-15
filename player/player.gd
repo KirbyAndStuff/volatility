@@ -121,6 +121,10 @@ func _process(_delta):
 	elif  $"combat eye".emitting == true:
 		$"combat eye".emitting = false
 		$"combat eye2".emitting = false
+	#if not Input.is_action_pressed("first_weapon"):
+		#Engine.time_scale = 0.05
+	#else:
+		#Engine.time_scale = 1
 
 func get_input():
 	if input.length() > 0.0:
@@ -247,12 +251,12 @@ func _on_dash_length_timeout() -> void:
 	amount_of_i_frames -= 1
 
 func parry():
+	$parry_detection/CollisionShape2D.disabled = false
+	parry_cooldown = 0
 	$parrysfx.play()
 	var effect := parry_particles.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)
-	$parry_detection/CollisionShape2D.disabled = false
-	parry_cooldown = 0
 	await get_tree().create_timer(0.15, false).timeout
 	$parry_detection/CollisionShape2D.disabled = true
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://chdl1cq3itxu4"]
+[gd_scene load_steps=26 format=3 uid="uid://chdl1cq3itxu4"]
 
 [ext_resource type="Script" path="res://bosses/boss_practice/boss_practice.gd" id="1_iqgvb"]
 [ext_resource type="AudioStream" uid="uid://bk7033durq4ve" path="res://audio/roar_boss_practice.wav" id="3_4ful5"]
+[ext_resource type="AudioStream" uid="uid://b4rwe0dr33w67" path="res://audio/parried_boss_practice.wav" id="4_1qj8g"]
 [ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="4_xk6be"]
 
 [sub_resource type="Curve" id="Curve_ehj5s"]
@@ -165,47 +166,6 @@ tracks/2/keys = {
 "values": [true, false, true]
 }
 
-[sub_resource type="Animation" id="Animation_kug8x"]
-resource_name = "smack_right"
-length = 3.5
-step = 0.025
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7, 1.1, 1.3, 1.7, 2, 2.2, 2.8, 3, 3.5),
-"transitions": PackedFloat32Array(0.5, 2, 0.5, 0.5, 1, 2, 1, 2, 0.5, 1),
-"update": 0,
-"values": [Vector2(500, 150), Vector2(450, 175), Vector2(600, 0), Vector2(600, -150), Vector2(600, -175), Vector2(600, -175), Vector2(175, 200), Vector2(175, 200), Vector2(200, 220), Vector2(500, 150)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1.1, 1.3, 1.7, 2, 2.2, 2.8, 3, 3.5),
-"transitions": PackedFloat32Array(0.5, 2, 2, 0.5, 0.5, 1, 2, 1, 2, 0.5, 1),
-"update": 0,
-"values": [-1.09083, -0.523599, -0.523599, -2.26893, -2.96706, -3.14159, -3.14159, 0.575959, 0.575959, 0.0, -1.09083]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox_right/CollisionPolygon2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-
 [sub_resource type="Animation" id="Animation_dto7x"]
 resource_name = "smack_left_parried"
 length = 2.5
@@ -245,6 +205,47 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_kug8x"]
+resource_name = "smack_right"
+length = 3.5
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.1, 1.3, 1.7, 2, 2.2, 2.8, 3, 3.5),
+"transitions": PackedFloat32Array(0.5, 2, 0.5, 0.5, 1, 2, 1, 2, 0.5, 1),
+"update": 0,
+"values": [Vector2(500, 150), Vector2(450, 175), Vector2(600, 0), Vector2(600, -150), Vector2(600, -175), Vector2(600, -175), Vector2(175, 200), Vector2(175, 200), Vector2(200, 220), Vector2(500, 150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1.1, 1.3, 1.7, 2, 2.2, 2.8, 3, 3.5),
+"transitions": PackedFloat32Array(0.5, 2, 2, 0.5, 0.5, 1, 2, 1, 2, 0.5, 1),
+"update": 0,
+"values": [-1.09083, -0.523599, -0.523599, -2.26893, -2.96706, -3.14159, -3.14159, 0.575959, 0.575959, 0.0, -1.09083]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hitbox_right/CollisionPolygon2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjphg"]
@@ -731,11 +732,13 @@ visible = false
 shape = SubResource("CircleShape2D_7y1sy")
 
 [node name="player_death_body" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_death_body"]
 shape = SubResource("CircleShape2D_log68")
 
 [node name="player_death_eye" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_death_eye"]
 shape = SubResource("CircleShape2D_nnhuc")
@@ -748,6 +751,16 @@ pitch_scale = 0.75
 
 [node name="about_to_smacksfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_xk6be")
+
+[node name="parriedsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1qj8g")
+volume_db = 3.0
+pitch_scale = 2.0
+
+[node name="SmackTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
 
 [connection signal="area_entered" from="arm_left/hitbox_left" to="." method="_on_hitbox_left_area_entered"]
 [connection signal="area_exited" from="arm_left/hitbox_left" to="." method="_on_hitbox_left_area_exited"]

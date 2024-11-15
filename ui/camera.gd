@@ -68,3 +68,7 @@ func _on_snap_area_entered(area):
 	if area.is_in_group("snap camera"):
 		snap = true
 		area.remove_from_group("snap camera")
+
+func failsafe_just_in_case():
+	await get_tree().create_timer(3, false).timeout
+	snap = true

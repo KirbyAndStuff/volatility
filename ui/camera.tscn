@@ -8,6 +8,7 @@
 script = ExtResource("1_5438r")
 
 [node name="snap" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="snap"]
 shape = SubResource("CircleShape2D_do7bu")
