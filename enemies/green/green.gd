@@ -8,7 +8,7 @@ var health = 3.0
 @export var can_fire_laser = true
 var guarded = false
 var attack_player = false
-var player_behind_wall = false
+var behind_wall = true
 
 func _ready():
 	$spawnsfx.global_position = get_node("../player").global_position
@@ -33,38 +33,42 @@ func _process(_delta):
 			shot.shoot(global_position, get_node("../player").global_position)
 			$GunTimer.start()
 			#$GunTimer.wait_time = randf_range(0.75, 1)
-		elif can_fire_laser and player_behind_wall:
+		elif can_fire_laser and behind_wall:
 			bullets_fired += 2
 			$GunTimer.start()
 	if $LaserTimer.is_stopped() and bullets_fired > 7 and $GunTimer.is_stopped():
 		bullets_fired = 0
-		$green_lasersfx.play()
 		eyes_begone()
 		var bullet_scene = preload("res://enemies/green/green_laser.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_node("../player").global_position)
 		$LaserTimer.start()
+		await get_tree().create_timer(0.1, false).timeout
+		$green_lasersfx.play()
 
 func _physics_process(_delta):
-	if $check_player_wall.enabled:
-		$check_player_wall.look_at(get_node("../player").global_position)
+	$check_player_wall.look_at(get_node("../player").global_position)
 	if $check_player_wall.is_colliding():
 		if is_instance_valid($check_player_wall.get_collider()):
 			if $check_player_wall.get_collider().is_in_group("wall"):
 				attack_player = false
-				player_behind_wall = true
+				behind_wall = true
 			else:
 				attack_player = true
-				player_behind_wall = false
+				behind_wall = false
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		if health > 1:
-			var effect := green_hurt.instantiate()
-			effect.position = position
-			get_parent().add_child(effect)
-		health -= area.get_parent().damage
+		var dir = "direction" in area.get_parent()
+		if dir == false and behind_wall:
+			area.get_parent().cooldown_amount = 0
+		else:
+			if health > 1:
+				var effect := green_hurt.instantiate()
+				effect.position = position
+				get_parent().add_child(effect)
+			health -= area.get_parent().damage
 
 func eyes_begone():
 	await get_tree().create_timer(1.2, false).timeout

@@ -3,6 +3,7 @@ extends CPUParticles2D
 var spawn_green := preload("res://enemies/green/green.tscn")
 var player_detected = false
 var can_fire_laser = true
+var guarded = false
 @export var event = "0"
 
 func _process(_delta):

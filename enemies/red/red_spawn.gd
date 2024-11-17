@@ -2,6 +2,7 @@ extends CPUParticles2D
 
 var spawn_red := preload("res://enemies/red/red.tscn")
 var player_detected = false
+var guarded = false
 @export var event = "0"
 
 func _process(_delta):

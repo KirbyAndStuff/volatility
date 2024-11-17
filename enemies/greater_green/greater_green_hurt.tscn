@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvkhramgusag4"]
+
+[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_c6lkx"]
+[ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="1_io31m"]
+
+[sub_resource type="Curve" id="Curve_805wa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_eet0h"]
+offsets = PackedFloat32Array(0.013245, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="greater_green_hurt" type="CPUParticles2D"]
+emitting = false
+amount = 75
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 550.0
+initial_velocity_max = 550.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 60.0
+scale_amount_max = 60.0
+scale_amount_curve = SubResource("Curve_805wa")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_eet0h")
+script = ExtResource("1_c6lkx")
+
+[node name="hurtsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_io31m")
+volume_db = -3.0
+pitch_scale = 1.2
+autoplay = true

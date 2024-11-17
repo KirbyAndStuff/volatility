@@ -3,6 +3,7 @@ extends Area2D
 var detonationsfx := preload("res://player/attacks/bullet/detonationsfx.tscn")
 var damage = 3
 var shake = 10
+@onready var cooldown_amount = 5
 
 func _ready():
 	if not get_tree().has_group("beam"):
@@ -19,4 +20,4 @@ func _on_timer_timeout() -> void:
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100:
-		(get_node("../player").heal_cooldown) = clamp((get_node("../player").heal_cooldown) + 5, 0, 100)
+		(get_node("../player").heal_cooldown) = clamp((get_node("../player").heal_cooldown) + cooldown_amount, 0, 100)

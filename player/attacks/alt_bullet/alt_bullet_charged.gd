@@ -3,6 +3,7 @@ extends Area2D
 var sfx := preload("res://player/attacks/melee/meleem2_attack_sfx.tscn")
 var damage = 2
 @onready var blades = [$CPUParticles2D, $CPUParticles2D2, $CPUParticles2D3, $CPUParticles2D4]
+@onready var cooldown_amount = 5
 
 func _ready():
 	get_node("../camera").apply_shake(5, 0.1)
@@ -18,4 +19,4 @@ func _ready():
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100 and area.get_parent().guarded == false:
-		(get_node("../player").heal_cooldown) = clamp((get_node("../player").heal_cooldown) + 5, 0, 100)
+		(get_node("../player").heal_cooldown) = clamp((get_node("../player").heal_cooldown) + cooldown_amount, 0, 100)

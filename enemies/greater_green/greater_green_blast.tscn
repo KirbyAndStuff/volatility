@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://csddtnya1ao6i"]
+
+[ext_resource type="Script" path="res://enemies/greater_green/greater_green_blast.gd" id="1_mlkaf"]
+
+[sub_resource type="Curve" id="Curve_wn3nv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_0x1ge"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[node name="greater_green_blast" type="Node2D"]
+script = ExtResource("1_mlkaf")
+
+[node name="blast" type="CPUParticles2D" parent="."]
+position = Vector2(133, 0)
+emitting = false
+amount = 200
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+local_coords = true
+spread = 115.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1200.0
+initial_velocity_max = 1200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_wn3nv")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_0x1ge")
+
+[node name="Area2D" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
+position = Vector2(133, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(1e-05, 1e-05)
+polygon = PackedVector2Array(-22, 0, -112, 226, -67, 245, 0, 254, 66, 245, 127, 220, 180, 179, 220, 127, 245, 66, 254, 0, 245, -66, 220, -126, 180, -179, 128, -220, 66, -245, 0, -254, -66, -245, -112, -226)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

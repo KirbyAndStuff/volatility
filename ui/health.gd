@@ -3,7 +3,7 @@ extends Control
 @onready var healthEmitters = [$health, $health2, $health3]
 @onready var parry = $parry
 @onready var weapons = [$first_weapon, $second_weapon]
-@onready var alt_weapons = [$first_alt, $CPUParticles2D]
+@onready var alt_weapons = [$first_alt]
 
 func _process(_delta):
 	var health = (get_node("../../player").health)

@@ -1,18 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://boagqlivegbb6"]
+[gd_scene load_steps=4 format=3 uid="uid://cfbasdjk2bcto"]
 
-[ext_resource type="Script" path="res://player/attacks/bullet/big_bullet.gd" id="1_firg5"]
+[ext_resource type="Script" path="res://enemies/greater_green/greater_green_bullet.gd" id="1_i8tgj"]
 
-[sub_resource type="Curve" id="Curve_cev4j"]
+[sub_resource type="Curve" id="Curve_1hgfe"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
-[sub_resource type="Gradient" id="Gradient_hatdw"]
+[sub_resource type="Gradient" id="Gradient_oxwg3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="big_bullet" type="CharacterBody2D"]
-script = ExtResource("1_firg5")
+[node name="greater_green_bullet" type="Node2D"]
+script = ExtResource("1_i8tgj")
 
 [node name="bullet_body" type="CPUParticles2D" parent="."]
 position = Vector2(100, 0)
@@ -31,14 +31,15 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 40.0
 scale_amount_max = 40.0
-scale_amount_curve = SubResource("Curve_cev4j")
-color = Color(0, 1, 1, 1)
-color_ramp = SubResource("Gradient_hatdw")
+scale_amount_curve = SubResource("Curve_1hgfe")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_oxwg3")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
-[node name="bullet_hurtbox" type="Area2D" parent="."]
+[node name="bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
 position = Vector2(-30, -2)
 scale = Vector2(2.75, 2.75)
 
@@ -49,4 +50,5 @@ polygon = PackedVector2Array(9, -9, 0, -11, -15, -9, -30, -6, -45, -1, -30, 6, -
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_entered"]
+[connection signal="area_exited" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_exited"]
 [connection signal="body_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_body_entered"]

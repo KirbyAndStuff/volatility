@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
 [ext_resource type="PackedScene" uid="uid://bqfn1l54b78lx" path="res://enemies/green/green_spawn.tscn" id="10_qb4fo"]
-[ext_resource type="PackedScene" uid="uid://chdl1cq3itxu4" path="res://bosses/boss_practice/boss_practice.tscn" id="11_8tl6v"]
+[ext_resource type="PackedScene" uid="uid://cbq60l25xsim8" path="res://enemies/greater_green/greater_green.tscn" id="12_jbxvm"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -90,5 +90,5 @@ position = Vector2(1678, 148)
 process_mode = 4
 position = Vector2(810, 73)
 
-[node name="boss_practice" parent="." instance=ExtResource("11_8tl6v")]
-position = Vector2(956, 203)
+[node name="greater_green" parent="." instance=ExtResource("12_jbxvm")]
+position = Vector2(1024, 98)
