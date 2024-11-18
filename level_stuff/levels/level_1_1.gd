@@ -7,10 +7,10 @@ var red_intro_health = 1
 var red_intro_died = false
 var pressed_m2 = false
 var checkpoint = Vector2(10094, 1072) #Vector2(10094, 1072) #null
-var checkpoint_number = 6 #6 #0
+var checkpoint_number = 7 #6 #0
 var restarts = 0
 var shot_green_meteor = true #true #false
-var room_in_action = 5_4 #5_4 #null
+var room_in_action = 5_7 #5_4 #null
 
 var spawned_green_5_2 = true #true #false
 var spawned_red_5_2 = true #true #false
@@ -134,6 +134,8 @@ func _process(_delta):
 		print('bap')
 		checkpoint_number = 8
 		$"5_5_barrier_walls".queue_free()
+		create_tween().tween_property($lock_walls7, "modulate", Color(0, 0, 0, 0), 1)
+		$lock_walls7.process_mode = Node.PROCESS_MODE_DISABLED
 		room_in_action = null
 
 	if get_node("ui/gameoverscreen").restarted:

@@ -32,6 +32,7 @@ var amount_of_i_frames = 0
 var heal_cooldown = 0
 var parry_cooldown = 30
 var in_intro = false
+var got_hit = false
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -125,10 +126,10 @@ func _process(_delta):
 		#Engine.time_scale = 0.05
 	#else:
 		#Engine.time_scale = 1
-	if Input.is_action_pressed("switch_variant"):
-		health = 0
-	else:
-		health = 10
+	#if Input.is_action_pressed("switch_variant"):
+		#health = 0
+	#else:
+		#health = 10
 
 func get_input():
 	if input.length() > 0.0:
@@ -297,6 +298,9 @@ func player_hurt_particles():
 		speed_boost = 0
 		accel_boost = 0
 		friction_boost = 0
+		got_hit = true
+		await get_tree().create_timer(0.99, false).timeout
+		got_hit = false
 
 func i_frames(duration):
 	amount_of_i_frames += 1
@@ -349,3 +353,7 @@ func heal_particles():
 
 func _on_bullet_order_timer_timeout():
 	bullet_order = 1
+
+func add_heal_cooldown(amount):
+	if got_hit == false:
+		heal_cooldown = clamp(heal_cooldown + amount, 0, 100)

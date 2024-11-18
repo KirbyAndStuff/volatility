@@ -1,6 +1,7 @@
 extends Control
 
 @onready var healthEmitters = [$health, $health2, $health3]
+@onready var volatility = [$volatility, $volatility2,  $volatility3, $volatility4, $volatility5]
 @onready var parry = $parry
 @onready var weapons = [$first_weapon, $second_weapon]
 @onready var alt_weapons = [$first_alt]
@@ -58,7 +59,6 @@ func _process(_delta):
 		$second_weapon.modulate = Color(1, slash_cooldown / 100, slash_cooldown / 100, slash_cooldown / 100)
 
 	var heal_cooldown = (get_node("../../player").heal_cooldown)
-	var volatility = [$volatility, $volatility2,  $volatility3, $volatility4, $volatility5]
 
 	for i in range(volatility.size()):
 		if heal_cooldown >= (20 * (i + 1)):

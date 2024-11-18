@@ -49,8 +49,8 @@ func _on_timer_timeout() -> void:
 
 func _on_beam_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
-		if not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100 and area.get_parent().guarded == false:
-			(get_node("../player").heal_cooldown) = clamp((get_node("../player").heal_cooldown) + 2.5, 0, 100)
+		if not area.is_in_group("no heal_cooldown reduction") and area.get_parent().guarded == false:
+			get_node("../player").add_heal_cooldown(2.5)
 
 func diea():
 	create_tween().tween_property($Line2D, "width", 0, 0.25)

@@ -58,8 +58,8 @@ func _physics_process(delta):
 
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
-		if not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100 and area.get_parent().guarded == false:
-			(get_node("../player").heal_cooldown) = clamp((get_node("../player").heal_cooldown) + 5, 0, 100)
+		if not area.is_in_group("no heal_cooldown reduction") and area.get_parent().guarded == false:
+			get_node("../player").add_heal_cooldown(5)
 		enemies_hit += 1
 	if area.is_in_group("beam") and not is_in_group("parried"):
 		in_beam = true

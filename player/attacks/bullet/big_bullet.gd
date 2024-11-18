@@ -31,12 +31,8 @@ func _on_bullet_hurtbox_body_entered(body):
 
 func _on_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body") and hit == false:
+		hit = true
 		die()
-	if area.is_in_group("beam"):
-		var effect := detonation.instantiate()
-		effect.position = position
-		get_parent().call_deferred("add_child", effect)
-		queue_free()
 
 func die():
 	var effect := detonation.instantiate()

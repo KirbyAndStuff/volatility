@@ -36,8 +36,8 @@ func shoot(from: Vector2, to: Vector2):
 
 func _on_beam_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_body"):
-		if not area.is_in_group("no heal_cooldown reduction") and (get_node("../player").heal_cooldown) < 100 and area.get_parent().guarded == false:
-			(get_node("../player").heal_cooldown) = clamp((get_node("../player").heal_cooldown) + 2.5, 0, 100)
+		if not area.is_in_group("no heal_cooldown reduction") and area.get_parent().guarded == false:
+			get_node("../player").add_heal_cooldown(2.5)
 		$beam_hurtbox.remove_from_group("player_attack")
 		$beam_hurtbox.set_deferred("monitoring", false)
 		await get_tree().create_timer(0.25, false).timeout
