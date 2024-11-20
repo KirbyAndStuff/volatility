@@ -70,7 +70,7 @@ color_initial_ramp = SubResource("Gradient_548fa")
 [node name="left eye" type="CPUParticles2D" parent="."]
 position = Vector2(10, -8)
 amount = 50
-lifetime = 0.1
+lifetime = 0.2
 speed_scale = 0.5
 emission_shape = 1
 emission_sphere_radius = 1.0
@@ -84,7 +84,7 @@ color_ramp = SubResource("Gradient_na7al")
 [node name="right eye" type="CPUParticles2D" parent="."]
 position = Vector2(-8, -8)
 amount = 50
-lifetime = 0.1
+lifetime = 0.2
 speed_scale = 0.5
 emission_shape = 1
 emission_sphere_radius = 1.0

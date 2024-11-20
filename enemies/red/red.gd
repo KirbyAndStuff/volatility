@@ -5,6 +5,8 @@ var red_dash_particles := preload("res://enemies/red/red_dash_particles.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 
 func _ready():
+	$"left eye".lifetime = 0.1
+	$"right eye".lifetime = 0.1
 	$spawnsfx.global_position = get_node("../player").global_position
 	$spawn.emitting = true
 	await  $spawn.finished

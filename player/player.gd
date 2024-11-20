@@ -35,7 +35,8 @@ var in_intro = false
 var got_hit = false
 
 func _physics_process(delta):
-	player_movement(delta)
+	if is_dead == false:
+		player_movement(delta)
 	if stamina <= 100:
 		stamina += 25 * delta
 	if gunm2_cooldown <= 100:

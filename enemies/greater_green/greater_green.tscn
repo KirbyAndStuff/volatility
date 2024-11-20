@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://cbq60l25xsim8"]
+[gd_scene load_steps=19 format=3 uid="uid://cbq60l25xsim8"]
 
 [ext_resource type="Script" path="res://enemies/greater_green/greater_green.gd" id="1_qy1rr"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="2_wljy7"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="3_g5rky"]
 [ext_resource type="AudioStream" uid="uid://bnc1iuu0qrp6h" path="res://audio/alt_bullet_dodge_sfx.wav" id="3_no1lm"]
 [ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="5_msccd"]
+[ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="6_0jdyi"]
 
 [sub_resource type="Curve" id="Curve_csi1i"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -42,7 +43,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 radius = 145.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uedyc"]
-radius = 500.0
+radius = 300.0
 
 [sub_resource type="Curve" id="Curve_osch2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -54,7 +55,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 metadata/_snap_enabled = true
 
-[node name="greater_green" type="CharacterBody2D"]
+[node name="greater_green" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_qy1rr")
@@ -153,8 +154,7 @@ shape = SubResource("CircleShape2D_6vgil")
 
 [node name="bullet_explosion" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 150
-lifetime = 0.7
+amount = 300
 one_shot = true
 speed_scale = 2.0
 explosiveness = 0.8
@@ -181,14 +181,14 @@ max_distance = 8000.0
 
 [node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_g5rky")
-volume_db = 3.0
+volume_db = 7.0
 pitch_scale = 0.7
 max_distance = 8000.0
 
 [node name="bulletsfx2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_wljy7")
-volume_db = -10.0
-pitch_scale = 0.8
+volume_db = -15.0
+pitch_scale = 0.6
 max_distance = 8000.0
 
 [node name="lasersfx" type="AudioStreamPlayer2D" parent="."]
@@ -201,6 +201,7 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 shape = SubResource("CircleShape2D_p147o")
+disabled = true
 
 [node name="blast_area" type="Area2D" parent="."]
 visible = false
@@ -265,13 +266,21 @@ pitch_scale = 0.8
 stream = ExtResource("2_wljy7")
 volume_db = -10.0
 pitch_scale = 1.3
+max_distance = 4000.0
 
 [node name="die_finalsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_wljy7")
 volume_db = -5.0
 pitch_scale = 0.65
+max_distance = 4000.0
+
+[node name="introsfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_0jdyi")
+volume_db = -30.0
+max_distance = 8000.0
 
 [connection signal="timeout" from="BlastTimer" to="." method="_on_blast_timer_timeout"]
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="area_entered" from="blast_area" to="." method="_on_blast_area_area_entered"]
 [connection signal="area_exited" from="blast_area" to="." method="_on_blast_area_area_exited"]
+[connection signal="finished" from="introsfx" to="." method="_on_introsfx_finished"]

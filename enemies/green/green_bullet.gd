@@ -65,6 +65,7 @@ func _on_green_bullet_hurtbox_area_entered(area):
 		get_parent().call_deferred("add_child", effect)
 		queue_free()
 	if area.is_in_group("parry"):
+		remove_from_group("enemy_attack")
 		$bullet_body.color = Color(0, 1, 1, 1)
 		add_to_group("parried")
 		$green_bullet_hurtbox.add_to_group("player_attack")

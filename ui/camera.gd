@@ -27,6 +27,7 @@ func _physics_process(delta):
 		if snap:
 			global_position = target.global_position
 		else:
+			speed += 3000 * delta
 			global_position += (target.global_position - global_position).normalized() * speed * delta
 	if shake_strength > 0 and const_shake == 0:
 		shake_strength = lerpf(shake_strength, 0, shakefade * delta)
@@ -67,6 +68,7 @@ func zoom_in():
 func _on_snap_area_entered(area):
 	if area.is_in_group("snap camera"):
 		snap = true
+		speed = 3000
 		area.remove_from_group("snap camera")
 
 func failsafe_just_in_case():

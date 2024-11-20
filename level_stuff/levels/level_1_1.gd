@@ -163,7 +163,6 @@ func _process(_delta):
 			$lock_walls3.modulate = Color(0, 0, 0, 0)
 		#if checkpoint_number == 5:
 		if checkpoint_number == 6:
-			room_in_action = null
 			$lock_walls5.modulate = Color(0, 0, 0, 0)
 			$lock_walls5.process_mode = Node.PROCESS_MODE_DISABLED
 			spawned_green_5_2 = false
@@ -172,7 +171,6 @@ func _process(_delta):
 			for shield in get_tree().get_nodes_in_group("5-3 shield"):
 				shield.queue_free()
 		if checkpoint_number == 7:
-			room_in_action = null
 			remove_from_group("ignore enemy")
 			$"5_5_barrier_walls".process_mode = Node.PROCESS_MODE_INHERIT
 			$"5_5_barrier_walls".modulate = Color(0, 1, 0, 1)
@@ -180,8 +178,7 @@ func _process(_delta):
 				shield.queue_free()
 			await get_tree().create_timer(1, false).timeout
 			spawn_5_5_wave()
-		if checkpoint_number == 8:
-			room_in_action = null
+		#if checkpoint_number == 8:
 
 func _ready():
 	Engine.time_scale = 1.0
@@ -470,6 +467,9 @@ func spawn_5_5_wave():
 	await get_tree().create_timer(2.6, false).timeout
 	room_in_action = 5_5
 
+func spawn_6_2_wave():
+	pass
+
 func _on_hallway_area_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
 		room_in_action = 0
@@ -630,3 +630,26 @@ func _on__1_room_area_entered(area):
 		spawna("red", Vector2(9429, 635), 1, "5-1 red", 0)
 		await get_tree().create_timer(2.1, false).timeout
 		room_in_action = 5_1
+
+func _on_greater_green_room_area_entered(area):
+	if area.is_in_group("player") and room_in_action == null:
+		room_in_action = 0
+		checkpoint = Vector2(10050, -1048)
+		$lock_walls8.enabled = true
+		create_tween().tween_property($lock_walls8, "modulate", Color(1, 1, 1, 1), 1)
+		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "zoom", Vector2(0.75, 0.75), 1)
+		await get_tree().create_timer(1, false).timeout
+		add_to_group("stop following player")
+		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(10033, -2004), 2)
+		await get_tree().create_timer(2, false).timeout
+		var enemy = load("res://enemies/greater_green/greater_green.tscn").instantiate()
+		enemy.position = Vector2(10033, -2004)
+		enemy.add_to_group("6-2")
+		call_deferred("add_child", enemy)
+		await get_tree().create_timer(8, false).timeout
+		remove_from_group("stop following player")
+		$camera.snap = false
+		$camera.speed = 0
+		get_node("camera").target = get_node("player")
+		get_node("player/player_hurtbox").add_to_group("snap camera")
+		room_in_action = 6_1

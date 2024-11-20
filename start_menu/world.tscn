@@ -88,7 +88,8 @@ position = Vector2(1678, 148)
 
 [node name="green_spawn" parent="." instance=ExtResource("10_qb4fo")]
 process_mode = 4
-position = Vector2(810, 73)
+visible = false
+position = Vector2(1249, 528)
 
 [node name="greater_green" parent="." instance=ExtResource("12_jbxvm")]
-position = Vector2(1024, 98)
+position = Vector2(890, 81)

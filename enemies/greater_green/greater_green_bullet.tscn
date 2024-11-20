@@ -39,7 +39,7 @@ color_ramp = SubResource("Gradient_oxwg3")
 wait_time = 2.0
 autostart = true
 
-[node name="bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
+[node name="bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction", "parryable"]]
 position = Vector2(-30, -2)
 scale = Vector2(2.75, 2.75)
 

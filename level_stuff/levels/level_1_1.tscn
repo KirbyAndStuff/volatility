@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=4 uid="uid://i62lhfxlsymg"]
+[gd_scene load_steps=94 format=4 uid="uid://i62lhfxlsymg"]
 
 [ext_resource type="Script" path="res://level_stuff/levels/level_1_1.gd" id="1_nrsi2"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qyvy7"]
@@ -20,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://du36p17bqu2bc" path="res://level_stuff/interactables/red_cutscene.tscn" id="18_am5wh"]
 [ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="19_eq65h"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="20_14c7t"]
-[ext_resource type="PackedScene" uid="uid://cbq60l25xsim8" path="res://enemies/greater_green/greater_green.tscn" id="21_dpsyv"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5imyo"]
 scenes/1/scene = ExtResource("10_ftb1a")
@@ -147,6 +146,12 @@ scenes/1/scene = ExtResource("10_ftb1a")
 [sub_resource type="TileSet" id="TileSet_f1as2"]
 sources/0 = SubResource("TileSetScenesCollectionSource_0ihb7")
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6m8mn"]
+scenes/1/scene = ExtResource("10_ftb1a")
+
+[sub_resource type="TileSet" id="TileSet_ni1cd"]
+sources/0 = SubResource("TileSetScenesCollectionSource_6m8mn")
+
 [sub_resource type="Gradient" id="Gradient_pa7td"]
 offsets = PackedFloat32Array(0, 0.55, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.196078, 1, 1, 1, 0)
@@ -251,16 +256,17 @@ scenes/2/scene = ExtResource("10_ftb1a")
 [sub_resource type="TileSet" id="TileSet_al838"]
 sources/0 = SubResource("TileSetScenesCollectionSource_4vf4d")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1s0hh"]
+size = Vector2(2192, 16)
+
 [node name="level 1-1" type="Node2D" groups=["cant spawn enemy"]]
 script = ExtResource("1_nrsi2")
 
 [node name="player" parent="." instance=ExtResource("1_qyvy7")]
-process_mode = 4
-visible = false
-position = Vector2(10067, -1448)
+position = Vector2(10135, 1059)
 
 [node name="camera" parent="." instance=ExtResource("3_lxdcc")]
-position = Vector2(10067, -1448)
+position = Vector2(10135, 1059)
 
 [node name="level_end" parent="." instance=ExtResource("3_wr0oy")]
 position = Vector2(228, -1016)
@@ -522,6 +528,7 @@ tile_set = SubResource("TileSet_j5v6y")
 [node name="lock_walls6" type="TileMapLayer" parent="."]
 use_parent_material = true
 tile_map_data = PackedByteArray("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")
+enabled = false
 tile_set = SubResource("TileSet_lfg5t")
 
 [node name="lock_walls7" type="TileMapLayer" parent="."]
@@ -529,6 +536,12 @@ modulate = Color(1, 1, 1, 0)
 tile_map_data = PackedByteArray("AABsAu3/AAAAAAAAAQBtAu3/AAAAAAAAAQBuAu3/AAAAAAAAAQBvAu3/AAAAAAAAAQBwAu3/AAAAAAAAAQBxAu3/AAAAAAAAAQByAu3/AAAAAAAAAQBzAu3/AAAAAAAAAQB0Au3/AAAAAAAAAQB1Au3/AAAAAAAAAQB2Au3/AAAAAAAAAQB3Au3/AAAAAAAAAQB4Au3/AAAAAAAAAQB5Au3/AAAAAAAAAQB6Au3/AAAAAAAAAQB7Au3/AAAAAAAAAQB8Au3/AAAAAAAAAQA=")
 enabled = false
 tile_set = SubResource("TileSet_f1as2")
+
+[node name="lock_walls8" type="TileMapLayer" parent="."]
+modulate = Color(1, 1, 1, 0)
+tile_map_data = PackedByteArray("AABsArb/AAAAAAAAAQBtArb/AAAAAAAAAQBuArb/AAAAAAAAAQBvArb/AAAAAAAAAQBwArb/AAAAAAAAAQBxArb/AAAAAAAAAQByArb/AAAAAAAAAQBzArb/AAAAAAAAAQB0Arb/AAAAAAAAAQB1Arb/AAAAAAAAAQB2Arb/AAAAAAAAAQB3Arb/AAAAAAAAAQB4Arb/AAAAAAAAAQB5Arb/AAAAAAAAAQB6Arb/AAAAAAAAAQB7Arb/AAAAAAAAAQB8Arb/AAAAAAAAAQA=")
+enabled = false
+tile_set = SubResource("TileSet_ni1cd")
 
 [node name="red_intro" type="CPUParticles2D" parent="."]
 position = Vector2(3671, -533)
@@ -1193,6 +1206,7 @@ position = Vector2(9365, 1409)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="5_1_room"]
 position = Vector2(763, -25)
 shape = SubResource("RectangleShape2D_lg7yf")
+disabled = true
 
 [node name="5_5_barrier_walls" type="TileMapLayer" parent="."]
 modulate = Color(0, 1, 0, 0)
@@ -1201,8 +1215,11 @@ tile_map_data = PackedByteArray("AADF/zoAAAAAAAAAAgDF/zsAAAAAAAAAAgDF/zwAAAAAAAA
 enabled = false
 tile_set = SubResource("TileSet_al838")
 
-[node name="greater_green" parent="." instance=ExtResource("21_dpsyv")]
-position = Vector2(10072, -1904)
+[node name="greater_green_room" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="greater_green_room"]
+position = Vector2(10040, -1304)
+shape = SubResource("RectangleShape2D_1s0hh")
 
 [connection signal="area_entered" from="5_activate" to="." method="_on__activate_area_entered"]
 [connection signal="area_entered" from="start_level" to="." method="_on_start_level_area_entered"]
@@ -1222,3 +1239,4 @@ position = Vector2(10072, -1904)
 [connection signal="finished" from="green_meteor_coming" to="." method="_on_green_meteor_coming_finished"]
 [connection signal="area_entered" from="green_meteor_die_spawn" to="." method="_on_green_meteor_die_spawn_area_entered"]
 [connection signal="area_entered" from="5_1_room" to="." method="_on__1_room_area_entered"]
+[connection signal="area_entered" from="greater_green_room" to="." method="_on_greater_green_room_area_entered"]

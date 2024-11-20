@@ -8,7 +8,7 @@ var health = 3.0
 @export var can_fire_laser = true
 var guarded = false
 var attack_player = false
-var behind_wall = true
+var behind_wall = false
 
 func _ready():
 	$spawnsfx.global_position = get_node("../player").global_position
@@ -54,21 +54,23 @@ func _physics_process(_delta):
 			if $check_player_wall.get_collider().is_in_group("wall"):
 				attack_player = false
 				behind_wall = true
+				$playerdeath/CollisionShape2D.disabled = true
 			else:
 				attack_player = true
 				behind_wall = false
+				$playerdeath/CollisionShape2D.disabled = false
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		var dir = "direction" in area.get_parent()
-		if dir == false and behind_wall:
-			area.get_parent().cooldown_amount = 0
-		else:
-			if health > 1:
-				var effect := green_hurt.instantiate()
-				effect.position = position
-				get_parent().add_child(effect)
-			health -= area.get_parent().damage
+		#var dir = "direction" in area.get_parent()
+		#if dir == false and behind_wall:
+			#area.get_parent().cooldown_amount = 0
+		#else:
+		if health > 1:
+			var effect := green_hurt.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
+		health -= area.get_parent().damage
 
 func eyes_begone():
 	await get_tree().create_timer(1.2, false).timeout

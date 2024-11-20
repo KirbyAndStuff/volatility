@@ -45,6 +45,7 @@ func _on_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("player"):
 		attack_player = true
 	if area.is_in_group("parry") and not get_tree().has_group("greater green parried"):
+		remove_from_group("enemy_attack")
 		add_to_group("greater green parried")
 		$bullet_body.color = Color(0, 1, 1, 1)
 		add_to_group("parried")
