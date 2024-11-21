@@ -154,7 +154,7 @@ scale_amount_curve = SubResource("Curve_drtlo")
 color = Color(3, 3, 3, 1)
 color_ramp = SubResource("Gradient_loas1")
 
-[node name="hitbox" type="Area2D" parent="."]
+[node name="hitbox" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="strike" type="CollisionPolygon2D" parent="hitbox"]
 position = Vector2(-115, -193)
@@ -165,6 +165,3 @@ polygon = PackedVector2Array(-405.463, 315.458, -20.9863, 249.136, 85.0157, 623.
 stream = ExtResource("2_psgbe")
 pitch_scale = 0.6
 autoplay = true
-
-[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]

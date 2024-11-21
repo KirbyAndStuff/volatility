@@ -13,10 +13,8 @@ func _ready():
 	$spawn.queue_free()
 
 var speed = 500
-var attack_player = false
 var dash_at_player = false
 var health = 2.0
-var is_stunned = false
 var guarded = false
 
 @onready var red_dashlength = $Red_DashLength
@@ -29,11 +27,6 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(_delta):
-	if attack_player and (get_node("../player").amount_of_i_frames) < 1 and is_stunned == false:
-		(get_node("../player").health) -= 1
-		(get_node("../player").i_frames(1))
-		(get_node("../player").player_hurt_particles())
-		(get_node("../player").framefreeze(0.4, 0.3))
 	if dash_at_player and $Red_DashCooldown.is_stopped():
 		$is_about_to_dashsfx.play()
 		$Red_DashCooldown.start()
@@ -41,7 +34,7 @@ func _process(_delta):
 		effect.position = position
 		get_parent().add_child(effect)
 		await get_tree().create_timer(0.5, false).timeout
-		if is_stunned == false:
+		if not $hurts_player.is_in_group("parried"):
 			$red_dashsfx.play()
 			speed *= 4
 			var direction = (get_node("../player").position-position).normalized()
@@ -63,7 +56,7 @@ func _on_playerdeath_area_entered(area):
 			get_parent().add_child(effect)
 		health -= area.get_parent().damage
 	if area.is_in_group("parry") and guarded == false:
-		is_stunned = true
+		$hurts_player.add_to_group("parried")
 		velocity = Vector2.ZERO
 		speed = 0
 		dash_at_player = false
@@ -77,23 +70,15 @@ func _on_red_dash_length_timeout() -> void:
 	speed /= 4
 
 func _on_timer_timeout():
+	$hurts_player.remove_from_group("parried")
 	for vol in eyes:
 		vol.emitting = true
 	for vol in stunned_eyes:
 		vol.emitting = false
-	is_stunned = false
 	speed = 500
 
-func _on_hurts_player_area_entered(area):
-	if area.is_in_group("player"):
-		attack_player = true
-
-func _on_hurts_player_area_exited(area):
-	if area.is_in_group("player"):
-		attack_player = false
-
 func _on_player_dash_distance_area_entered(area):
-	if area.is_in_group("player") and is_stunned == false:
+	if area.is_in_group("player") and not $hurts_player.is_in_group("parried"):
 		dash_at_player = true
 
 func _on_player_dash_distance_area_exited(area):

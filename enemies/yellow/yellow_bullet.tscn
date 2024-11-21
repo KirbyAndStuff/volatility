@@ -89,4 +89,3 @@ polygon = PackedVector2Array(5, -7, 8, 0, 5, 7, -2, 9, -16, 4, -27, 0, -16, -4, 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="yellow_bullet_hurtbox" to="." method="_on_yellow_bullet_hurtbox_area_entered"]
 [connection signal="body_entered" from="yellow_bullet_hurtbox" to="." method="_on_yellow_bullet_hurtbox_body_entered"]
-[connection signal="body_exited" from="yellow_bullet_hurtbox" to="." method="_on_yellow_bullet_hurtbox_body_exited"]

@@ -43,6 +43,3 @@ scale = Vector2(1e-05, 1e-05)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitbox"]
 polygon = PackedVector2Array(-23, 0, -159, -353, -100, -377, 1, -390, 101, -377, 196, -337, 275, -276, 338, -195, 377, -100, 390, 0, 377, 102, 338, 196, 276, 276, 195, 338, 101, 377, 0, 390, -101, 377, -159, 353)
-
-[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]

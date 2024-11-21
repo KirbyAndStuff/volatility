@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=14 format=4 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="PackedScene" uid="uid://ck8b4pddxyoqp" path="res://ui/camera.tscn" id="3_0o8ed"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
 [ext_resource type="PackedScene" uid="uid://bqfn1l54b78lx" path="res://enemies/green/green_spawn.tscn" id="10_qb4fo"]
-[ext_resource type="PackedScene" uid="uid://cbq60l25xsim8" path="res://enemies/greater_green/greater_green.tscn" id="12_jbxvm"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -90,6 +89,3 @@ position = Vector2(1678, 148)
 process_mode = 4
 visible = false
 position = Vector2(1249, 528)
-
-[node name="greater_green" parent="." instance=ExtResource("12_jbxvm")]
-position = Vector2(890, 81)

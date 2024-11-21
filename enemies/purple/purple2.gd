@@ -10,9 +10,7 @@ func _ready():
 	$hurts_player/CollisionShape2D.disabled = false
 
 var speed = 500
-var attack_player = false
 var health = 2.0
-var is_stunned = false
 var guarded = false
 
 func _physics_process(_delta):
@@ -21,11 +19,6 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func _process(_delta):
-	if attack_player and (get_node("../player").amount_of_i_frames) < 1 and is_stunned == false:
-		(get_node("../player").health) -= 1
-		(get_node("../player").i_frames(1))
-		(get_node("../player").player_hurt_particles())
-		(get_node("../player").framefreeze(0.4, 0.3))
 	if health < 1:
 		var effect := death.instantiate()
 		effect.position = position
@@ -50,21 +43,14 @@ func _on_playerdeath_area_entered(area):
 			get_parent().add_child(effect)
 		health -= area.get_parent().damage
 	if area.is_in_group("parry") and guarded == false:
+		$hurts_player.add_to_group("parried")
 		speed = 0
 		$eye_left.speed_scale = 0.1
 		$eye_right.speed_scale = 0.1
 		$Stunned.start()
 
 func _on_stunned_timeout():
+	$hurts_player.remove_from_group("parried")
 	$eye_left.speed_scale = 0.75
 	$eye_right.speed_scale = 0.75
-	is_stunned = false
 	speed = 500
-
-func _on_hurts_player_area_entered(area):
-	if area.is_in_group("player"):
-		attack_player = true
-
-func _on_hurts_player_area_exited(area):
-	if area.is_in_group("player"):
-		attack_player = false

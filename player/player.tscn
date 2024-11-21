@@ -235,10 +235,8 @@ one_shot = true
 
 [node name="parry_detection" type="Area2D" parent="."]
 visible = false
-position = Vector2(0, 25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="parry_detection"]
-position = Vector2(0, -22)
 shape = SubResource("CircleShape2D_lc2ci")
 disabled = true
 
@@ -301,3 +299,4 @@ shape = SubResource("CircleShape2D_k1igs")
 [connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]
 [connection signal="area_entered" from="parry_detection" to="." method="_on_parry_detection_area_entered"]
 [connection signal="area_entered" from="player_hurtbox" to="." method="_on_player_hurtbox_area_entered"]
+[connection signal="area_exited" from="player_hurtbox" to="." method="_on_player_hurtbox_area_exited"]

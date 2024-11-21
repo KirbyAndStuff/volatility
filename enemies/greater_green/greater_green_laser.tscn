@@ -28,7 +28,7 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="hurtbox" type="Area2D" parent="."]
+[node name="hurtbox" type="Area2D" parent="." groups=["enemy_attack"]]
 
 [node name="TimerDie" type="Timer" parent="."]
 wait_time = 0.3
@@ -42,8 +42,6 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="check"]
 shape = SubResource("CircleShape2D_f7jlh")
 
-[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]
 [connection signal="timeout" from="TimerDie" to="." method="_on_timer_die_timeout"]
 [connection signal="timeout" from="TimerAttack" to="." method="_on_timer_attack_timeout"]
 [connection signal="area_entered" from="check" to="." method="_on_check_area_entered"]

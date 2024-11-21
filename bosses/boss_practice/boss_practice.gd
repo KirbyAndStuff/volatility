@@ -5,7 +5,6 @@ var stay_above_player = true
 var speed = 3000
 var smack_lines := preload("res://bosses/boss_practice/smack_lines.tscn")
 var anim_playing = false
-var attacks_in_player = 0
 var smack_parried = false
 var health = 50.0
 var guarded = false
@@ -30,11 +29,6 @@ func _process(_delta):
 		smack()
 	#if $SmackTimer.is_stopped() and anim_playing == false and smack_parried == false:
 		#smack()
-	if attacks_in_player > 0 and (get_node("../player").amount_of_i_frames) < 1:
-		(get_node("../player").health) -= 1
-		(get_node("../player").i_frames(1))
-		(get_node("../player").player_hurt_particles())
-		(get_node("../player").framefreeze(0.4, 0.3))
 	if health < 1:
 		get_node("../camera").snap = false
 		get_node("../camera").target = get_node("../player")
@@ -125,26 +119,14 @@ func _on_about_to_smacksfx_finished():
 	$about_to_smacksfx.play()
 
 func _on_hitbox_left_area_entered(area):
-	if area.is_in_group("player"):
-		attacks_in_player += 1
 	if area.is_in_group("parry"):
 		$arm_left/AnimationPlayer.play("smack_left_parried")
 		parried_smack()
 
-func _on_hitbox_left_area_exited(area):
-	if area.is_in_group("player"):
-		attacks_in_player -= 1
-
 func _on_hitbox_right_area_entered(area):
-	if area.is_in_group("player"):
-		attacks_in_player += 1
 	if area.is_in_group("parry"):
 		$arm_right/AnimationPlayer.play("smack_right_parried")
 		parried_smack()
-
-func _on_hitbox_right_area_exited(area):
-	if area.is_in_group("player"):
-		attacks_in_player -= 1
 
 func parried_smack():
 	anim_playing = false

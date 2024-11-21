@@ -180,6 +180,4 @@ autoplay = true
 max_distance = 1000.0
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
-[connection signal="area_entered" from="hurts_player" to="." method="_on_hurts_player_area_entered"]
-[connection signal="area_exited" from="hurts_player" to="." method="_on_hurts_player_area_exited"]
 [connection signal="timeout" from="Stunned" to="." method="_on_stunned_timeout"]

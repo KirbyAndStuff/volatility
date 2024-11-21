@@ -90,4 +90,3 @@ polygon = PackedVector2Array(-25, 0, 0, -9, 8, 0, 0, 9)
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="green_bullet_hurtbox" to="." method="_on_green_bullet_hurtbox_area_entered"]
 [connection signal="body_entered" from="green_bullet_hurtbox" to="." method="_on_green_bullet_hurtbox_body_entered"]
-[connection signal="body_exited" from="green_bullet_hurtbox" to="." method="_on_green_bullet_hurtbox_body_exited"]

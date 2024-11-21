@@ -33,6 +33,7 @@ var heal_cooldown = 0
 var parry_cooldown = 30
 var in_intro = false
 var got_hit = false
+var take_damage = 0
 
 func _physics_process(delta):
 	if is_dead == false:
@@ -52,6 +53,11 @@ func _physics_process(delta):
 		position.y += 2000 * delta
 
 func _process(_delta):
+	if take_damage > 0 and amount_of_i_frames < 1:
+		health -= 1
+		i_frames(1)
+		player_hurt_particles()
+		framefreeze(0.4, 0.3)
 	if Input.is_action_pressed("dash") and stamina > 50 and $DashLength.is_stopped() and is_dead == false and in_intro == false:
 		dash()
 		stamina_tween = false
@@ -71,8 +77,8 @@ func _process(_delta):
 	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false and variant_weapon == false:
 		shoot()
 	if Input.is_action_pressed("right_mouse_button") and active_weapon == 1 and is_dead == false and in_intro == false:
-		shootm2()
-	if Input.is_action_pressed("left_mouse_button") and $Alt_GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false and variant_weapon:
+		alt_shootm2()
+	if Input.is_action_pressed("left_mouse_button") and $Alt_GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false:
 		alt_shoot()
 	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and active_weapon == 2 and is_dead == false and in_intro == false:
 		melee()
@@ -189,13 +195,7 @@ func shoot():
 	$GunTimer.start()
 
 func shootm2():
-	if gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
-		$lasersfx.play()
-		var bullet_scene = preload("res://player/attacks/bullet/beam.tscn")
-		var shot = bullet_scene.instantiate()
-		get_parent().add_child(shot)
-		shot.shoot(global_position, get_global_mouse_position())
-		gunm2_cooldown = 0
+	pass
 
 func alt_shoot():
 	if not get_tree().has_group("alt_bullet"):
@@ -209,6 +209,15 @@ func alt_shoot():
 		get_parent().add_child(effect)
 		effect.shoot(global_position, get_global_mouse_position())
 		$Alt_GunTimer.start()
+
+func alt_shootm2():
+	if gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
+		$lasersfx.play()
+		var bullet_scene = preload("res://player/attacks/bullet/beam.tscn")
+		var shot = bullet_scene.instantiate()
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		gunm2_cooldown = 0
 
 func melee():
 	var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
@@ -304,11 +313,14 @@ func player_hurt_particles():
 		got_hit = false
 
 func i_frames(duration):
-	amount_of_i_frames += 1
-	await get_tree().create_timer(duration, false).timeout
-	amount_of_i_frames -= 1
+	if is_dead == false:
+		amount_of_i_frames += 1
+		await get_tree().create_timer(duration, false).timeout
+		amount_of_i_frames -= 1
 
 func _on_player_hurtbox_area_entered(area):
+	if area.is_in_group("enemy_attack"):
+		take_damage += 1
 	if area.is_in_group("level end") and is_dead == false:
 		speed = 0
 		speed_boost = 0
@@ -344,6 +356,10 @@ func _on_player_hurtbox_area_entered(area):
 		get_parent().add_child(effect)
 		area.remove_from_group("level start")
 		get_node("../camera").apply_shake(10, 0.5)
+
+func _on_player_hurtbox_area_exited(area):
+	if area.is_in_group("enemy_attack"):
+		take_damage -= 1
 
 func heal_particles():
 	var effect := dash_particles.instantiate()

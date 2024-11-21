@@ -9,7 +9,7 @@ metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_svf2k"]
 offsets = PackedFloat32Array(0, 0.55, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0, 1, 2.5, 2.5, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
@@ -40,7 +40,7 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_ek3x6")
-color = Color(0.196078, 2.1098, 2.54902, 1)
+color = Color(1, 2.5, 2.5, 1)
 color_ramp = SubResource("Gradient_svf2k")
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
@@ -65,7 +65,7 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_ek3x6")
-color = Color(0.196078, 2.1098, 2.54902, 1)
+color = Color(1, 2.5, 2.5, 1)
 color_ramp = SubResource("Gradient_svf2k")
 
 [node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
@@ -90,7 +90,7 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_ek3x6")
-color = Color(0.196078, 2.1098, 2.54902, 1)
+color = Color(1, 2.5, 2.5, 1)
 color_ramp = SubResource("Gradient_svf2k")
 
 [node name="CPUParticles2D4" type="CPUParticles2D" parent="."]
@@ -115,10 +115,11 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_ek3x6")
-color = Color(0.196078, 2.1098, 2.54902, 1)
+color = Color(1, 2.5, 2.5, 1)
 color_ramp = SubResource("Gradient_svf2k")
 
 [node name="Area2D" type="Area2D" parent="." groups=["player_attack"]]
+visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(-20, 0, -74, -52.5, -100.5, -82, -121.5, -114, -139, -138.5, -70, -90, -20.5, -41, 0, -16, 0, 0)

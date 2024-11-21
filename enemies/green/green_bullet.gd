@@ -7,7 +7,6 @@ var hit_wall = false
 var damage = 2
 
 @export var speed := 1000.0
-var attack_player = false
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
@@ -30,16 +29,7 @@ func _on_timer_timeout() -> void:
 		get_parent().add_child(effect)
 	queue_free()
 
-func _process(_delta):
-	if attack_player and (get_node("../player").amount_of_i_frames) < 1:
-		(get_node("../player").health) -= 1
-		(get_node("../player").i_frames(1))
-		(get_node("../player").player_hurt_particles())
-		(get_node("../player").framefreeze(0.4, 0.3))
-
 func _on_green_bullet_hurtbox_body_entered(body):
-	if body.name == "player":
-		attack_player = true
 	if body.is_in_group("wall")  and hit_wall == false:
 		if is_in_group("parried"):
 			var effect := detonation.instantiate()
@@ -54,10 +44,6 @@ func _on_green_bullet_hurtbox_body_entered(body):
 			hit_wall = true
 			queue_free()
 
-func _on_green_bullet_hurtbox_body_exited(body):
-	if body.name == "player":
-		attack_player = false
-
 func _on_green_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("beam"):
 		var effect := detonation.instantiate()
@@ -65,7 +51,7 @@ func _on_green_bullet_hurtbox_area_entered(area):
 		get_parent().call_deferred("add_child", effect)
 		queue_free()
 	if area.is_in_group("parry"):
-		remove_from_group("enemy_attack")
+		$green_bullet_hurtbox.add_to_group("parried")
 		$bullet_body.color = Color(0, 1, 1, 1)
 		add_to_group("parried")
 		$green_bullet_hurtbox.add_to_group("player_attack")

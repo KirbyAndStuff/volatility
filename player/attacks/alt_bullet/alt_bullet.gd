@@ -67,8 +67,8 @@ func _on_hurtbox_area_entered(area):
 		come_back = false
 		$Timer.start()
 		$player_death.monitoring = false
-		$body.color = Color(0, 1, 1, 1)
-		$flames.color = Color(0, 1, 1, 1)
+		$body.modulate = Color(0, 1, 1, 1)
+		$flames.modulate = Color(0, 1, 1, 1)
 		add_to_group("parried")
 		speed += 2500.0
 		shoot(global_position, get_global_mouse_position())
@@ -128,5 +128,9 @@ func _on_stop_follow_player_area_exited(area):
 					closest_enemy = enemy
 			var bullet_scene = preload("res://player/attacks/alt_bullet/alt_bullet_dodge.tscn")
 			var shot = bullet_scene.instantiate() 
+			if charged:
+				shot.modulate = Color(1, 2.5, 2.5, 1)
+			else:
+				shot.modulate = Color(2.5, 2.5, 2.5, 1)
 			get_parent().call_deferred("add_child", shot)
 			shot.shoot(global_position, closest_enemy.global_position)

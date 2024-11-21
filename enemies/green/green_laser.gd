@@ -3,7 +3,6 @@ extends RayCast2D
 var collision_polygon = CollisionPolygon2D.new()
 var direction := Vector2.ZERO
 var rotation_speed = 1
-var attack_player = false
 var predicting = true
 var enemies_in = 0
 var sfx := preload("res://enemies/green/green_lasersfx.tscn")
@@ -13,13 +12,6 @@ func _ready():
 	visible = true
 	#await get_tree().create_timer(0.6, false).timeout
 	#create_tween().tween_property($line, "width", 10, 0.2).set_trans(Tween.TRANS_ELASTIC)
-
-func _process(_delta):
-	if attack_player and (get_node("../player").amount_of_i_frames) < 1:
-		(get_node("../player").health) -= 1
-		(get_node("../player").i_frames(1))
-		(get_node("../player").player_hurt_particles())
-		(get_node("../player").framefreeze(0.4, 0.3))
 
 func _physics_process(_delta):
 	if predicting:
@@ -33,14 +25,6 @@ func shoot(from: Vector2, to: Vector2):
 
 func _on_timer_die_timeout() -> void:
 	diea()
-
-func _on_hurtbox_area_entered(area):
-	if area.is_in_group("player"):
-		attack_player = true
-
-func _on_hurtbox_area_exited(area):
-	if area.is_in_group("player"):
-		attack_player = false
 
 func diea():
 	create_tween().tween_property($attack, "width", 0, 0.25)

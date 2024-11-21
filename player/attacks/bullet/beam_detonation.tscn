@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc2mhjjj5nm6i"]
+[gd_scene load_steps=5 format=3 uid="uid://cc2mhjjj5nm6i"]
 
 [ext_resource type="Script" path="res://player/attacks/bullet/beam_detonation.gd" id="1_2ddn4"]
 
@@ -6,6 +6,11 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_jfogd"]
+colors = PackedColorArray(1, 3, 3, 1, 1, 3, 3, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ol3gt"]
 radius = 125.0
@@ -19,6 +24,7 @@ amount = 100
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
+fixed_fps = 240
 local_coords = true
 emission_shape = 1
 emission_sphere_radius = 15.0
@@ -33,7 +39,8 @@ angle_max = 180.0
 scale_amount_min = 30.0
 scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_0ekmd")
-color = Color(0.2, 2.11, 2.55, 1)
+color = Color(1, 3, 3, 1)
+color_ramp = SubResource("Gradient_jfogd")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
