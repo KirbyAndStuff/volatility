@@ -3,17 +3,18 @@ extends Node2D
 var level_start = preload("res://level_stuff/interactables/level_start_particle.tscn")
 var hurt_player = false
 var please_press_m2 = false
-var red_intro_health = 1
-var red_intro_died = false
 var pressed_m2 = false
-var checkpoint = Vector2(10094, 1072) #Vector2(10094, 1072) #null
-var checkpoint_number = 7 #6 #0
+var red_intro_health = 3
+var red_intro_died = false
+var checkpoint = null #Vector2(10094, 1072) #null
+var checkpoint_number = 0 #7 #0
 var restarts = 0
-var shot_green_meteor = true #true #false
-var room_in_action = 5_7 #5_4 #null
+var shot_green_meteor = false #true #false
+var room_in_action = null #5_7 #null
 
-var spawned_green_5_2 = true #true #false
-var spawned_red_5_2 = true #true #false
+var spawned_green_5_2 = false #true #false
+var spawned_red_5_2 = false #true #false
+var died_to_greater_green = false
 
 func _process(_delta):
 	if hurt_player and (get_node("player").amount_of_i_frames) < 1:
@@ -25,15 +26,31 @@ func _process(_delta):
 	if get_node("white_interactable").interacted == true:
 		red_intro_thing()
 
-	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100:
-		$ui/message.text = ""
-		pressed_m2 = true
-		get_node("player/lasersfx").play()
-		var bullet_scene = preload("res://player/attacks/bullet/beam.tscn")
+	if please_press_m2 and Input.is_action_pressed("left_mouse_button") and get_node("player").powered_next_bullet and get_node("player/GunTimer").is_stopped():
+		get_node("player/fresh_bulletsfx").play()
+		get_node("player/fresh_bullet2sfx").play()
+		get_node("player/powered_bullet2").visible = false
+		get_node("player").powered_next_bullet = false
+		var bullet_scene = preload("res://player/attacks/bullet/big_bullet.tscn")
 		var shot = bullet_scene.instantiate()
 		add_child(shot)
-		shot.shoot($player.global_position, get_global_mouse_position())
+		shot.shoot(get_node("player").global_position, get_global_mouse_position())
+		var effect := preload("res://player/attacks/alt_bullet/alt_bullet_explosion.tscn").instantiate()
+		effect.position = get_node("player").position
+		effect.modulate = Color(0, 1, 1, 1)
+		add_child(effect)
+		effect.shoot(get_node("player").global_position, get_global_mouse_position())
+		get_node("camera").apply_shake(5, 0.25)
+		get_node("player/GunTimer").start()
+
+	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100 and get_node("player").powered_next_bullet == false:
+		get_node("player").powered_next_bullet = true
 		get_node("player").gunm2_cooldown = 0
+		get_node("player/powered_bulletsfx").play()
+		get_node("player/powered_bullet1").emitting = true
+		get_node("player/powered_bullet2").visible = true
+		get_node("player/powered_bullet2/particle").modulate = Color(0, 1, 1, 0)
+		create_tween().tween_property(get_node("player/powered_bullet2/particle"), "modulate", Color(1, 1, 1, 1), 1)
 
 	if red_intro_health < 1 and red_intro_died == false:
 		red_intro_die()
@@ -111,6 +128,7 @@ func _process(_delta):
 		room_in_action = 5_4
 	if room_in_action == 5_4 and not get_tree().has_group("5-3 green"):
 		remove_from_group("ignore enemy")
+		add_to_group("spawn")
 		$white_walls6.enabled = true
 		create_tween().tween_property($white_walls6, "modulate", Color(1, 1, 1, 1), 1)
 		$lock_walls7.enabled = true
@@ -131,11 +149,18 @@ func _process(_delta):
 		create_tween().tween_property($"5_5_barrier_walls", "modulate", Color(0, 0, 0, 0), 1)
 		room_in_action = 5_7
 	if room_in_action == 5_7 and not get_tree().has_group("5-5 green"):
-		print('bap')
 		checkpoint_number = 8
 		$"5_5_barrier_walls".queue_free()
 		create_tween().tween_property($lock_walls7, "modulate", Color(0, 0, 0, 0), 1)
 		$lock_walls7.process_mode = Node.PROCESS_MODE_DISABLED
+		$white_walls7.enabled = true
+		create_tween().tween_property($white_walls7, "modulate", Color(1, 1, 1, 1), 1)
+		room_in_action = null
+	if room_in_action == 6_1 and not get_tree().has_group("enemy"):
+		checkpoint_number = 9
+		$greater_green_room.queue_free()
+		$lock_walls8.process_mode = Node.PROCESS_MODE_DISABLED
+		create_tween().tween_property($lock_walls8, "modulate", Color(0, 0, 0, 0), 1)
 		room_in_action = null
 
 	if get_node("ui/gameoverscreen").restarted:
@@ -178,13 +203,16 @@ func _process(_delta):
 				shield.queue_free()
 			await get_tree().create_timer(1, false).timeout
 			spawn_5_5_wave()
-		#if checkpoint_number == 8:
+		if checkpoint_number == 8:
+			died_to_greater_green = true
+			$lock_walls8.enabled = false
+			$lock_walls8.modulate = Color(1, 1, 1, 0)
 
 func _ready():
 	Engine.time_scale = 1.0
 	$camera.apply_shake(10, 0.5)
 	await get_tree().create_timer(0.5, false).timeout
-	#get_node("player").in_intro = true
+	get_node("player").in_intro = true
 	$level_end/start_levelsfx.play()
 	var effect := level_start.instantiate()
 	effect.position = $level_end.position + Vector2(0, 75)
@@ -223,24 +251,30 @@ func _on_hurt_wall_area_exited(area):
 		hurt_player = false
 
 func _on_red_intro_area_area_entered(area):
-	if area.is_in_group("beam"):
+	if area.is_in_group("big_bullet"):
+		area.get_parent().die()
+		pressed_m2 = true
+		get_node("camera").apply_shake(10, 1)
+		$ui/message.text = ""
+		$ui/message2.text = ""
 		$red_intro/hurt.play()
 		red_intro_health -= 1
 		$red_intro.amount -= 50
 		if red_intro_health == 2:
 			$red_intro/damage.amount = 50
-		else:
+		elif red_intro_health == 1:
+			$red_intro/hurt.pitch_scale = 0.45
 			$red_intro/damage.lifetime = 1
 			$red_intro/damage.speed_scale = 1.5
 			$red_intro/damage.amount = 200
+		elif red_intro_health == 0:
+			$red_intro/hurt.pitch_scale = 0.4
 		$red_intro/damage.emitting = true
-		$red_intro/red_intro_area.set_deferred("monitoring", false)
-		await get_tree().create_timer(1.5, false).timeout
-		$red_intro/red_intro_area.set_deferred("monitoring", true)
 
 func red_intro_thing():
 	$ui/message.text = ""
 	$white_interactable.emitting = false
+	$got_interactable.play()
 	(get_node("player").is_dead) = true
 	(get_node("player").speed) = 0
 	$red_spawndec.queue_free()
@@ -266,7 +300,8 @@ func red_intro_thing():
 	please_press_m2 = true
 	await get_tree().create_timer(3, false).timeout
 	if pressed_m2 == false:
-		$ui/message.text = "Press M2"
+		$ui/message.text = "Press M2 to                                               "
+		$ui/message2.text = "                       Empower your next Shot"
 
 func red_intro_die():
 	$red_intro/die.play()
@@ -296,7 +331,6 @@ func red_intro_die():
 	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2($player.global_position.x, $player.global_position.y), 1)
 	await get_tree().create_timer(1, false).timeout
 	remove_from_group("stop following player")
-	remove_from_group("not beamable")
 	(get_node("player").is_dead) = false
 	(get_node("player").speed) = 700
 	await get_tree().create_timer(1, false).timeout
@@ -327,14 +361,15 @@ func spawna(type, spawn_position, duration, group, delay):
 	enemy.add_to_group("spawn")
 	enemy.add_to_group(group)
 	await get_tree().create_timer(delay, false).timeout
-	enemy.visible = true
-	enemy.process_mode = PROCESS_MODE_INHERIT
-	enemy.position = spawn_position
-	enemy.event = group
-	await get_tree().create_timer(duration, false).timeout
 	if is_instance_valid(enemy):
-		enemy.add_to_group("enemy_spawn")
-		enemy.spawn_enemy()
+		enemy.visible = true
+		enemy.process_mode = PROCESS_MODE_INHERIT
+		enemy.position = spawn_position
+		enemy.event = group
+		await get_tree().create_timer(duration, false).timeout
+		if is_instance_valid(enemy):
+			enemy.add_to_group("enemy_spawn")
+			enemy.spawn_enemy()
 
 func spawngreen(spawn_position, duration, group, delay, bonus):
 	var green = load("res://enemies/green/green_spawn.tscn").instantiate()
@@ -441,15 +476,17 @@ func spawn_5_3_wave():
 
 func spawn_5_5_wave():
 	checkpoint = Vector2(10094, 1072)
-	if is_instance_valid($ui/glowing_attack_mes):
-		$ui/glowing_attack_mes.visible = true
-		$ui/glowing_attack_mes2.visible = true
 	$"5_5_barrier_walls".enabled = true
 	create_tween().tween_property($"5_5_barrier_walls", "modulate", Color(0, 1, 0, 1), 1)
 	spawni("barrier_break", Vector2(10070, -34), "5-5 shield")
+	await get_tree().create_timer(3, false).timeout
+	if is_instance_valid($ui/glowing_attack_mes):
+		$ui/glowing_attack_mes.visible = true
+		$ui/glowing_attack_mes2.visible = true
 	spawngreen(Vector2(8900, 1044), 1, "5-5 green", 1, true)
 	spawngreen(Vector2(11325, 1044), 1, "5-5 green", 1, true)
 	await get_tree().create_timer(4.6, false).timeout
+	remove_from_group("spawn")
 	if is_instance_valid($ui/glowing_attack_mes):
 		create_tween().tween_property($ui/glowing_attack_mes, "modulate", Color(1, 1, 1, 0), 1)
 		create_tween().tween_property($ui/glowing_attack_mes2, "modulate", Color(1, 1, 1, 0), 1)
@@ -466,9 +503,6 @@ func spawn_5_5_wave():
 	spawna("red", Vector2(10540, 14), 1, "5-5", 0.5)
 	await get_tree().create_timer(2.6, false).timeout
 	room_in_action = 5_5
-
-func spawn_6_2_wave():
-	pass
 
 func _on_hallway_area_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
@@ -633,23 +667,35 @@ func _on__1_room_area_entered(area):
 
 func _on_greater_green_room_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
-		room_in_action = 0
-		checkpoint = Vector2(10050, -1048)
-		$lock_walls8.enabled = true
-		create_tween().tween_property($lock_walls8, "modulate", Color(1, 1, 1, 1), 1)
-		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "zoom", Vector2(0.75, 0.75), 1)
-		await get_tree().create_timer(1, false).timeout
-		add_to_group("stop following player")
-		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(10033, -2004), 2)
-		await get_tree().create_timer(2, false).timeout
-		var enemy = load("res://enemies/greater_green/greater_green.tscn").instantiate()
-		enemy.position = Vector2(10033, -2004)
-		enemy.add_to_group("6-2")
-		call_deferred("add_child", enemy)
-		await get_tree().create_timer(8, false).timeout
-		remove_from_group("stop following player")
-		$camera.snap = false
-		$camera.speed = 0
-		get_node("camera").target = get_node("player")
-		get_node("player/player_hurtbox").add_to_group("snap camera")
-		room_in_action = 6_1
+		if died_to_greater_green == false:
+			room_in_action = 0
+			checkpoint = Vector2(10050, -1048)
+			$lock_walls8.enabled = true
+			create_tween().tween_property($lock_walls8, "modulate", Color(1, 1, 1, 1), 1)
+			create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "zoom", Vector2(0.75, 0.75), 1)
+			await get_tree().create_timer(1, false).timeout
+			add_to_group("stop following player")
+			create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(10033, -2004), 2)
+			await get_tree().create_timer(2, false).timeout
+			var enemy = load("res://enemies/greater_green/greater_green.tscn").instantiate()
+			enemy.position = Vector2(10033, -2004)
+			enemy.play_intro = true
+			enemy.add_to_group("6-2")
+			call_deferred("add_child", enemy)
+			await get_tree().create_timer(8, false).timeout
+			remove_from_group("stop following player")
+			$camera.snap = false
+			$camera.speed = 0
+			get_node("camera").target = get_node("player")
+			get_node("player/player_hurtbox").add_to_group("snap camera")
+			room_in_action = 6_1
+		else:
+			room_in_action = 0
+			$lock_walls8.enabled = true
+			create_tween().tween_property($lock_walls8, "modulate", Color(1, 1, 1, 1), 1)
+			var enemy = load("res://enemies/greater_green/greater_green.tscn").instantiate()
+			enemy.position = Vector2(10033, -2004)
+			enemy.play_intro = false
+			enemy.add_to_group("6-2")
+			call_deferred("add_child", enemy)
+			room_in_action = 6_1

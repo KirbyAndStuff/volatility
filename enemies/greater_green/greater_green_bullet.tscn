@@ -11,7 +11,7 @@ metadata/_snap_count = 20
 [sub_resource type="Gradient" id="Gradient_oxwg3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="greater_green_bullet" type="Node2D"]
+[node name="greater_green_bullet" type="Node2D" groups=["enemy_attack"]]
 script = ExtResource("1_i8tgj")
 
 [node name="bullet_body" type="CPUParticles2D" parent="."]

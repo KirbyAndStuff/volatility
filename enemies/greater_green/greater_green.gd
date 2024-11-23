@@ -8,6 +8,7 @@ var health = 40.0
 var guarded = false
 var is_dead = true
 var lerp_weight = 0.005
+var play_intro = false
 var hurt := preload("res://enemies/greater_green/greater_green_hurt.tscn")
 
 var used_bullet = false
@@ -26,26 +27,38 @@ func _ready():
 		spawn_point.position = pos
 		spawn_point.rotation = pos.angle()
 		$Node2D.add_child.call_deferred(spawn_point)
-	create_tween().tween_property($eye, "modulate", Color(0, 1, 0, 1), 4)
-	await get_tree().create_timer(2, false).timeout
-	$introsfx.play()
-	create_tween().tween_property($introsfx, "volume_db", 5, 3.5)
-	get_node("../camera").apply_shake(2, 2)
-	await get_tree().create_timer(2, false).timeout
-	get_node("../camera").apply_shake(5, 2)
-	create_tween().tween_property($eye, "modulate", Color(1, 3, 1, 1), 2)
-	await get_tree().create_timer(2, false).timeout
-	$introsfx.stop()
-	await get_tree().create_timer(0.5, false).timeout
-	$body.emitting = true
-	get_node("../camera").apply_shake(10, 0.5)
-	$die_finalsfx.play()
-	$bullet_explosion.emitting = true
-	await get_tree().create_timer(2, false).timeout
-	$bullet_explosion.lifetime = 0.7
-	$bullet_explosion.amount = 150
-	$playerdeath/CollisionShape2D.disabled = false
-	is_dead = false
+	if play_intro:
+		create_tween().tween_property($eye, "modulate", Color(0, 1, 0, 1), 4)
+		await get_tree().create_timer(2, false).timeout
+		$introsfx.play()
+		create_tween().tween_property($introsfx, "volume_db", 5, 3.5)
+		get_node("../camera").apply_shake(2, 2)
+		await get_tree().create_timer(2, false).timeout
+		get_node("../camera").apply_shake(5, 2)
+		create_tween().tween_property($eye, "modulate", Color(1, 3, 1, 1), 2)
+		await get_tree().create_timer(2, false).timeout
+		$introsfx.stop()
+		await get_tree().create_timer(0.5, false).timeout
+		$body.emitting = true
+		get_node("../camera").apply_shake(10, 0.5)
+		$die_finalsfx.play()
+		$bullet_explosion.emitting = true
+		await get_tree().create_timer(2, false).timeout
+		$bullet_explosion.lifetime = 0.7
+		$bullet_explosion.amount = 150
+		$playerdeath/CollisionShape2D.disabled = false
+		is_dead = false
+	else:
+		$body.emitting = true
+		$eye.modulate = Color(1, 3, 1, 1)
+		get_node("../camera").apply_shake(10, 0.5)
+		$die_finalsfx.play()
+		$bullet_explosion.emitting = true
+		await get_tree().create_timer(2, false).timeout
+		$bullet_explosion.lifetime = 0.7
+		$bullet_explosion.amount = 150
+		$playerdeath/CollisionShape2D.disabled = false
+		is_dead = false
 
 func _process(_delta):
 	if health < 1 and is_dead == false:

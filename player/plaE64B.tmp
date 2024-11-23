@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b6dph58aj4tme"]
+[gd_scene load_steps=23 format=3 uid="uid://b6dph58aj4tme"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ni3np"]
 [ext_resource type="Script" path="res://player/left eye node.gd" id="2_bfumu"]
@@ -102,20 +102,6 @@ radius = 35.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k1igs"]
 radius = 22.02
-
-[sub_resource type="Curve" id="Curve_bo7ye"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-metadata/_snap_enabled = true
-
-[sub_resource type="Gradient" id="Gradient_j188s"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Curve" id="Curve_kggr4"]
-max_value = 10.0
-_data = [Vector2(0, 10), 0.0, 0.0, 0, 0]
-point_count = 1
-metadata/_snap_enabled = true
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_ni3np")
@@ -231,6 +217,10 @@ shape = SubResource("CircleShape2D_k4hsi")
 wait_time = 0.5
 one_shot = true
 
+[node name="Bullet_OrderTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
 [node name="Alt_GunTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
@@ -257,11 +247,6 @@ volume_db = -8.0
 [node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
 pitch_scale = 2.0
-
-[node name="powered_bulletsfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_c3jba")
-volume_db = -15.0
-pitch_scale = 1.5
 
 [node name="fresh_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
@@ -310,50 +295,7 @@ collision_mask = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hurtbox"]
 shape = SubResource("CircleShape2D_k1igs")
 
-[node name="powered_bullet1" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 50
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-emission_shape = 1
-emission_sphere_radius = 10.0
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 250.0
-initial_velocity_max = 250.0
-angular_velocity_min = -180.0
-angular_velocity_max = 180.0
-angle_min = -180.0
-angle_max = 180.0
-scale_amount_min = 15.0
-scale_amount_max = 15.0
-scale_amount_curve = SubResource("Curve_bo7ye")
-color = Color(0, 1, 1, 1)
-color_ramp = SubResource("Gradient_j188s")
-
-[node name="powered_bullet2" type="Node2D" parent="."]
-visible = false
-
-[node name="particle" type="CPUParticles2D" parent="powered_bullet2"]
-position = Vector2(45, 0)
-scale = Vector2(0.1, 1)
-preprocess = 1.0
-local_coords = true
-direction = Vector2(0, 1)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 125.0
-initial_velocity_max = 125.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-scale_amount_min = 5.0
-scale_amount_max = 5.0
-split_scale = true
-scale_curve_x = SubResource("Curve_kggr4")
-scale_curve_y = null
-color = Color(0, 1, 1, 1)
-
+[connection signal="timeout" from="Bullet_OrderTimer" to="." method="_on_bullet_order_timer_timeout"]
 [connection signal="timeout" from="DashLength" to="." method="_on_dash_length_timeout"]
 [connection signal="area_entered" from="parry_detection" to="." method="_on_parry_detection_area_entered"]
 [connection signal="area_entered" from="player_hurtbox" to="." method="_on_player_hurtbox_area_entered"]

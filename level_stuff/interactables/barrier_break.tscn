@@ -13,7 +13,7 @@ metadata/_snap_enabled = true
 [node name="barrier_break" type="Node2D"]
 script = ExtResource("1_v022d")
 
-[node name="Area2D" type="Area2D" parent="." groups=["enemy_body"]]
+[node name="Area2D" type="Area2D" parent="." groups=["enemy_body", "no heal_cooldown reduction"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false

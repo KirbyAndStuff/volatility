@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://level_stuff/interactables/white_interactable.gd" id="1_mggft"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x10ut"]
-radius = 53.0377
+radius = 100.0
 
 [node name="white_interactable" type="CPUParticles2D"]
 amount = 20

@@ -2,7 +2,7 @@ extends RayCast2D
 
 var collision_polygon = CollisionPolygon2D.new()
 var direction := Vector2.ZERO
-var damage = 1
+var damage = 2
 var rotation_speed = 1
 
 func _ready():

@@ -12,7 +12,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
-[node name="greater_green_blast" type="Node2D"]
+[node name="greater_green_blast" type="Node2D" groups=["enemy_attack"]]
 script = ExtResource("1_mlkaf")
 
 [node name="blast" type="CPUParticles2D" parent="."]

@@ -18,14 +18,13 @@ var friction = 4000
 var friction_boost = 0
 var stamina = 100
 var gunm2_cooldown = 100
+var alt_gunm2_cooldown = 100
 var meleem2_cooldown = 100
 var input = Vector2.ZERO
 var is_dead = false
 var stamina_tween = true
-var bullet_order = 1
+var powered_next_bullet = false
 var melee_order = 1
-var active_weapon = 1.0
-var variant_weapon = false
 var can_scroll_up = true
 var can_scroll_down = true
 var amount_of_i_frames = 0
@@ -35,13 +34,21 @@ var in_intro = false
 var got_hit = false
 var take_damage = 0
 
+var bullets = ["bullet", "alt_bullet"]
+var melees = ["melee"]
+var weapons = ["bullet", "melee"]
+var key = 0
+var key_wep = 0
+var active_weapon = "bullet"
+
 func _physics_process(delta):
-	if is_dead == false:
-		player_movement(delta)
+	player_movement(delta)
 	if stamina <= 100:
 		stamina += 25 * delta
 	if gunm2_cooldown <= 100:
 		gunm2_cooldown += 50 * delta
+	if alt_gunm2_cooldown <= 100:
+		alt_gunm2_cooldown += 50 * delta
 	if meleem2_cooldown <= 100:
 		meleem2_cooldown += 25 * delta
 	if parry_cooldown <= 30:
@@ -74,46 +81,68 @@ func _process(_delta):
 		$"left eye node/left eye".emitting = false
 		$"right eye node/right eye".emitting = false
 		is_dead = true
-	if Input.is_action_pressed("left_mouse_button") and $GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false and variant_weapon == false:
-		shoot()
-	if Input.is_action_pressed("right_mouse_button") and active_weapon == 1 and is_dead == false and in_intro == false:
-		alt_shootm2()
-	if Input.is_action_pressed("left_mouse_button") and $Alt_GunTimer.is_stopped() and active_weapon == 1 and is_dead == false and in_intro == false:
-		alt_shoot()
-	if Input.is_action_pressed("left_mouse_button") and $MeleeTimer.is_stopped() and active_weapon == 2 and is_dead == false and in_intro == false:
-		melee()
-	if Input.is_action_pressed("right_mouse_button") and active_weapon == 2 and is_dead == false and in_intro == false:
-		meleem2()
+	if Input.is_action_pressed("left_mouse_button") and is_dead == false and in_intro == false:
+		if active_weapon == "bullet" and $GunTimer.is_stopped():
+			shoot()
+		if active_weapon == "alt_bullet" and $Alt_GunTimer.is_stopped():
+			alt_shoot()
+		if active_weapon == "melee" and $MeleeTimer.is_stopped():
+			melee()
+	if Input.is_action_pressed("right_mouse_button") and is_dead == false and in_intro == false:
+		if active_weapon == "bullet":
+			shootm2()
+		if active_weapon == "alt_bullet":
+			alt_shootm2()
+		if active_weapon == "melee":
+			meleem2()
 	if Input.is_action_just_pressed("first_weapon"):
-		if active_weapon == 1:
-			variant_weapon = !variant_weapon
+		if active_weapon in bullets:
+			key += 1
+			if key > bullets.size() - 1:
+				key = 0
+			active_weapon = bullets[key]
 		else:
-			variant_weapon = false
-		active_weapon = 1
+			key = 0
+			key_wep = 0
+			active_weapon = weapons[key_wep]
 	if Input.is_action_just_pressed("second_weapon"):
-		if active_weapon == 2:
-			variant_weapon = !variant_weapon
+		if active_weapon in melees:
+			key += 1
+			if key > melees.size() - 1:
+				key = 0
+			active_weapon = melees[key]
 		else:
-			variant_weapon = false
-		active_weapon = 2
+			key = 0
+			key_wep = 1
+			active_weapon = weapons[key_wep]
 	if Input.is_action_just_pressed("scroll_up") and can_scroll_up:
 		can_scroll_up = false
-		active_weapon += 1
-		variant_weapon = false
-		if active_weapon > get_node("/root/player_global").weapon_list.size() + 1:
-			active_weapon = 1
+		key = 0
+		key_wep += 1
+		if key_wep > weapons.size() - 1:
+			key_wep = 0
+		active_weapon = weapons[key_wep]
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_up = true
 	if Input.is_action_just_pressed("scroll_down") and can_scroll_down:
 		can_scroll_down = false
-		active_weapon -= 1
-		variant_weapon = false
-		if active_weapon < 1:
-			active_weapon = get_node("/root/player_global").weapon_list.size() + 1
+		key = 0
+		key_wep += 1
+		if key_wep > weapons.size() - 1:
+			key_wep = 0
+		active_weapon = weapons[key_wep]
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_down = true
 	if Input.is_action_just_pressed("switch_variant"):
-		variant_weapon = !variant_weapon
+		key += 1
+		if active_weapon in bullets:
+			if key > bullets.size() - 1:
+				key = 0
+			active_weapon = bullets[key]
+		if active_weapon in melees:
+			if key > melees.size() - 1:
+				key = 0
+			active_weapon = melees[key]
 	if heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
 		heal_particles()
@@ -129,14 +158,16 @@ func _process(_delta):
 	elif  $"combat eye".emitting == true:
 		$"combat eye".emitting = false
 		$"combat eye2".emitting = false
+	if $powered_bullet2.visible == true:
+		$powered_bullet2.look_at(get_global_mouse_position())
 	#if not Input.is_action_pressed("first_weapon"):
 		#Engine.time_scale = 0.05
 	#else:
 		#Engine.time_scale = 1
-	#if Input.is_action_pressed("switch_variant"):
-		#health = 0
-	#else:
-		#health = 10
+	if Input.is_action_pressed("switch_variant"):
+		health = 0
+	else:
+		health = 10
 
 func get_input():
 	if input.length() > 0.0:
@@ -165,9 +196,22 @@ func player_movement(delta):
 	move_and_slide()
 
 func shoot():
-	if bullet_order >= 4:
+	if powered_next_bullet == false:
+		$bulletsfx.play()
+		var bullet_scene = preload("res://player/attacks/bullet/bullet.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
+		var effect := bullet_explosion.instantiate()
+		effect.position = position
+		get_parent().add_child(effect)
+		effect.shoot(global_position, get_global_mouse_position())
+		$GunTimer.start()
+	else:
 		$fresh_bulletsfx.play()
 		$fresh_bullet2sfx.play()
+		$powered_bullet2.visible = false
+		powered_next_bullet = false
 		var bullet_scene = preload("res://player/attacks/bullet/big_bullet.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
@@ -178,24 +222,17 @@ func shoot():
 		get_parent().add_child(effect)
 		effect.shoot(global_position, get_global_mouse_position())
 		get_node("../camera").apply_shake(5, 0.25)
-		bullet_order = 1
-	else:
-		$bulletsfx.play()
-		$Bullet_OrderTimer.wait_time = 0.75
-		var bullet_scene = preload("res://player/attacks/bullet/bullet.tscn")
-		var shot = bullet_scene.instantiate() 
-		get_parent().add_child(shot)
-		shot.shoot(global_position, get_global_mouse_position())
-		var effect := bullet_explosion.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		effect.shoot(global_position, get_global_mouse_position())
-		bullet_order += 1
-		$Bullet_OrderTimer.start()
-	$GunTimer.start()
+		$GunTimer.start()
 
 func shootm2():
-	pass
+	if gunm2_cooldown > 100 and powered_next_bullet == false:
+		powered_next_bullet = true
+		gunm2_cooldown = 0
+		$powered_bulletsfx.play()
+		$powered_bullet1.emitting = true
+		$powered_bullet2.visible = true
+		$powered_bullet2/particle.modulate = Color(0, 1, 1, 0)
+		create_tween().tween_property($powered_bullet2/particle, "modulate", Color(1, 1, 1, 1), 1)
 
 func alt_shoot():
 	if not get_tree().has_group("alt_bullet"):
@@ -211,13 +248,13 @@ func alt_shoot():
 		$Alt_GunTimer.start()
 
 func alt_shootm2():
-	if gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
+	if alt_gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/bullet/beam.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
-		gunm2_cooldown = 0
+		alt_gunm2_cooldown = 0
 
 func melee():
 	var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
@@ -324,6 +361,8 @@ func _on_player_hurtbox_area_entered(area):
 	if area.is_in_group("level end") and is_dead == false:
 		speed = 0
 		speed_boost = 0
+		$"left eye node/left eye".lifetime = 0.2
+		$"right eye node/right eye".lifetime = 0.2
 		var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_ELASTIC)
 		tween.tween_property(self, "position", Vector2(area.position + Vector2(0, -300)), 1)
 		is_dead = true
@@ -346,8 +385,6 @@ func _on_player_hurtbox_area_entered(area):
 		await get_tree().create_timer(3, false).timeout
 		add_to_group("next level")
 	if area.is_in_group("level start"):
-		$"left eye node/left eye".lifetime = 0.2
-		$"right eye node/right eye".lifetime = 0.2
 		$landingsfx.play()
 		in_intro = false
 		speed = 700
@@ -367,9 +404,6 @@ func heal_particles():
 	effect.color = Color(1, 1, 1, 1)
 	get_parent().add_child(effect)
 	$healsfx.play()
-
-func _on_bullet_order_timer_timeout():
-	bullet_order = 1
 
 func add_heal_cooldown(amount):
 	if got_hit == false:
