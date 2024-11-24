@@ -2,6 +2,9 @@ extends Control
 
 var stamina_actual = true
 
+func _ready() -> void:
+	position = Vector2(56, 960)
+
 func _process(_delta):
 	if stamina_actual == true:
 		$stamina_bar2.value = 0 - (get_node("../../player").stamina)

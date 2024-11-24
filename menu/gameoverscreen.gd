@@ -1,5 +1,7 @@
 extends Control
 
+signal retry
+
 var has_checkpoint = null
 var restarted = false
 var is_paused = false:
@@ -24,9 +26,10 @@ func _process(_delta):
 
 func _on_retry_pressed():
 	restarted = true
-	get_node("../../player").heal_cooldown = 0
-	get_node("../../player").health = 3
+	emit_signal("retry")
 	if has_checkpoint and not get_parent().get_parent().checkpoint == null:
+		get_node("../../player").heal_cooldown = 0
+		get_node("../../player").health = 3
 		get_node("../../player").global_position = get_parent().get_parent().checkpoint
 		get_node("../../player/body").emitting = true
 		get_node("../../player/left eye node/left eye").emitting = true

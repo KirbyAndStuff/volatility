@@ -204,9 +204,13 @@ func _process(_delta):
 			await get_tree().create_timer(1, false).timeout
 			spawn_5_5_wave()
 		if checkpoint_number == 8:
-			died_to_greater_green = true
+			if checkpoint == Vector2(10050, -1048):
+				died_to_greater_green = true
 			$lock_walls8.enabled = false
 			$lock_walls8.modulate = Color(1, 1, 1, 0)
+			$camera.snap = true
+			get_node("camera").target = get_node("player")
+			get_node("player/player_hurtbox").add_to_group("snap camera")
 
 func _ready():
 	Engine.time_scale = 1.0
@@ -342,7 +346,8 @@ func red_intro_die():
 	$red_intro.queue_free()
 	create_tween().tween_property($reds_spawning, "volume_db", -50, 1)
 	await get_tree().create_timer(1.1, false).timeout
-	room_in_action = 1_1
+	if get_tree().has_group("enemy"):
+		room_in_action = 1_1
 	$reds_spawning.queue_free()
 
 func _on_interact_message_area_entered(area):
@@ -353,7 +358,26 @@ func _on_interact_message_area_entered(area):
 func _on_reds_spawning_finished() -> void:
 	$reds_spawning.play()
 
-func spawna(type, spawn_position, duration, group, delay):
+func spawna(type, spawn_position, duration, group, delay, rooma):
+	var enemy = load("res://enemies/" + type + "/" + type + "_spawn.tscn").instantiate()
+	enemy.visible = false
+	enemy.process_mode = PROCESS_MODE_DISABLED
+	call_deferred("add_child", enemy)
+	enemy.add_to_group("spawn")
+	enemy.add_to_group(group)
+	await get_tree().create_timer(delay, false).timeout
+	if is_instance_valid(enemy):
+		enemy.visible = true
+		enemy.process_mode = PROCESS_MODE_INHERIT
+		enemy.position = spawn_position
+		enemy.event = group
+		await get_tree().create_timer(duration, false).timeout
+		if is_instance_valid(enemy):
+			enemy.add_to_group("enemy_spawn")
+			enemy.spawn_enemy()
+			room_in_action = rooma
+
+func spawn(type, spawn_position, duration, group, delay):
 	var enemy = load("res://enemies/" + type + "/" + type + "_spawn.tscn").instantiate()
 	enemy.visible = false
 	enemy.process_mode = PROCESS_MODE_DISABLED
@@ -371,7 +395,27 @@ func spawna(type, spawn_position, duration, group, delay):
 			enemy.add_to_group("enemy_spawn")
 			enemy.spawn_enemy()
 
-func spawngreen(spawn_position, duration, group, delay, bonus):
+func spawngreen(spawn_position, duration, group, delay, bonus, rooma):
+	var green = load("res://enemies/green/green_spawn.tscn").instantiate()
+	green.visible = false
+	green.process_mode = PROCESS_MODE_DISABLED
+	green.can_fire_laser = bonus
+	call_deferred("add_child", green)
+	green.add_to_group("spawn")
+	green.add_to_group(group)
+	await get_tree().create_timer(delay, false).timeout
+	if is_instance_valid(green):
+		green.visible = true
+		green.process_mode = PROCESS_MODE_INHERIT
+		green.position = spawn_position
+		green.event = group
+		await get_tree().create_timer(duration, false).timeout
+		if is_instance_valid(green):
+			green.add_to_group("enemy_spawn")
+			green.spawn_enemy()
+			room_in_action = rooma
+
+func spawngreena(spawn_position, duration, group, delay, bonus):
 	var green = load("res://enemies/green/green_spawn.tscn").instantiate()
 	green.visible = false
 	green.process_mode = PROCESS_MODE_DISABLED
@@ -408,71 +452,61 @@ func spawng(event, spawn_position, target, stationary, collision, delay, size):
 	call_deferred("add_child", guardian)
 
 func spawn_first_room_first_wave():
-	spawna("red", Vector2(3321, 1100), 1, "1-1", 0)
-	spawna("red", Vector2(4105, 1100), 1, "1-1", 0)
-	await get_tree().create_timer(2.1, false).timeout
-	room_in_action = 1_1
+	spawna("red", Vector2(3321, 1100), 1, "1-1", 0, 1_1)
+	spawna("red", Vector2(4105, 1100), 1, "1-1", 0, 1_1)
 
 func spawn_first_room_second_wave():
-	spawna("red", Vector2(3329, 410), 1, "1-2", 1)
-	spawna("red", Vector2(3717, 360), 1, "1-2", 1.25)
-	spawna("red", Vector2(4195, 371), 1, "1-2", 1.5)
-	await get_tree().create_timer(3.6, false).timeout
-	room_in_action = 1_2
+	spawna("red", Vector2(3329, 410), 1, "1-2", 1, 1_2)
+	spawna("red", Vector2(3717, 360), 1, "1-2", 1.25, 1_2)
+	spawna("red", Vector2(4195, 371), 1, "1-2", 1.5, 1_2)
 
 func spawn_second_room_second_wave():
 	add_to_group("spawn")
 	await get_tree().create_timer(0.5, false).timeout
 	remove_from_group("spawn")
-	spawna("red", Vector2(2960, 3300), 1, "2-2", 0)
-	spawna("red", Vector2(3336, 3116), 1, "2-2", 0.1)
-	spawna("red", Vector2(4181, 3125), 1, "2-2", 0.2)
-	spawna("red", Vector2(4428, 3308), 1, "2-2", 0.3)
-	await get_tree().create_timer(2.4, false).timeout
-	room_in_action = 2_2
+	spawna("red", Vector2(2960, 3300), 1, "2-2", 0, 2_2)
+	spawna("red", Vector2(3336, 3116), 1, "2-2", 0.1, 2_2)
+	spawna("red", Vector2(4181, 3125), 1, "2-2", 0.2, 2_2)
+	spawna("red", Vector2(4428, 3308), 1, "2-2", 0.3, 2_2)
 
 func spawn_red_room_second_wave():
-	spawna("red", Vector2(5353, 1889), 1, "3-2", 0)
-	spawna("red", Vector2(5353, 2718), 1, "3-2", 0.1)
-	spawna("red", Vector2(7792, 1850), 1, "3-2", 0.2)
-	spawna("red", Vector2(7792, 2729), 1, "3-2", 0.3)
-	spawna("red", Vector2(5918, 2306), 1, "3-2", 0.4)
-	spawna("red", Vector2(7251, 2302), 1, "3-2", 0.5)
-	await get_tree().create_timer(2.3, false).timeout
-	if get_tree().has_group("3-2"):
-		room_in_action = 3_2
+	spawna("red", Vector2(5353, 1889), 1, "3-2", 0, 3_2)
+	spawna("red", Vector2(5353, 2718), 1, "3-2", 0.1, 3_2)
+	spawna("red", Vector2(7792, 1850), 1, "3-2", 0.2, 3_2)
+	spawna("red", Vector2(7792, 2729), 1, "3-2", 0.3, 3_2)
+	spawna("red", Vector2(5918, 2306), 1, "3-2", 0.4, 3_2)
+	spawna("red", Vector2(7251, 2302), 1, "3-2", 0.5, 3_2)
 
 func spawn_5_2_wave_green():
-	spawngreen(Vector2(10103, 535), 1, "5-1 green", 0, false)
-	spawngreen(Vector2(10106, 1325), 1, "5-1 green", 0, false)
+	spawngreena(Vector2(10103, 535), 1, "5-1 green", 0, false)
+	spawngreena(Vector2(10106, 1325), 1, "5-1 green", 0, false)
 	await get_tree().create_timer(2.1, false).timeout
-	spawned_green_5_2 = true
-	if spawned_red_5_2 == true:
-		room_in_action = 5_2
-	else:
-		room_in_action = 5_1
+	if get_tree().has_group("5-1 green"):
+		spawned_green_5_2 = true
+		if spawned_red_5_2 == true:
+			room_in_action = 5_2
+		else:
+			room_in_action = 5_1
 
 func spawn_5_2_wave_red():
-	spawna("red", Vector2(9368, 901), 1, "5-1 red", 0)
-	spawna("red", Vector2(10852, 922), 1, "5-1 red", 0)
+	spawn("red", Vector2(9368, 901), 1, "5-1 red", 0)
+	spawn("red", Vector2(10852, 922), 1, "5-1 red", 0)
 	await get_tree().create_timer(2.1, false).timeout
-	spawned_red_5_2 = true
-	if spawned_green_5_2 == true:
-		room_in_action = 5_2
-	else:
-		room_in_action = 5_1
+	if get_tree().has_group("5-1 red"):
+		spawned_red_5_2 = true
+		if spawned_green_5_2 == true:
+			room_in_action = 5_2
+		else:
+			room_in_action = 5_1
 
 func spawn_5_3_wave():
 	spawni("barrier_break", Vector2(10119, 501), "5-3 shield")
-	spawngreen(Vector2(10121, 871), 1, "5-3 green", 0, false)
+	spawngreen(Vector2(10121, 871), 1, "5-3 green", 0, false, 5_3)
 	spawng("5-3 shield", Vector2(10121, 871), "5-3 green", true, 3, 2, 1)
-	spawna("red", Vector2(9562, 634), 1, "5-3", 0.1)
-	spawna("red", Vector2(10804, 606), 1, "5-3", 0.2)
-	spawna("red", Vector2(9549, 1191), 1, "5-3", 0.3)
-	spawna("red", Vector2(10817, 1207), 1, "5-3", 0.4)
-	await get_tree().create_timer(2.2, false).timeout
-	if get_tree().has_group("5-3") or get_tree().has_group("5-3 shield") or get_tree().has_group("5-3 green"):
-		room_in_action = 5_3
+	spawna("red", Vector2(9562, 634), 1, "5-3", 0.1, 5_3)
+	spawna("red", Vector2(10804, 606), 1, "5-3", 0.2, 5_3)
+	spawna("red", Vector2(9549, 1191), 1, "5-3", 0.3, 5_3)
+	spawna("red", Vector2(10817, 1207), 1, "5-3", 0.4, 5_3)
 
 func spawn_5_5_wave():
 	checkpoint = Vector2(10094, 1072)
@@ -483,8 +517,8 @@ func spawn_5_5_wave():
 	if is_instance_valid($ui/glowing_attack_mes):
 		$ui/glowing_attack_mes.visible = true
 		$ui/glowing_attack_mes2.visible = true
-	spawngreen(Vector2(8900, 1044), 1, "5-5 green", 1, true)
-	spawngreen(Vector2(11325, 1044), 1, "5-5 green", 1, true)
+	spawngreen(Vector2(8900, 1044), 1, "5-5 green", 1, true, 5_5)
+	spawngreen(Vector2(11325, 1044), 1, "5-5 green", 1, true, 5_5)
 	await get_tree().create_timer(4.6, false).timeout
 	remove_from_group("spawn")
 	if is_instance_valid($ui/glowing_attack_mes):
@@ -495,14 +529,12 @@ func spawn_5_5_wave():
 		$ui/glowing_attack_mes.queue_free()
 		$ui/glowing_attack_mes2.queue_free()
 	await get_tree().create_timer(2.4, false).timeout
-	spawngreen(Vector2(9366, -44), 1, "5-5", 0, false)
-	spawngreen(Vector2(10874, -44), 1, "5-5", 0, false)
-	spawna("red", Vector2(10076, 248), 1, "5-5 red", 0.5)
+	spawngreen(Vector2(9366, -44), 1, "5-5", 0, false, 5_5)
+	spawngreen(Vector2(10874, -44), 1, "5-5", 0, false, 5_5)
+	spawna("red", Vector2(10076, 248), 1, "5-5 red", 0.5, 5_5)
 	spawng("5-5 shield", Vector2(10076, 248), "5-5 red", false, 1, 2.5, 0.5)
-	spawna("red", Vector2(9652, 14), 1, "5-5", 0.5)
-	spawna("red", Vector2(10540, 14), 1, "5-5", 0.5)
-	await get_tree().create_timer(2.6, false).timeout
-	room_in_action = 5_5
+	spawna("red", Vector2(9652, 14), 1, "5-5", 0.5, 5_5)
+	spawna("red", Vector2(10540, 14), 1, "5-5", 0.5, 5_5)
 
 func _on_hallway_area_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
@@ -510,10 +542,8 @@ func _on_hallway_area_area_entered(area):
 		checkpoint = Vector2(3682, 1238)
 		$lock_walls3.process_mode = Node.PROCESS_MODE_INHERIT
 		create_tween().tween_property($lock_walls3, "modulate", Color(1, 1, 1, 1), 1)
-		spawna("red", Vector2(3677, 1426), 1, "hall", 0)
-		spawna("red", Vector2(3681, 2776), 1, "hall", 0.25)
-		await get_tree().create_timer(2.35, false).timeout
-		room_in_action = 1_5
+		spawna("red", Vector2(3677, 1426), 1, "hall", 0, 1_5)
+		spawna("red", Vector2(3681, 2776), 1, "hall", 0.25, 1_5)
 
 func _on_second_room_area_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
@@ -521,11 +551,9 @@ func _on_second_room_area_area_entered(area):
 		checkpoint = Vector2(3680, 2875)
 		$lock_walls3.process_mode = Node.PROCESS_MODE_INHERIT
 		create_tween().tween_property($lock_walls3, "modulate", Color(1, 1, 1, 1), 1)
-		spawna("red", Vector2(2964, 3210), 1, "2-1", 0)
-		spawna("red", Vector2(3696, 3588), 1, "2-1", 0.25)
-		spawna("red", Vector2(4487, 3179), 1, "2-1", 0.25)
-		await get_tree().create_timer(2.35, false).timeout
-		room_in_action = 2_1
+		spawna("red", Vector2(2964, 3210), 1, "2-1", 0, 2_1)
+		spawna("red", Vector2(3696, 3588), 1, "2-1", 0.25, 2_1)
+		spawna("red", Vector2(4487, 3179), 1, "2-1", 0.25, 2_1)
 
 func _on_red_room_area_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
@@ -536,21 +564,18 @@ func _on_red_room_area_area_entered(area):
 		$lock_walls4.process_mode = Node.PROCESS_MODE_INHERIT
 		$lock_walls3.process_mode = Node.PROCESS_MODE_INHERIT
 		create_tween().tween_property($lock_walls3, "modulate", Color(1, 1, 1, 1), 1)
-		spawna("red", Vector2(5439, 1912), 1, "3-1", 0)
-		spawna("red", Vector2(6222, 1912), 1, "3-1", 0.1)
-		spawna("red", Vector2(5439, 2685), 1, "3-1", 0.2)
-		spawna("red", Vector2(6222, 2685), 1, "3-1", 0.3)
-		await get_tree().create_timer(2.2, false).timeout
-		if get_tree().has_group("3-1"):
-			room_in_action = 3_1
+		spawna("red", Vector2(5439, 1912), 1, "3-1", 0, 3_1)
+		spawna("red", Vector2(6222, 1912), 1, "3-1", 0.1, 3_1)
+		spawna("red", Vector2(5439, 2685), 1, "3-1", 0.2, 3_1)
+		spawna("red", Vector2(6222, 2685), 1, "3-1", 0.3, 3_1)
 
 func _on_red_room_area_2_area_entered(area):
 	if area.is_in_group("player") and $red_room_area2/CollisionShape2D.visible == true:
 		$red_room_area2/CollisionShape2D.visible = false
-		spawna("red", Vector2(6990, 1863), 1, "3-1", 0)
-		spawna("red", Vector2(7754, 1846), 1, "3-1", 0.1)
-		spawna("red", Vector2(7783, 2737), 1, "3-1", 0.2)
-		spawna("red", Vector2(7053, 2811), 1, "3-1", 0.3)
+		spawn("red", Vector2(6990, 1863), 1, "3-1", 0)
+		spawn("red", Vector2(7754, 1846), 1, "3-1", 0.1)
+		spawn("red", Vector2(7783, 2737), 1, "3-1", 0.2)
+		spawn("red", Vector2(7053, 2811), 1, "3-1", 0.3)
 		await get_tree().create_timer(2.2, false).timeout
 		if get_tree().has_group("3-1"):
 			$red_room_area2.call_deferred("set_process_mode", PROCESS_MODE_DISABLED)
@@ -566,8 +591,8 @@ func delete_enemy_and_spawn(duration):
 	await get_tree().create_timer(duration, false).timeout
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy.queue_free()
-	for spawn in get_tree().get_nodes_in_group("spawn"):
-		spawn.queue_free()
+	for spawnq in get_tree().get_nodes_in_group("spawn"):
+		spawnq.queue_free()
 	for enemy_attack in get_tree().get_nodes_in_group("enemy_attack"):
 		enemy_attack.queue_free()
 
@@ -619,21 +644,19 @@ func _on_kill_green_meteor_area_entered(area):
 		$green_meteor_walls2/give_life.play()
 		$"green_meteor_walls2/10".emitting = true
 		await get_tree().create_timer(0.5, false).timeout
-		spawngreen(Vector2(10496, 2239), 3, "4-1", 0, false)
+		spawngreen(Vector2(10496, 2239), 3, "4-1", 0, false, 4_1)
 		$green_meteor_walls2/give_birth.play()
 		$"green_meteor_walls2/11".emitting = true
 		$green_meteor_walls3/give_life.play()
 		$"green_meteor_walls3/10".emitting = true
 		await get_tree().create_timer(0.5, false).timeout
-		spawngreen(Vector2(10498, 2372), 3, "4-1", 0, false)
+		spawngreen(Vector2(10498, 2372), 3, "4-1", 0, false, 4_1)
 		$green_meteor_walls3/give_birth.play()
 		$"green_meteor_walls3/11".emitting = true
 		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", $player.position, 1)
 		await get_tree().create_timer(1, false).timeout
 		get_node("player").speed = 700
 		remove_from_group("stop following player")
-		await get_tree().create_timer(3.5, false).timeout
-		room_in_action = 4_1
 
 func _on_green_meteor_coming_finished() -> void:
 	$green_meteor_coming.play()
@@ -641,10 +664,8 @@ func _on_green_meteor_coming_finished() -> void:
 func _on_green_meteor_die_spawn_area_entered(area):
 	if area.is_in_group("player") and $green_meteor_walls2.visible == true and room_in_action == null:
 		room_in_action = 0
-		spawngreen(Vector2(10496, 2239), 1, "4-1", 0, false)
-		spawngreen(Vector2(10498, 2372), 1, "4-1", 0.5, false)
-		await get_tree().create_timer(2.6, false).timeout
-		room_in_action = 4_1
+		spawngreen(Vector2(10496, 2239), 1, "4-1", 0, false, 4_1)
+		spawngreen(Vector2(10498, 2372), 1, "4-1", 0.5, false, 4_1)
 
 func _on__activate_area_entered(area):
 	if area.is_in_group("player"):
@@ -658,12 +679,10 @@ func _on__1_room_area_entered(area):
 		room_in_action = 0
 		create_tween().tween_property($lock_walls5, "modulate", Color(1, 1, 1, 1), 1)
 		$lock_walls5.process_mode = Node.PROCESS_MODE_INHERIT
-		spawngreen(Vector2(9413, 1261), 1, "5-1 green", 0, false)
-		spawngreen(Vector2(10897, 1286), 1, "5-1 green", 0, false)
-		spawna("red", Vector2(10892, 615), 1, "5-1 red", 0)
-		spawna("red", Vector2(9429, 635), 1, "5-1 red", 0)
-		await get_tree().create_timer(2.1, false).timeout
-		room_in_action = 5_1
+		spawngreen(Vector2(9413, 1261), 1, "5-1 green", 0, false, 5_1)
+		spawngreen(Vector2(10897, 1286), 1, "5-1 green", 0, false, 5_1)
+		spawna("red", Vector2(10892, 615), 1, "5-1 red", 0, 5_1)
+		spawna("red", Vector2(9429, 635), 1, "5-1 red", 0, 5_1)
 
 func _on_greater_green_room_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
@@ -674,23 +693,12 @@ func _on_greater_green_room_area_entered(area):
 			create_tween().tween_property($lock_walls8, "modulate", Color(1, 1, 1, 1), 1)
 			create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "zoom", Vector2(0.75, 0.75), 1)
 			await get_tree().create_timer(1, false).timeout
-			add_to_group("stop following player")
-			create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(10033, -2004), 2)
+			greater_green_intro1()
 			await get_tree().create_timer(2, false).timeout
-			var enemy = load("res://enemies/greater_green/greater_green.tscn").instantiate()
-			enemy.position = Vector2(10033, -2004)
-			enemy.play_intro = true
-			enemy.add_to_group("6-2")
-			call_deferred("add_child", enemy)
+			greater_green_intro2()
 			await get_tree().create_timer(8, false).timeout
-			remove_from_group("stop following player")
-			$camera.snap = false
-			$camera.speed = 0
-			get_node("camera").target = get_node("player")
-			get_node("player/player_hurtbox").add_to_group("snap camera")
-			room_in_action = 6_1
+			greater_green_intro3()
 		else:
-			room_in_action = 0
 			$lock_walls8.enabled = true
 			create_tween().tween_property($lock_walls8, "modulate", Color(1, 1, 1, 1), 1)
 			var enemy = load("res://enemies/greater_green/greater_green.tscn").instantiate()
@@ -699,3 +707,25 @@ func _on_greater_green_room_area_entered(area):
 			enemy.add_to_group("6-2")
 			call_deferred("add_child", enemy)
 			room_in_action = 6_1
+
+func greater_green_intro1():
+	if not room_in_action == null:
+		add_to_group("stop following player")
+		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(10033, -2004), 2)
+
+func greater_green_intro2():
+	if not room_in_action == null:
+		var enemy = load("res://enemies/greater_green/greater_green.tscn").instantiate()
+		enemy.position = Vector2(10033, -2004)
+		enemy.play_intro = true
+		enemy.add_to_group("6-2")
+		call_deferred("add_child", enemy)
+
+func greater_green_intro3():
+	if not room_in_action == null:
+		remove_from_group("stop following player")
+		$camera.snap = false
+		$camera.speed = 0
+		get_node("camera").target = get_node("player")
+		get_node("player/player_hurtbox").add_to_group("snap camera")
+		room_in_action = 6_1

@@ -39,3 +39,6 @@ func _on_h_slider_value_changed(value: float) -> void:
 func _on_h_slider_drag_ended(value_changed: bool) -> void:
 	if value_changed:
 		configfilehandler.save_audio_setting("master_volume", $CanvasLayer/settings_button/Panel/HSlider.value)
+
+func _on_test_pressed() -> void:
+	get_tree().change_scene_to_file("res://level_stuff/levels/test.tscn")

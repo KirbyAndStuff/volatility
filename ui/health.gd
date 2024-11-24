@@ -4,6 +4,9 @@ extends Control
 @onready var volatility = [$volatility, $volatility2,  $volatility3, $volatility4, $volatility5]
 @onready var parry = $parry
 
+func _ready() -> void:
+	position = Vector2(126, 932)
+
 func _process(_delta):
 	var health = (get_node("../../player").health)
 	for i in range(0, healthEmitters.size()):

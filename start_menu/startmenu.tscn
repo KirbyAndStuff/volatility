@@ -168,6 +168,14 @@ position = Vector2(843, 354)
 stream = ExtResource("10_8agby")
 volume_db = -20.0
 
+[node name="test" type="Button" parent="."]
+offset_left = 1460.0
+offset_top = 823.0
+offset_right = 1764.0
+offset_bottom = 981.0
+theme_override_font_sizes/font_size = 50
+text = "test"
+
 [connection signal="pressed" from="CanvasLayer/start_button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/levels" to="." method="_on_levels_pressed"]
 [connection signal="pressed" from="CanvasLayer/levels/Panel/level" to="." method="_on_level_pressed"]
@@ -179,3 +187,4 @@ volume_db = -20.0
 [connection signal="pressed" from="CanvasLayer/settings_button/Panel/close_button" to="." method="_on_close_button_pressed"]
 [connection signal="drag_ended" from="CanvasLayer/settings_button/Panel/HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="value_changed" from="CanvasLayer/settings_button/Panel/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="test" to="." method="_on_test_pressed"]

@@ -20,14 +20,12 @@ func _process(_delta):
 		is_locked = false
 
 func _on_hide_timeout():
-	var location_dif = global_position - get_node(\"../../player\").global_position
+	var location_dif = global_position - get_tree().get_first_node_in_group(\"camera\").global_position
 	if abs(location_dif.x) > (screen_size.x/2) * 2 || abs(location_dif.y) > (screen_size.y/2) * 2:
 		visible = false
-		$StaticBody2D/CollisionShape2D.disabled = true
 	else:
 		if is_locked == true:
 			visible = true
-			$StaticBody2D/CollisionShape2D.disabled = false
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp1fi"]
