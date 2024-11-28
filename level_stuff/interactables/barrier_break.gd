@@ -13,8 +13,10 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 func _process(_delta):
-	if health < 1:
+	if health < 1 and $CPUParticles2D.emitting:
 		$CPUParticles2D.emitting = false
+		$Area2D/CollisionShape2D.disabled = true
+		$bulletm2/CollisionShape2D.disabled = true
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color(0, 0, 0, 0), 1)
 		remove_from_group(event)
@@ -32,10 +34,14 @@ func _process(_delta):
 			can_be_hurt_enemy = true
 	else:
 		can_be_hurt_enemy = true
-	if can_be_hurt_view and can_be_hurt_enemy:
+	if can_be_hurt_view and can_be_hurt_enemy and health > 0:
 		$CPUParticles2D.modulate = Color(1, 1, 1, 1)
+		$Area2D/CollisionShape2D.disabled = false
+		$bulletm2/CollisionShape2D.disabled = false
 	else:
 		$CPUParticles2D.modulate = Color(1, 1, 1, 0.1)
+		$Area2D/CollisionShape2D.disabled = true
+		$bulletm2/CollisionShape2D.disabled = true
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("player_attack") and can_be_hurt_view == true and can_be_hurt_enemy:

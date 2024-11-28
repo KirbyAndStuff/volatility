@@ -2,7 +2,6 @@ extends RayCast2D
 
 var collision_polygon = CollisionPolygon2D.new()
 var direction := Vector2.ZERO
-var rotation_speed = 1
 var predicting = true
 var enemies_in = 0
 var sfx := preload("res://enemies/green/green_lasersfx.tscn")

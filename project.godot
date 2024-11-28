@@ -123,6 +123,7 @@ switch_variant={
 2d_physics/layer_4="yellow"
 2d_physics/layer_5="purple"
 2d_physics/layer_6="beam"
+2d_physics/layer_7="bulletm2"
 
 [physics]
 

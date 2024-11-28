@@ -12,12 +12,12 @@ func _ready():
 func _physics_process(delta):
 	if is_colliding():
 		target_position = to_local(get_collision_point()) + Vector2(1000, 0)
-		collision_polygon.polygon = [Vector2(0, 40), Vector2(target_position.x - 1000, 40), Vector2(target_position.x - 1000, -40), Vector2(0, -40)]
+		collision_polygon.polygon = [Vector2(0, 50), Vector2(target_position.x - 1000, 50), Vector2(target_position.x - 1000, -50), Vector2(0, -50)]
 		$Line2D.points[1] = target_position - Vector2(1015, 0)
 		$beam_end.position = target_position - Vector2(1025, 0)
 		$beam_end.visible = true
 	else:
-		collision_polygon.polygon = [Vector2(0, 40), Vector2(2000, 40), Vector2(2000, -40), Vector2(0, -40)]
+		collision_polygon.polygon = [Vector2(0, 50), Vector2(2000, 50), Vector2(2000, -50), Vector2(0, -50)]
 		$Line2D.points[1] = Vector2(2000, 0)
 		$beam_end.visible = false
 	position = get_node("../player").position

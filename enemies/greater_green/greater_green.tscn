@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cbq60l25xsim8"]
+[gd_scene load_steps=20 format=3 uid="uid://cbq60l25xsim8"]
 
 [ext_resource type="Script" path="res://enemies/greater_green/greater_green.gd" id="1_qy1rr"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="2_wljy7"]
@@ -54,6 +54,9 @@ metadata/_snap_enabled = true
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 metadata/_snap_enabled = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ldc5m"]
+radius = 144.679
 
 [node name="greater_green" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
@@ -278,6 +281,14 @@ max_distance = 4000.0
 stream = ExtResource("6_0jdyi")
 volume_db = -30.0
 max_distance = 8000.0
+
+[node name="bulletm2" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
+shape = SubResource("CircleShape2D_ldc5m")
 
 [connection signal="timeout" from="BlastTimer" to="." method="_on_blast_timer_timeout"]
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]

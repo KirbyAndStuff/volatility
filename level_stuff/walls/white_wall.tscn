@@ -22,8 +22,8 @@ script = ExtResource("1_35ju2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["wall"]]
 visible = false
-collision_layer = 2147483711
-collision_mask = 2147483711
+collision_layer = 2147483775
+collision_mask = 2147483775
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_36w16")

@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy6wgmdha04uc"]
+[gd_scene load_steps=4 format=3 uid="uid://dy6wgmdha04uc"]
 
 [ext_resource type="Script" path="res://level_stuff/interactables/dummy.gd" id="1_nq1m8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l08nj"]
 radius = 97.3242
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjnph"]
+radius = 97.0464
+
 [node name="dummy" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 64
 script = ExtResource("1_nq1m8")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -34,5 +39,9 @@ offset_right = 715.0
 offset_bottom = -120.0
 theme_override_font_sizes/font_size = 50
 text = "Single damage: 0  Total damage: 0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_mjnph")
 
 [connection signal="area_entered" from="player_death" to="." method="_on_player_death_area_entered"]

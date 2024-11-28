@@ -53,7 +53,7 @@ func _on_playerdeath_area_entered(area):
 		$Stunned.start()
 
 func _on_stunned_timeout():
-	$hurts_player.remove_from_group("parried")
+	$hurts_player.remove_from_group("parriedeffect.sfx_big_db = -2")
 	for vol in eyes:
 		vol.speed_scale = 0.5
 	speed = 300

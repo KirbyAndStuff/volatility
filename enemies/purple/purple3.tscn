@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://5mek08yc56pj"]
+[gd_scene load_steps=9 format=3 uid="uid://5mek08yc56pj"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple3.gd" id="1_roert"]
 
@@ -26,9 +26,12 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8mjf7"]
 radius = 38.0132
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ysq0l"]
+radius = 25.0
+
 [node name="purple3" type="CharacterBody2D"]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 64
+collision_mask = 64
 script = ExtResource("1_roert")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -64,12 +67,14 @@ scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_5dq6m")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body", "no heal_cooldown reduction"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 shape = SubResource("CircleShape2D_wt1ba")
 disabled = true
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction", "parryable"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 shape = SubResource("CircleShape2D_yu0gh")
@@ -81,6 +86,14 @@ shape = SubResource("CircleShape2D_8mjf7")
 
 [node name="Stunned" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="bulletm2" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
+shape = SubResource("CircleShape2D_ysq0l")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="timeout" from="Stunned" to="." method="_on_stunned_timeout"]

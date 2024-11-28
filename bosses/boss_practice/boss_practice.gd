@@ -135,7 +135,7 @@ func parried_smack():
 	get_node("../camera").snap = false
 	get_node("../camera").target = get_node("../player")
 	get_node("../player/player_hurtbox").add_to_group("snap camera")
-	$eyes.emitting = false
+	$body.emitting = false
 	$player_death_body/CollisionShape2D.set_deferred("disabled", true)
 	$player_death_eye/CollisionShape2D.set_deferred("disabled", false)
 	get_node("../camera").failsafe_just_in_case()
@@ -143,7 +143,7 @@ func parried_smack():
 	await get_tree().create_timer(2.5, false).timeout
 	stay_above_player = true
 	smack_parried = false
-	$eyes.emitting = true
+	$body.emitting = true
 	$player_death_body/CollisionShape2D.set_deferred("disabled", false)
 	$player_death_eye/CollisionShape2D.set_deferred("disabled", true)
 

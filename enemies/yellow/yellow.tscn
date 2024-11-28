@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1cslbdxweiuv"]
+[gd_scene load_steps=10 format=3 uid="uid://d1cslbdxweiuv"]
 
 [ext_resource type="Script" path="res://enemies/yellow/yellow.gd" id="1_ryoiu"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_4p1av"]
@@ -22,9 +22,12 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_4mdx1"]
 radius = 37.054
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5wlgc"]
+radius = 19.0263
+
 [node name="yellow" type="CharacterBody2D" groups=["yellow"]]
-collision_layer = 8
-collision_mask = 8
+collision_layer = 64
+collision_mask = 64
 slide_on_ceiling = false
 script = ExtResource("1_ryoiu")
 
@@ -60,6 +63,7 @@ scale_amount_min = 5.0
 scale_amount_max = 5.0
 
 [node name="player_death" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_death"]
 shape = SubResource("CircleShape2D_i2kge")
@@ -111,6 +115,14 @@ max_distance = 1000.0
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_4mdx1")
+
+[node name="bulletm2" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
+shape = SubResource("CircleShape2D_5wlgc")
 
 [connection signal="area_entered" from="player_death" to="." method="_on_player_death_area_entered"]
 [connection signal="area_entered" from="player_shoot_distance" to="." method="_on_player_shoot_distance_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8codwb0jmyiu"]
+[gd_scene load_steps=13 format=3 uid="uid://c8codwb0jmyiu"]
 
 [ext_resource type="Script" path="res://enemies/purple/purple.gd" id="1_p8b53"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_hyedg"]
@@ -40,9 +40,12 @@ metadata/_snap_enabled = true
 [sub_resource type="Gradient" id="Gradient_nl4b1"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfkli"]
+radius = 130.138
+
 [node name="purple" type="CharacterBody2D"]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 64
+collision_mask = 64
 script = ExtResource("1_p8b53")
 
 [node name="body" type="CPUParticles2D" parent="."]
@@ -134,12 +137,14 @@ scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_73jtp")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+visible = false
 scale = Vector2(5, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 shape = SubResource("CircleShape2D_wxq5g")
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 shape = SubResource("CircleShape2D_xg16w")
@@ -178,6 +183,14 @@ volume_db = -13.0
 pitch_scale = 3.0
 autoplay = true
 max_distance = 1000.0
+
+[node name="bulletm2" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
+shape = SubResource("CircleShape2D_sfkli")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="timeout" from="Stunned" to="." method="_on_stunned_timeout"]

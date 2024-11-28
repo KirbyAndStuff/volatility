@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=17 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="2_wjcl0"]
@@ -42,6 +42,9 @@ radius = 22.02
 [sub_resource type="Gradient" id="Gradient_vradg"]
 offsets = PackedFloat32Array(0.0133333, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qniof"]
+radius = 22.0
 
 [node name="red" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
@@ -230,6 +233,15 @@ one_shot = true
 [node name="Red_DashCooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="bulletm2" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_qniof")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="area_entered" from="player_dash_distance" to="." method="_on_player_dash_distance_area_entered"]

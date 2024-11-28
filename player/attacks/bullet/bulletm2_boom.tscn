@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://ouigdmaisyfo"]
+
+[ext_resource type="Script" path="res://player/attacks/bullet/bulletm_2_boom.gd" id="1_fko35"]
+[ext_resource type="AudioStream" uid="uid://b0geip1ovg162" path="res://audio/bulletm2sfx.wav" id="2_8ivrd"]
+[ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="3_btc4f"]
+
+[sub_resource type="Curve" id="Curve_dphiw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_g2gq7"]
+colors = PackedColorArray(1, 4, 4, 1, 1, 4, 4, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gaeni"]
+radius = 137.615
+
+[node name="bulletm2_boom" type="CPUParticles2D"]
+emitting = false
+amount = 300
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_dphiw")
+color = Color(1, 4, 4, 1)
+color_ramp = SubResource("Gradient_g2gq7")
+script = ExtResource("1_fko35")
+
+[node name="hurtbox" type="Area2D" parent="." groups=["player_attack"]]
+scale = Vector2(0.2, 0.2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_gaeni")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8ivrd")
+volume_db = 5.0
+pitch_scale = 0.8
+autoplay = true
+max_distance = 5000.0
+
+[node name="sfx_big" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_btc4f")
+volume_db = -5.0
+pitch_scale = 0.6
+max_distance = 5000.0
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

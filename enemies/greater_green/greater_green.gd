@@ -43,10 +43,10 @@ func _ready():
 		get_node("../camera").apply_shake(10, 0.5)
 		$die_finalsfx.play()
 		$bullet_explosion.emitting = true
+		$playerdeath/CollisionShape2D.disabled = false
 		await get_tree().create_timer(2, false).timeout
 		$bullet_explosion.lifetime = 0.7
 		$bullet_explosion.amount = 150
-		$playerdeath/CollisionShape2D.disabled = false
 		is_dead = false
 	else:
 		$body.emitting = true
@@ -54,10 +54,10 @@ func _ready():
 		get_node("../camera").apply_shake(10, 0.5)
 		$die_finalsfx.play()
 		$bullet_explosion.emitting = true
+		$playerdeath/CollisionShape2D.disabled = false
 		await get_tree().create_timer(2, false).timeout
 		$bullet_explosion.lifetime = 0.7
 		$bullet_explosion.amount = 150
-		$playerdeath/CollisionShape2D.disabled = false
 		is_dead = false
 
 func _process(_delta):
@@ -65,6 +65,7 @@ func _process(_delta):
 		add_to_group("enemy")
 		is_dead = true
 		$playerdeath.queue_free()
+		$bulletm2.queue_free()
 		get_node("../camera").apply_shake(5, 0.3)
 		create_tween().tween_property($eye, "modulate", Color(1, 1, 1, 0), 1.5)
 		$die.position = Vector2(randf_range(-64, 64), randf_range(-64, 64))

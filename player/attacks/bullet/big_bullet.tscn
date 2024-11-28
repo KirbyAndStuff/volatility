@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://boagqlivegbb6"]
+[gd_scene load_steps=5 format=3 uid="uid://boagqlivegbb6"]
 
 [ext_resource type="Script" path="res://player/attacks/bullet/big_bullet.gd" id="1_firg5"]
 
@@ -11,7 +11,12 @@ metadata/_snap_count = 20
 [sub_resource type="Gradient" id="Gradient_hatdw"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="big_bullet" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v82nn"]
+size = Vector2(29, 160)
+
+[node name="big_bullet" type="CharacterBody2D" groups=["big_bullet"]]
+collision_layer = 64
+collision_mask = 64
 script = ExtResource("1_firg5")
 
 [node name="bullet_body" type="CPUParticles2D" parent="."]
@@ -46,6 +51,10 @@ scale = Vector2(2.75, 2.75)
 position = Vector2(44.4683, 1)
 scale = Vector2(1.02455, 1)
 polygon = PackedVector2Array(9, -9, 0, -11, -15, -9, -30, -6, -45, -1, -30, 6, -15, 9, 0, 11, 9, 9, 13, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(114.5, 0)
+shape = SubResource("RectangleShape2D_v82nn")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_entered"]

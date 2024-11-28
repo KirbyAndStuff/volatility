@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 var direction = Vector2.ZERO
 var speed = 3000.0

@@ -492,7 +492,7 @@ radius = 54.0093
 [node name="boss_practice" type="CharacterBody2D"]
 script = ExtResource("1_iqgvb")
 
-[node name="body" type="CPUParticles2D" parent="."]
+[node name="eye" type="CPUParticles2D" parent="."]
 amount = 20
 lifetime = 0.2
 gravity = Vector2(0, 0)
@@ -505,7 +505,7 @@ scale_amount_max = 40.0
 scale_amount_curve = SubResource("Curve_ehj5s")
 color = Color(3, 3, 3, 1)
 
-[node name="eyes" type="CPUParticles2D" parent="."]
+[node name="body" type="CPUParticles2D" parent="."]
 amount = 100
 local_coords = true
 spread = 180.0

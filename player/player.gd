@@ -168,6 +168,11 @@ func _process(_delta):
 		health = 0
 	else:
 		health = 10
+	if Input.is_action_just_pressed("interact"):
+		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
+		var shot = bullet_scene.instantiate() 
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
 
 func get_input():
 	if input.length() > 0.0:
@@ -250,7 +255,7 @@ func alt_shoot():
 func alt_shootm2():
 	if alt_gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
 		$lasersfx.play()
-		var bullet_scene = preload("res://player/attacks/bullet/beam.tscn")
+		var bullet_scene = preload("res://player/attacks/alt_bullet/beam.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
