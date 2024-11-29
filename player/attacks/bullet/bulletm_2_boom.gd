@@ -1,6 +1,6 @@
 extends CPUParticles2D
 
-var damage = 3
+var damage = 0
 var sfx_big = false
 var sfx_big_db = -5
 var sfx_big_ps = 0.6

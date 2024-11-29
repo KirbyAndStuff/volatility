@@ -3,11 +3,12 @@ extends RayCast2D
 var boom := preload("res://player/attacks/bullet/bulletm2_boom.tscn")
 
 var direction := Vector2.ZERO
-var damage = 2
+var damage = 3
+var shake = 20
 var shot = false
 
 func _ready():
-	get_node("../camera").apply_shake(20, 0.25)
+	get_node("../camera").apply_shake(shake, 0.25)
 	create_tween().tween_property($Line2D, "width", 0, 0.5)
 	await get_tree().create_timer(0.1, false).timeout
 	shot = true
@@ -25,7 +26,7 @@ func _physics_process(_delta):
 			effect.speed_scale = 1.5
 			effect.scale = Vector2(1.5, 1.5)
 			effect.sfx_big = true
-			effect.damage = 6
+			damage = 6
 			get_collider().queue_free()
 		if get_collider().is_in_group("big_bullet"):
 			effect.lifetime = 1
@@ -35,8 +36,9 @@ func _physics_process(_delta):
 			effect.sfx_big = true
 			effect.sfx_big_db = -2
 			effect.sfx_big_ps = 0.5
-			effect.damage = 10
+			damage = 10
 			get_collider().queue_free()
+		effect.damage = damage
 		get_parent().add_child(effect)
 		shot = true
 	elif shot == false:

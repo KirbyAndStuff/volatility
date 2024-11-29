@@ -3,7 +3,7 @@ extends CharacterBody2D
 var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/alt_bullet/alt_bullet_death.tscn")
 var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
-var charged_blades := preload("res://player/attacks/alt_bullet/alt_bullet_charged.tscn")
+#var charged_blades := preload("res://player/attacks/alt_bullet/alt_bullet_charged.tscn")
 var charged_sfx := preload("res://player/attacks/alt_bullet/alt_bullet_charged_sfx.tscn")
 var speed = 2500.0
 var drain_speed = true
@@ -13,7 +13,11 @@ var enemies_hit = 0
 var damage = 1
 var in_beam = false
 var charged = false
+var charges = 0
+var closest_distance = INF
 var closest_enemy = null
+var closest_bullet = null
+
 @onready var blades = [$blade, $blade2, $blade3, $blade4]
 
 func _ready():
@@ -44,12 +48,12 @@ func _physics_process(delta):
 	if in_beam:
 		if charged == false:
 			charged = true
+			charges = 4
 			var effect := charged_sfx.instantiate()
 			effect.position = position
 			get_parent().add_child(effect)
 			for vol in blades:
-				vol.emitting = true
-				vol.modulate = Color(1, 3, 3, 1)
+				vol.visible = true
 		if come_back:
 			speed -= 3000.0 * delta
 		else:
@@ -65,6 +69,10 @@ func _on_hurtbox_area_entered(area):
 		in_beam = true
 	if area.is_in_group("parry") and not is_in_group("parried"):
 		come_back = false
+		for vol in blades:
+			if charges > 0:
+				create_tween().tween_property(vol, "modulate", Color(1, 1, 1, 1), 0.025)
+				$blades_break.play()
 		$Timer.start()
 		$player_death.monitoring = false
 		$body.modulate = Color(0, 1, 1, 1)
@@ -89,17 +97,13 @@ func die():
 		var effect := detonation.instantiate()
 		effect.position = position
 		get_parent().call_deferred("add_child", effect)
-		queue_free()
-	if charged:
-		var effecta := charged_blades.instantiate()
-		effecta.position = position
-		get_parent().call_deferred("add_child", effecta)
-		queue_free()
-	if not is_in_group("parried") and charged == false:
+	else:
 		var effect := bullet_death.instantiate()
 		effect.position = $body.global_position
+		if charges > 0:
+			effect.modulate = Color(0, 1, 1, 1)
 		get_parent().add_child(effect)
-		queue_free()
+	queue_free()
 
 func _on_timer_timeout():
 	die()
@@ -120,17 +124,54 @@ func _on_stop_follow_player_area_exited(area):
 			speed = 1500.0
 		enemies_hit = 0
 		await get_tree().create_timer(0.001, false).timeout
-		if get_tree().has_group("enemy_body"):
-			var closest_distance = INF
-			for enemy in get_tree().get_nodes_in_group("enemy_body"):
-				if global_position.distance_to(enemy.global_position) < closest_distance:
-					closest_distance = global_position.distance_to(enemy.global_position)
-					closest_enemy = enemy
+		if charges > 0:
+			charges -= 1
+			blades[charges].modulate = Color(1, 1, 1, 1)
+			if charges < 1:
+				for vol in blades:
+					create_tween().tween_property(vol, "modulate", Color(1, 1, 1, 0), 0.25)
+			var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
+			var shot = bullet_scene.instantiate()
+			shot.damage = 2
+			shot.shake = 10
+			if get_tree().has_group("bullet"):
+				where_laser_hit_bullet()
+				shot.shoot(global_position, closest_bullet.global_position)
+			elif get_tree().has_group("enemy_body"):
+				where_laser_hit_enemy()
+				shot.shoot(global_position, closest_enemy.global_position)
+			else:
+				shot.shoot(global_position, Vector2(global_position.x + randf_range(-1000, 1000), global_position.y + randf_range(-1000, 1000)))
+			get_parent().call_deferred("add_child", shot)
+		else:
 			var bullet_scene = preload("res://player/attacks/alt_bullet/alt_bullet_dodge.tscn")
 			var shot = bullet_scene.instantiate() 
-			if charged:
-				shot.modulate = Color(1, 2.5, 2.5, 1)
+			shot.modulate = Color(2.5, 2.5, 2.5, 1)
+			if get_tree().has_group("enemy_body"):
+				where_laser_hit_enemy()
+				shot.shoot(global_position, closest_enemy.global_position)
 			else:
-				shot.modulate = Color(2.5, 2.5, 2.5, 1)
+				shot.shoot(global_position, Vector2(global_position.x + randf_range(-1000, 1000), global_position.y + randf_range(-1000, 1000)))
 			get_parent().call_deferred("add_child", shot)
-			shot.shoot(global_position, closest_enemy.global_position)
+
+func where_laser_hit_bullet():
+	var all_bullets = get_tree().get_nodes_in_group("bullet")
+	if all_bullets.size() > 0:
+		closest_bullet = all_bullets[0]
+		for bullet in all_bullets:
+			var distance_to_this_bullet = global_position.distance_squared_to(bullet.global_position)
+			var distance_to_closest_bullet = global_position.distance_squared_to(closest_bullet.global_position)
+			if distance_to_this_bullet < distance_to_closest_bullet:
+				closest_bullet = bullet
+	return closest_bullet
+
+func where_laser_hit_enemy():
+	var all_enemies = get_tree().get_nodes_in_group("enemy_body")
+	if all_enemies.size() > 0:
+		closest_enemy = all_enemies[0]
+		for enemy in all_enemies:
+			var distance_to_this_enemy = global_position.distance_squared_to(enemy.global_position)
+			var distance_to_closest_enemy = global_position.distance_squared_to(closest_enemy.global_position)
+			if distance_to_this_enemy < distance_to_closest_enemy:
+				closest_enemy = enemy
+	return closest_enemy

@@ -35,8 +35,8 @@ radius = 80.025
 radius = 80.025
 
 [node name="purple2" type="CharacterBody2D"]
-collision_layer = 64
-collision_mask = 64
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("1_7ohsw")
 
 [node name="body" type="CPUParticles2D" parent="."]

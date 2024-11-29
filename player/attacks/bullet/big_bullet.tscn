@@ -14,7 +14,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v82nn"]
 size = Vector2(29, 160)
 
-[node name="big_bullet" type="CharacterBody2D" groups=["big_bullet"]]
+[node name="big_bullet" type="CharacterBody2D" groups=["big_bullet", "bullet"]]
 collision_layer = 64
 collision_mask = 64
 script = ExtResource("1_firg5")
