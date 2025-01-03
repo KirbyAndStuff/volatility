@@ -6,6 +6,7 @@ extends Node2D
 @onready var speed
 
 func _ready():
+	$sfx.global_position = get_node("../player").global_position
 	$sfx.pitch_scale = sfx
 	$sfx.volume_db = loud
 	for vol in smack_lines:

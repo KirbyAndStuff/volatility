@@ -205,7 +205,7 @@ func shoot():
 		$bulletsfx.play()
 		var bullet_scene = preload("res://player/attacks/bullet/bullet.tscn")
 		var shot = bullet_scene.instantiate() 
-		get_parent().add_child(shot)
+		add_sibling(shot)
 		shot.shoot(global_position, get_global_mouse_position())
 		var effect := bullet_explosion.instantiate()
 		effect.position = position

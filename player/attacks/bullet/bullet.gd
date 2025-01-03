@@ -9,10 +9,6 @@ var damage = 1
 
 @export var speed := 2500.0
 
-func _process(_delta):
-	if 1 < enemies_hit:
-		die()
-
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
 	direction = from.direction_to(to)
@@ -39,6 +35,8 @@ func _on_bullet_hurtbox_area_entered(area):
 		if not area.is_in_group("no heal_cooldown reduction") and area.get_parent().guarded == false:
 			get_node("../player").add_heal_cooldown(5)
 		enemies_hit += 1
+		if 1 < enemies_hit:
+			die()
 	if area.is_in_group("beam"):
 		var effect := detonation.instantiate()
 		effect.position = position

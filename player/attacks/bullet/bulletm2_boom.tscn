@@ -39,7 +39,7 @@ color = Color(1, 4, 4, 1)
 color_ramp = SubResource("Gradient_g2gq7")
 script = ExtResource("1_fko35")
 
-[node name="hurtbox" type="Area2D" parent="." groups=["player_attack"]]
+[node name="hurtbox" type="Area2D" parent="." groups=["bulletm2", "player_attack"]]
 scale = Vector2(0.2, 0.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]

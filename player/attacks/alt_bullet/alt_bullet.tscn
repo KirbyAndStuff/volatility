@@ -13,29 +13,28 @@ offsets = PackedFloat32Array(0, 0.993197)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2kep"]
-radius = 37.01
+radius = 76.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ydrb"]
 radius = 1.0
 
 [sub_resource type="Curve" id="Curve_lh4m8"]
-_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="Curve" id="Curve_d7kms"]
-_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0wfxu"]
-radius = 70.0
+radius = 80.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n77f0"]
 radius = 60.0
 
 [node name="alt_bullet" type="CharacterBody2D" groups=["alt_bullet"]]
-scale = Vector2(0.2, 0.2)
 collision_layer = 64
 collision_mask = 64
 script = ExtResource("1_plcqa")
@@ -82,6 +81,7 @@ visible = false
 shape = SubResource("CircleShape2D_g2kep")
 
 [node name="player_death" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_death"]
 shape = SubResource("CircleShape2D_4ydrb")
@@ -90,8 +90,6 @@ disabled = true
 [node name="Timer" type="Timer" parent="."]
 
 [node name="blade" type="CPUParticles2D" parent="."]
-visible = false
-modulate = Color(1, 3, 3, 1)
 position = Vector2(0, 64)
 lifetime = 0.25
 speed_scale = 0.5
@@ -108,13 +106,11 @@ orbit_velocity_min = 1.0
 orbit_velocity_max = 1.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_lh4m8")
 
 [node name="blade2" type="CPUParticles2D" parent="."]
-visible = false
-modulate = Color(1, 3, 3, 1)
 position = Vector2(64, 0)
 lifetime = 0.25
 speed_scale = 0.5
@@ -132,13 +128,11 @@ orbit_velocity_min = 1.0
 orbit_velocity_max = 1.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_d7kms")
 
 [node name="blade3" type="CPUParticles2D" parent="."]
-visible = false
-modulate = Color(1, 3, 3, 1)
 position = Vector2(0, -64)
 lifetime = 0.25
 speed_scale = 0.5
@@ -156,13 +150,11 @@ orbit_velocity_min = 1.0
 orbit_velocity_max = 1.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_d7kms")
 
 [node name="blade4" type="CPUParticles2D" parent="."]
-visible = false
-modulate = Color(1, 3, 3, 1)
 position = Vector2(-64, 0)
 lifetime = 0.25
 speed_scale = 0.5
@@ -180,8 +172,8 @@ orbit_velocity_min = 1.0
 orbit_velocity_max = 1.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_d7kms")
 
 [node name="stop_follow_player" type="Area2D" parent="."]

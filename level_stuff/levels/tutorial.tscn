@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://level_stuff/levels/tutorial.gd" id="1_hccw4"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_lcn12"]
 [ext_resource type="PackedScene" uid="uid://q5kj08qhck4m" path="res://level_stuff/interactables/level_end.tscn" id="2_1frrj"]
-[ext_resource type="Script" path="res://ui/camera.gd" id="4_5ppks"]
+[ext_resource type="PackedScene" uid="uid://ck8b4pddxyoqp" path="res://ui/camera.tscn" id="3_q5eyu"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="5_k438c"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="6_ni6oh"]
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="7_ka51l"]
@@ -111,9 +111,8 @@ process_mode = 4
 visible = false
 position = Vector2(4, -2000)
 
-[node name="camera" type="Camera2D" parent="."]
+[node name="camera" parent="." instance=ExtResource("3_q5eyu")]
 position = Vector2(4, -2000)
-script = ExtResource("4_5ppks")
 
 [node name="white_walls" type="TileMapLayer" parent="."]
 use_parent_material = true

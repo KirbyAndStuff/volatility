@@ -5,6 +5,7 @@ var sfx_big = false
 var sfx_big_db = -5
 var sfx_big_ps = 0.6
 var hurtbox_size = Vector2(1, 1)
+var directiona = Vector2.ZERO
 
 func _ready():
 	emitting = true

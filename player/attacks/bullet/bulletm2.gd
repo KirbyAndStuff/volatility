@@ -19,6 +19,7 @@ func _physics_process(_delta):
 		$Line2D.points[1] = target_position - Vector2(1000, 0)
 		$end.position = target_position - Vector2(1000, 0)
 		var effect := boom.instantiate()
+		effect.directiona = direction
 		effect.global_position = $end.global_position
 		if get_collider().is_in_group("bullet"):
 			effect.lifetime = 0.75
@@ -41,6 +42,8 @@ func _physics_process(_delta):
 		effect.damage = damage
 		get_parent().add_child(effect)
 		shot = true
+		if get_collider().is_in_group("alt_bullet"):
+			get_node("../camera").apply_shake(10, 0.25)
 	elif shot == false:
 		$Line2D.points[1] = Vector2(2000, 0)
 		$end.position = Vector2(2000, 0)
