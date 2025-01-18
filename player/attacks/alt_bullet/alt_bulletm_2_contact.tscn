@@ -17,6 +17,9 @@ end_cap_mode = 2
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.6
-one_shot = true
+autostart = true
+
+[node name="hurtbox" type="Area2D" parent="." groups=["player_attack"]]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

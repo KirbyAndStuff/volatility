@@ -3,9 +3,9 @@ extends CharacterBody2D
 var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/alt_bullet/alt_bullet_death.tscn")
 var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
-#var charged_blades := preload("res://player/attacks/alt_bullet/alt_bullet_charged.tscn")
 var charged_sfx := preload("res://player/attacks/alt_bullet/alt_bullet_charged_sfx.tscn")
 var m2_contact := preload("res://player/attacks/alt_bullet/alt_bulletm_2_contact.tscn")
+var m2_contactsfx := preload("res://player/attacks/alt_bullet/alt_bulletm_2_contactsfx.tscn")
 var speed = 2500.0
 var drain_speed = true
 var come_back = false
@@ -57,7 +57,7 @@ func _on_hurtbox_area_entered(area):
 		if not area.is_in_group("no heal_cooldown reduction") and area.get_parent().guarded == false:
 			get_node("../player").add_heal_cooldown(5)
 		enemies_hit += 1
-		if 2 < enemies_hit:
+		if 2 < enemies_hit and not is_in_group("parried"):
 			die()
 	if area.is_in_group("beam") and not is_in_group("parried"):
 		in_beam = true
@@ -69,30 +69,8 @@ func _on_hurtbox_area_entered(area):
 			get_parent().add_child(effect)
 			for vol in blades:
 				vol.modulate = Color(1, 3, 3, 1)
-	if area.is_in_group("bulletm2") and not is_in_group("parried"):
-		#var effect := m2_contact.instantiate()
-		#effect.position = area.get_parent().position
-		#effect.rotation = area.get_parent().directiona.angle()
-		#add_sibling(effect)
-		#for i in range(4):
-			#var effect2 := m2_contact.instantiate()
-			#effect2.position = area.get_parent().position
-			#effect2.rotation = area.get_parent().directiona.angle() + randf_range(-0.2, 0.2)
-			#add_sibling(effect2)
-		for i in range(5):
-			var effect2 := m2_contact.instantiate()
-			effect2.position = area.get_parent().position
-			effect2.rotation = area.get_parent().directiona.angle() + randf_range(bulletm2_angle_min, bulletm2_angle_max)
-			bulletm2_angle_min += 0.1
-			bulletm2_angle_max += 0.1
-			add_sibling(effect2)
-		queue_free()
 	if area.is_in_group("parry") and not is_in_group("parried"):
 		come_back = false
-		for vol in blades:
-			if charges > 0:
-				create_tween().tween_property(vol, "modulate", Color(1, 1, 1, 1), 0.025)
-				$blades_break.play()
 		$Timer.start()
 		$player_death.monitoring = false
 		$body.modulate = Color(0, 1, 1, 1)
@@ -153,6 +131,8 @@ func _on_stop_follow_player_area_exited(area):
 			var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
 			var shot = bullet_scene.instantiate()
 			shot.shake = 10
+			shot.remove_from_groupa = true
+			shot.hit_from_inside = false
 			if get_tree().has_group("bullet"):
 				where_laser_hit_bullet()
 				shot.shoot(global_position, closest_bullet.global_position)
@@ -194,3 +174,34 @@ func where_laser_hit_enemy():
 			if distance_to_this_enemy < distance_to_closest_enemy:
 				closest_enemy = enemy
 	return closest_enemy
+
+func _on_detect_m_2_area_entered(area):
+	if area.is_in_group("bulletm2"):
+		if charged and charges > 0:
+			bulletm2_angle_min = -0.5
+			bulletm2_angle_max = -0.4
+			var sfxeffect := m2_contactsfx.instantiate()
+			sfxeffect.position = position
+			sfxeffect.pitch_scale = 0.6
+			sfxeffect.volume_db = 10
+			add_sibling(sfxeffect)
+			for i in range(8):
+				var effect := m2_contact.instantiate()
+				effect.position = position
+				effect.scale = Vector2(2, 2)
+				effect.rotation = area.get_parent().directiona.angle() + randf_range(bulletm2_angle_min, bulletm2_angle_max)
+				bulletm2_angle_min += 0.1
+				bulletm2_angle_max += 0.1
+				add_sibling(effect)
+		if charged == false:
+			var sfxeffect := m2_contactsfx.instantiate()
+			sfxeffect.position = area.get_parent().position
+			add_sibling(sfxeffect)
+			for i in range(4):
+				var effect := m2_contact.instantiate()
+				effect.position = area.get_parent().position
+				effect.rotation = area.get_parent().directiona.angle() + randf_range(bulletm2_angle_min, bulletm2_angle_max)
+				bulletm2_angle_min += 0.1
+				bulletm2_angle_max += 0.1
+				add_sibling(effect)
+		queue_free()

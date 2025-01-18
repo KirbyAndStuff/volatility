@@ -3,11 +3,18 @@ extends CharacterBody2D
 var direction := Vector2.ZERO
 var bullet_death := preload("res://player/attacks/bullet/bullet_death.tscn")
 var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
+var bullet_charged := preload("res://player/attacks/bullet/bullet_charged.tscn")
 var hit_wall = false
 var enemies_hit = 0
 var damage = 1
+var bullet_charged_up = 0
 
 @export var speed := 2500.0
+
+func _ready() -> void:
+	bullet_charged_up = randi_range(0, 1)
+	$charged_go1.position = Vector2(randi_range(-100, 150), -100)
+	$charged_go2.position = Vector2(randi_range(-100, 150), 100)
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
@@ -38,9 +45,18 @@ func _on_bullet_hurtbox_area_entered(area):
 		if 1 < enemies_hit:
 			die()
 	if area.is_in_group("beam"):
-		var effect := detonation.instantiate()
-		effect.position = position
-		get_parent().call_deferred("add_child", effect)
+		for i in range(3):
+			var effect := bullet_charged.instantiate()
+			effect.position = position
+			if bullet_charged_up == 1:
+				effect.shoot(global_position, $charged_go1.global_position)
+				$charged_go1.position = Vector2(randi_range(-100, 150), -100)
+				bullet_charged_up = 0
+			else:
+				effect.shoot(global_position, $charged_go2.global_position)
+				$charged_go2.position = Vector2(randi_range(-100, 150), 100)
+				bullet_charged_up = 1
+			call_deferred("add_sibling", effect)
 		queue_free()
 
 func die():

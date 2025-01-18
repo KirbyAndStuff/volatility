@@ -53,6 +53,12 @@ polygon = PackedVector2Array(9, -9, 0, -11, -15, -9, -30, -6, -45, -1, -30, 6, -
 position = Vector2(52.5, 0)
 shape = SubResource("RectangleShape2D_4s1ys")
 
+[node name="charged_go1" type="Node2D" parent="."]
+position = Vector2(50, -100)
+
+[node name="charged_go2" type="Node2D" parent="."]
+position = Vector2(50, 100)
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_entered"]
 [connection signal="body_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_body_entered"]

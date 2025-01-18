@@ -59,6 +59,7 @@ func randomconstoffset() -> Vector2:
 func zoom_out():
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO)
 	tween.tween_property(self, "zoom", Vector2(0.75, 0.75), 1)
+	#tween.tween_property(self, "zoom", Vector2(0.5, 0.5), 1)
 
 func zoom_in():
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO)
@@ -69,7 +70,3 @@ func _on_snap_area_entered(area):
 		snap = true
 		speed = 3000
 		area.remove_from_group("snap camera")
-
-func failsafe_just_in_case():
-	await get_tree().create_timer(3, false).timeout
-	snap = true

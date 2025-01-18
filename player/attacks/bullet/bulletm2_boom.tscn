@@ -13,7 +13,7 @@ metadata/_snap_enabled = true
 colors = PackedColorArray(1, 4, 4, 1, 1, 4, 4, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gaeni"]
-radius = 137.615
+radius = 140.0
 
 [node name="bulletm2_boom" type="CPUParticles2D"]
 emitting = false
@@ -40,7 +40,7 @@ color_ramp = SubResource("Gradient_g2gq7")
 script = ExtResource("1_fko35")
 
 [node name="hurtbox" type="Area2D" parent="." groups=["bulletm2", "player_attack"]]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 shape = SubResource("CircleShape2D_gaeni")

@@ -12,7 +12,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if predicting:
-		look_at(Vector2(get_node("../player").global_position.x + clamp(get_node("../player").velocity.x, -700, 700) / 3.5, get_node("../player").global_position.y + clamp(get_node("../player").velocity.y, -700, 700) / 3.5))
+		look_at(Vector2(get_node("../player").global_position.x + clamp(get_node("../player").velocity.x, -700, 700) / 3, get_node("../player").global_position.y + clamp(get_node("../player").velocity.y, -700, 700) / 3))
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from

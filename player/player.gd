@@ -18,11 +18,12 @@ var friction = 4000
 var friction_boost = 0
 var stamina = 100
 var gunm2_cooldown = 100
-var alt_gunm2_cooldown = 100
+var alt_gunm2_cooldown = 100 #aaaaaaaaaaa
 var meleem2_cooldown = 100
 var input = Vector2.ZERO
 var is_dead = false
 var stamina_tween = true
+var powered_next_bullet_number = 0
 var powered_next_bullet = false
 var melee_order = 1
 var can_scroll_up = true
@@ -47,8 +48,8 @@ func _physics_process(delta):
 		stamina += 25 * delta
 	if gunm2_cooldown <= 100:
 		gunm2_cooldown += 50 * delta
-	if alt_gunm2_cooldown <= 100:
-		alt_gunm2_cooldown += 50 * delta
+	if alt_gunm2_cooldown <= 100: #aaaaaaaaa
+		alt_gunm2_cooldown += 50 * delta #aaaaaaaa
 	if meleem2_cooldown <= 100:
 		meleem2_cooldown += 25 * delta
 	if parry_cooldown <= 30:
@@ -82,7 +83,7 @@ func _process(_delta):
 		$"right eye node/right eye".emitting = false
 		is_dead = true
 	if Input.is_action_pressed("left_mouse_button") and is_dead == false and in_intro == false:
-		if active_weapon == "bullet" and $GunTimer.is_stopped():
+		if active_weapon == "bullet" and $GunTimer.is_stopped() and not get_tree().has_group("beam"):
 			shoot()
 		if active_weapon == "alt_bullet" and $Alt_GunTimer.is_stopped():
 			alt_shoot()
@@ -164,15 +165,15 @@ func _process(_delta):
 		#Engine.time_scale = 0.05
 	#else:
 		#Engine.time_scale = 3
-	if Input.is_action_pressed("switch_variant"):
-		health = 0
-	else:
-		health = 10
-	if Input.is_action_just_pressed("interact"):
-		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
-		var shot = bullet_scene.instantiate() 
-		get_parent().add_child(shot)
-		shot.shoot(global_position, get_global_mouse_position())
+	#if Input.is_action_pressed("switch_variant"):
+		#health = 0
+	#else:
+		#health = 10
+	#if Input.is_action_just_pressed("interact"):
+		#var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
+		#var shot = bullet_scene.instantiate() 
+		#get_parent().add_child(shot)
+		#shot.shoot(global_position, get_global_mouse_position())
 
 func get_input():
 	if input.length() > 0.0:
@@ -230,14 +231,20 @@ func shoot():
 		$GunTimer.start()
 
 func shootm2():
-	if gunm2_cooldown > 100 and powered_next_bullet == false:
-		powered_next_bullet = true
+	if gunm2_cooldown > 100 and not get_tree().has_group("beam"):
+		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
+		var shot = bullet_scene.instantiate()
+		get_parent().add_child(shot)
+		shot.shoot(global_position, get_global_mouse_position())
 		gunm2_cooldown = 0
-		$powered_bulletsfx.play()
-		$powered_bullet1.emitting = true
-		$powered_bullet2.visible = true
-		$powered_bullet2/particle.modulate = Color(0, 1, 1, 0)
-		create_tween().tween_property($powered_bullet2/particle, "modulate", Color(1, 1, 1, 1), 1)
+
+func power_next_bullet():
+	powered_next_bullet = true
+	$powered_bulletsfx.play()
+	$powered_bullet1.emitting = true
+	$powered_bullet2.visible = true
+	$powered_bullet2/particle.modulate = Color(0, 1, 1, 0)
+	create_tween().tween_property($powered_bullet2/particle, "modulate", Color(1, 1, 1, 1), 1)
 
 func alt_shoot():
 	if not get_tree().has_group("alt_bullet"):
@@ -253,13 +260,13 @@ func alt_shoot():
 		$Alt_GunTimer.start()
 
 func alt_shootm2():
-	if alt_gunm2_cooldown > 100 and get_node("/root/player_global").got_beam:
+	if alt_gunm2_cooldown > 100 and get_node("/root/player_global").got_beam: #aaaaaaaaaaaaaaaa
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/alt_bullet/beam.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
-		alt_gunm2_cooldown = 0
+		alt_gunm2_cooldown = 0 #aaaaaaaaaaaaaaaaaaaaaaaaaa
 
 func melee():
 	var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")

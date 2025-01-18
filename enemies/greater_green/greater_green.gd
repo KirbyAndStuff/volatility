@@ -201,6 +201,7 @@ func _on_playerdeath_area_entered(area):
 		if health > 1:
 			var effect := hurt.instantiate()
 			effect.position = position
+			effect.get_child(0).pitch_scale = randf_range(1, 2)
 			get_parent().add_child(effect)
 		health -= area.get_parent().damage
 

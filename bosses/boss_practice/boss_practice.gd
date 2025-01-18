@@ -30,10 +30,13 @@ func _process(_delta):
 	#if $SmackTimer.is_stopped() and anim_playing == false and smack_parried == false:
 		#smack()
 	if health < 1:
-		get_node("../camera").snap = false
-		get_node("../camera").target = get_node("../player")
-		get_node("../player/player_hurtbox").add_to_group("snap camera")
-		get_node("../camera").const_shake = 0
+		if get_node("../camera").target == get_node("camera_anchor"):
+			get_node("../camera").snap = false
+			get_node("../camera").target = get_node("../player")
+			get_node("../player/player_hurtbox").add_to_group("snap camera")
+			get_node("../camera").const_shake = 0
+		if get_node("../camera").const_shake > 0:
+			get_node("../camera").const_shake = 0
 		queue_free()
 
 func smack():
@@ -84,8 +87,8 @@ func grab_camera(time1, time2, snap, go_to_player):
 	get_node("../camera").snap = snap
 	get_node("../camera").target = get_node("camera_anchor")
 	$camera_anchor.add_to_group("snap camera")
-	if go_to_player:
-		await get_tree().create_timer(time2, false).timeout
+	await get_tree().create_timer(time2, false).timeout
+	if go_to_player and smack_parried == false:
 		get_node("../camera").snap = false
 		get_node("../camera").target = get_node("../player")
 		get_node("../player/player_hurtbox").add_to_group("snap camera")
@@ -95,7 +98,6 @@ func smack_again():
 		$arm_left/AnimationPlayer.play("smack_left_again")
 		$arm_right/AnimationPlayer.play("smack_right_again")
 		smack_speed(1, 1)
-		grab_camera(0, 1.5, true, false)
 		await get_tree().create_timer(2.3, false).timeout
 		if anim_playing:
 			shake_smack(1.25, 0.05, 2.5, 0.5, 2, 1.25)
@@ -138,7 +140,6 @@ func parried_smack():
 	$body.emitting = false
 	$player_death_body/CollisionShape2D.set_deferred("disabled", true)
 	$player_death_eye/CollisionShape2D.set_deferred("disabled", false)
-	get_node("../camera").failsafe_just_in_case()
 	$parriedsfx.play()
 	await get_tree().create_timer(2.5, false).timeout
 	stay_above_player = true

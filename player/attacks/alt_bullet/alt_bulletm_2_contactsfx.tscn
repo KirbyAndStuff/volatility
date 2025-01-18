@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ougtem2gaq4u"]
+
+[ext_resource type="AudioStream" uid="uid://b3dlvvcedeas5" path="res://audio/m2_contactsfx.wav" id="1_qpr3h"]
+[ext_resource type="Script" path="res://audio/audio_die_global.gd" id="2_cha46"]
+
+[node name="alt_bulletm2_contactsfx" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_qpr3h")
+volume_db = 5.0
+pitch_scale = 0.8
+autoplay = true
+script = ExtResource("2_cha46")

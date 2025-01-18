@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://yhw1n1ar3nj4"]
+
+[ext_resource type="Script" path="res://player/attacks/bullet/bullet_charged.gd" id="1_orj3p"]
+[ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="2_k53cr"]
+
+[sub_resource type="Curve" id="Curve_uubxm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_iatry"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sd6n8"]
+radius = 1.0
+
+[sub_resource type="Curve" id="Curve_be5qd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_tupup"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="bullet_charged" type="Node2D"]
+script = ExtResource("1_orj3p")
+
+[node name="trail" type="CPUParticles2D" parent="."]
+amount = 50
+lifetime = 0.15
+emission_shape = 2
+emission_sphere_radius = 5.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+radial_accel_min = -300.0
+radial_accel_max = -300.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_uubxm")
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("Gradient_iatry")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sd6n8")
+
+[node name="die" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_be5qd")
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("Gradient_tupup")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_k53cr")
+volume_db = -15.0
+pitch_scale = 0.9
+max_distance = 8000.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

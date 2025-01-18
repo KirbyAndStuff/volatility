@@ -43,7 +43,7 @@ color_ramp = SubResource("Gradient_hatdw")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="bullet_hurtbox" type="Area2D" parent="." groups=["big_bullet"]]
+[node name="bullet_hurtbox" type="Area2D" parent="." groups=["big_bullet", "player_attack"]]
 position = Vector2(-30, -2)
 scale = Vector2(2.75, 2.75)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://chdl1cq3itxu4"]
+[gd_scene load_steps=27 format=3 uid="uid://chdl1cq3itxu4"]
 
 [ext_resource type="Script" path="res://bosses/boss_practice/boss_practice.gd" id="1_iqgvb"]
 [ext_resource type="AudioStream" uid="uid://bk7033durq4ve" path="res://audio/roar_boss_practice.wav" id="3_4ful5"]
@@ -489,7 +489,12 @@ radius = 148.122
 [sub_resource type="CircleShape2D" id="CircleShape2D_nnhuc"]
 radius = 54.0093
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_nydql"]
+radius = 140.0
+
 [node name="boss_practice" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_iqgvb")
 
 [node name="eye" type="CPUParticles2D" parent="."]
@@ -761,6 +766,14 @@ pitch_scale = 2.0
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="m2_hitbox" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="m2_hitbox"]
+shape = SubResource("CircleShape2D_nydql")
 
 [connection signal="area_entered" from="arm_left/hitbox_left" to="." method="_on_hitbox_left_area_entered"]
 [connection signal="area_entered" from="arm_right/hitbox_right" to="." method="_on_hitbox_right_area_entered"]

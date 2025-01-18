@@ -36,7 +36,7 @@ func _process(_delta):
 		$first_weapon.lifetime = 0.3
 		$first_weapon.modulate = Color(1, big_bullet_cooldown / 100, big_bullet_cooldown / 100, big_bullet_cooldown / 100)
 
-	var laser_cooldown = (get_node("../../player").alt_gunm2_cooldown)
+	var laser_cooldown = (get_node("../../player").alt_gunm2_cooldown) #aaaaaaaaaaaaaaaaa
 	if laser_cooldown > 100:
 		$first_alt/flames.lifetime = 0.5
 		$first_alt.modulate = Color(1, 1, 1)

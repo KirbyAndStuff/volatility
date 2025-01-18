@@ -6,6 +6,8 @@ var direction := Vector2.ZERO
 var damage = 3
 var shake = 20
 var shot = false
+var sfx = 5
+var remove_from_groupa = false
 
 func _ready():
 	get_node("../camera").apply_shake(shake, 0.25)
@@ -40,6 +42,8 @@ func _physics_process(_delta):
 			damage = 10
 			get_collider().queue_free()
 		effect.damage = damage
+		effect.sfx_db = sfx
+		effect.remove_from_groupa = remove_from_groupa
 		get_parent().add_child(effect)
 		shot = true
 		if get_collider().is_in_group("alt_bullet"):
@@ -49,6 +53,7 @@ func _physics_process(_delta):
 		$end.position = Vector2(2000, 0)
 		var effect := boom.instantiate()
 		effect.global_position = $end.global_position
+		effect.sfx_db = sfx
 		get_parent().add_child(effect)
 		shot = true
 

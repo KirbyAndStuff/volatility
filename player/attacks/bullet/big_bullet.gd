@@ -3,7 +3,7 @@ extends CharacterBody2D
 var direction := Vector2.ZERO
 var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
 var hit = false
-var damage = 0
+var damage = 1
 
 @export var speed := 4000.0
 
