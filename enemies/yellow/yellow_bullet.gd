@@ -45,11 +45,6 @@ func _on_yellow_bullet_hurtbox_body_entered(body):
 			queue_free()
 
 func _on_yellow_bullet_hurtbox_area_entered(area):
-	if area.is_in_group("beam"):
-		var effect := detonation.instantiate()
-		effect.position = position
-		get_parent().call_deferred("add_child", effect)
-		queue_free()
 	if area.is_in_group("parry"):
 		$yellow_bullet_hurtbox.add_to_group("parried")
 		$bullet_body.color = Color(0, 1, 1, 1)

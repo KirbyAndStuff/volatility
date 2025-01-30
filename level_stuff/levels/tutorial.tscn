@@ -235,6 +235,12 @@ offset_bottom = 2191.0
 
 [node name="gameoverscreen" parent="ui" instance=ExtResource("9_5sklq")]
 
+[node name="screen_transition" type="ColorRect" parent="ui"]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0)
+
 [node name="level_end" parent="." instance=ExtResource("2_1frrj")]
 position = Vector2(5174, -1354)
 

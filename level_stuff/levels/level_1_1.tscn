@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=4 uid="uid://i62lhfxlsymg"]
+[gd_scene load_steps=97 format=4 uid="uid://i62lhfxlsymg"]
 
 [ext_resource type="Script" path="res://level_stuff/levels/level_1_1.gd" id="1_nrsi2"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qyvy7"]
@@ -21,7 +21,6 @@
 [ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="19_eq65h"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="20_14c7t"]
 [ext_resource type="AudioStream" uid="uid://bnc1iuu0qrp6h" path="res://audio/alt_bullet_dodge_sfx.wav" id="21_irflr"]
-[ext_resource type="PackedScene" uid="uid://gpv3oftxjny" path="res://player/attacks/bullet/bulletm2.tscn" id="22_a1fmp"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5imyo"]
 scenes/1/scene = ExtResource("10_ftb1a")
@@ -167,6 +166,9 @@ radius = 124.952
 [sub_resource type="Gradient" id="Gradient_n12bs"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5j3s3"]
+radius = 136.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_axebs"]
 radius = 190.0
 
@@ -258,6 +260,9 @@ scenes/2/scene = ExtResource("10_ftb1a")
 
 [sub_resource type="TileSet" id="TileSet_al838"]
 sources/0 = SubResource("TileSetScenesCollectionSource_4vf4d")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o4c1v"]
+size = Vector2(1984, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1s0hh"]
 size = Vector2(2192, 16)
@@ -365,6 +370,12 @@ offset_right = 3421.0
 offset_bottom = 2191.0
 
 [node name="gameoverscreen" parent="ui" instance=ExtResource("8_p8ice")]
+
+[node name="screen_transition" type="ColorRect" parent="ui"]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0)
 
 [node name="white_walls1" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -557,6 +568,7 @@ tile_map_data = PackedByteArray("AABuAloAAAAAAAAAAQBvAloAAAAAAAAAAQBwAloAAAAAAAA
 tile_set = SubResource("TileSet_j5v6y")
 
 [node name="lock_walls6" type="TileMapLayer" parent="."]
+modulate = Color(1, 1, 1, 0)
 use_parent_material = true
 tile_map_data = PackedByteArray("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")
 enabled = false
@@ -647,6 +659,14 @@ stream = ExtResource("15_tbgps")
 volume_db = 5.0
 pitch_scale = 0.2
 max_distance = 8000.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="red_intro"]
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="red_intro/StaticBody2D"]
+visible = false
+shape = SubResource("CircleShape2D_5j3s3")
 
 [node name="interact_message" type="Area2D" parent="."]
 visible = false
@@ -1232,7 +1252,7 @@ position = Vector2(9786, 2170)
 position = Vector2(-2, 142)
 shape = SubResource("RectangleShape2D_5e6jj")
 
-[node name="5_1_room" type="Area2D" parent="."]
+[node name="5_1_room" type="Area2D" parent="." groups=["5_1_room"]]
 position = Vector2(9365, 1409)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="5_1_room"]
@@ -1246,6 +1266,13 @@ tile_map_data = PackedByteArray("AADF/zoAAAAAAAAAAgDF/zsAAAAAAAAAAgDF/zwAAAAAAAA
 enabled = false
 tile_set = SubResource("TileSet_al838")
 
+[node name="5_5_trigger" type="Area2D" parent="."]
+position = Vector2(9130, 890)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="5_5_trigger"]
+position = Vector2(982, -2)
+shape = SubResource("RectangleShape2D_o4c1v")
+
 [node name="greater_green_room" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="greater_green_room"]
@@ -1254,9 +1281,6 @@ shape = SubResource("RectangleShape2D_1s0hh")
 
 [node name="level_end2" parent="." instance=ExtResource("3_wr0oy")]
 position = Vector2(13337, -1898)
-
-[node name="bulletm2" parent="." instance=ExtResource("22_a1fmp")]
-position = Vector2(3667, -393)
 
 [connection signal="area_entered" from="5_activate" to="." method="_on__activate_area_entered"]
 [connection signal="area_entered" from="start_level" to="." method="_on_start_level_area_entered"]
@@ -1276,4 +1300,5 @@ position = Vector2(3667, -393)
 [connection signal="finished" from="green_meteor_coming" to="." method="_on_green_meteor_coming_finished"]
 [connection signal="area_entered" from="green_meteor_die_spawn" to="." method="_on_green_meteor_die_spawn_area_entered"]
 [connection signal="area_entered" from="5_1_room" to="." method="_on__1_room_area_entered"]
+[connection signal="area_entered" from="5_5_trigger" to="." method="_on__5_trigger_area_entered"]
 [connection signal="area_entered" from="greater_green_room" to="." method="_on_greater_green_room_area_entered"]

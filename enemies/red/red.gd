@@ -25,6 +25,8 @@ func _physics_process(delta):
 	if speed <= 500:
 		position += (get_node("../player").position - position).normalized() * speed * delta
 	move_and_slide()
+	if not velocity == Vector2.ZERO:
+		velocity = lerp(velocity, Vector2.ZERO, 0.01)
 
 func _process(_delta):
 	if dash_at_player and $Red_DashCooldown.is_stopped():
@@ -45,8 +47,6 @@ func _process(_delta):
 		effect.position = position
 		get_parent().add_child(effect)
 		queue_free()
-	if not velocity == Vector2.ZERO:
-		velocity = lerp(velocity, Vector2.ZERO, 0.003)
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:

@@ -49,7 +49,7 @@ func _physics_process(delta):
 	if gunm2_cooldown <= 100:
 		gunm2_cooldown += 50 * delta
 	if alt_gunm2_cooldown <= 100: #aaaaaaaaa
-		alt_gunm2_cooldown += 50 * delta #aaaaaaaa
+		alt_gunm2_cooldown += 25 * delta #aaaaaaaa
 	if meleem2_cooldown <= 100:
 		meleem2_cooldown += 25 * delta
 	if parry_cooldown <= 30:
@@ -61,7 +61,7 @@ func _physics_process(delta):
 		position.y += 2000 * delta
 
 func _process(_delta):
-	if take_damage > 0 and amount_of_i_frames < 1:
+	if take_damage > 0 and amount_of_i_frames < 1 and is_dead == false:
 		health -= 1
 		i_frames(1)
 		player_hurt_particles()
@@ -106,6 +106,7 @@ func _process(_delta):
 			key = 0
 			key_wep = 0
 			active_weapon = weapons[key_wep]
+		$switch_weaponsfx.play()
 	if Input.is_action_just_pressed("second_weapon"):
 		if active_weapon in melees:
 			key += 1
@@ -116,6 +117,7 @@ func _process(_delta):
 			key = 0
 			key_wep = 1
 			active_weapon = weapons[key_wep]
+		$switch_weaponsfx.play()
 	if Input.is_action_just_pressed("scroll_up") and can_scroll_up:
 		can_scroll_up = false
 		key = 0
@@ -123,6 +125,7 @@ func _process(_delta):
 		if key_wep > weapons.size() - 1:
 			key_wep = 0
 		active_weapon = weapons[key_wep]
+		$switch_weaponsfx.play()
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_up = true
 	if Input.is_action_just_pressed("scroll_down") and can_scroll_down:
@@ -132,6 +135,7 @@ func _process(_delta):
 		if key_wep > weapons.size() - 1:
 			key_wep = 0
 		active_weapon = weapons[key_wep]
+		$switch_weaponsfx.play()
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_down = true
 	if Input.is_action_just_pressed("switch_variant"):
@@ -144,6 +148,7 @@ func _process(_delta):
 			if key > melees.size() - 1:
 				key = 0
 			active_weapon = melees[key]
+		$switch_weaponsfx.play()
 	if heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
 		heal_particles()
@@ -231,7 +236,7 @@ func shoot():
 		$GunTimer.start()
 
 func shootm2():
-	if gunm2_cooldown > 100 and not get_tree().has_group("beam"):
+	if gunm2_cooldown > 100 and not get_tree().has_group("beam") and get_node("/root/player_global").got_bulletm2:
 		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
@@ -260,7 +265,7 @@ func alt_shoot():
 		$Alt_GunTimer.start()
 
 func alt_shootm2():
-	if alt_gunm2_cooldown > 100 and get_node("/root/player_global").got_beam: #aaaaaaaaaaaaaaaa
+	if alt_gunm2_cooldown > 100: #aaaaaaaaaaaaaaaa
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/alt_bullet/beam.tscn")
 		var shot = bullet_scene.instantiate()
@@ -378,6 +383,8 @@ func _on_player_hurtbox_area_entered(area):
 		var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_ELASTIC)
 		tween.tween_property(self, "position", Vector2(area.position + Vector2(0, -300)), 1)
 		is_dead = true
+		get_tree().create_tween().tween_property(get_node("../ui/health"), "modulate", Color(1, 1, 1, 0), 1)
+		get_tree().create_tween().tween_property(get_node("../ui/staminabar"), "modulate", Color(1, 1, 1, 0), 1)
 		await get_tree().create_timer(2, false).timeout
 		$level_end_chargesfx.play()
 		get_node("../camera").apply_shake(10, 1.15)
@@ -394,7 +401,10 @@ func _on_player_hurtbox_area_entered(area):
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		await get_tree().create_timer(3, false).timeout
+		await get_tree().create_timer(1, false).timeout
+		get_node("../ui/screen_transition").visible = true
+		get_tree().create_tween().tween_property(get_node("../ui/screen_transition"), "color", Color(0, 0, 0, 1.5), 1)
+		await get_tree().create_timer(2, false).timeout
 		add_to_group("next level")
 	if area.is_in_group("level start"):
 		$landingsfx.play()

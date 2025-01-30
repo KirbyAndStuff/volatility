@@ -26,31 +26,13 @@ func _process(_delta):
 	if get_node("white_interactable").interacted == true:
 		red_intro_thing()
 
-	if please_press_m2 and Input.is_action_pressed("left_mouse_button") and get_node("player").powered_next_bullet and get_node("player/GunTimer").is_stopped():
-		get_node("player/fresh_bulletsfx").play()
-		get_node("player/fresh_bullet2sfx").play()
-		get_node("player/powered_bullet2").visible = false
-		get_node("player").powered_next_bullet = false
-		var bullet_scene = preload("res://player/attacks/bullet/big_bullet.tscn")
+	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100:
+		get_node("player").gunm2_cooldown = 0
+		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
 		var shot = bullet_scene.instantiate()
+		shot.shake = 0
 		add_child(shot)
 		shot.shoot(get_node("player").global_position, get_global_mouse_position())
-		var effect := preload("res://player/attacks/alt_bullet/alt_bullet_explosion.tscn").instantiate()
-		effect.position = get_node("player").position
-		effect.modulate = Color(0, 1, 1, 1)
-		add_child(effect)
-		effect.shoot(get_node("player").global_position, get_global_mouse_position())
-		get_node("camera").apply_shake(5, 0.25)
-		get_node("player/GunTimer").start()
-
-	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100 and get_node("player").powered_next_bullet == false:
-		get_node("player").powered_next_bullet = true
-		get_node("player").gunm2_cooldown = 0
-		get_node("player/powered_bulletsfx").play()
-		get_node("player/powered_bullet1").emitting = true
-		get_node("player/powered_bullet2").visible = true
-		get_node("player/powered_bullet2/particle").modulate = Color(0, 1, 1, 0)
-		create_tween().tween_property(get_node("player/powered_bullet2/particle"), "modulate", Color(1, 1, 1, 1), 1)
 
 	if red_intro_health < 1 and red_intro_died == false:
 		red_intro_die()
@@ -112,7 +94,7 @@ func _process(_delta):
 		$green_meteor_die_spawn.queue_free()
 		room_in_action = null
 		checkpoint_number = 6
-		$lock_walls6.enabled = true
+		#$lock_walls6.enabled = true
 	if room_in_action == 5_1:
 		if not get_tree().has_group("5-1 green") and spawned_green_5_2 == false:
 			spawn_5_2_wave_green()
@@ -149,11 +131,14 @@ func _process(_delta):
 		create_tween().tween_property($"5_5_barrier_walls", "modulate", Color(0, 0, 0, 0), 1)
 		room_in_action = 5_7
 	if room_in_action == 5_7 and not get_tree().has_group("5-5 green"):
+		$"5_5_trigger".queue_free()
 		checkpoint_number = 8
 		$"5_5_barrier_walls".queue_free()
 		create_tween().tween_property($lock_walls7, "modulate", Color(0, 0, 0, 0), 1)
 		$lock_walls7.process_mode = Node.PROCESS_MODE_DISABLED
 		$white_walls7.enabled = true
+		$lock_walls5.process_mode = Node.PROCESS_MODE_DISABLED
+		create_tween().tween_property($lock_walls5, "modulate", Color(0, 0, 0, 0), 1)
 		create_tween().tween_property($white_walls7, "modulate", Color(1, 1, 1, 1), 1)
 		room_in_action = null
 	if room_in_action == 6_1 and not get_tree().has_group("enemy"):
@@ -197,12 +182,12 @@ func _process(_delta):
 				shield.queue_free()
 		if checkpoint_number == 7:
 			remove_from_group("ignore enemy")
+			$lock_walls5.enabled = false
+			$lock_walls5.modulate = Color(1, 1, 1, 0)
 			$"5_5_barrier_walls".process_mode = Node.PROCESS_MODE_INHERIT
 			$"5_5_barrier_walls".modulate = Color(0, 1, 0, 1)
 			for shield in get_tree().get_nodes_in_group("5-5 shield"):
 				shield.queue_free()
-			await get_tree().create_timer(1, false).timeout
-			spawn_5_5_wave()
 		if checkpoint_number == 8:
 			if checkpoint == Vector2(10050, -1048):
 				died_to_greater_green = true
@@ -255,8 +240,7 @@ func _on_hurt_wall_area_exited(area):
 		hurt_player = false
 
 func _on_red_intro_area_area_entered(area):
-	if area.is_in_group("big_bullet"):
-		area.get_parent().die()
+	if area.is_in_group("bulletm2"):
 		pressed_m2 = true
 		get_node("camera").apply_shake(10, 1)
 		$ui/message.text = ""
@@ -287,7 +271,7 @@ func red_intro_thing():
 	$red_spawndec4.queue_free()
 	get_node("white_interactable").interacted = false
 	$white_interactable.emitting = false
-	get_node("/root/player_global").got_beam = true
+	get_node("/root/player_global").got_bulletm2 = true
 	await get_tree().create_timer(1, false).timeout
 
 	$lock_walls1.process_mode = Node.PROCESS_MODE_INHERIT
@@ -304,8 +288,8 @@ func red_intro_thing():
 	please_press_m2 = true
 	await get_tree().create_timer(3, false).timeout
 	if pressed_m2 == false:
-		$ui/message.text = "Press M2 to                                               "
-		$ui/message2.text = "                       Empower your next Shot"
+		$ui/message.text = "Press M2"
+		#$ui/message2.text = "                       Empower your next Shot"
 
 func red_intro_die():
 	$red_intro/die.play()
@@ -509,16 +493,15 @@ func spawn_5_3_wave():
 	spawna("red", Vector2(10817, 1207), 1, "5-3", 0.4, 5_3)
 
 func spawn_5_5_wave():
-	checkpoint = Vector2(10094, 1072)
 	$"5_5_barrier_walls".enabled = true
 	create_tween().tween_property($"5_5_barrier_walls", "modulate", Color(0, 1, 0, 1), 1)
-	spawni("barrier_break", Vector2(10070, -34), "5-5 shield")
 	await get_tree().create_timer(3, false).timeout
 	if is_instance_valid($ui/glowing_attack_mes):
 		$ui/glowing_attack_mes.visible = true
 		$ui/glowing_attack_mes2.visible = true
 	spawngreen(Vector2(8900, 1044), 1, "5-5 green", 1, true, 5_5)
 	spawngreen(Vector2(11325, 1044), 1, "5-5 green", 1, true, 5_5)
+	spawni("barrier_break", Vector2(10070, -34), "5-5 shield")
 	await get_tree().create_timer(4.6, false).timeout
 	remove_from_group("spawn")
 	if is_instance_valid($ui/glowing_attack_mes):
@@ -535,6 +518,19 @@ func spawn_5_5_wave():
 	spawng("5-5 shield", Vector2(10076, 248), "5-5 red", false, 1, 2.5, 0.5)
 	spawna("red", Vector2(9652, 14), 1, "5-5", 0.5, 5_5)
 	spawna("red", Vector2(10540, 14), 1, "5-5", 0.5, 5_5)
+
+func spawn_5_5_wave_alt():
+	spawngreen(Vector2(8900, 1044), 1, "5-5 green", 1, true, 5_5)
+	spawngreen(Vector2(11325, 1044), 1, "5-5 green", 1, true, 5_5)
+	spawni("barrier_break", Vector2(10070, -34), "5-5 shield")
+	await get_tree().create_timer(2, false).timeout
+	spawngreen(Vector2(9366, -44), 1, "5-5", 0, false, 5_5)
+	spawngreen(Vector2(10874, -44), 1, "5-5", 0, false, 5_5)
+	spawna("red", Vector2(10076, 248), 1, "5-5 red", 0.5, 5_5)
+	spawng("5-5 shield", Vector2(10076, 248), "5-5 red", false, 1, 2.5, 0.5)
+	spawna("red", Vector2(9652, 14), 1, "5-5", 0.5, 5_5)
+	spawna("red", Vector2(10540, 14), 1, "5-5", 0.5, 5_5)
+
 
 func _on_hallway_area_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:
@@ -671,6 +667,8 @@ func _on__activate_area_entered(area):
 	if area.is_in_group("player"):
 		$white_walls5.enabled = true
 		create_tween().tween_property($white_walls5, "modulate", Color(1, 1, 1, 1), 1)
+		$lock_walls6.enabled = true
+		create_tween().tween_property($lock_walls6, "modulate", Color(1, 1, 1, 1), 1)
 		checkpoint = Vector2(10113, 1578)
 		$"5_activate".queue_free()
 
@@ -729,3 +727,10 @@ func greater_green_intro3():
 		get_node("camera").target = get_node("player")
 		get_node("player/player_hurtbox").add_to_group("snap camera")
 		room_in_action = 6_1
+
+func _on__5_trigger_area_entered(area):
+	if area.is_in_group("player") and room_in_action == null and not get_tree().has_group("5_1_room"):
+		room_in_action = 0
+		spawn_5_5_wave_alt()
+		$lock_walls5.enabled = true
+		create_tween().tween_property($lock_walls5, "modulate", Color(1, 1, 1, 1), 1)

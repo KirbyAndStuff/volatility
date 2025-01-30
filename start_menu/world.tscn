@@ -72,6 +72,12 @@ offset_bottom = 2191.0
 
 [node name="gameoverscreen" parent="ui" instance=ExtResource("6_hqghg")]
 
+[node name="screen_transition" type="ColorRect" parent="ui"]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("8_vtqmd")
 

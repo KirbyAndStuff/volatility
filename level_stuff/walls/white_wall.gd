@@ -7,7 +7,7 @@ func _ready():
 
 func _on_hide_timeout():
 	var location_dif = global_position - get_tree().get_first_node_in_group("camera").global_position
-	if abs(location_dif.x) > (screen_size.x/2) * 2 || abs(location_dif.y) > (screen_size.y/2) * 2:
+	if abs(location_dif.x) > (screen_size.x) || abs(location_dif.y) > (screen_size.y):
 		hide()
 	else:
 		show()
