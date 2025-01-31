@@ -11,8 +11,8 @@ func _ready():
 	get_parent().add_child(effect)
 	rotation = randf_range(-180, 180)
 	$CPUParticles2D.emitting = true
-	if get_tree().has_group("marked melee alt"):
-		global_position = get_tree().get_first_node_in_group("marked melee alt").global_position
+	if get_tree().has_group("marked melee_m2"):
+		global_position = get_tree().get_first_node_in_group("marked melee_m2").global_position
 	else:
 		global_position = get_node("../meleem2/Area2D").global_position
 	await get_tree().create_timer(0.2, false).timeout

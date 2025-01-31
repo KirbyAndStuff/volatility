@@ -4,7 +4,7 @@ var direction := Vector2.ZERO
 var attack_area : = preload("res://enemies/yellow/yellow_attack_area.tscn")
 var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
 var hit_wall = false
-var damage = 2
+var damage = 1
 
 @export var speed := 750.0
 

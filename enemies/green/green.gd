@@ -17,7 +17,7 @@ func _ready():
 	$spawn.queue_free()
 
 func _process(_delta):
-	if health < 1:
+	if health <= 0:
 		var effect := green_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

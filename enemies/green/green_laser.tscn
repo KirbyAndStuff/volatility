@@ -36,7 +36,7 @@ wait_time = 0.3
 one_shot = true
 autostart = true
 
-[node name="check" type="Area2D" parent="."]
+[node name="check" type="Area2D" parent="." groups=["green_laser"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="check"]
 shape = SubResource("CircleShape2D_18ni5")

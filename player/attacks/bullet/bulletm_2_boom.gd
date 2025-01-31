@@ -24,6 +24,7 @@ func _ready():
 	await get_tree().create_timer(0.1, false).timeout
 	$hurtbox.remove_from_group("bulletm2")
 	await finished
+	remove_from_group("bulletm2")
 	$hurtbox.queue_free()
 	await $sfx.finished
 	queue_free()

@@ -8,6 +8,7 @@ var anim_playing = false
 var smack_parried = false
 var health = 50.0
 var guarded = false
+var shaking = false
 
 func _ready():
 	$arm_left.position = Vector2(-500, 150)
@@ -29,14 +30,13 @@ func _process(_delta):
 		smack()
 	#if $SmackTimer.is_stopped() and anim_playing == false and smack_parried == false:
 		#smack()
-	if health < 1:
+	if health <= 0:
 		if get_node("../camera").target == get_node("camera_anchor"):
 			get_node("../camera").snap = false
 			get_node("../camera").target = get_node("../player")
 			get_node("../player/player_hurtbox").add_to_group("snap camera")
-			get_node("../camera").const_shake = 0
-		if get_node("../camera").const_shake > 0:
-			get_node("../camera").const_shake = 0
+		if shaking:
+			get_node("../camera").const_shake_num += 1
 		queue_free()
 
 func smack():
@@ -60,9 +60,12 @@ func smack():
 		smack_again()
 
 func shake_smack(time1, time2, scale_effect, sfx, loud, speeda):
-	get_node("../camera").const_shake = 7.5
+	shaking = true
+	get_node("../camera").const_shake += 7.5
+	get_node("../camera").const_shake_num -= 1
 	await get_tree().create_timer(time1, false).timeout
-	get_node("../camera").const_shake = 0
+	shaking = false
+	get_node("../camera").const_shake_num += 1
 	get_node("../camera").apply_shake(50, 0.25)
 	await get_tree().create_timer(time2, false).timeout
 	$about_to_smacksfx.stop()

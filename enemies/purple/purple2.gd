@@ -19,7 +19,7 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func _process(_delta):
-	if health < 1:
+	if health <= 0:
 		var effect := death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

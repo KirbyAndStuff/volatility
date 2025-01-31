@@ -42,7 +42,7 @@ func _process(_delta):
 			var direction = (get_node("../player").position-position).normalized()
 			velocity=direction*speed
 			red_dashlength.start()
-	if health < 1:
+	if health <= 0:
 		var effect := red_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)

@@ -5,7 +5,7 @@ var speed = 3000.0
 var detonation := preload("res://player/attacks/bullet/beam_detonation.tscn")
 var death := preload("res://enemies/greater_green/greater_green_bullet_death.tscn")
 var hit = false
-var damage = 2
+var damage = 1
 
 func _physics_process(delta):
 	if direction == Vector2.ZERO:

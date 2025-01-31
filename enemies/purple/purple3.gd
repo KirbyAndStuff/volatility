@@ -17,7 +17,7 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func _process(_delta):
-	if health < 1:
+	if health <= 0:
 		queue_free()
 
 func _on_playerdeath_area_entered(area):

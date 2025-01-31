@@ -28,8 +28,8 @@ func _on_die_timer_timeout() -> void:
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("enemy"):
 		activate = true
-		area.add_to_group("marked melee alt")
+		area.add_to_group("marked melee_m2")
 
 func _on_area_2d_area_exited(area):
 	if area.is_in_group("enemy"):
-		area.remove_from_group("marked melee alt")
+		area.remove_from_group("marked melee_m2")

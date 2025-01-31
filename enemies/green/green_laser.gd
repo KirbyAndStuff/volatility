@@ -46,11 +46,11 @@ func _on_timer_attack_timeout():
 	$TimerDie.start()
 
 func _on_check_area_entered(area):
-	if area.is_in_group("enemy_body"):
+	if area.is_in_group("green_laser"):
 		enemies_in += 1
 
 func _on_check_area_exited(area):
-	if area.is_in_group("enemy_body"):
+	if area.is_in_group("green_laser"):
 		enemies_in -= 1
 		if enemies_in == 0:
 			queue_free()

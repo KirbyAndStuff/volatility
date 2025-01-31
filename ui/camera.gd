@@ -11,6 +11,7 @@ var speed = 3000
 var snap = true
 var shake_activators = 0
 var const_shake = 0
+var const_shake_num = 1
 
 @onready var target = get_node("../player")
 
@@ -33,11 +34,16 @@ func _physics_process(delta):
 		else:
 			speed += 3000 * delta
 			global_position += (target.global_position - global_position).normalized() * speed * delta
-	if const_shake > 0:
-		offset = randomconstoffset()
-	if shake_strength > 0 and const_shake == 0:
+	#if const_shake > 0:
+		#offset = randomconstoffset()
+	#if shake_strength > 0 and const_shake == 0:
+		#shake_strength = lerpf(shake_strength, 0, shakefade * delta)
+		#offset = randomoffset()
+	if shake_strength > 0 or const_shake > 0:
 		shake_strength = lerpf(shake_strength, 0, shakefade * delta)
-		offset = randomoffset()
+		offset = randomoffset() + randomconstoffset()
+	if const_shake_num > 0 and const_shake > 0:
+		const_shake = lerpf(const_shake, 0, 10 * delta)
 
 func _process(_delta):
 	if get_tree().has_group("enemy") or get_tree().has_group("spawn"):

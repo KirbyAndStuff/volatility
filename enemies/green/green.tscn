@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6sg1b6ucnje7"]
+[gd_scene load_steps=11 format=3 uid="uid://b6sg1b6ucnje7"]
 
 [ext_resource type="Script" path="res://enemies/green/green.gd" id="1_t7t5q"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_kbnva"]
@@ -8,7 +8,7 @@
 offsets = PackedFloat32Array(0, 0.556291, 1)
 colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1ikm5"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_vceya"]
 radius = 56.0803
 
 [sub_resource type="Curve" id="Curve_rlgok"]
@@ -24,6 +24,8 @@ radius = 53.0094
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qvkuf"]
 radius = 56.0089
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g78yx"]
 
 [node name="green" type="CharacterBody2D" groups=["enemy", "green"]]
 collision_layer = 4
@@ -88,7 +90,7 @@ scale_amount_max = 5.0
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
-shape = SubResource("CircleShape2D_1ikm5")
+shape = SubResource("CircleShape2D_vceya")
 disabled = true
 
 [node name="GunTimer" type="Timer" parent="."]
@@ -153,5 +155,11 @@ collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
 shape = SubResource("CircleShape2D_qvkuf")
+
+[node name="laser" type="Area2D" parent="." groups=["green_laser"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="laser"]
+shape = SubResource("CircleShape2D_g78yx")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]

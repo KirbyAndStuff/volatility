@@ -15,7 +15,7 @@ colors = PackedColorArray(1, 4, 4, 1, 1, 4, 4, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_gaeni"]
 radius = 140.0
 
-[node name="bulletm2_boom" type="CPUParticles2D"]
+[node name="bulletm2_boom" type="CPUParticles2D" groups=["bulletm2"]]
 emitting = false
 amount = 300
 lifetime = 0.5

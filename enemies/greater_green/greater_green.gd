@@ -61,7 +61,7 @@ func _ready():
 		is_dead = false
 
 func _process(_delta):
-	if health < 1 and is_dead == false:
+	if health <= 0 and is_dead == false:
 		add_to_group("enemy")
 		is_dead = true
 		$playerdeath.queue_free()

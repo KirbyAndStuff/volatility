@@ -18,7 +18,7 @@ func _process(_delta):
 		$parry.color = Color(1, 1, 1, 1)
 
 	var parry_cooldown = get_node("../../player").parry_cooldown
-	if parry_cooldown > 30:
+	if parry_cooldown >= 30:
 		$parry_ready.emitting = true
 		$parry_ready2.emitting = true
 		$parry.modulate = Color(1, 1, 1, 1)
@@ -28,16 +28,16 @@ func _process(_delta):
 			$parry_ready2.emitting = false
 		$parry.modulate = Color(1, parry_cooldown / 30, parry_cooldown / 30, parry_cooldown / 30)
 
-	var big_bullet_cooldown = (get_node("../../player").gunm2_cooldown)
-	if big_bullet_cooldown > 100:
+	var gunm2_cooldown = (get_node("../../player").gunm2_cooldown)
+	if gunm2_cooldown >= 100:
 		$first_weapon.lifetime = 0.5
 		$first_weapon.modulate = Color(1, 1, 1)
 	else:
 		$first_weapon.lifetime = 0.3
-		$first_weapon.modulate = Color(1, big_bullet_cooldown / 100, big_bullet_cooldown / 100, big_bullet_cooldown / 100)
+		$first_weapon.modulate = Color(1, gunm2_cooldown / 100, gunm2_cooldown / 100, gunm2_cooldown / 100)
 
 	var laser_cooldown = (get_node("../../player").alt_gunm2_cooldown) #aaaaaaaaaaaaaaaaa
-	if laser_cooldown > 100:
+	if laser_cooldown >= 100:
 		$first_alt/flames.lifetime = 0.5
 		$first_alt.modulate = Color(1, 1, 1)
 	else:
@@ -45,7 +45,7 @@ func _process(_delta):
 		$first_alt.modulate = Color(1, laser_cooldown / 100, laser_cooldown / 100, laser_cooldown / 100)
 
 	var slash_cooldown = (get_node("../../player").meleem2_cooldown)
-	if slash_cooldown > 100:
+	if slash_cooldown >= 100:
 		$second_weapon.explosiveness = 0
 		$second_weapon.modulate = Color(1, 1, 1)
 	else:

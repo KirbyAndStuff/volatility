@@ -47,9 +47,9 @@ func _physics_process(delta):
 		direction = global_position.direction_to(get_node("../player").position)
 	if in_beam:
 		if come_back:
-			speed -= 3000.0 * delta
+			speed -= 4000.0 * delta
 		else:
-			speed += 3000.0 * delta
+			speed += 4000.0 * delta
 	$stop_follow_player.scale = Vector2(speed, speed) / 2500.0
 
 func _on_hurtbox_area_entered(area):
@@ -133,10 +133,10 @@ func _on_stop_follow_player_area_exited(area):
 			shot.shake = 10
 			shot.remove_from_groupa = true
 			shot.hit_from_inside = false
-			if get_tree().has_group("bullet"):
-				where_laser_hit_bullet()
-				shot.shoot(global_position, closest_bullet.global_position)
-			elif get_tree().has_group("enemy_body"):
+			#if get_tree().has_group("bullet"):
+				#where_laser_hit_bullet()
+				#shot.shoot(global_position, closest_bullet.global_position)
+			if get_tree().has_group("enemy_body"):
 				where_laser_hit_enemy()
 				shot.shoot(global_position, closest_enemy.global_position)
 			else:
