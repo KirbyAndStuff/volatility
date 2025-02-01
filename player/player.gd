@@ -18,7 +18,6 @@ var friction = 4000
 var friction_boost = 0
 var stamina = 100
 var gunm2_cooldown = 100
-var gunm2_charge = 0
 var alt_gunm2_cooldown = 100 #aaaaaaaaaaa
 var meleem2_cooldown = 100
 var input = Vector2.ZERO
@@ -49,10 +48,6 @@ func _physics_process(delta):
 		stamina += 25 * delta
 	if gunm2_cooldown <= 100:
 		gunm2_cooldown += 50 * delta
-	if Input.is_action_pressed("right_mouse_button") and active_weapon == "bullet" and gunm2_charge < 110 and is_dead == false and in_intro == false:
-		gunm2_charge += 100 * delta
-	elif gunm2_charge > 0:
-		gunm2_charge -= 100 * delta
 	if alt_gunm2_cooldown <= 100 and not get_tree().has_group("beam"): #aaaaaaaaa
 		alt_gunm2_cooldown += 50 * delta #aaaaaaaa
 	if meleem2_cooldown <= 100:
@@ -95,13 +90,12 @@ func _process(_delta):
 		if active_weapon == "melee" and $MeleeTimer.is_stopped():
 			melee()
 	if Input.is_action_pressed("right_mouse_button") and is_dead == false and in_intro == false:
+		if active_weapon == "bullet":
+			shootm2()
 		if active_weapon == "alt_bullet":
 			alt_shootm2()
 		if active_weapon == "melee":
 			meleem2()
-	if Input.is_action_just_released("right_mouse_button") and is_dead == false and in_intro == false:
-		if active_weapon == "bullet" and gunm2_charge >= 100:
-			shootm2()
 	if Input.is_action_just_pressed("first_weapon"):
 		if active_weapon in bullets:
 			key += 1
@@ -172,14 +166,6 @@ func _process(_delta):
 		$"combat eye2".emitting = false
 	if $powered_bullet2.visible:
 		$powered_bullet2.look_at(get_global_mouse_position())
-	if $bulletm2_raycast.visible:
-		$bulletm2_raycast.look_at(get_global_mouse_position())
-		$bulletm2_raycast/bulletm2_line.width = gunm2_charge / 30
-		$bulletm2_raycast/bulletm2_line.modulate = Color(1, 1, 1, gunm2_charge / 1000)
-		if $bulletm2_raycast.is_colliding():
-			$bulletm2_raycast/bulletm2_line.points[1] = $bulletm2_raycast.to_local($bulletm2_raycast.get_collision_point())
-		else:
-			$bulletm2_raycast/bulletm2_line.points[1] = Vector2(2000, 0)
 	#if not Input.is_action_pressed("first_weapon"):
 		#Engine.time_scale = 0.05
 	#else:
@@ -251,7 +237,6 @@ func shoot():
 
 func shootm2():
 	if gunm2_cooldown > 100 and not get_tree().has_group("beam") and get_node("/root/player_global").got_bulletm2:
-		gunm2_charge = 0
 		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)

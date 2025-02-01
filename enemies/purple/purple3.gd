@@ -9,6 +9,7 @@ func _ready():
 
 var speed = 700
 var health = 1.0
+var max_health = 1.0
 var guarded = false
 
 func _physics_process(_delta):

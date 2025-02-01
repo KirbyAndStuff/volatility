@@ -3,7 +3,6 @@ extends Node2D
 var red_death := preload("res://enemies/red/red_death.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 var speed = 500
-var health = 10
 
 func _physics_process(delta):
 	if speed <= 500:

@@ -12,6 +12,7 @@ func _ready():
 
 var speed = 300
 var health = 3.0
+var max_health = 3.0
 var guarded = false
 
 @onready var eyes = [$eye_bottom, $eye_top, $eye_left, $eye_right]

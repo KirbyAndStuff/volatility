@@ -1,6 +1,7 @@
 extends Node2D
 
 var health = 3.0
+var max_health = 3.0
 var can_be_hurt_view = false
 var can_be_hurt_enemy = false
 var barrier_hurt := preload("res://enemies/green/green_hurt.tscn")

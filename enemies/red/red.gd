@@ -15,6 +15,7 @@ func _ready():
 var speed = 500
 var dash_at_player = false
 var health = 2.0
+var max_health = 2.0
 var guarded = false
 
 @onready var red_dashlength = $Red_DashLength

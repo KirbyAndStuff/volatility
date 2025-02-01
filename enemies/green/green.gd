@@ -4,6 +4,7 @@ var green_death := preload("res://enemies/green/green_death.tscn")
 var green_hurt := preload("res://enemies/green/green_hurt.tscn")
 
 var health = 3.0
+var max_health = 3.0
 @export var bullets_fired = 0
 @export var can_fire_laser = true
 var guarded = false

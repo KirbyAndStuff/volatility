@@ -7,6 +7,7 @@ var smack_lines := preload("res://bosses/boss_practice/smack_lines.tscn")
 var anim_playing = false
 var smack_parried = false
 var health = 50.0
+var max_health = 50.0
 var guarded = false
 var shaking = false
 
@@ -148,8 +149,8 @@ func parried_smack():
 	stay_above_player = true
 	smack_parried = false
 	$body.emitting = true
-	$player_death_body/CollisionShape2D.set_deferred("disabled", false)
 	$player_death_eye/CollisionShape2D.set_deferred("disabled", true)
+	$player_death_body/CollisionShape2D.set_deferred("disabled", false)
 
 func _on_player_death_body_area_entered(area):
 	if area.is_in_group("player_attack"):

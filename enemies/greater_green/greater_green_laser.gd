@@ -39,7 +39,7 @@ func _on_timer_attack_timeout():
 	$line.visible = false
 	$attack.visible = true
 	$hurtbox.add_child(collision_polygon)
-	collision_polygon.polygon = [Vector2(0, 60), Vector2(5000, 60), Vector2(5000, -60), Vector2(0, -60)]
+	collision_polygon.polygon = [Vector2(0, 40), Vector2(5000, 40), Vector2(5000, -40), Vector2(0, -40)]
 	if get_node("../camera").shake_strength < 0.1:
 		get_node("../camera").apply_shake(7, 0.4)
 	$TimerDie.start()

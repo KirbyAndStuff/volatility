@@ -5,6 +5,7 @@ var speed = 2000
 var is_attacking = false
 var near_player = false
 var health = 40.0
+var max_health = 40.0
 var guarded = false
 var is_dead = true
 var lerp_weight = 0.005
@@ -117,9 +118,9 @@ func _process(_delta):
 		used_laser = true
 		$LaserTimer.start()
 		lasers(1)
-		lasers(2)
-		lasers(3)
+		lasers(2.5)
 		lasers(4)
+		lasers(5.5)
 
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
@@ -191,7 +192,7 @@ func lasers(delay):
 		await get_tree().create_timer(0.1, false).timeout
 		$lasersfx.play()
 		await get_tree().create_timer(3, false).timeout
-		if delay == 4:
+		if delay == 5.5:
 			is_attacking = false
 			used_blast = 0
 			used_bullet = false

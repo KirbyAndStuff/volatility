@@ -27,10 +27,11 @@ func _process(_delta):
 		red_intro_thing()
 
 	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100:
+		pressed_m2 = true
 		get_node("player").gunm2_cooldown = 0
 		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
 		var shot = bullet_scene.instantiate()
-		shot.shake = 0
+		shot.shake = 10
 		add_child(shot)
 		shot.shoot(get_node("player").global_position, get_global_mouse_position())
 
@@ -241,7 +242,6 @@ func _on_hurt_wall_area_exited(area):
 
 func _on_red_intro_area_area_entered(area):
 	if area.is_in_group("bulletm2"):
-		pressed_m2 = true
 		get_node("camera").apply_shake(10, 1)
 		$ui/message.text = ""
 		$ui/message2.text = ""
@@ -499,8 +499,8 @@ func spawn_5_5_wave():
 	if is_instance_valid($ui/glowing_attack_mes):
 		$ui/glowing_attack_mes.visible = true
 		$ui/glowing_attack_mes2.visible = true
-	spawngreen(Vector2(8900, 1044), 1, "5-5 green", 1, true, 5_5)
-	spawngreen(Vector2(11325, 1044), 1, "5-5 green", 1, true, 5_5)
+	spawngreena(Vector2(8900, 1044), 1, "5-5 green", 1, true)
+	spawngreena(Vector2(11325, 1044), 1, "5-5 green", 1, true)
 	spawni("barrier_break", Vector2(10070, -34), "5-5 shield")
 	await get_tree().create_timer(4.6, false).timeout
 	remove_from_group("spawn")
@@ -520,8 +520,8 @@ func spawn_5_5_wave():
 	spawna("red", Vector2(10540, 14), 1, "5-5", 0.5, 5_5)
 
 func spawn_5_5_wave_alt():
-	spawngreen(Vector2(8900, 1044), 1, "5-5 green", 1, true, 5_5)
-	spawngreen(Vector2(11325, 1044), 1, "5-5 green", 1, true, 5_5)
+	spawngreena(Vector2(8900, 1044), 1, "5-5 green", 1, true)
+	spawngreena(Vector2(11325, 1044), 1, "5-5 green", 1, true)
 	spawni("barrier_break", Vector2(10070, -34), "5-5 shield")
 	await get_tree().create_timer(2, false).timeout
 	spawngreen(Vector2(9366, -44), 1, "5-5", 0, false, 5_5)
@@ -530,7 +530,6 @@ func spawn_5_5_wave_alt():
 	spawng("5-5 shield", Vector2(10076, 248), "5-5 red", false, 1, 2.5, 0.5)
 	spawna("red", Vector2(9652, 14), 1, "5-5", 0.5, 5_5)
 	spawna("red", Vector2(10540, 14), 1, "5-5", 0.5, 5_5)
-
 
 func _on_hallway_area_area_entered(area):
 	if area.is_in_group("player") and room_in_action == null:

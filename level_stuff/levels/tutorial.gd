@@ -133,9 +133,9 @@ func _on_heal_message_area_entered(area):
 		$ui/particle_message.position = Vector2(957, 847)
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(13, 1.5)
-		$ui/message.text = "Damaging any Enemy will slowly charge up a         "
+		$ui/message.text = "Damaging any Enemy will slowly charge up a Heal"
 		$ui/message2.text = "This is the only way to replenish your Health"
-		$ui/message3.text = "Heal"
+		#$ui/message3.text = "Heal"
 		$heal_message.queue_free()
 
 func _on_enemy_1_area_entered(area):

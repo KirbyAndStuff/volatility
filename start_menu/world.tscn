@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=17 format=4 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="PackedScene" uid="uid://ck8b4pddxyoqp" path="res://ui/camera.tscn" id="3_0o8ed"]
@@ -9,12 +9,25 @@
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="7_88ayv"]
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
+[ext_resource type="PackedScene" uid="uid://qdynyepc0g4d" path="res://enemies/general/enemy_health_bar.tscn" id="11_7tys3"]
+[ext_resource type="PackedScene" uid="uid://cbq60l25xsim8" path="res://enemies/greater_green/greater_green.tscn" id="11_yvodm"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
 
 [sub_resource type="TileSet" id="TileSet_cpcic"]
 sources/0 = SubResource("TileSetScenesCollectionSource_n61h1")
+
+[sub_resource type="Curve" id="Curve_vayfe"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_2vby7"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkawm"]
 size = Vector2(581, 13)
@@ -27,12 +40,114 @@ tile_map_data = PackedByteArray("AAD0/+D/AAAAAAAAAQD0/+H/AAAAAAAAAQD0/+L/AAAAAAA
 tile_set = SubResource("TileSet_cpcic")
 
 [node name="player" parent="." instance=ExtResource("1_qdwvq")]
-position = Vector2(117, 138)
+position = Vector2(960, 540)
 
 [node name="camera" parent="." instance=ExtResource("3_0o8ed")]
-position = Vector2(117, 138)
+position = Vector2(960, 540)
 
 [node name="ui" type="CanvasLayer" parent="."]
+
+[node name="enemy_health_bar2" parent="ui" instance=ExtResource("11_7tys3")]
+position = Vector2(960, 160)
+event = "bap"
+background_color = Color(0, 0, 0, 0)
+fill_color = Color(0, 1, 0, 1)
+namea = "Greater Green"
+title = ""
+
+[node name="particle" type="CPUParticles2D" parent="ui/enemy_health_bar2"]
+position = Vector2(-567, -25)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -0.4
+orbit_velocity_max = -0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_vayfe")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_2vby7")
+
+[node name="particle2" type="CPUParticles2D" parent="ui/enemy_health_bar2"]
+position = Vector2(-567, -112)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.4
+orbit_velocity_max = 0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_vayfe")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_2vby7")
+
+[node name="particle3" type="CPUParticles2D" parent="ui/enemy_health_bar2"]
+position = Vector2(567, -25)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.4
+orbit_velocity_max = 0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_vayfe")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_2vby7")
+
+[node name="particle4" type="CPUParticles2D" parent="ui/enemy_health_bar2"]
+position = Vector2(567, -112)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -0.4
+orbit_velocity_max = -0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_vayfe")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_2vby7")
 
 [node name="health" parent="ui" instance=ExtResource("3_siq2p")]
 anchors_preset = 0
@@ -89,3 +204,6 @@ shape = SubResource("RectangleShape2D_bkawm")
 
 [node name="dummy" parent="." instance=ExtResource("8_c4gwh")]
 position = Vector2(1874, 120)
+
+[node name="greater_green" parent="." groups=["bap"] instance=ExtResource("11_yvodm")]
+position = Vector2(1521, 300)
