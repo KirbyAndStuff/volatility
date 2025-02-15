@@ -34,6 +34,7 @@ var parry_cooldown = 30
 var in_intro = false
 var got_hit = false
 var take_damage = 0
+var taken_hit = false
 
 var bullets = ["bullet", "alt_bullet"]
 var melees = ["melee"]
@@ -65,6 +66,7 @@ func _process(_delta):
 		health -= 1
 		i_frames(1)
 		player_hurt_particles()
+		taken_hit = true
 		framefreeze(0.4, 0.3)
 	if Input.is_action_pressed("dash") and stamina > 50 and $DashLength.is_stopped() and is_dead == false and in_intro == false:
 		dash()
@@ -87,7 +89,7 @@ func _process(_delta):
 			shoot()
 		if active_weapon == "alt_bullet" and $Alt_GunTimer.is_stopped() and not get_tree().has_group("bulletm2"):
 			alt_shoot()
-		if active_weapon == "melee" and $MeleeTimer.is_stopped():
+		if active_weapon == "melee" and $MeleeTimer.is_stopped() and not get_tree().has_group("meleem2"):
 			melee()
 	if Input.is_action_pressed("right_mouse_button") and is_dead == false and in_intro == false:
 		if active_weapon == "bullet":
@@ -166,19 +168,10 @@ func _process(_delta):
 		$"combat eye2".emitting = false
 	if $powered_bullet2.visible:
 		$powered_bullet2.look_at(get_global_mouse_position())
-	#if not Input.is_action_pressed("first_weapon"):
-		#Engine.time_scale = 0.05
-	#else:
-		#Engine.time_scale = 3
-	#if Input.is_action_pressed("switch_variant"):
+	#if Input.is_action_just_pressed("switch_variant"):
 		#health = 0
 	#else:
 		#health = 10
-	#if Input.is_action_just_pressed("interact"):
-		#var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
-		#var shot = bullet_scene.instantiate() 
-		#get_parent().add_child(shot)
-		#shot.shoot(global_position, get_global_mouse_position())
 
 func get_input():
 	if input.length() > 0.0:

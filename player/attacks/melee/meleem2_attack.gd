@@ -1,7 +1,7 @@
 extends Area2D
 
 var sfx := preload("res://player/attacks/melee/meleem2_attack_sfx.tscn")
-var damage = 2
+var damage = 3
 @onready var cooldown_amount = 5
 
 func _ready():

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://player/attacks/melee/meleem2_attack.gd" id="1_2dpro"]
 
-[sub_resource type="Curve" id="Curve_hdxpx"]
+[sub_resource type="Curve" id="Curve_86jdj"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
@@ -13,7 +13,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
-[node name="meleem2_attack" type="Area2D"]
+[node name="meleem2_attack" type="Area2D" groups=["meleem2"]]
 top_level = true
 scale = Vector2(4, 4)
 script = ExtResource("1_2dpro")
@@ -39,7 +39,7 @@ angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 10.0
 scale_amount_max = 10.0
-scale_amount_curve = SubResource("Curve_hdxpx")
+scale_amount_curve = SubResource("Curve_86jdj")
 color = Color(1, 3, 3, 1)
 color_ramp = SubResource("Gradient_avo3d")
 

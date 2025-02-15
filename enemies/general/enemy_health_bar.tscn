@@ -23,7 +23,7 @@ bg_color = Color(1, 1, 1, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_64ul6")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_070hk")
 
-[node name="enemy_health_bar" type="Node2D"]
+[node name="enemy_health_bar" type="Node2D" groups=["health_bar"]]
 script = ExtResource("1_f6y50")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -72,9 +72,9 @@ horizontal_alignment = 1
 offset_left = -238.0
 offset_top = 62.0
 offset_right = 238.0
-offset_bottom = 104.0
+offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("2_yu1fv")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1

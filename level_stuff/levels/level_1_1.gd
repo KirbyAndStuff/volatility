@@ -119,6 +119,7 @@ func _process(_delta):
 		$lock_walls6.process_mode = Node.PROCESS_MODE_DISABLED
 		create_tween().tween_property($lock_walls6, "modulate", Color(0, 0, 0, 0), 1)
 		$white_walls2.enabled = false
+		$hurt_walls2.enabled = false
 		room_in_action = 0
 		checkpoint_number = 7
 		$"5_1_room".queue_free()
@@ -148,6 +149,8 @@ func _process(_delta):
 		$lock_walls8.process_mode = Node.PROCESS_MODE_DISABLED
 		create_tween().tween_property($lock_walls8, "modulate", Color(0, 0, 0, 0), 1)
 		room_in_action = null
+	if room_in_action == 6_1 and not get_tree().has_group("health_bar") and $ui/bar_dec.modulate == Color(1, 1, 1, 1):
+		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ui/bar_dec, "modulate", Color(1, 1, 1, 0), 1)
 
 	if get_node("ui/gameoverscreen").restarted:
 		get_node("ui/gameoverscreen").restarted = false
@@ -195,6 +198,7 @@ func _process(_delta):
 			$lock_walls8.enabled = false
 			$lock_walls8.modulate = Color(1, 1, 1, 0)
 			$camera.snap = true
+			create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ui/bar_dec, "modulate", Color(1, 1, 1, 0), 1)
 			get_node("camera").target = get_node("player")
 			get_node("player/player_hurtbox").add_to_group("snap camera")
 
@@ -202,7 +206,7 @@ func _ready():
 	Engine.time_scale = 1.0
 	$camera.apply_shake(10, 0.5)
 	await get_tree().create_timer(0.5, false).timeout
-	get_node("player").in_intro = true
+	#get_node("player").in_intro = true
 	$level_end/start_levelsfx.play()
 	var effect := level_start.instantiate()
 	effect.position = $level_end.position + Vector2(0, 75)
@@ -224,8 +228,9 @@ func _ready():
 	#$lock_walls5.modulate = Color(1, 1, 1, 0)
 
 func _on_start_level_area_entered(area):
-	if area.is_in_group("player") and $intro_walls.process_mode == PROCESS_MODE_DISABLED:
+	if area.is_in_group("player"):
 		$level_end.queue_free()
+		$start_level.queue_free()
 		$intro_walls.process_mode = Node.PROCESS_MODE_INHERIT
 		var tween = create_tween()
 		tween.tween_property($intro_walls, "modulate", Color(1, 1, 1, 1,), 1)
@@ -703,6 +708,17 @@ func _on_greater_green_room_area_entered(area):
 			enemy.play_intro = false
 			enemy.add_to_group("6-2")
 			call_deferred("add_child", enemy)
+			var bar = load("res://enemies/general/enemy_health_bar.tscn").instantiate()
+			bar.position = Vector2(960, 160)
+			bar.event = "6-2"
+			bar.background_color = Color(0, 0, 0, 0)
+			bar.fill_color = Color(0, 1, 0, 1)
+			bar.namea = "Greater Green"
+			bar.title = ""
+			bar.modulate = Color(1, 1, 1, 0)
+			$ui.call_deferred("add_child", bar)
+			create_tween().set_trans(Tween.TRANS_EXPO).tween_property(bar, "modulate", Color(1, 1, 1, 1), 1)
+			create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ui/bar_dec, "modulate", Color(1, 1, 1, 1), 1)
 			room_in_action = 6_1
 
 func greater_green_intro1():
@@ -725,6 +741,18 @@ func greater_green_intro3():
 		$camera.speed = 0
 		get_node("camera").target = get_node("player")
 		get_node("player/player_hurtbox").add_to_group("snap camera")
+		var bar = load("res://enemies/general/enemy_health_bar.tscn").instantiate()
+		bar.position = Vector2(960, 160)
+		bar.event = "6-2"
+		bar.background_color = Color(0, 0, 0, 0)
+		bar.fill_color = Color(0, 1, 0, 1)
+		bar.namea = "Greater Green"
+		bar.title = ""
+		bar.modulate = Color(1, 1, 1, 0)
+		$ui.call_deferred("add_child", bar)
+		create_tween().set_trans(Tween.TRANS_EXPO).tween_property(bar, "modulate", Color(1, 1, 1, 1), 1)
+		$ui/bar_dec.visible = true
+		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ui/bar_dec, "modulate", Color(1, 1, 1, 1), 1)
 		room_in_action = 6_1
 
 func _on__5_trigger_area_entered(area):

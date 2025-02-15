@@ -9,8 +9,6 @@ var sfx := preload("res://enemies/green/green_lasersfx.tscn")
 func _ready():
 	await get_tree().create_timer(0.1, false).timeout
 	visible = true
-	#await get_tree().create_timer(0.6, false).timeout
-	#create_tween().tween_property($line, "width", 10, 0.2).set_trans(Tween.TRANS_ELASTIC)
 
 func _physics_process(_delta):
 	if predicting:
@@ -32,6 +30,10 @@ func diea():
 	queue_free()
 
 func _on_timer_attack_timeout():
+	$AudioStreamPlayer2D.play()
+	await get_tree().create_timer(0.1, false).timeout
+	$line.width = 3
+	$line.default_color = Color(0, 1, 0, 1)
 	predicting = false
 	await get_tree().create_timer(0.2, false).timeout
 	var effect := sfx.instantiate()
@@ -40,7 +42,7 @@ func _on_timer_attack_timeout():
 	$line.visible = false
 	$attack.visible = true
 	$hurtbox.add_child(collision_polygon)
-	collision_polygon.polygon = [Vector2(0, 15), Vector2(5000, 15), Vector2(5000, -15), Vector2(0, -15)]
+	collision_polygon.polygon = [Vector2(0, 10), Vector2(5000, 10), Vector2(5000, -10), Vector2(0, -10)]
 	if get_node("../camera").shake_strength < 0.1:
 		get_node("../camera").apply_shake(5, 0.4)
 	$TimerDie.start()

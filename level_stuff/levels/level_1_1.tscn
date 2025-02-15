@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=4 uid="uid://i62lhfxlsymg"]
+[gd_scene load_steps=99 format=4 uid="uid://i62lhfxlsymg"]
 
 [ext_resource type="Script" path="res://level_stuff/levels/level_1_1.gd" id="1_nrsi2"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qyvy7"]
@@ -21,6 +21,17 @@
 [ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="19_eq65h"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="20_14c7t"]
 [ext_resource type="AudioStream" uid="uid://bnc1iuu0qrp6h" path="res://audio/alt_bullet_dodge_sfx.wav" id="21_irflr"]
+
+[sub_resource type="Curve" id="Curve_krcin"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_bg8et"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5imyo"]
 scenes/1/scene = ExtResource("10_ftb1a")
@@ -271,9 +282,7 @@ size = Vector2(2192, 16)
 script = ExtResource("1_nrsi2")
 
 [node name="player" parent="." instance=ExtResource("1_qyvy7")]
-process_mode = 4
-visible = false
-position = Vector2(228, -1016)
+position = Vector2(13066, -1886)
 
 [node name="camera" parent="." instance=ExtResource("3_lxdcc")]
 position = Vector2(228, -1016)
@@ -289,6 +298,105 @@ volume_db = -10.0
 pitch_scale = 0.75
 
 [node name="ui" type="CanvasLayer" parent="."]
+
+[node name="bar_dec" type="Node2D" parent="ui"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+position = Vector2(960, 160)
+
+[node name="particle" type="CPUParticles2D" parent="ui/bar_dec"]
+position = Vector2(-567, -25)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -0.4
+orbit_velocity_max = -0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_krcin")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_bg8et")
+
+[node name="particle2" type="CPUParticles2D" parent="ui/bar_dec"]
+position = Vector2(-567, -112)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.4
+orbit_velocity_max = 0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_krcin")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_bg8et")
+
+[node name="particle3" type="CPUParticles2D" parent="ui/bar_dec"]
+position = Vector2(567, -25)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.4
+orbit_velocity_max = 0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_krcin")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_bg8et")
+
+[node name="particle4" type="CPUParticles2D" parent="ui/bar_dec"]
+position = Vector2(567, -112)
+lifetime = 0.4
+preprocess = 0.4
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -0.4
+orbit_velocity_max = -0.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_krcin")
+color = Color(0, 1, 0, 1)
+color_ramp = SubResource("Gradient_bg8et")
 
 [node name="message" type="Label" parent="ui"]
 offset_top = 526.0
@@ -747,9 +855,6 @@ position = Vector2(10800, 2170)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="green_meteor"]
 position = Vector2(-2, 142)
 shape = SubResource("RectangleShape2D_8ecjr")
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(10433, 2459)
 
 [node name="kill_green_meteor" type="Area2D" parent="." groups=["kill green meteor"]]
 position = Vector2(10500, 2469)

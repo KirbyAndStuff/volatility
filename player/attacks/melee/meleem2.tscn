@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bskb"]
 radius = 200.0
 
-[node name="meleem2" type="Node2D"]
+[node name="meleem2" type="Node2D" groups=["meleem2"]]
 script = ExtResource("1_ye6fw")
 
 [node name="Area2D" type="Area2D" parent="."]

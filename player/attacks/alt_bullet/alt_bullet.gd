@@ -57,7 +57,7 @@ func _on_hurtbox_area_entered(area):
 		if not area.is_in_group("no heal_cooldown reduction") and area.get_parent().guarded == false:
 			get_node("../player").add_heal_cooldown(5)
 		enemies_hit += 1
-		if 2 < enemies_hit and not is_in_group("parried"):
+		if 3 < enemies_hit and not is_in_group("parried"):
 			die()
 	if area.is_in_group("beam") and not is_in_group("parried"):
 		in_beam = true
@@ -204,4 +204,5 @@ func _on_detect_m_2_area_entered(area):
 				bulletm2_angle_min += 0.1
 				bulletm2_angle_max += 0.1
 				add_sibling(effect)
+		get_node("../camera").apply_shake(10, 0.25)
 		queue_free()

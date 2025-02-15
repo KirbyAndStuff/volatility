@@ -46,8 +46,6 @@ func _physics_process(_delta):
 		effect.remove_from_groupa = remove_from_groupa
 		get_parent().add_child(effect)
 		shot = true
-		if get_collider().is_in_group("alt_bullet"):
-			get_node("../camera").apply_shake(10, 0.25)
 	elif shot == false:
 		$Line2D.points[1] = Vector2(2000, 0)
 		$end.position = Vector2(2000, 0)

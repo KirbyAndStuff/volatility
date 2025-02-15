@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cx543jejl2row"]
+[gd_scene load_steps=16 format=4 uid="uid://cx543jejl2row"]
 
 [ext_resource type="Script" path="res://level_stuff/levels/test.gd" id="1_3ywd5"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_5n02b"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="6_iogty"]
 [ext_resource type="PackedScene" uid="uid://bkv4xhrs4iujk" path="res://level_stuff/walls/white_wall.tscn" id="9_rp1md"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="9_xhrit"]
+[ext_resource type="PackedScene" uid="uid://q5kj08qhck4m" path="res://level_stuff/interactables/level_end.tscn" id="10_huyn0"]
+[ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="11_bhl0g"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_wk3v5"]
 scenes/1/scene = ExtResource("9_rp1md")
@@ -19,20 +21,27 @@ sources/0 = SubResource("TileSetScenesCollectionSource_wk3v5")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2j0xd"]
 size = Vector2(152.25, 1032.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5j8lt"]
+size = Vector2(1032, 20)
+
 [node name="test" type="Node2D" groups=["cant spawn enemy"]]
 script = ExtResource("1_3ywd5")
 
 [node name="player" parent="." instance=ExtResource("1_5n02b")]
-position = Vector2(1, 0)
+process_mode = 4
+visible = false
+position = Vector2(-2094, -1146)
 
 [node name="camera" parent="." instance=ExtResource("2_2idg5")]
 
 [node name="ui" type="CanvasLayer" parent="."]
 
 [node name="health" parent="ui" instance=ExtResource("3_pm4qh")]
+modulate = Color(1, 1, 1, 0)
 metadata/_edit_lock_ = true
 
 [node name="staminabar" parent="ui" instance=ExtResource("4_dg4y2")]
+modulate = Color(1, 1, 1, 0)
 metadata/_edit_lock_ = true
 
 [node name="gameoverscreen" parent="ui" instance=ExtResource("5_7a7hm")]
@@ -57,4 +66,21 @@ position = Vector2(394, 70)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("9_xhrit")
 
+[node name="level_end" parent="." instance=ExtResource("10_huyn0")]
+position = Vector2(-2094, -1146)
+monitoring = false
+monitorable = false
+
+[node name="start_levelsfx" type="AudioStreamPlayer2D" parent="level_end"]
+stream = ExtResource("11_bhl0g")
+volume_db = -10.0
+pitch_scale = 0.75
+
+[node name="start_level" type="Area2D" parent="." groups=["level start"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="start_level"]
+position = Vector2(-2086, -220)
+shape = SubResource("RectangleShape2D_5j8lt")
+
 [connection signal="area_entered" from="0/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="start_level" to="." method="_on_start_level_area_entered"]

@@ -1,12 +1,23 @@
 extends Node2D
 
+var level_start = preload("res://level_stuff/interactables/level_start_particle.tscn")
 var room = null
 var current_room = null
 var checkpoint = null
 var restarts = 0
 
 func _ready() -> void:
-	$ui/gameoverscreen.connect("retry", restart)
+	#$ui/gameoverscreen.connect("retry", restart)
+	Engine.time_scale = 1.0
+	$camera.apply_shake(10, 0.5)
+	await get_tree().create_timer(0.5, false).timeout
+	get_node("player").in_intro = true
+	$level_end/start_levelsfx.play()
+	var effect := level_start.instantiate()
+	effect.position = $level_end.position + Vector2(0, 75)
+	get_parent().add_child(effect)
+	$player.visible = true
+	$player.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _process(_delta):
 	if room == 1_1 and not get_tree().has_group("1-1"):
@@ -48,3 +59,10 @@ func restart():
 		enemy_attack.queue_free()
 	if current_room == 1_1:
 		pass
+
+func _on_start_level_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player"):
+		$level_end.queue_free()
+		$start_level.queue_free()
+		create_tween().tween_property($ui/health, "modulate", Color(1, 1, 1, 1,), 1)
+		create_tween().tween_property($ui/staminabar, "modulate", Color(1, 1, 1, 1,), 1)
