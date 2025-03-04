@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://c8codwb0jmyiu"]
 
-[ext_resource type="Script" path="res://enemies/purple/purple.gd" id="1_p8b53"]
+[ext_resource type="Script" uid="uid://b056raxryj02u" path="res://enemies/purple/purple.gd" id="1_p8b53"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_hyedg"]
 
 [sub_resource type="Curve" id="Curve_kso2c"]

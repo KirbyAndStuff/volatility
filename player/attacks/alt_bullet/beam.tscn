@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qqrgrc3cq65s"]
 
-[ext_resource type="Script" path="res://player/attacks/alt_bullet/beam.gd" id="1_vnbyi"]
+[ext_resource type="Script" uid="uid://c2fm7dycm7cf3" path="res://player/attacks/alt_bullet/beam.gd" id="1_vnbyi"]
 
 [sub_resource type="Curve" id="Curve_7kjgh"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://du36p17bqu2bc"]
 
-[ext_resource type="Script" path="res://level_stuff/interactables/red_cutscene.gd" id="1_lndox"]
+[ext_resource type="Script" uid="uid://iot7s01pn6px" path="res://level_stuff/interactables/red_cutscene.gd" id="1_lndox"]
 
 [sub_resource type="Curve" id="Curve_8jx83"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]

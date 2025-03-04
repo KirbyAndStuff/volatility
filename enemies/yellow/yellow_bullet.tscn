@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c1ojnykymisqh"]
 
-[ext_resource type="Script" path="res://enemies/yellow/yellow_bullet.gd" id="1_75ysy"]
+[ext_resource type="Script" uid="uid://4e6fx7n4h2rr" path="res://enemies/yellow/yellow_bullet.gd" id="1_75ysy"]
 
 [sub_resource type="Curve" id="Curve_o3r3b"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.247191, 1), 0.0, 0.0, 0, 0, Vector2(0.258437, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

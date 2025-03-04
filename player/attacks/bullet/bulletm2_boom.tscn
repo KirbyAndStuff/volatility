@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ouigdmaisyfo"]
 
-[ext_resource type="Script" path="res://player/attacks/bullet/bulletm_2_boom.gd" id="1_fko35"]
+[ext_resource type="Script" uid="uid://bhv4bq4o4qkug" path="res://player/attacks/bullet/bulletm_2_boom.gd" id="1_fko35"]
 [ext_resource type="AudioStream" uid="uid://b0geip1ovg162" path="res://audio/bulletm2sfx.wav" id="2_8ivrd"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="3_btc4f"]
 

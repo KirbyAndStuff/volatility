@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cavyx8gm0geua"]
 
-[ext_resource type="Script" path="res://bosses/boss_practice/smack_lines.gd" id="1_jsm2a"]
+[ext_resource type="Script" uid="uid://c6opnt61tryro" path="res://bosses/boss_practice/smack_lines.gd" id="1_jsm2a"]
 [ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="2_psgbe"]
 
 [sub_resource type="Curve" id="Curve_ush4o"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://qdynyepc0g4d"]
 
-[ext_resource type="Script" path="res://enemies/general/enemy_health_bar.gd" id="1_f6y50"]
+[ext_resource type="Script" uid="uid://dvvwexk6q8lqs" path="res://enemies/general/enemy_health_bar.gd" id="1_f6y50"]
 [ext_resource type="FontFile" uid="uid://r5b7oeigqap6" path="res://ui/Bombardier-Regular.ttf" id="2_yu1fv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb86v"]

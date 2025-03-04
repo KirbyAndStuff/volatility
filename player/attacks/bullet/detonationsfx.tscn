@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqjtbqstoxyd4"]
 
 [ext_resource type="AudioStream" uid="uid://oi3edt06tvn1" path="res://audio/landing.wav" id="1_1mlkn"]
-[ext_resource type="Script" path="res://audio/audio_die_global.gd" id="2_33xlf"]
+[ext_resource type="Script" uid="uid://dm6wm43yge4qk" path="res://audio/audio_die_global.gd" id="2_33xlf"]
 
 [node name="detonationsfx" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_1mlkn")

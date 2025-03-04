@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://m11eqcc8yob5"]
 
-[ext_resource type="Script" path="res://player/attacks/melee/meleem2_attack.gd" id="1_2dpro"]
+[ext_resource type="Script" uid="uid://dxmfri41heb7l" path="res://player/attacks/melee/meleem2_attack.gd" id="1_2dpro"]
 
 [sub_resource type="Curve" id="Curve_86jdj"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

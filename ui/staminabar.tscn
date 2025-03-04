@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c75vgbv1f385j"]
 
 [ext_resource type="Theme" uid="uid://dq3i1x1xdqnln" path="res://ui/stamina_bar_theme.tres" id="1_52gj0"]
-[ext_resource type="Script" path="res://ui/staminabar.gd" id="1_spaw4"]
+[ext_resource type="Script" uid="uid://ceoo2xxm6qak0" path="res://ui/staminabar.gd" id="1_spaw4"]
 
 [sub_resource type="Curve" id="Curve_5cqmt"]
 _data = [Vector2(0, 0.505263), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.505263), 0.0, 0.0, 0, 0]

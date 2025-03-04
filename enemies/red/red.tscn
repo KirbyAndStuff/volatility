@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://ugfxmkdd6pyc"]
 
-[ext_resource type="Script" path="res://enemies/red/red.gd" id="1_q1clp"]
+[ext_resource type="Script" uid="uid://bpc4uwd6p1bli" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="2_wjcl0"]
 [ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="3_6gapp"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="4_8lp8t"]

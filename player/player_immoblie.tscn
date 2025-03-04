@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://310650vo12fr"]
 
-[ext_resource type="Script" path="res://player/left eye node_immobile.gd" id="1_bdmxs"]
-[ext_resource type="Script" path="res://player/right eye node_immobile.gd" id="2_j2ra6"]
+[ext_resource type="Script" uid="uid://yq7l1lgx3uxw" path="res://player/left eye node_immobile.gd" id="1_bdmxs"]
+[ext_resource type="Script" uid="uid://w0i5bpjhrxmj" path="res://player/right eye node_immobile.gd" id="2_j2ra6"]
 
 [sub_resource type="Curve" id="Curve_2eg8u"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0491227, 0.0, 0, 0]
@@ -21,7 +21,7 @@ resource_name = "left_eye"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jfh50"]
 _data = {
-"left_eye": SubResource("Animation_g0txf")
+&"left_eye": SubResource("Animation_g0txf")
 }
 
 [sub_resource type="Animation" id="Animation_2ko6u"]
@@ -29,7 +29,7 @@ resource_name = "right_eye"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jinm2"]
 _data = {
-"right_eye": SubResource("Animation_2ko6u")
+&"right_eye": SubResource("Animation_2ko6u")
 }
 
 [node name="player_immoblie" type="Node2D" groups=["player immobile"]]

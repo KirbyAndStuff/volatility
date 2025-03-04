@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctqgkvsyetsca"]
 
 [ext_resource type="AudioStream" uid="uid://beemfr7q0t8xk" path="res://audio/meleesfx.wav" id="1_86387"]
-[ext_resource type="Script" path="res://audio/audio_die_global.gd" id="2_ocwjl"]
+[ext_resource type="Script" uid="uid://dm6wm43yge4qk" path="res://audio/audio_die_global.gd" id="2_ocwjl"]
 
 [node name="meleem2_attack_sfx" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_86387")

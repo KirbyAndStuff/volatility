@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c0788lxbxvy5t"]
 
 [ext_resource type="AudioStream" uid="uid://clt3yv15girww" path="res://audio/lasersfx.wav" id="1_bfv7f"]
-[ext_resource type="Script" path="res://audio/audio_die_global.gd" id="1_dm2lm"]
+[ext_resource type="Script" uid="uid://dm6wm43yge4qk" path="res://audio/audio_die_global.gd" id="1_dm2lm"]
 
 [node name="green_lasersfx" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_bfv7f")

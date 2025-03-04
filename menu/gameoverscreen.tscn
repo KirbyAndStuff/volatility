@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mdr2cg4tof1l"]
 
-[ext_resource type="Script" path="res://menu/gameoverscreen.gd" id="1_5cdm2"]
+[ext_resource type="Script" uid="uid://7o4o3lyikh1n" path="res://menu/gameoverscreen.gd" id="1_5cdm2"]
 
 [node name="gameoverscreen" type="Control"]
 process_mode = 3

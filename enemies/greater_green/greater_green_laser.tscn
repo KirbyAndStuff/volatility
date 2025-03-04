@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cn1pqws1ryen"]
 
-[ext_resource type="Script" path="res://enemies/greater_green/greater_green_laser.gd" id="1_nlxso"]
+[ext_resource type="Script" uid="uid://bd78ac7mf5x0x" path="res://enemies/greater_green/greater_green_laser.gd" id="1_nlxso"]
 [ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="2_l4f0o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7jlh"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=3 uid="uid://chdl1cq3itxu4"]
 
-[ext_resource type="Script" path="res://bosses/boss_practice/boss_practice.gd" id="1_iqgvb"]
+[ext_resource type="Script" uid="uid://di1o4gn3ehpf5" path="res://bosses/boss_practice/boss_practice.gd" id="1_iqgvb"]
 [ext_resource type="AudioStream" uid="uid://bk7033durq4ve" path="res://audio/roar_boss_practice.wav" id="3_4ful5"]
 [ext_resource type="AudioStream" uid="uid://b4rwe0dr33w67" path="res://audio/parried_boss_practice.wav" id="4_1qj8g"]
 [ext_resource type="AudioStream" uid="uid://bw10qkxjq8v0w" path="res://audio/level_end_chargesfx.wav" id="4_xk6be"]
@@ -255,11 +255,11 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjphg"]
 _data = {
-"RESET": SubResource("Animation_qqvbq"),
-"smack_left": SubResource("Animation_117ae"),
-"smack_left_again": SubResource("Animation_ojm1v"),
-"smack_left_parried": SubResource("Animation_dto7x"),
-"smack_right": SubResource("Animation_kug8x")
+&"RESET": SubResource("Animation_qqvbq"),
+&"smack_left": SubResource("Animation_117ae"),
+&"smack_left_again": SubResource("Animation_ojm1v"),
+&"smack_left_parried": SubResource("Animation_dto7x"),
+&"smack_right": SubResource("Animation_kug8x")
 }
 
 [sub_resource type="Animation" id="Animation_deu47"]
@@ -479,11 +479,11 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g3ftt"]
 _data = {
-"RESET": SubResource("Animation_deu47"),
-"smack_left": SubResource("Animation_hu1xp"),
-"smack_right": SubResource("Animation_oaxo7"),
-"smack_right_again": SubResource("Animation_g27p8"),
-"smack_right_parried": SubResource("Animation_c4wke")
+&"RESET": SubResource("Animation_deu47"),
+&"smack_left": SubResource("Animation_hu1xp"),
+&"smack_right": SubResource("Animation_oaxo7"),
+&"smack_right_again": SubResource("Animation_g27p8"),
+&"smack_right_parried": SubResource("Animation_c4wke")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7y1sy"]
@@ -632,7 +632,7 @@ disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="arm_left"]
 libraries = {
-"": SubResource("AnimationLibrary_kjphg")
+&"": SubResource("AnimationLibrary_kjphg")
 }
 
 [node name="arm_right" type="CharacterBody2D" parent="."]
@@ -733,7 +733,7 @@ disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="arm_right"]
 libraries = {
-"": SubResource("AnimationLibrary_g3ftt")
+&"": SubResource("AnimationLibrary_g3ftt")
 }
 
 [node name="camera_anchor" type="Area2D" parent="."]

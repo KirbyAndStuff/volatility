@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnyfays7rkv4m"]
 
 [ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="1_mr634"]
-[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_unb00"]
-[ext_resource type="Script" path="res://audio/audio_die_global.gd" id="1_xoqnp"]
+[ext_resource type="Script" uid="uid://qbhd8wcu357p" path="res://enemies/particle_die_global.gd" id="1_unb00"]
+[ext_resource type="Script" uid="uid://dm6wm43yge4qk" path="res://audio/audio_die_global.gd" id="1_xoqnp"]
 
 [sub_resource type="Curve" id="Curve_eskos"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

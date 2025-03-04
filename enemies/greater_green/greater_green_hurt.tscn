@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dvkhramgusag4"]
 
-[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_c6lkx"]
+[ext_resource type="Script" uid="uid://qbhd8wcu357p" path="res://enemies/particle_die_global.gd" id="1_c6lkx"]
 [ext_resource type="AudioStream" uid="uid://i5y7t3acup7r" path="res://audio/deathsfx.wav" id="1_io31m"]
 
 [sub_resource type="Curve" id="Curve_805wa"]

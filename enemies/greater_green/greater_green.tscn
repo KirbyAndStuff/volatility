@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://cbq60l25xsim8"]
 
-[ext_resource type="Script" path="res://enemies/greater_green/greater_green.gd" id="1_qy1rr"]
+[ext_resource type="Script" uid="uid://cdulf7ohkf88" path="res://enemies/greater_green/greater_green.gd" id="1_qy1rr"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="2_wljy7"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="3_g5rky"]
 [ext_resource type="AudioStream" uid="uid://bnc1iuu0qrp6h" path="res://audio/alt_bullet_dodge_sfx.wav" id="3_no1lm"]

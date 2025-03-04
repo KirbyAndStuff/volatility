@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfykqm448qllb"]
 
-[ext_resource type="Script" path="res://start_menu/startmenu.gd" id="1_1a6te"]
+[ext_resource type="Script" uid="uid://ube3fbhwj0c4" path="res://start_menu/startmenu.gd" id="1_1a6te"]
 [ext_resource type="PackedScene" uid="uid://310650vo12fr" path="res://player/player_immoblie.tscn" id="9_np2n1"]
 [ext_resource type="AudioStream" uid="uid://p1lur1k0r2v5" path="res://music/Chris Christodoulou - Risk of Rain [2023 Remaster] ｜ ROR Returns (2023) [g8iP1TwEB88].wav" id="10_8agby"]
 

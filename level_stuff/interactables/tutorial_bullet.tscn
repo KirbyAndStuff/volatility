@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkfnldkigi17v"]
 
-[ext_resource type="Script" path="res://level_stuff/interactables/tutorial_bullet.gd" id="1_bvo5o"]
+[ext_resource type="Script" uid="uid://bs45h1mfgcjry" path="res://level_stuff/interactables/tutorial_bullet.gd" id="1_bvo5o"]
 
 [sub_resource type="Curve" id="Curve_cw6p2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

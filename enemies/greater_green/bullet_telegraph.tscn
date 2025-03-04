@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ccki4vj87lukm"]
 
-[ext_resource type="Script" path="res://enemies/greater_green/bullet_telegraph.gd" id="1_7kmf7"]
+[ext_resource type="Script" uid="uid://68etssgrp84o" path="res://enemies/greater_green/bullet_telegraph.gd" id="1_7kmf7"]
 
 [node name="bullet_telegraph" type="Line2D"]
 points = PackedVector2Array(0, 0, 10000, 0)

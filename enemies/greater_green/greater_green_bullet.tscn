@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://v5xl4yjk1u4o"]
 
-[ext_resource type="Script" path="res://enemies/greater_green/greater_green_bullet.gd" id="1_1h38n"]
+[ext_resource type="Script" uid="uid://de3atjp375se0" path="res://enemies/greater_green/greater_green_bullet.gd" id="1_1h38n"]
 
 [sub_resource type="Curve" id="Curve_6n2du"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

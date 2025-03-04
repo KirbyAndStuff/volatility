@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b6sg1b6ucnje7"]
 
-[ext_resource type="Script" path="res://enemies/green/green.gd" id="1_t7t5q"]
+[ext_resource type="Script" uid="uid://cy12eq52brj2d" path="res://enemies/green/green.gd" id="1_t7t5q"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_kbnva"]
 [ext_resource type="AudioStream" uid="uid://bnc1iuu0qrp6h" path="res://audio/alt_bullet_dodge_sfx.wav" id="3_mmepp"]
 

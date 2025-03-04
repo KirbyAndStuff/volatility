@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://drugun23oc68q"]
 
-[ext_resource type="Script" path="res://enemies/yellow/yellow_attack_area.gd" id="1_r32f1"]
+[ext_resource type="Script" uid="uid://cvragh1l5e5xo" path="res://enemies/yellow/yellow_attack_area.gd" id="1_r32f1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kqa1"]
 radius = 1.0

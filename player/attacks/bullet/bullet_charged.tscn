@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://yhw1n1ar3nj4"]
 
-[ext_resource type="Script" path="res://player/attacks/bullet/bullet_charged.gd" id="1_orj3p"]
+[ext_resource type="Script" uid="uid://6meqeqdx0enb" path="res://player/attacks/bullet/bullet_charged.gd" id="1_orj3p"]
 [ext_resource type="AudioStream" uid="uid://c847nb4axvh5c" path="res://audio/parrysfx.wav" id="2_k53cr"]
 
 [sub_resource type="Curve" id="Curve_uubxm"]

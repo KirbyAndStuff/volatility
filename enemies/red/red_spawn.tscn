@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bi4kfgiywfilj"]
 
-[ext_resource type="Script" path="res://enemies/red/red_spawn.gd" id="1_44jh4"]
+[ext_resource type="Script" uid="uid://dywbo2284fedb" path="res://enemies/red/red_spawn.gd" id="1_44jh4"]
 
 [sub_resource type="Curve" id="Curve_ln5bh"]
 _data = [Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cojkl0mivsjj4"]
 
-[ext_resource type="Script" path="res://level_stuff/interactables/green_meteor.gd" id="1_s2cj6"]
+[ext_resource type="Script" uid="uid://cq0fjf0ajmv4l" path="res://level_stuff/interactables/green_meteor.gd" id="1_s2cj6"]
 
 [sub_resource type="Curve" id="Curve_ny7oa"]
 _data = [Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

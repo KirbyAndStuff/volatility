@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://d2b8vpln87it6"]
 
-[ext_resource type="Script" path="res://bosses/boss_practice/boss_practice_arm.gd" id="1_afifd"]
+[ext_resource type="Script" uid="uid://bxm2t23e7aj87" path="res://bosses/boss_practice/boss_practice_arm.gd" id="1_afifd"]
 
 [sub_resource type="Curve" id="Curve_c3qx5"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -194,10 +194,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjphg"]
 _data = {
-"RESET": SubResource("Animation_qqvbq"),
-"smack_left": SubResource("Animation_117ae"),
-"smack_left_again": SubResource("Animation_rl2oe"),
-"smack_right": SubResource("Animation_kug8x")
+&"RESET": SubResource("Animation_qqvbq"),
+&"smack_left": SubResource("Animation_117ae"),
+&"smack_left_again": SubResource("Animation_rl2oe"),
+&"smack_right": SubResource("Animation_kug8x")
 }
 
 [node name="boss_practice_arm" type="CharacterBody2D"]

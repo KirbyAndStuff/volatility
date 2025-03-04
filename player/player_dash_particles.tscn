@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjkgo3ldukxbe"]
 
-[ext_resource type="Script" path="res://enemies/particle_die_global.gd" id="1_bhojb"]
+[ext_resource type="Script" uid="uid://qbhd8wcu357p" path="res://enemies/particle_die_global.gd" id="1_bhojb"]
 
 [sub_resource type="Curve" id="Curve_7npgd"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1cslbdxweiuv"]
 
-[ext_resource type="Script" path="res://enemies/yellow/yellow.gd" id="1_ryoiu"]
+[ext_resource type="Script" uid="uid://drpq0oxio1vws" path="res://enemies/yellow/yellow.gd" id="1_ryoiu"]
 [ext_resource type="AudioStream" uid="uid://e7g5lfly8s3g" path="res://audio/bulletsfx.wav" id="2_4p1av"]
 
 [sub_resource type="Gradient" id="Gradient_pnp7h"]

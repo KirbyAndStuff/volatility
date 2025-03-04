@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://be72bqhr4mwmt"]
 
-[ext_resource type="Script" path="res://player/attacks/parry/parried_particles.gd" id="1_ikbxq"]
+[ext_resource type="Script" uid="uid://c4hcvm0cfyk4m" path="res://player/attacks/parry/parried_particles.gd" id="1_ikbxq"]
 
 [sub_resource type="Curve" id="Curve_ju8rs"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

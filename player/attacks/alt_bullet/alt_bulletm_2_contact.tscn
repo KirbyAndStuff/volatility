@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://db4nyji3s2ai5"]
 
-[ext_resource type="Script" path="res://player/attacks/alt_bullet/alt_bulletm_2_contact.gd" id="1_qt6ps"]
+[ext_resource type="Script" uid="uid://cirp2p8cq8d5m" path="res://player/attacks/alt_bullet/alt_bulletm_2_contact.gd" id="1_qt6ps"]
 
 [node name="alt_bulletm2contact" type="RayCast2D"]
 target_position = Vector2(2000, 0)
