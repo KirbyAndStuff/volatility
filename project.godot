@@ -31,6 +31,7 @@ configfilehandler="*res://configfilehandler.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 
@@ -41,6 +42,16 @@ project/assembly_name="volatility"
 [editor]
 
 movie_writer/disable_vsync=true
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+
+[importer_defaults]
+
+font_data_dynamic={
+"multichannel_signed_distance_field": true
+}
 
 [input]
 

@@ -35,12 +35,19 @@ func _on_quit_game_button_pressed():
 
 func _on_settings_button_pressed():
 	$CanvasLayer/settings_button/Panel.visible = true
+	$TextEdit.modulate = Color(1, 1, 1, 0.1)
+	$TextEdit3.modulate = Color(1, 1, 1, 0.1)
+	$Node2D.modulate = Color(1, 1, 1, 0.1)
 
 func _on_close_button_pressed():
 	$CanvasLayer/settings_button/Panel.visible = false
+	$TextEdit.modulate = Color(1, 1, 1, 1)
+	$TextEdit3.modulate = Color(1, 1, 1, 1)
+	$Node2D.modulate = Color(1, 1, 1, 1)
 
 func _on_h_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value / 100))
+	$CanvasLayer/settings_button/Panel/percentage/Label.text = str(value) + "%"
 
 func _on_h_slider_drag_ended(value_changed: bool) -> void:
 	if value_changed:
@@ -51,6 +58,7 @@ func _on_test_pressed() -> void:
 
 func _on_sfx_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sound_effects"), linear_to_db(value / 100))
+	$CanvasLayer/settings_button/Panel/percentage/sfx_label.text = str(value) + "%"
 
 func _on_sfx_drag_ended(value_changed: bool) -> void:
 	if value_changed:
@@ -58,14 +66,14 @@ func _on_sfx_drag_ended(value_changed: bool) -> void:
 
 func _on_music_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("music"), linear_to_db(value / 100))
+	$CanvasLayer/settings_button/Panel/percentage/music_label.text = str(value) + "%"
 
 func _on_music_drag_ended(value_changed: bool) -> void:
 	if value_changed:
 		configfilehandler.save_audio_setting("music", $CanvasLayer/settings_button/Panel/VBoxContainer/music.value / 100)
 
 func _on_screen_shake_value_changed(value: float) -> void:
-	pass
-	#get_tree().get_first_node_in_group("camera").shake_mult = value / 100
+	$CanvasLayer/settings_button/Panel/percentage/screen_shake_label.text = str(value) + "%"
 
 func _on_screen_shake_drag_ended(value_changed: bool) -> void:
 	if value_changed:

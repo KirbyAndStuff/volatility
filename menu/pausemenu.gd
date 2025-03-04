@@ -64,6 +64,7 @@ func _on_h_slider_drag_ended(value_changed: bool) -> void:
 
 func _on_h_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value / 100))
+	$"VBoxContainer/Settings/Settings Menu/percentage/Label".text = str(value) + "%"
 
 func _on_sfx_drag_ended(value_changed: bool) -> void:
 	if value_changed:
@@ -71,6 +72,7 @@ func _on_sfx_drag_ended(value_changed: bool) -> void:
 
 func _on_sfx_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sound_effects"), linear_to_db(value / 100))
+	$"VBoxContainer/Settings/Settings Menu/percentage/sfx_label".text = str(value) + "%"
 
 func _on_music_drag_ended(value_changed: bool) -> void:
 	if value_changed:
@@ -78,6 +80,7 @@ func _on_music_drag_ended(value_changed: bool) -> void:
 
 func _on_music_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("music"), linear_to_db(value / 100))
+	$"VBoxContainer/Settings/Settings Menu/percentage/music_label".text = str(value) + "%"
 
 func _on_screen_shake_drag_ended(value_changed: bool) -> void:
 	if value_changed:
@@ -85,3 +88,4 @@ func _on_screen_shake_drag_ended(value_changed: bool) -> void:
 
 func _on_screen_shake_value_changed(value: float) -> void:
 	get_tree().get_first_node_in_group("camera").shake_mult = value / 100
+	$"VBoxContainer/Settings/Settings Menu/percentage/screen_shake_label".text = str(value) + "%"
