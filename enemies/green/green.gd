@@ -74,8 +74,12 @@ func _on_playerdeath_area_entered(area):
 		health -= area.get_parent().damage
 
 func eyes_begone():
-	await get_tree().create_timer(1.2, false).timeout
+	await get_tree().create_timer(1.4, false).timeout
 	$body/eye_bottom.modulate = Color(0, 0, 0, 0)
 	$body/eye_top.modulate = Color(0, 0, 0, 0)
+	$body/eye_bottom.speed_scale = 0.2
+	$body/eye_top.speed_scale = 0.2
 	create_tween().tween_property($body/eye_bottom, "modulate", Color(1, 1, 1, 1), 1.8)
 	create_tween().tween_property($body/eye_top, "modulate", Color(1, 1, 1, 1), 1.8)
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($body/eye_bottom, "speed_scale", 1, 1.8)
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($body/eye_top, "speed_scale", 1, 1.8)

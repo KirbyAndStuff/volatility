@@ -73,5 +73,6 @@ stream = ExtResource("2_k53cr")
 volume_db = -15.0
 pitch_scale = 0.9
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

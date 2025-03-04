@@ -39,3 +39,4 @@ stream = ExtResource("2_ms35y")
 volume_db = -3.0
 pitch_scale = 1.5
 autoplay = true
+bus = &"sound_effects"

@@ -8,6 +8,7 @@ radius = 1.0
 
 [node name="green_laser" type="RayCast2D"]
 visible = false
+modulate = Color(1, 1, 1, 0)
 target_position = Vector2(50, 0)
 collision_mask = 0
 script = ExtResource("1_c2nfe")
@@ -47,6 +48,7 @@ stream = ExtResource("2_wba7v")
 volume_db = -20.0
 pitch_scale = 3.0
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [connection signal="timeout" from="TimerDie" to="." method="_on_timer_die_timeout"]
 [connection signal="timeout" from="TimerAttack" to="." method="_on_timer_attack_timeout"]

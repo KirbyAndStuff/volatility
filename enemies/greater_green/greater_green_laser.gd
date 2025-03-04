@@ -8,6 +8,7 @@ var sfx := preload("res://enemies/green/green_lasersfx.tscn")
 
 func _ready():
 	await get_tree().create_timer(0.1, false).timeout
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property(self, "modulate", Color(1, 1, 1, 1), 0.3)
 	visible = true
 
 func _physics_process(_delta):
@@ -29,8 +30,12 @@ func diea():
 	queue_free()
 
 func _on_timer_attack_timeout():
+	$AudioStreamPlayer2D.play()
+	await get_tree().create_timer(0.1, false).timeout
+	$line.width = 10
+	$line.default_color = Color(0, 1, 0, 1)
 	predicting = false
-	await get_tree().create_timer(0.2, false).timeout
+	await get_tree().create_timer(0.3, false).timeout
 	var effect := sfx.instantiate()
 	effect.position = position
 	effect.pitch_scale = 1.1

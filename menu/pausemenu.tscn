@@ -56,10 +56,91 @@ text = "Resume Game"
 layout_mode = 2
 text = "Restart Level"
 
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Settings Menu" type="Panel" parent="VBoxContainer/Settings"]
+visible = false
+top_level = true
+layout_mode = 2
+anchor_left = -1.273
+anchor_top = -18.0
+anchor_right = -1.273
+anchor_bottom = -18.0
+offset_left = 2684.16
+offset_top = 19575.0
+offset_right = 4124.16
+offset_bottom = 20385.0
+
+[node name="Close Setting" type="Button" parent="VBoxContainer/Settings/Settings Menu"]
+layout_mode = 0
+offset_left = 1303.0
+offset_right = 1440.0
+offset_bottom = 77.0
+theme_override_font_sizes/font_size = 50
+text = "Close"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Settings/Settings Menu"]
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 810.0
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Audio"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+max_value = 200.0
+
+[node name="sfx_label" type="Label" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Sound Effects"
+horizontal_alignment = 1
+
+[node name="sfx" type="HSlider" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+max_value = 200.0
+
+[node name="music_label" type="Label" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Music"
+horizontal_alignment = 1
+
+[node name="music" type="HSlider" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+max_value = 200.0
+
+[node name="screen_shake_label" type="Label" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Screen Shake"
+horizontal_alignment = 1
+
+[node name="screen_shake" type="HSlider" parent="VBoxContainer/Settings/Settings Menu/VBoxContainer"]
+layout_mode = 2
+max_value = 200.0
+
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer/Resume Game" to="." method="_on_resume_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/Restart Level" to="." method="_on_restart_level_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings/Settings Menu/Close Setting" to="." method="_on_close_setting_pressed"]
+[connection signal="drag_ended" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/HSlider" to="." method="_on_h_slider_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="drag_ended" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/sfx" to="." method="_on_sfx_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/sfx" to="." method="_on_sfx_value_changed"]
+[connection signal="drag_ended" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/music" to="." method="_on_music_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/music" to="." method="_on_music_value_changed"]
+[connection signal="drag_ended" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/screen_shake" to="." method="_on_screen_shake_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/Settings/Settings Menu/VBoxContainer/screen_shake" to="." method="_on_screen_shake_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

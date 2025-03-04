@@ -75,6 +75,7 @@ monitorable = false
 stream = ExtResource("11_bhl0g")
 volume_db = -10.0
 pitch_scale = 0.75
+bus = &"sound_effects"
 
 [node name="start_level" type="Area2D" parent="." groups=["level start"]]
 

@@ -45,3 +45,4 @@ script = ExtResource("1_q2g14")
 stream = ExtResource("2_vymbn")
 volume_db = 3.0
 autoplay = true
+bus = &"sound_effects"

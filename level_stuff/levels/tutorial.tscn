@@ -253,16 +253,19 @@ collision_mask = 0
 stream = ExtResource("10_pge36")
 volume_db = -10.0
 pitch_scale = 0.75
+bus = &"sound_effects"
 
 [node name="start_level_chargesfx" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -2000)
 stream = ExtResource("11_cmhrn")
 volume_db = 5.0
+bus = &"sound_effects"
 
 [node name="bullet_sfx" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(2776, -344)
 stream = ExtResource("17_4u65x")
 max_distance = 1000.0
+bus = &"sound_effects"
 
 [node name="BulletTimer" type="Timer" parent="."]
 wait_time = 2.0

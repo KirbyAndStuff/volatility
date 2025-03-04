@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://chdl1cq3itxu4"]
+[gd_scene load_steps=28 format=3 uid="uid://chdl1cq3itxu4"]
 
 [ext_resource type="Script" path="res://bosses/boss_practice/boss_practice.gd" id="1_iqgvb"]
 [ext_resource type="AudioStream" uid="uid://bk7033durq4ve" path="res://audio/roar_boss_practice.wav" id="3_4ful5"]
@@ -13,6 +13,11 @@ metadata/_snap_enabled = true
 [sub_resource type="Curve" id="Curve_cu3p2"]
 _data = [Vector2(0.1, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(0.9, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_yaqvn"]
+offsets = PackedFloat32Array(0, 0.4, 0.6, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 
 [sub_resource type="Curve" id="Curve_3dkoi"]
@@ -526,6 +531,7 @@ angle_max = 180.0
 scale_amount_min = 30.0
 scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_cu3p2")
+color_ramp = SubResource("Gradient_yaqvn")
 
 [node name="arm_left" type="CharacterBody2D" parent="."]
 scale = Vector2(2, 2)
@@ -753,14 +759,17 @@ disabled = true
 stream = ExtResource("3_4ful5")
 volume_db = 5.0
 pitch_scale = 0.75
+bus = &"sound_effects"
 
 [node name="about_to_smacksfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_xk6be")
+bus = &"sound_effects"
 
 [node name="parriedsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_1qj8g")
 volume_db = 3.0
 pitch_scale = 2.0
+bus = &"sound_effects"
 
 [node name="SmackTimer" type="Timer" parent="."]
 wait_time = 5.0

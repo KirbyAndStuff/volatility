@@ -12,9 +12,9 @@ var lerp_weight = 0.005
 var play_intro = false
 var hurt := preload("res://enemies/greater_green/greater_green_hurt.tscn")
 
-var used_bullet = false
-var used_laser = true
-var used_blast = 0
+@export var used_bullet = false
+@export var used_laser = true
+@export var used_blast = 0
 
 var spawn_point_count = 16
 

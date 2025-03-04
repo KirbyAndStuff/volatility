@@ -23,10 +23,10 @@ point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wt1ba"]
-radius = 26.6667
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_aqbt7"]
 radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qynvn"]
+radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdq7s"]
 radius = 80.025
@@ -93,18 +93,21 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_3qo66")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
-visible = false
-scale = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 shape = SubResource("CircleShape2D_wt1ba")
 disabled = true
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
-visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
-shape = SubResource("CircleShape2D_aqbt7")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="hurts_player"]
+position = Vector2(-30, 0)
+shape = SubResource("CircleShape2D_qynvn")
+disabled = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="hurts_player"]
+position = Vector2(30, 0)
+shape = SubResource("CircleShape2D_qynvn")
 disabled = true
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]

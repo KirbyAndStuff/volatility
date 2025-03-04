@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cbq60l25xsim8"]
+[gd_scene load_steps=21 format=3 uid="uid://cbq60l25xsim8"]
 
 [ext_resource type="Script" path="res://enemies/greater_green/greater_green.gd" id="1_qy1rr"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="2_wljy7"]
@@ -32,6 +32,11 @@ offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.705882, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
+
+[sub_resource type="Curve" id="Curve_ykds1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6vgil"]
 radius = 140.0
@@ -130,14 +135,16 @@ color_ramp = SubResource("Gradient_2sago")
 
 [node name="eye" type="CPUParticles2D" parent="."]
 modulate = Color(1, 3, 1, 1)
-local_coords = true
+amount = 20
+lifetime = 0.2
 gravity = Vector2(0, 0)
 angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 20.0
-scale_amount_max = 20.0
+scale_amount_min = 25.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_ykds1")
 
 [node name="BlastTimer" type="Timer" parent="."]
 wait_time = 2.5
@@ -181,23 +188,27 @@ stream = ExtResource("2_wljy7")
 volume_db = -10.0
 pitch_scale = 0.6
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_g5rky")
 volume_db = 7.0
 pitch_scale = 0.7
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="bulletsfx2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_wljy7")
 volume_db = -15.0
 pitch_scale = 0.6
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="lasersfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_no1lm")
 volume_db = -7.0
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
 visible = false
@@ -259,28 +270,33 @@ stream = ExtResource("5_msccd")
 volume_db = -10.0
 pitch_scale = 0.6
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="about_to_blastsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_msccd")
 volume_db = -10.0
 pitch_scale = 0.8
+bus = &"sound_effects"
 
 [node name="diesfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_wljy7")
 volume_db = -10.0
 pitch_scale = 1.3
 max_distance = 4000.0
+bus = &"sound_effects"
 
 [node name="die_finalsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_wljy7")
 volume_db = -5.0
 pitch_scale = 0.65
 max_distance = 4000.0
+bus = &"sound_effects"
 
 [node name="introsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_0jdyi")
 volume_db = -30.0
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="bulletm2" type="StaticBody2D" parent="."]
 visible = false

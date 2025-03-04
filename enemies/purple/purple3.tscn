@@ -67,14 +67,12 @@ scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_5dq6m")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body", "no heal_cooldown reduction"]]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 shape = SubResource("CircleShape2D_wt1ba")
 disabled = true
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction", "parryable"]]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 shape = SubResource("CircleShape2D_yu0gh")

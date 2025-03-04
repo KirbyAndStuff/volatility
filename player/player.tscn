@@ -254,60 +254,73 @@ disabled = true
 [node name="dashsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_nynlh")
 volume_db = -8.0
+bus = &"sound_effects"
 
 [node name="bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
 pitch_scale = 2.0
+bus = &"sound_effects"
 
 [node name="powered_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_c3jba")
 volume_db = -15.0
 pitch_scale = 1.5
+bus = &"sound_effects"
 
 [node name="fresh_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
 volume_db = 3.0
+bus = &"sound_effects"
 
 [node name="fresh_bullet2sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_2tgkj")
 volume_db = -15.0
 pitch_scale = 0.75
+bus = &"sound_effects"
 
 [node name="alt_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_2x6xb")
 pitch_scale = 1.75
+bus = &"sound_effects"
 
 [node name="parrysfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_c3jba")
 volume_db = -15.0
 pitch_scale = 2.2
+bus = &"sound_effects"
 
 [node name="parriedsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_2tgkj")
 volume_db = -10.0
+bus = &"sound_effects"
 
 [node name="lasersfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_5hg0t")
 volume_db = -10.0
+bus = &"sound_effects"
 
 [node name="landingsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_o4wf3")
 pitch_scale = 1.5
+bus = &"sound_effects"
 
 [node name="level_end_chargesfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_kau35")
 volume_db = 5.0
+bus = &"sound_effects"
 
 [node name="healsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_4kvd2")
 volume_db = -15.0
 pitch_scale = 1.5
+bus = &"sound_effects"
 
 [node name="switch_weaponsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_ooi7n")
 volume_db = -5.0
 pitch_scale = 1.3
 max_distance = 5000.0
+bus = &"sound_effects"
 
 [node name="player_hurtbox" type="Area2D" parent="." groups=["player"]]
 visible = false

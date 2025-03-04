@@ -165,3 +165,4 @@ polygon = PackedVector2Array(-405.463, 315.458, -20.9863, 249.136, 85.0157, 623.
 stream = ExtResource("2_psgbe")
 pitch_scale = 0.6
 autoplay = true
+bus = &"sound_effects"

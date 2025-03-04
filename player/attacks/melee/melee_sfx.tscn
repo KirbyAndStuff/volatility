@@ -8,4 +8,5 @@ stream = ExtResource("1_ucl8y")
 volume_db = -5.0
 pitch_scale = 2.0
 autoplay = true
+bus = &"sound_effects"
 script = ExtResource("2_pkuj8")

@@ -10,8 +10,8 @@ metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_wvx04"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-metadata/_snap_count = 20
 metadata/_snap_enabled = true
+metadata/_snap_count = 20
 
 [sub_resource type="Curve" id="Curve_73jtp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -24,10 +24,10 @@ point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxq5g"]
-radius = 26.0069
+radius = 130.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xg16w"]
-radius = 130.0
+radius = 60.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_voi8f"]
 radius = 130.062
@@ -137,14 +137,11 @@ scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_73jtp")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
-visible = false
-scale = Vector2(5, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
 shape = SubResource("CircleShape2D_wxq5g")
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
 shape = SubResource("CircleShape2D_xg16w")
@@ -183,6 +180,7 @@ volume_db = -13.0
 pitch_scale = 3.0
 autoplay = true
 max_distance = 1000.0
+bus = &"sound_effects"
 
 [node name="bulletm2" type="StaticBody2D" parent="."]
 visible = false

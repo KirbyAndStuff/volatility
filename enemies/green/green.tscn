@@ -98,18 +98,20 @@ wait_time = 0.75
 one_shot = true
 
 [node name="LaserTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 3.2
 one_shot = true
 
 [node name="green_bulletsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kbnva")
 volume_db = -3.0
 pitch_scale = 2.0
+bus = &"sound_effects"
 
 [node name="green_lasersfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_mmepp")
 volume_db = -10.0
 max_distance = 5000.0
+bus = &"sound_effects"
 
 [node name="spawn" type="CPUParticles2D" parent="."]
 emitting = false
@@ -139,6 +141,7 @@ volume_db = -13.0
 pitch_scale = 3.0
 autoplay = true
 max_distance = 1000.0
+bus = &"sound_effects"
 
 [node name="wall-hitbox" type="CollisionShape2D" parent="."]
 visible = false

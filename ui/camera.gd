@@ -12,8 +12,13 @@ var snap = true
 var shake_activators = 0
 var const_shake = 0
 var const_shake_num = 1
+var shake_mult
 
 @onready var target = get_node("../player")
+
+func _ready():
+	var video_settings = configfilehandler.load_video_settings()
+	shake_mult = video_settings.screen_shake
 
 func apply_shake(power, duration):
 	shake_activators += 1
@@ -41,7 +46,7 @@ func _physics_process(delta):
 		#offset = randomoffset()
 	if shake_strength > 0 or const_shake > 0:
 		shake_strength = lerpf(shake_strength, 0, shakefade * delta)
-		offset = randomoffset() + randomconstoffset()
+		offset = (randomoffset() + randomconstoffset()) * shake_mult
 	if const_shake_num > 0 and const_shake > 0:
 		const_shake = lerpf(const_shake, 0, 10 * delta)
 

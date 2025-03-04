@@ -45,3 +45,4 @@ script = ExtResource("1_8rm31")
 stream = ExtResource("1_1c81s")
 pitch_scale = 0.5
 autoplay = true
+bus = &"sound_effects"

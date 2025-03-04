@@ -7,7 +7,8 @@ var death := preload("res://enemies/purple/purple_death_2.tscn")
 func _ready():
 	await get_tree().create_timer(0.3, false).timeout
 	$playerdeath/CollisionShape2D.disabled = false
-	$hurts_player/CollisionShape2D.disabled = false
+	$hurts_player/CollisionShape2D2.disabled = false
+	$hurts_player/CollisionShape2D3.disabled = false
 
 var speed = 500
 var health = 2.0

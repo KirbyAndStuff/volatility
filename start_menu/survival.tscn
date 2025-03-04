@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://start_menu/survival.gd" id="1_qdupt"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="2_m2bu4"]
-[ext_resource type="Script" path="res://ui/camera.gd" id="3_8hu5r"]
+[ext_resource type="PackedScene" uid="uid://ck8b4pddxyoqp" path="res://ui/camera.tscn" id="3_7wm2r"]
 [ext_resource type="PackedScene" uid="uid://dhoylud6i8xce" path="res://ui/health.tscn" id="6_xq38b"]
 [ext_resource type="PackedScene" uid="uid://c75vgbv1f385j" path="res://ui/staminabar.tscn" id="7_qn7gk"]
 [ext_resource type="PackedScene" uid="uid://bnd30ew1s2oj2" path="res://menu/pausemenu.tscn" id="7_srrwy"]
@@ -33,9 +33,7 @@ script = ExtResource("1_qdupt")
 
 [node name="player" parent="." instance=ExtResource("2_m2bu4")]
 
-[node name="camera" type="Camera2D" parent="."]
-position_smoothing_speed = 20.0
-script = ExtResource("3_8hu5r")
+[node name="camera" parent="." instance=ExtResource("3_7wm2r")]
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -186,6 +184,7 @@ scale_amount_max = 20.0
 stream = ExtResource("9_u0lil")
 volume_db = -20.0
 autoplay = true
+bus = &"music"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jp25c")

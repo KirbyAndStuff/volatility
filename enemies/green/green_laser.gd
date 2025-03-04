@@ -8,12 +8,13 @@ var sfx := preload("res://enemies/green/green_lasersfx.tscn")
 
 func _ready():
 	await get_tree().create_timer(0.1, false).timeout
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property(self, "modulate", Color(1, 1, 1, 1), 0.3)
 	visible = true
 
 func _physics_process(_delta):
 	if predicting:
 		#var dist = global_position.distance_to(get_node("../player").global_position)
-		look_at(Vector2(get_node("../player").global_position.x + clamp(get_node("../player").velocity.x, -700, 700) / 5, get_node("../player").global_position.y + clamp(get_node("../player").velocity.y, -700, 700) / 5))
+		look_at(Vector2(get_node("../player").global_position.x + clamp(get_node("../player").velocity.x, -700, 700) / 3, get_node("../player").global_position.y + clamp(get_node("../player").velocity.y, -700, 700) / 3))
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from
@@ -35,7 +36,7 @@ func _on_timer_attack_timeout():
 	$line.width = 3
 	$line.default_color = Color(0, 1, 0, 1)
 	predicting = false
-	await get_tree().create_timer(0.2, false).timeout
+	await get_tree().create_timer(0.3, false).timeout
 	var effect := sfx.instantiate()
 	effect.position = position
 	get_parent().add_child(effect)

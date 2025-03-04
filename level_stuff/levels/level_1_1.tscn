@@ -296,6 +296,7 @@ collision_mask = 0
 stream = ExtResource("4_mwyo1")
 volume_db = -10.0
 pitch_scale = 0.75
+bus = &"sound_effects"
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -598,6 +599,7 @@ stream = ExtResource("21_irflr")
 volume_db = -10.0
 pitch_scale = 0.3
 max_distance = 4000.0
+bus = &"sound_effects"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wvwa6")
@@ -761,12 +763,14 @@ stream = ExtResource("4_mwyo1")
 volume_db = -8.0
 pitch_scale = 0.5
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="die" type="AudioStreamPlayer2D" parent="red_intro"]
 stream = ExtResource("15_tbgps")
 volume_db = 5.0
 pitch_scale = 0.2
 max_distance = 8000.0
+bus = &"sound_effects"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="red_intro"]
 collision_layer = 64
@@ -788,6 +792,7 @@ shape = SubResource("CircleShape2D_axebs")
 position = Vector2(3683, 1057)
 stream = ExtResource("16_ax1tn")
 pitch_scale = 1.5
+bus = &"sound_effects"
 
 [node name="hallway_area" type="Area2D" parent="."]
 position = Vector2(3681, 1800)
@@ -877,11 +882,13 @@ position = Vector2(11750, 2403)
 position = Vector2(9966, 1863)
 stream = ExtResource("16_ax1tn")
 volume_db = -50.0
+bus = &"sound_effects"
 
 [node name="green_meteor_die" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(10690, 2309)
 stream = ExtResource("4_mwyo1")
 pitch_scale = 0.5
+bus = &"sound_effects"
 
 [node name="die_walls" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -1125,12 +1132,14 @@ position = Vector2(754, -40)
 stream = ExtResource("19_eq65h")
 volume_db = -5.0
 pitch_scale = 2.25
+bus = &"sound_effects"
 
 [node name="give_birth" type="AudioStreamPlayer2D" parent="green_meteor_walls2"]
 position = Vector2(371, 86)
 stream = ExtResource("20_14c7t")
 volume_db = -5.0
 pitch_scale = 2.25
+bus = &"sound_effects"
 
 [node name="green_meteor_walls3" type="CPUParticles2D" parent="."]
 visible = false
@@ -1343,12 +1352,14 @@ position = Vector2(497, -38.999)
 stream = ExtResource("19_eq65h")
 volume_db = -5.0
 pitch_scale = 2.25
+bus = &"sound_effects"
 
 [node name="give_birth" type="AudioStreamPlayer2D" parent="green_meteor_walls3"]
 position = Vector2(884, 100.002)
 stream = ExtResource("20_14c7t")
 volume_db = -5.0
 pitch_scale = 2.25
+bus = &"sound_effects"
 
 [node name="green_meteor_die_spawn" type="Area2D" parent="."]
 position = Vector2(9786, 2170)

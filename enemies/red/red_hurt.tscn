@@ -39,3 +39,4 @@ stream = ExtResource("2_cdf3w")
 volume_db = -3.0
 pitch_scale = 2.0
 autoplay = true
+bus = &"sound_effects"

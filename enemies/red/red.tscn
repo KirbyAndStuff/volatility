@@ -127,11 +127,13 @@ one_shot = true
 stream = ExtResource("2_wjcl0")
 volume_db = -15.0
 pitch_scale = 0.75
+bus = &"sound_effects"
 
 [node name="is_about_to_dashsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_6gapp")
 volume_db = -15.0
 pitch_scale = 2.0
+bus = &"sound_effects"
 
 [node name="spawn" type="CPUParticles2D" parent="."]
 emitting = false
@@ -161,6 +163,7 @@ volume_db = -13.0
 pitch_scale = 3.0
 autoplay = true
 max_distance = 1000.0
+bus = &"sound_effects"
 
 [node name="wall_hitbox" type="CollisionShape2D" parent="."]
 visible = false

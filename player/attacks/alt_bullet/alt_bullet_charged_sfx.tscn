@@ -15,6 +15,7 @@ volume_db = -10.0
 pitch_scale = 0.75
 autoplay = true
 max_distance = 10000.0
+bus = &"sound_effects"
 script = ExtResource("1_xoqnp")
 
 [node name="parried_particles" type="CPUParticles2D" parent="."]

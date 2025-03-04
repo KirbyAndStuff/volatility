@@ -51,11 +51,13 @@ volume_db = 5.0
 pitch_scale = 0.8
 autoplay = true
 max_distance = 5000.0
+bus = &"sound_effects"
 
 [node name="sfx_big" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_btc4f")
 volume_db = -5.0
 pitch_scale = 0.6
 max_distance = 5000.0
+bus = &"sound_effects"
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
