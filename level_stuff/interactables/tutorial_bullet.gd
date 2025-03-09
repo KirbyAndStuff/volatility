@@ -7,10 +7,6 @@ var hit_wall = false
 
 @export var speed := 1000.0
 
-func _ready():
-	$explosion_top.emitting = true
-	$explosion_bottom.emitting = true
-
 func _physics_process(delta):
 	position += direction * speed * delta
 

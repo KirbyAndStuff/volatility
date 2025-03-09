@@ -3,13 +3,30 @@ extends Node
 var config = ConfigFile.new()
 const SETTINGS_FILE_PATH = "user://settings.ini"
 
+@onready var framerates = [0, 60, 120, 144, 240, 288]
+
 func _ready():
 	if !FileAccess.file_exists(SETTINGS_FILE_PATH):
 		config.set_value("audio", "master_volume", 0)
 		config.set_value("audio", "sound_effects", 0)
 		config.set_value("audio", "music", 0)
 		
+		config.set_value("video", "full_screen", false)
+		config.set_value("video", "framerate", 0)
 		config.set_value("video", "screen_shake", 1.0)
+		
+		config.set_value("keybinding", "blue_left", "A")
+		config.set_value("keybinding", "blue_right", "D")
+		config.set_value("keybinding", "blue_up", "W")
+		config.set_value("keybinding", "blue_down", "S")
+		config.set_value("keybinding", "left_mouse_button", "mouse_1")
+		config.set_value("keybinding", "right_mouse_button", "mouse_2")
+		config.set_value("keybinding", "dash", "shift")
+		config.set_value("keybinding", "parry", "space")
+		config.set_value("keybinding", "interact", "E")
+		config.set_value("keybinding", "first_weapon", "1")
+		config.set_value("keybinding", "second_weapon", "2")
+		config.set_value("keybinding", "switch_variant", "Q")
 		
 		config.save(SETTINGS_FILE_PATH)
 	else:
@@ -34,3 +51,30 @@ func load_video_settings():
 	for key in config.get_section_keys("video"):
 		video_settings[key] = config.get_value("video", key)
 	return video_settings
+
+func save_keybinding(action: StringName, event: InputEvent):
+	var event_str
+	if event is InputEventKey:
+		event_str = OS.get_keycode_string(event.physical_keycode)
+	elif event is InputEventMouseButton:
+		event_str = "mouse_" + str(event.button_index)
+	
+	config.set_value("keybinding", action, event_str)
+	config.save(SETTINGS_FILE_PATH)
+
+func load_keybindings():
+	var keybindings = {}
+	var keys = config.get_section_keys("keybinding")
+	for key in keys:
+		var input_event
+		var event_str = config.get_value("keybinding", key)
+		
+		if event_str.contains("mouse_"):
+			input_event = InputEventMouseButton.new()
+			input_event.button_index = int(event_str.split("_")[1])
+		else:
+			input_event = InputEventKey.new()
+			input_event.keycode = OS.find_keycode_from_string(event_str)
+		
+		keybindings[key] = input_event
+	return keybindings

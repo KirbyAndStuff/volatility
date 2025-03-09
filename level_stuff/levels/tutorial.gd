@@ -101,6 +101,8 @@ func _on_hurt_wall_area_exited(area):
 		hurt_player = false
 
 func _on_bullet_timer_timeout():
+	$explosion_top.emitting = true
+	$explosion_bottom.emitting = true
 	$bullet_sfx.play()
 	var tutorial_bullet = preload("res://level_stuff/interactables/tutorial_bullet.tscn")
 	var shot = tutorial_bullet.instantiate()

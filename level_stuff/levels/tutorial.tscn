@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://cusucgccm5yb8"]
+[gd_scene load_steps=44 format=4 uid="uid://cusucgccm5yb8"]
 
 [ext_resource type="Script" uid="uid://kaioawx1nq6" path="res://level_stuff/levels/tutorial.gd" id="1_hccw4"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_lcn12"]
@@ -56,6 +56,22 @@ glow_hdr_threshold = 4.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_u3d8y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vanh7"]
+offsets = PackedFloat32Array(0, 0.516556)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_vanh7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_mpo4n"]
+offsets = PackedFloat32Array(0, 0.516556)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Curve" id="Curve_fmmhv"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -306,6 +322,48 @@ angle_max = 180.0
 scale_amount_min = 20.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_54wya")
+
+[node name="explosion_top" type="CPUParticles2D" parent="."]
+position = Vector2(2827, -345)
+emitting = false
+amount = 20
+lifetime = 0.85
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_u3d8y")
+color_ramp = SubResource("Gradient_vanh7")
+
+[node name="explosion_bottom" type="CPUParticles2D" parent="."]
+position = Vector2(2827, -345)
+emitting = false
+amount = 20
+lifetime = 0.85
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_vanh7")
+color_ramp = SubResource("Gradient_mpo4n")
 
 [node name="breakable_wall" type="CPUParticles2D" parent="." groups=["breakable wall"]]
 position = Vector2(3377, -872)

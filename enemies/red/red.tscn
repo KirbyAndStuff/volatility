@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=23 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" uid="uid://bpc4uwd6p1bli" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="2_wjcl0"]
@@ -11,10 +11,10 @@ point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_8qyx3"]
-colors = PackedColorArray(1, 0, 0, 0.501961, 1, 1, 1, 0.501961)
+colors = PackedColorArray(1, 0, 0, 0.392157, 1, 1, 1, 0.501961)
 
 [sub_resource type="Gradient" id="Gradient_548fa"]
-colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 0)
+colors = PackedColorArray(1, 0, 0, 0.694118, 1, 0, 0, 0.247059)
 
 [sub_resource type="Gradient" id="Gradient_na7al"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -23,10 +23,25 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 radius = 38.0526
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g07hy"]
-radius = 25.318
+radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_awomf"]
 radius = 167.192
+
+[sub_resource type="Curve" id="Curve_4j5t4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_4j5t4"]
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_orm1u"]
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
 
 [sub_resource type="Curve" id="Curve_mjg34"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -39,9 +54,25 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ctjf"]
 radius = 22.02
 
-[sub_resource type="Gradient" id="Gradient_vradg"]
-offsets = PackedFloat32Array(0.0133333, 1)
+[sub_resource type="Curve" id="Curve_q45wr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(0.7, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_q45wr"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_acw2v"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_acw2v"]
+offsets = PackedFloat32Array(0, 0.8)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qniof"]
 radius = 50.0
@@ -71,7 +102,7 @@ color_ramp = SubResource("Gradient_8qyx3")
 color_initial_ramp = SubResource("Gradient_548fa")
 
 [node name="left eye" type="CPUParticles2D" parent="."]
-position = Vector2(10, -8)
+position = Vector2(8, -8)
 amount = 50
 lifetime = 0.2
 speed_scale = 0.5
@@ -99,17 +130,17 @@ scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_na7al")
 
 [node name="playerdeath" type="Area2D" parent="." groups=["enemy", "enemy_body"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdeath"]
-visible = false
-position = Vector2(1, -20)
+position = Vector2(0, -20)
 shape = SubResource("CircleShape2D_4iuuo")
 
 [node name="hurts_player" type="Area2D" parent="." groups=["enemy_attack", "parryable"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurts_player"]
-visible = false
-position = Vector2(1, -20)
+position = Vector2(0, -20)
 shape = SubResource("CircleShape2D_g07hy")
 
 [node name="player_dash_distance" type="Area2D" parent="."]
@@ -123,10 +154,71 @@ shape = SubResource("CircleShape2D_awomf")
 wait_time = 0.2
 one_shot = true
 
+[node name="dash_line" type="Line2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+points = PackedVector2Array(0, 0, 400, 0)
+width = 5.0
+default_color = Color(1, 0, 0, 0.392157)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="dash_line_particles" type="Node2D" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="dash_line_particles"]
+position = Vector2(20, 0)
+emitting = false
+amount = 15
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2(0.8, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_4j5t4")
+color = Color(1, 0, 0, 0.588235)
+color_ramp = SubResource("Gradient_4j5t4")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="dash_line_particles"]
+position = Vector2(20, 0)
+emitting = false
+amount = 15
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2(0.8, 1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 15.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_4j5t4")
+color = Color(1, 0, 0, 0.588235)
+color_ramp = SubResource("Gradient_orm1u")
+
 [node name="red_dashsfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_wjcl0")
 volume_db = -15.0
-pitch_scale = 0.75
+pitch_scale = 0.8
 bus = &"sound_effects"
 
 [node name="is_about_to_dashsfx" type="AudioStreamPlayer2D" parent="."]
@@ -170,65 +262,44 @@ visible = false
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_1ctjf")
 
-[node name="stunned_eye" type="CPUParticles2D" parent="."]
-position = Vector2(10, -8)
+[node name="stunned_eye1" type="CPUParticles2D" parent="."]
+position = Vector2(0, -15)
 emitting = false
-amount = 50
-lifetime = 0.15
-speed_scale = 0.5
-emission_shape = 1
-emission_sphere_radius = 1.0
-gravity = Vector2(1000, -500)
-angle_min = -20.0
-angle_max = 20.0
-scale_amount_min = 3.0
-scale_amount_max = 3.0
-color_ramp = SubResource("Gradient_vradg")
+amount = 40
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 7.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_q45wr")
+color_ramp = SubResource("Gradient_q45wr")
 
 [node name="stunned_eye2" type="CPUParticles2D" parent="."]
-position = Vector2(10, -8)
+position = Vector2(0, -15)
 emitting = false
-amount = 50
-lifetime = 0.15
-speed_scale = 0.5
-emission_shape = 1
-emission_sphere_radius = 1.0
-gravity = Vector2(1000, 0)
-angle_min = -20.0
-angle_max = 20.0
-scale_amount_min = 3.0
-scale_amount_max = 3.0
-color_ramp = SubResource("Gradient_vradg")
-
-[node name="stunned_eye3" type="CPUParticles2D" parent="."]
-position = Vector2(-8, -8)
-emitting = false
-amount = 50
-lifetime = 0.15
-speed_scale = 0.5
-emission_shape = 1
-emission_sphere_radius = 1.0
-gravity = Vector2(-1000, -500)
-angle_min = -20.0
-angle_max = 20.0
-scale_amount_min = 3.0
-scale_amount_max = 3.0
-color_ramp = SubResource("Gradient_vradg")
-
-[node name="stunned_eye4" type="CPUParticles2D" parent="."]
-position = Vector2(-8, -8)
-emitting = false
-amount = 50
-lifetime = 0.15
-speed_scale = 0.5
-emission_shape = 1
-emission_sphere_radius = 1.0
-gravity = Vector2(-1000, 0)
-angle_min = -20.0
-angle_max = 20.0
-scale_amount_min = 3.0
-scale_amount_max = 3.0
-color_ramp = SubResource("Gradient_vradg")
+amount = 40
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 5.0
+scale_amount_max = 7.0
+scale_amount_curve = SubResource("Curve_acw2v")
+color_ramp = SubResource("Gradient_acw2v")
 
 [node name="Stunned" type="Timer" parent="."]
 one_shot = true
@@ -238,6 +309,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="bulletm2" type="StaticBody2D" parent="."]
+visible = false
 collision_layer = 64
 collision_mask = 64
 

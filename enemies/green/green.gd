@@ -33,7 +33,6 @@ func _process(_delta):
 			get_parent().add_child(shot)
 			shot.shoot(global_position, get_node("../player").global_position)
 			$GunTimer.start()
-			#$GunTimer.wait_time = randf_range(0.75, 1)
 		elif can_fire_laser and behind_wall:
 			bullets_fired += 2
 			$GunTimer.start()
@@ -63,10 +62,6 @@ func _physics_process(_delta):
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		#var dir = "direction" in area.get_parent()
-		#if dir == false and behind_wall:
-			#area.get_parent().cooldown_amount = 0
-		#else:
 		if health > 1:
 			var effect := green_hurt.instantiate()
 			effect.position = position
@@ -77,9 +72,9 @@ func eyes_begone():
 	await get_tree().create_timer(1.4, false).timeout
 	$body/eye_bottom.modulate = Color(0, 0, 0, 0)
 	$body/eye_top.modulate = Color(0, 0, 0, 0)
-	$body/eye_bottom.speed_scale = 0.2
-	$body/eye_top.speed_scale = 0.2
+	$body/eye_bottom.speed_scale = 0
+	$body/eye_top.speed_scale = 0
 	create_tween().tween_property($body/eye_bottom, "modulate", Color(1, 1, 1, 1), 1.8)
 	create_tween().tween_property($body/eye_top, "modulate", Color(1, 1, 1, 1), 1.8)
-	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($body/eye_bottom, "speed_scale", 1, 1.8)
-	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($body/eye_top, "speed_scale", 1, 1.8)
+	create_tween().set_trans(Tween.TRANS_QUAD).tween_property($body/eye_bottom, "speed_scale", 1, 1.8)
+	create_tween().set_trans(Tween.TRANS_QUAD).tween_property($body/eye_top, "speed_scale", 1, 1.8)

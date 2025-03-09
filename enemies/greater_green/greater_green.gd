@@ -29,19 +29,23 @@ func _ready():
 		spawn_point.rotation = pos.angle()
 		$Node2D.add_child.call_deferred(spawn_point)
 	if play_intro:
+		$eye.speed_scale = 0.1
 		create_tween().tween_property($eye, "modulate", Color(0, 1, 0, 1), 4)
 		await get_tree().create_timer(2, false).timeout
 		$introsfx.play()
 		create_tween().tween_property($introsfx, "volume_db", 5, 3.5)
-		get_node("../camera").apply_shake(2, 2)
+		get_node("../camera").const_shake += 2
+		get_node("../camera").const_shake_num -= 1
 		await get_tree().create_timer(2, false).timeout
-		get_node("../camera").apply_shake(5, 2)
+		get_node("../camera").const_shake += 3
 		create_tween().tween_property($eye, "modulate", Color(1, 3, 1, 1), 2)
 		await get_tree().create_timer(2, false).timeout
+		get_node("../camera").const_shake_num += 1
 		$introsfx.stop()
 		await get_tree().create_timer(0.5, false).timeout
 		$body.emitting = true
 		get_node("../camera").apply_shake(10, 0.5)
+		$eye.speed_scale = 1
 		$die_finalsfx.play()
 		$bullet_explosion.emitting = true
 		$playerdeath/CollisionShape2D.disabled = false

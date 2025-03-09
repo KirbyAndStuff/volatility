@@ -206,7 +206,7 @@ func _ready():
 	Engine.time_scale = 1.0
 	$camera.apply_shake(10, 0.5)
 	await get_tree().create_timer(0.5, false).timeout
-	#get_node("player").in_intro = true
+	get_node("player").in_intro = true
 	$level_end/start_levelsfx.play()
 	var effect := level_start.instantiate()
 	effect.position = $level_end.position + Vector2(0, 75)

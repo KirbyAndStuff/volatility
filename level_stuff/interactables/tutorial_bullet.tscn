@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkfnldkigi17v"]
+[gd_scene load_steps=4 format=3 uid="uid://bkfnldkigi17v"]
 
 [ext_resource type="Script" uid="uid://bs45h1mfgcjry" path="res://level_stuff/interactables/tutorial_bullet.gd" id="1_bvo5o"]
 
@@ -9,14 +9,6 @@ metadata/_snap_enabled = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avyqg"]
 size = Vector2(55, 25)
-
-[sub_resource type="Curve" id="Curve_b6rmc"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_vg27h"]
-offsets = PackedFloat32Array(0, 0.516556)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="tutorial_bullet" type="CharacterBody2D"]
 script = ExtResource("1_bvo5o")
@@ -43,44 +35,6 @@ scale_amount_curve = SubResource("Curve_cw6p2")
 visible = false
 position = Vector2(-15.5, 1.5)
 shape = SubResource("RectangleShape2D_avyqg")
-
-[node name="explosion_top" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 20
-lifetime = 0.85
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, -1)
-spread = 30.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
-scale_amount_curve = SubResource("Curve_b6rmc")
-color_ramp = SubResource("Gradient_vg27h")
-
-[node name="explosion_bottom" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 20
-lifetime = 0.85
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, 1)
-spread = 30.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
-scale_amount_curve = SubResource("Curve_b6rmc")
-color_ramp = SubResource("Gradient_vg27h")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

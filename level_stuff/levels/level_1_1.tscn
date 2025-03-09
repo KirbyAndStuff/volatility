@@ -282,10 +282,12 @@ size = Vector2(2192, 16)
 script = ExtResource("1_nrsi2")
 
 [node name="player" parent="." instance=ExtResource("1_qyvy7")]
-position = Vector2(13066, -1886)
+process_mode = 4
+visible = false
+position = Vector2(228, -1016)
 
 [node name="camera" parent="." instance=ExtResource("3_lxdcc")]
-position = Vector2(228, -1016)
+position = Vector2(-12610, -146)
 
 [node name="level_end" parent="." instance=ExtResource("3_wr0oy")]
 position = Vector2(228, -1016)

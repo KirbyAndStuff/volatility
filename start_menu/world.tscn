@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
 [ext_resource type="PackedScene" uid="uid://qdynyepc0g4d" path="res://enemies/general/enemy_health_bar.tscn" id="11_7tys3"]
-[ext_resource type="PackedScene" uid="uid://cbq60l25xsim8" path="res://enemies/greater_green/greater_green.tscn" id="11_eq1w8"]
+[ext_resource type="PackedScene" uid="uid://ugfxmkdd6pyc" path="res://enemies/red/red.tscn" id="11_vphp0"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -40,10 +40,10 @@ tile_map_data = PackedByteArray("AAD0/+D/AAAAAAAAAQD0/+H/AAAAAAAAAQD0/+L/AAAAAAA
 tile_set = SubResource("TileSet_cpcic")
 
 [node name="player" parent="." instance=ExtResource("1_qdwvq")]
-position = Vector2(960, 540)
+position = Vector2(743, 158)
 
 [node name="camera" parent="." instance=ExtResource("3_0o8ed")]
-position = Vector2(960, 540)
+position = Vector2(743, 158)
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -202,5 +202,5 @@ shape = SubResource("RectangleShape2D_bkawm")
 [node name="dummy" parent="." instance=ExtResource("8_c4gwh")]
 position = Vector2(1874, 120)
 
-[node name="greater_green" parent="." instance=ExtResource("11_eq1w8")]
-position = Vector2(1226, 107)
+[node name="red" parent="." instance=ExtResource("11_vphp0")]
+position = Vector2(1348, 134)
