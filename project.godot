@@ -24,7 +24,6 @@ config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
-player_global="*res://player/player_global.gd"
 configfilehandler="*res://configfilehandler.gd"
 
 [display]

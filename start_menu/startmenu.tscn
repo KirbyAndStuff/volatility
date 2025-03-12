@@ -85,6 +85,7 @@ offset_bottom = 716.0
 text = "Settings"
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
 offset_left = 240.0
 offset_top = 135.0
 offset_right = 1680.0
@@ -271,7 +272,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="sound_effects" type="Button" parent="CanvasLayer/Panel/reset_buttons"]
-visible = false
 layout_mode = 0
 offset_left = 579.0
 offset_top = 135.0
@@ -282,7 +282,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ml0b2")
 text = "Reset"
 
 [node name="music" type="Button" parent="CanvasLayer/Panel/reset_buttons"]
-visible = false
 layout_mode = 0
 offset_left = 579.0
 offset_top = 226.0
@@ -293,7 +292,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ml0b2")
 text = "Reset"
 
 [node name="screen_shake" type="Button" parent="CanvasLayer/Panel/reset_buttons"]
-visible = false
 layout_mode = 0
 offset_left = 579.0
 offset_top = 317.0

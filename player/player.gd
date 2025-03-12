@@ -18,7 +18,7 @@ var friction = 4000
 var friction_boost = 0
 var stamina = 100
 var gunm2_cooldown = 100
-var alt_gunm2_cooldown = 100 #aaaaaaaaaaa
+var alt_gunm2_cooldown = 100
 var meleem2_cooldown = 100
 var input = Vector2.ZERO
 var is_dead = false
@@ -36,12 +36,20 @@ var got_hit = false
 var take_damage = 0
 var taken_hit = false
 
-var bullets = ["bullet", "alt_bullet"]
-var melees = ["melee"]
-var weapons = ["bullet", "melee"]
-var key = 0
-var key_wep = 0
-var active_weapon = "bullet"
+var bullets = configfilehandler.load_bullets()
+var melees = configfilehandler.load_melees()
+var weapons = configfilehandler.load_weapons()
+var key
+var key_wep
+var active_weapon = configfilehandler.load_other_weaponsstuff().previously_used_weapon
+
+func _ready():
+	if active_weapon in configfilehandler.load_bullets():
+		key = configfilehandler.load_weapon_order().bullets.find(active_weapon)
+		key_wep = 0
+	if active_weapon in configfilehandler.load_melees():
+		key = configfilehandler.load_weapon_order().melees.find(active_weapon)
+		key_wep = 1
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -103,22 +111,24 @@ func _process(_delta):
 			key += 1
 			if key > bullets.size() - 1:
 				key = 0
-			active_weapon = bullets[key]
+			active_weapon = configfilehandler.load_weapon_order().bullets[key]
 		else:
 			key = 0
 			key_wep = 0
-			active_weapon = weapons[key_wep]
+			active_weapon = configfilehandler.load_weapon_order().bullets.front()
+		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
 	if Input.is_action_just_pressed("second_weapon"):
 		if active_weapon in melees:
 			key += 1
 			if key > melees.size() - 1:
 				key = 0
-			active_weapon = melees[key]
+			active_weapon = configfilehandler.load_weapon_order().melees[key]
 		else:
 			key = 0
 			key_wep = 1
-			active_weapon = weapons[key_wep]
+			active_weapon = configfilehandler.load_weapon_order().melees.front()
+		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
 	if Input.is_action_just_pressed("scroll_up") and can_scroll_up:
 		can_scroll_up = false
@@ -126,17 +136,19 @@ func _process(_delta):
 		key_wep += 1
 		if key_wep > weapons.size() - 1:
 			key_wep = 0
-		active_weapon = weapons[key_wep]
+		active_weapon = weapons.keys()[key_wep]
+		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_up = true
 	if Input.is_action_just_pressed("scroll_down") and can_scroll_down:
 		can_scroll_down = false
 		key = 0
-		key_wep += 1
-		if key_wep > weapons.size() - 1:
-			key_wep = 0
-		active_weapon = weapons[key_wep]
+		key_wep -= 1
+		if key_wep < 0:
+			key_wep = weapons.size() - 1
+		active_weapon = weapons.keys()[key_wep]
+		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_down = true
@@ -145,11 +157,12 @@ func _process(_delta):
 		if active_weapon in bullets:
 			if key > bullets.size() - 1:
 				key = 0
-			active_weapon = bullets[key]
+			active_weapon = configfilehandler.load_weapon_order().bullets[key]
 		if active_weapon in melees:
 			if key > melees.size() - 1:
 				key = 0
-			active_weapon = melees[key]
+			active_weapon = configfilehandler.load_weapon_order().melees[key]
+		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
 	if heal_cooldown >= 100 and health < 3 and is_dead == false:
 		health += 1
@@ -168,10 +181,30 @@ func _process(_delta):
 		$"combat eye2".emitting = false
 	if $powered_bullet2.visible:
 		$powered_bullet2.look_at(get_global_mouse_position())
+		
 	#if Input.is_action_just_pressed("switch_variant"):
 		#health = 0
 	#else:
 		#health = 10
+		
+	#if Input.is_action_just_pressed("blue_up"):
+		#var aaa = configfilehandler.load_weapon_order().bullets.find("alt_bullet")
+		#configfilehandler.load_weapon_order().bullets.remove_at(aaa)
+		#if aaa + 1 > configfilehandler.load_weapon_order().bullets.size():
+			#configfilehandler.load_weapon_order().bullets.insert(0, "alt_bullet")
+		#else:
+			#configfilehandler.load_weapon_order().bullets.insert(aaa + 1, "alt_bullet")
+		
+		#print(configfilehandler.load_weapon_order().bullets)
+	#if Input.is_action_just_pressed("blue_down"):
+		#var aaa = configfilehandler.load_weapon_order().bullets.find("alt_bullet")
+		#configfilehandler.load_weapon_order().bullets.remove_at(aaa)
+		#if aaa - 1 < 0:
+			#configfilehandler.load_weapon_order().bullets.insert(configfilehandler.load_weapon_order().bullets.size(), "alt_bullet")
+		#else:
+			#configfilehandler.load_weapon_order().bullets.insert(aaa - 1, "alt_bullet")
+		
+		#print(configfilehandler.load_weapon_order().bullets)
 
 func get_input():
 	if input.length() > 0.0:
@@ -229,7 +262,7 @@ func shoot():
 		$GunTimer.start()
 
 func shootm2():
-	if gunm2_cooldown > 100 and not get_tree().has_group("beam") and get_node("/root/player_global").got_bulletm2:
+	if gunm2_cooldown > 100 and not get_tree().has_group("beam") and configfilehandler.load_other_weaponsstuff().got_bulletm2:
 		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)

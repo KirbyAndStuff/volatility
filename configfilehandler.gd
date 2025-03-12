@@ -28,6 +28,20 @@ func _ready():
 		config.set_value("keybinding", "second_weapon", "2")
 		config.set_value("keybinding", "switch_variant", "Q")
 		
+		config.set_value("weapons", "bullet", true)
+		config.set_value("weapons", "melee", true)
+		
+		config.set_value("bullets", "bullet", true)
+		config.set_value("bullets", "alt_bullet", true)
+		
+		config.set_value("melees", "melee", true)
+		
+		config.set_value("weapon_order", "bullets", ["bullet", "alt_bullet"])
+		config.set_value("weapon_order", "melees", ["melee"])
+		
+		config.set_value("other_weaponstuff", "previously_used_weapon", "bullet")
+		config.set_value("other_weaponstuff", "got_bulletm2", true)
+		
 		config.save(SETTINGS_FILE_PATH)
 	else:
 		config.load(SETTINGS_FILE_PATH)
@@ -78,3 +92,53 @@ func load_keybindings():
 		
 		keybindings[key] = input_event
 	return keybindings
+
+func save_weapons(key: String, value):
+	config.set_value("weapons", key, value)
+	config.save(SETTINGS_FILE_PATH)
+
+func load_weapons():
+	var weapon_settings = {}
+	for key in config.get_section_keys("weapons"):
+		weapon_settings[key] = config.get_value("weapons", key)
+	return weapon_settings
+
+func save_bullets(key: String, value):
+	config.set_value("bullets", key, value)
+	config.save(SETTINGS_FILE_PATH)
+
+func load_bullets():
+	var bullet_settings = {}
+	for key in config.get_section_keys("bullets"):
+		bullet_settings[key] = config.get_value("bullets", key)
+	return bullet_settings
+
+func save_melees(key: String, value):
+	config.set_value("bullets", key, value)
+	config.save(SETTINGS_FILE_PATH)
+
+func load_melees():
+	var melee_settings = {}
+	for key in config.get_section_keys("melees"):
+		melee_settings[key] = config.get_value("melees", key)
+	return melee_settings
+
+func save_weapon_order(key: String, value):
+	config.set_value("weapon_order", key, value)
+	config.save(SETTINGS_FILE_PATH)
+
+func load_weapon_order():
+	var weapon_order_settings = {}
+	for key in config.get_section_keys("weapon_order"):
+		weapon_order_settings[key] = config.get_value("weapon_order", key)
+	return weapon_order_settings
+
+func save_other_weaponstuff(key: String, value):
+	config.set_value("other_weaponstuff", key, value)
+	config.save(SETTINGS_FILE_PATH)
+
+func load_other_weaponsstuff():
+	var other_weaponstuff_settings = {}
+	for key in config.get_section_keys("other_weaponstuff"):
+		other_weaponstuff_settings[key] = config.get_value("other_weaponstuff", key)
+	return other_weaponstuff_settings

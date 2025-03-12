@@ -276,7 +276,7 @@ func red_intro_thing():
 	$red_spawndec4.queue_free()
 	get_node("white_interactable").interacted = false
 	$white_interactable.emitting = false
-	get_node("/root/player_global").got_bulletm2 = true
+	configfilehandler.load_other_weaponsstuff().got_bulletm2 = true
 	await get_tree().create_timer(1, false).timeout
 
 	$lock_walls1.process_mode = Node.PROCESS_MODE_INHERIT
@@ -293,8 +293,7 @@ func red_intro_thing():
 	please_press_m2 = true
 	await get_tree().create_timer(3, false).timeout
 	if pressed_m2 == false:
-		$ui/message.text = "Press M2"
-		#$ui/message2.text = "                       Empower your next Shot"
+		$ui/message.text = "Press " + create_action_list("right_mouse_button")
 
 func red_intro_die():
 	$red_intro/die.play()
@@ -341,7 +340,7 @@ func red_intro_die():
 
 func _on_interact_message_area_entered(area):
 	if area.is_in_group("player"):
-		$ui/message.text = "Press E to Interact"
+		$ui/message.text = "Press " + create_action_list("interact") + " to Interact"
 		$interact_message.queue_free()
 
 func _on_reds_spawning_finished() -> void:
@@ -761,3 +760,7 @@ func _on__5_trigger_area_entered(area):
 		spawn_5_5_wave_alt()
 		$lock_walls5.enabled = true
 		create_tween().tween_property($lock_walls5, "modulate", Color(1, 1, 1, 1), 1)
+
+func create_action_list(get_input):
+	var events = InputMap.action_get_events(get_input)
+	return events[0].as_text()

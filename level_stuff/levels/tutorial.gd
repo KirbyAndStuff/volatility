@@ -113,21 +113,21 @@ func _on_shoot_message_area_entered(area):
 	if area.is_in_group("player"):
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(6.5, 0.75)
-		$ui/message.text = "Press M1 to Shoot"
+		$ui/message.text = "Press " + create_action_list("left_mouse_button") + " to Shoot"
 		$shoot_message.queue_free()
 
 func _on_dash_message_area_entered(area):
 	if area.is_in_group("player"):
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(13, 0.75)
-		$ui/message.text = "Press Shift to Dash, you cannot get hit while Dashing"
+		$ui/message.text = "Press " + create_action_list("dash") + " to Dash, you cannot get hit while Dashing"
 		$dash_message.queue_free()
 
 func _on_parry_message_area_entered(area):
 	if area.is_in_group("player"):
 		$ui/particle_message.visible = true
 		$ui/particle_message.scale = Vector2(5.5, 0.75)
-		$ui/message.text = "Press Space to Parry"
+		$ui/message.text = "Press " + create_action_list("parry") + " to Parry"
 		$parry_message.queue_free()
 
 func _on_heal_message_area_entered(area):
@@ -167,3 +167,7 @@ func _on_area_2d_area_entered(area):
 		$breakable_wall.remove_from_group("breakable wall")
 		await get_tree().create_timer(1, false).timeout
 		$breakable_wall.queue_free()
+
+func create_action_list(get_input):
+	var events = InputMap.action_get_events(get_input)
+	return events[0].as_text()
