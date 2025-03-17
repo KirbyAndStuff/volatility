@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bax76c4teyl8h"]
+[gd_scene load_steps=15 format=3 uid="uid://bax76c4teyl8h"]
 
 [ext_resource type="Script" uid="uid://dl3brf2sg0o8o" path="res://start_menu/survival.gd" id="1_qdupt"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="2_m2bu4"]
@@ -27,6 +27,16 @@ glow_hdr_threshold = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wshs"]
 size = Vector2(581, 13)
+
+[sub_resource type="Gradient" id="Gradient_vfo18"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_jumfj"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
 
 [node name="survival" type="Node2D"]
 script = ExtResource("1_qdupt")
@@ -195,5 +205,48 @@ position = Vector2(-263, 1300)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="start_level"]
 position = Vector2(280.5, 56.5)
 shape = SubResource("RectangleShape2D_1wshs")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="ParallaxBackground"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ParallaxBackground/Parallax2D"]
+position = Vector2(960, 540)
+amount = 30
+lifetime = 30.0
+preprocess = 30.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(960, 540)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 10.0
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_vfo18")
+
+[node name="Parallax2D2" type="Parallax2D" parent="ParallaxBackground"]
+scroll_scale = Vector2(0.99, 0.99)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ParallaxBackground/Parallax2D2"]
+position = Vector2(960, 540)
+amount = 30
+lifetime = 30.0
+preprocess = 30.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(960, 540)
+gravity = Vector2(0, 0)
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 1.5
+scale_amount_max = 1.5
+color_ramp = SubResource("Gradient_jumfj")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

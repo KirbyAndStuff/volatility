@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://cusucgccm5yb8"]
+[gd_scene load_steps=46 format=4 uid="uid://cusucgccm5yb8"]
 
 [ext_resource type="Script" uid="uid://kaioawx1nq6" path="res://level_stuff/levels/tutorial.gd" id="1_hccw4"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_lcn12"]
@@ -118,6 +118,16 @@ scenes/1/scene = ExtResource("13_oaoy0")
 
 [sub_resource type="TileSet" id="TileSet_lxbun"]
 sources/0 = SubResource("TileSetScenesCollectionSource_c0rmi")
+
+[sub_resource type="Gradient" id="Gradient_u3d8y"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ppgoa"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
 
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("1_hccw4")
@@ -514,6 +524,51 @@ use_parent_material = true
 position = Vector2(19, 8)
 tile_map_data = PackedByteArray("AAAMAA4AAAAAAAAAAQAMAA8AAAAAAAAAAQAMABAAAAAAAAAAAQAMABEAAAAAAAAAAQAMABIAAAAAAAAAAQAMABMAAAAAAAAAAQAMABQAAAAAAAAAAQAMABUAAAAAAAAAAQAMABYAAAAAAAAAAQAMABcAAAAAAAAAAQAMABgAAAAAAAAAAQAMABkAAAAAAAAAAQAMABoAAAAAAAAAAQAMABsAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_lxbun")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="ParallaxBackground"]
+modulate = Color(1, 1, 1, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ParallaxBackground/Parallax2D"]
+position = Vector2(960, 540)
+amount = 30
+lifetime = 30.0
+preprocess = 30.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(960, 540)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 10.0
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_u3d8y")
+
+[node name="Parallax2D2" type="Parallax2D" parent="ParallaxBackground"]
+modulate = Color(1, 1, 1, 0)
+scroll_scale = Vector2(0.99, 0.99)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ParallaxBackground/Parallax2D2"]
+position = Vector2(960, 540)
+amount = 30
+lifetime = 30.0
+preprocess = 30.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(960, 540)
+gravity = Vector2(0, 0)
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 1.5
+scale_amount_max = 1.5
+color_ramp = SubResource("Gradient_ppgoa")
 
 [connection signal="area_entered" from="hurt_wall" to="." method="_on_hurt_wall_area_entered"]
 [connection signal="area_exited" from="hurt_wall" to="." method="_on_hurt_wall_area_exited"]

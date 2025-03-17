@@ -14,9 +14,17 @@ var killed_enemy3 = false
 var messages = [false, false, false, false]
 var checkpoint = null
 var guarded = false
+var going_to_next_level = false
 
 func _process(_delta):
-	if get_tree().has_group("next level"):
+	if get_tree().has_group("next level") and going_to_next_level == false:
+		going_to_next_level = true
+		get_tree().create_tween().tween_property($ui/health, "modulate", Color(1, 1, 1, 0), 1)
+		get_tree().create_tween().tween_property($ui/staminabar, "modulate", Color(1, 1, 1, 0), 1)
+		await get_tree().create_timer(4.15, false).timeout
+		$ui/screen_transition.visible = true
+		get_tree().create_tween().tween_property($ui/screen_transition, "color", Color(0, 0, 0, 1.5), 1)
+		await get_tree().create_timer(2).timeout
 		get_tree().change_scene_to_file("res://level_stuff/levels/level_1_1.tscn")
 	if hurt_player and (get_node("player").amount_of_i_frames) < 1:
 		(get_node("player").health) -= 1
@@ -73,6 +81,8 @@ func _ready():
 	await get_tree().create_timer(2, false).timeout
 	$start_level_chargesfx.play()
 	$camera.apply_shake(10, 2)
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ParallaxBackground/Parallax2D, "modulate", Color(1, 1, 1, 1), 2)
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ParallaxBackground/Parallax2D2, "modulate", Color(1, 1, 1, 1), 2)
 	await get_tree().create_timer(1, false).timeout
 	$start_level_chargesfx.play()
 	await get_tree().create_timer(1, false).timeout

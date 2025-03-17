@@ -17,7 +17,7 @@ var spawned_red_5_2 = false #true #false
 var died_to_greater_green = false
 
 func _process(_delta):
-	if hurt_player and (get_node("player").amount_of_i_frames) < 1:
+	if hurt_player and (get_node("player").amount_of_i_frames) < 1 and get_node("player").is_dead == false:
 		(get_node("player").health) -= 1
 		(get_node("player").i_frames(1))
 		(get_node("player").player_hurt_particles())
@@ -26,7 +26,7 @@ func _process(_delta):
 	if get_node("white_interactable").interacted == true:
 		red_intro_thing()
 
-	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100:
+	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100 and get_node("player").active_weapon == "bullet":
 		pressed_m2 = true
 		get_node("player").gunm2_cooldown = 0
 		var bullet_scene = preload("res://player/attacks/bullet/bulletm2.tscn")
@@ -205,6 +205,8 @@ func _process(_delta):
 func _ready():
 	Engine.time_scale = 1.0
 	$camera.apply_shake(10, 0.5)
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ParallaxBackground/Parallax2D, "modulate", Color(1, 1, 1, 1), 1)
+	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ParallaxBackground/Parallax2D2, "modulate", Color(1, 1, 1, 1), 1)
 	await get_tree().create_timer(0.5, false).timeout
 	get_node("player").in_intro = true
 	$level_end/start_levelsfx.play()

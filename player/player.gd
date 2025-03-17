@@ -402,6 +402,7 @@ func _on_player_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_attack"):
 		take_damage += 1
 	if area.is_in_group("level end") and is_dead == false:
+		add_to_group("next level")
 		speed = 0
 		speed_boost = 0
 		$"left eye node/left eye".lifetime = 0.2
@@ -409,8 +410,6 @@ func _on_player_hurtbox_area_entered(area):
 		var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_ELASTIC)
 		tween.tween_property(self, "position", Vector2(area.position + Vector2(0, -300)), 1)
 		is_dead = true
-		get_tree().create_tween().tween_property(get_node("../ui/health"), "modulate", Color(1, 1, 1, 0), 1)
-		get_tree().create_tween().tween_property(get_node("../ui/staminabar"), "modulate", Color(1, 1, 1, 0), 1)
 		await get_tree().create_timer(2, false).timeout
 		$level_end_chargesfx.play()
 		get_node("../camera").apply_shake(10, 1.15)
@@ -427,11 +426,6 @@ func _on_player_hurtbox_area_entered(area):
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		await get_tree().create_timer(1, false).timeout
-		get_node("../ui/screen_transition").visible = true
-		get_tree().create_tween().tween_property(get_node("../ui/screen_transition"), "color", Color(0, 0, 0, 1.5), 1)
-		await get_tree().create_timer(2).timeout
-		add_to_group("next level")
 	if area.is_in_group("level start"):
 		$landingsfx.play()
 		in_intro = false
