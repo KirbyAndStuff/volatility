@@ -14,15 +14,6 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 func _process(_delta):
-	if health < 1 and $CPUParticles2D.emitting:
-		$CPUParticles2D.emitting = false
-		$Area2D/CollisionShape2D.disabled = true
-		$bulletm2/CollisionShape2D.disabled = true
-		var tween = create_tween()
-		tween.tween_property(self, "modulate", Color(0, 0, 0, 0), 1)
-		remove_from_group(event)
-		await get_tree().create_timer(1, false).timeout
-		queue_free()
 	var location_dif = global_position - get_node("../player").global_position
 	if abs(location_dif.x) > (screen_size.x/2) * 1 || abs(location_dif.y) > (screen_size.y/2) * 1:
 		can_be_hurt_view = false
@@ -50,3 +41,13 @@ func _on_area_2d_area_entered(area):
 		effect.position = position
 		get_parent().add_child(effect)
 		health -= area.get_parent().damage
+		if health < 1 and $CPUParticles2D.emitting:
+			$CPUParticles2D.emitting = false
+			$Area2D/CollisionShape2D.set_deferred("disabled", true)
+			$bulletm2/CollisionShape2D.set_deferred("disabled", true)
+			var tween = create_tween()
+			tween.tween_property(self, "modulate", Color(0, 0, 0, 0), 1)
+			$level_detect.queue_free()
+			remove_from_group(event)
+			await get_tree().create_timer(1, false).timeout
+			queue_free()

@@ -7,14 +7,22 @@ var pressed_m2 = false
 var red_intro_health = 3
 var red_intro_died = false
 var checkpoint = null #Vector2(10094, 1072) #null
-var checkpoint_number = 0 #7 #0
+var checkpoint_number = 6 #7 #0
 var restarts = 0
 var shot_green_meteor = false #true #false
 var room_in_action = null #5_7 #null
+var enemies_in_room = 0
 
 var spawned_green_5_2 = false #true #false
 var spawned_red_5_2 = false #true #false
+
+var amount_of_green_5_2 = 0
+var amount_of_red_5_2 = 0
+
 var died_to_greater_green = false
+
+func _physics_process(delta: float) -> void:
+	pass
 
 func _process(_delta):
 	if hurt_player and (get_node("player").amount_of_i_frames) < 1 and get_node("player").is_dead == false:
@@ -22,10 +30,8 @@ func _process(_delta):
 		(get_node("player").i_frames(1))
 		(get_node("player").player_hurt_particles())
 		(get_node("player").framefreeze(0.4, 0.3))
-
 	if get_node("white_interactable").interacted == true:
 		red_intro_thing()
-
 	if please_press_m2 and Input.is_action_pressed("right_mouse_button") and get_node("player").gunm2_cooldown > 100 and get_node("player").active_weapon == "bullet":
 		pressed_m2 = true
 		get_node("player").gunm2_cooldown = 0
@@ -34,130 +40,19 @@ func _process(_delta):
 		shot.shake = 10
 		add_child(shot)
 		shot.shoot(get_node("player").global_position, get_global_mouse_position())
-
 	if red_intro_health < 1 and red_intro_died == false:
 		red_intro_die()
 		red_intro_died = true
 
-	if not get_tree().has_group("1-1") and room_in_action == 1_1:
-		spawn_first_room_second_wave()
-		room_in_action = 0
-	if not get_tree().has_group("1-2") and room_in_action == 1_2:
-		room_in_action = null
-		$first_room.queue_free()
-		$barrier_break/barrier_walls.visible = true
-		$barrier_break/barrier_walls.process_mode = Node.PROCESS_MODE_INHERIT
-		create_tween().tween_property($barrier_break/barrier_walls, "modulate", Color(1, 1, 1, 1), 1)
-		$lock_walls1.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls1, "modulate", Color(0, 0, 0, 0), 1)
-		$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
-		$white_walls2.enabled = true
-		create_tween().tween_property($white_walls2, "modulate", Color(1, 1, 1, 1), 1)
-		checkpoint_number = 2
-
-	if not get_tree().has_group("hall") and room_in_action == 1_5:
-		$hallway_area.queue_free()
-		$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
-		room_in_action = null
-		checkpoint_number = 3
-
-	if room_in_action == 2_1 and not get_tree().has_group("2-1"):
-		spawn_second_room_second_wave()
-		room_in_action = 0
-	if room_in_action == 2_2 and not get_tree().has_group("2-2"):
-		$second_room_area.queue_free()
-		$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
-		$hurt_walls2.visible = true
-		create_tween().tween_property($hurt_walls2, "modulate", Color(3, 1, 1, 1), 1)
-		$white_walls3.enabled = true
-		$die_walls.enabled = true
-		room_in_action = null
-		checkpoint_number = 4
-	if room_in_action == 3_1 and not get_tree().has_group("3-1"):
-		spawn_red_room_second_wave()
-		room_in_action = 0
-	if room_in_action == 3_2 and not get_tree().has_group("3-2") and not get_tree().has_group("3-1") and $red_room_area2.process_mode == PROCESS_MODE_DISABLED:
-		$red_room_area.queue_free()
-		$red_room_area2.queue_free()
-		$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
-		room_in_action = null
-		checkpoint_number = 5
-	if room_in_action == 4_1 and not get_tree().has_group("4-1"):
-		$white_walls4.enabled = true
-		create_tween().tween_property($white_walls4, "modulate", Color(1, 1, 1, 1), 1)
-		$green_meteor_walls2.emitting = false
-		$"green_meteor_walls2/8".emitting = false
-		$green_meteor_walls2/StaticBody2D/CollisionPolygon2D2.queue_free()
-		$green_meteor_die_spawn.queue_free()
-		room_in_action = null
-		checkpoint_number = 6
-		#$lock_walls6.enabled = true
-	if room_in_action == 5_1:
-		if not get_tree().has_group("5-1 green") and spawned_green_5_2 == false:
-			spawn_5_2_wave_green()
-			room_in_action = 0
-		if not get_tree().has_group("5-1 red") and spawned_red_5_2 == false:
-			spawn_5_2_wave_red()
-			room_in_action = 0
-	if room_in_action == 5_2 and not get_tree().has_group("5-1 green") and not get_tree().has_group("5-1 red"):
-		spawn_5_3_wave()
-		room_in_action = 0
-	if room_in_action == 5_3 and not get_tree().has_group("5-3"):
-		add_to_group("ignore enemy")
-		room_in_action = 5_4
-	if room_in_action == 5_4 and not get_tree().has_group("5-3 green"):
-		remove_from_group("ignore enemy")
-		add_to_group("spawn")
-		$white_walls6.enabled = true
-		create_tween().tween_property($white_walls6, "modulate", Color(1, 1, 1, 1), 1)
-		$lock_walls7.enabled = true
-		create_tween().tween_property($lock_walls7, "modulate", Color(1, 1, 1, 1), 1)
-		$lock_walls6.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls6, "modulate", Color(0, 0, 0, 0), 1)
-		$white_walls2.enabled = false
-		$hurt_walls2.enabled = false
-		room_in_action = 0
-		checkpoint_number = 7
-		$"5_1_room".queue_free()
-		spawn_5_5_wave()
-	if room_in_action == 5_5 and not get_tree().has_group("5-5"):
-		add_to_group("ignore enemy")
-		room_in_action = 5_6
-	if room_in_action == 5_6 and not get_tree().has_group("5-5 shield"):
-		remove_from_group("ignore enemy")
-		$"5_5_barrier_walls".process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($"5_5_barrier_walls", "modulate", Color(0, 0, 0, 0), 1)
-		room_in_action = 5_7
-	if room_in_action == 5_7 and not get_tree().has_group("5-5 green"):
-		$"5_5_trigger".queue_free()
-		checkpoint_number = 8
-		$"5_5_barrier_walls".queue_free()
-		create_tween().tween_property($lock_walls7, "modulate", Color(0, 0, 0, 0), 1)
-		$lock_walls7.process_mode = Node.PROCESS_MODE_DISABLED
-		$white_walls7.enabled = true
-		$lock_walls5.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls5, "modulate", Color(0, 0, 0, 0), 1)
-		create_tween().tween_property($white_walls7, "modulate", Color(1, 1, 1, 1), 1)
-		room_in_action = null
-	if room_in_action == 6_1 and not get_tree().has_group("enemy"):
-		checkpoint_number = 9
-		$greater_green_room.queue_free()
-		$lock_walls8.process_mode = Node.PROCESS_MODE_DISABLED
-		create_tween().tween_property($lock_walls8, "modulate", Color(0, 0, 0, 0), 1)
-		room_in_action = null
 	if room_in_action == 6_1 and not get_tree().has_group("health_bar") and $ui/bar_dec.modulate == Color(1, 1, 1, 1):
 		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ui/bar_dec, "modulate", Color(1, 1, 1, 0), 1)
 
 	if get_node("ui/gameoverscreen").restarted:
 		get_node("ui/gameoverscreen").restarted = false
-		delete_enemy_and_spawn(0)
-		delete_enemy_and_spawn(0.4)
 		restarts += 1
 		room_in_action = null
+		delete_enemy_and_spawn(0)
+		delete_enemy_and_spawn(0.4)
 		if checkpoint_number == 1:
 			if get_tree().has_group("first room"):
 				$first_room.call_deferred("set_process_mode", PROCESS_MODE_INHERIT)
@@ -203,12 +98,13 @@ func _process(_delta):
 			get_node("player/player_hurtbox").add_to_group("snap camera")
 
 func _ready():
+	
 	Engine.time_scale = 1.0
 	$camera.apply_shake(10, 0.5)
 	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ParallaxBackground/Parallax2D, "modulate", Color(1, 1, 1, 1), 1)
 	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ParallaxBackground/Parallax2D2, "modulate", Color(1, 1, 1, 1), 1)
 	await get_tree().create_timer(0.5, false).timeout
-	get_node("player").in_intro = true
+	#get_node("player").in_intro = true
 	$level_end/start_levelsfx.play()
 	var effect := level_start.instantiate()
 	effect.position = $level_end.position + Vector2(0, 75)
@@ -766,3 +662,201 @@ func _on__5_trigger_area_entered(area):
 func create_action_list(get_input):
 	var events = InputMap.action_get_events(get_input)
 	return events[0].as_text()
+
+func _on_first_room_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("1-1") or area.get_parent().is_in_group("1-2"):
+			enemies_in_room += 1
+
+func _on_first_room_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("1-1") or area.get_parent().is_in_group("1-2"):
+			enemies_in_room -= 1
+			if enemies_in_room <= 0:
+				if room_in_action == 1_1:
+					spawn_first_room_second_wave()
+					room_in_action = 0
+				if room_in_action == 1_2:
+					room_in_action = null
+					$first_room.queue_free()
+					$barrier_break/barrier_walls.visible = true
+					$barrier_break/barrier_walls.process_mode = Node.PROCESS_MODE_INHERIT
+					create_tween().tween_property($barrier_break/barrier_walls, "modulate", Color(1, 1, 1, 1), 1)
+					$lock_walls1.process_mode = Node.PROCESS_MODE_DISABLED
+					create_tween().tween_property($lock_walls1, "modulate", Color(0, 0, 0, 0), 1)
+					$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
+					create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
+					$white_walls2.enabled = true
+					create_tween().tween_property($white_walls2, "modulate", Color(1, 1, 1, 1), 1)
+					checkpoint_number = 2
+
+func _on_hall_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("hall"):
+			enemies_in_room += 1
+
+func _on_hall_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("hall"):
+			enemies_in_room -= 1
+			if enemies_in_room <= 0 and room_in_action == 1_5:
+				$hallway_area.queue_free()
+				$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
+				create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
+				room_in_action = null
+				checkpoint_number = 3
+
+func _on_second_room_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("2-1") or area.get_parent().is_in_group("2-2"):
+			enemies_in_room += 1
+
+func _on_second_room_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("2-1") or area.get_parent().is_in_group("2-2"):
+			enemies_in_room -= 1
+			if enemies_in_room <= 0:
+				if room_in_action == 2_1:
+					spawn_second_room_second_wave()
+					room_in_action = 0
+				if room_in_action == 2_2:
+					$second_room_area.queue_free()
+					$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
+					create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
+					$hurt_walls2.visible = true
+					create_tween().tween_property($hurt_walls2, "modulate", Color(3, 1, 1, 1), 1)
+					$white_walls3.enabled = true
+					$die_walls.enabled = true
+					room_in_action = null
+					checkpoint_number = 4
+
+func _on_red_room_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("3-1") or area.get_parent().is_in_group("3-2"):
+			enemies_in_room += 1
+
+func _on_red_room_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("3-1") or area.get_parent().is_in_group("3-2"):
+			enemies_in_room -= 1
+			if enemies_in_room <= 0:
+				if room_in_action == 3_1 and $red_room_area2/CollisionShape2D.visible == false:
+					spawn_red_room_second_wave()
+					room_in_action = 0
+				if room_in_action == 3_2 and $red_room_area2.process_mode == PROCESS_MODE_DISABLED:
+					$red_room_area.queue_free()
+					$red_room_area2.queue_free()
+					$lock_walls3.process_mode = Node.PROCESS_MODE_DISABLED
+					create_tween().tween_property($lock_walls3, "modulate", Color(0, 0, 0, 0), 1)
+					room_in_action = null
+					checkpoint_number = 5
+
+func _on_green_meteor_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("4-1"):
+			enemies_in_room += 1
+
+func _on_green_meteor_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("4-1"):
+			enemies_in_room -= 1
+			if enemies_in_room <= 0 and room_in_action == 4_1:
+				$white_walls4.enabled = true
+				create_tween().tween_property($white_walls4, "modulate", Color(1, 1, 1, 1), 1)
+				$green_meteor_walls2.emitting = false
+				$"green_meteor_walls2/8".emitting = false
+				$green_meteor_walls2/StaticBody2D/CollisionPolygon2D2.queue_free()
+				$green_meteor_die_spawn.queue_free()
+				room_in_action = null
+				checkpoint_number = 6
+
+func _on__1_room_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("5-1 green"):
+			amount_of_green_5_2 += 1
+		if area.get_parent().is_in_group("5-1 red"):
+			amount_of_red_5_2 += 1
+		if area.get_parent().is_in_group("5-3"):
+			enemies_in_room += 1
+
+func _on__1_room_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("5-1 green"):
+			amount_of_green_5_2 -= 1
+			if amount_of_green_5_2 <= 0:
+				if spawned_green_5_2 == false and not room_in_action == null:
+					spawn_5_2_wave_green()
+					room_in_action = 0
+				if room_in_action == 5_2 and spawned_green_5_2 and spawned_red_5_2 and amount_of_red_5_2 <= 0:
+					spawn_5_3_wave()
+					room_in_action = 0
+		if area.get_parent().is_in_group("5-1 red"):
+			amount_of_red_5_2 -= 1
+			if amount_of_red_5_2 <= 0:
+				if spawned_red_5_2 == false and not room_in_action == null:
+					spawn_5_2_wave_red()
+					room_in_action = 0
+				if room_in_action == 5_2 and spawned_green_5_2 and spawned_red_5_2 and amount_of_green_5_2 <= 0:
+					spawn_5_3_wave()
+					room_in_action = 0
+		if area.get_parent().is_in_group("5-3"):
+			enemies_in_room -= 1
+			if enemies_in_room <= 0 and room_in_action == 5_3:
+				add_to_group("ignore enemy")
+				room_in_action = 5_4
+		if area.get_parent().is_in_group("5-3 green") and room_in_action == 5_4:
+			remove_from_group("ignore enemy")
+			add_to_group("spawn")
+			$white_walls6.enabled = true
+			create_tween().tween_property($white_walls6, "modulate", Color(1, 1, 1, 1), 1)
+			$lock_walls7.enabled = true
+			create_tween().tween_property($lock_walls7, "modulate", Color(1, 1, 1, 1), 1)
+			$lock_walls6.process_mode = Node.PROCESS_MODE_DISABLED
+			create_tween().tween_property($lock_walls6, "modulate", Color(0, 0, 0, 0), 1)
+			$white_walls2.enabled = false
+			$hurt_walls2.enabled = false
+			room_in_action = 0
+			checkpoint_number = 7
+			$"5_1_room".queue_free()
+			spawn_5_5_wave()
+
+func _on_five_five_room_detect_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("5-5"):
+			enemies_in_room += 1
+		if area.get_parent().is_in_group("5-5 green"):
+			amount_of_green_5_2 += 1
+
+func _on_five_five_room_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("5-5"):
+			enemies_in_room -= 1
+			if enemies_in_room <= 0 and room_in_action == 5_5:
+				add_to_group("ignore enemy")
+				room_in_action = 5_6
+		if area.get_parent().is_in_group("5-5 green"):
+			amount_of_green_5_2 -= 1
+			if amount_of_green_5_2 <= 0 and room_in_action == 5_7:
+				$"5_5_trigger".queue_free()
+				checkpoint_number = 8
+				$"5_5_barrier_walls".queue_free()
+				create_tween().tween_property($lock_walls7, "modulate", Color(0, 0, 0, 0), 1)
+				$lock_walls7.process_mode = Node.PROCESS_MODE_DISABLED
+				$white_walls7.enabled = true
+				$lock_walls5.process_mode = Node.PROCESS_MODE_DISABLED
+				create_tween().tween_property($lock_walls5, "modulate", Color(0, 0, 0, 0), 1)
+				create_tween().tween_property($white_walls7, "modulate", Color(1, 1, 1, 1), 1)
+				room_in_action = null
+		if area.get_parent().is_in_group("barrier_break") and room_in_action == 5_6:
+			remove_from_group("ignore enemy")
+			$"5_5_barrier_walls".process_mode = Node.PROCESS_MODE_DISABLED
+			create_tween().tween_property($"5_5_barrier_walls", "modulate", Color(0, 0, 0, 0), 1)
+			room_in_action = 5_7
+
+func _on_greater_green_room_detect_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect") and room_in_action == 6_1:
+		checkpoint_number = 9
+		$greater_green_room.queue_free()
+		$lock_walls8.process_mode = Node.PROCESS_MODE_DISABLED
+		create_tween().tween_property($lock_walls8, "modulate", Color(0, 0, 0, 0), 1)
+		room_in_action = null

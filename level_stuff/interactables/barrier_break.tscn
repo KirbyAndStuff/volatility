@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0bd18xd2ewqv"]
+[gd_scene load_steps=6 format=3 uid="uid://c0bd18xd2ewqv"]
 
 [ext_resource type="Script" uid="uid://bangtvirq51f0" path="res://level_stuff/interactables/barrier_break.gd" id="1_v022d"]
 
@@ -13,7 +13,10 @@ metadata/_snap_enabled = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y27nv"]
 size = Vector2(70, 70)
 
-[node name="barrier_break" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0y8n"]
+size = Vector2(70, 70)
+
+[node name="barrier_break" type="Node2D" groups=["barrier_break"]]
 script = ExtResource("1_v022d")
 
 [node name="Area2D" type="Area2D" parent="." groups=["enemy_body", "no heal_cooldown reduction"]]
@@ -44,5 +47,11 @@ collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
 shape = SubResource("RectangleShape2D_y27nv")
+
+[node name="level_detect" type="Area2D" parent="." groups=["level_detect"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level_detect"]
+shape = SubResource("RectangleShape2D_f0y8n")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

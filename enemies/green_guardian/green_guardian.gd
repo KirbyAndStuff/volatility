@@ -25,6 +25,7 @@ func _process(_delta):
 			get_tree().get_first_node_in_group(target).guarded = true
 	if not get_tree().has_group(event) and dead == false:
 		dead = true
+		$StaticBody2D.queue_free()
 		if get_tree().has_group(target):
 			get_tree().get_first_node_in_group(target).guarded = false
 		create_tween().tween_property($CPUParticles2D, "modulate", Color(0, 0, 0, 0), 1)

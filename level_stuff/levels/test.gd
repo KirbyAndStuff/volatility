@@ -8,9 +8,11 @@ var restarts = 0
 
 func _ready() -> void:
 	#$ui/gameoverscreen.connect("retry", restart)
+	print($barrier_break.event)
 	Engine.time_scale = 1.0
 	$camera.apply_shake(10, 0.5)
 	await get_tree().create_timer(0.5, false).timeout
+	
 	get_node("player").in_intro = true
 	$level_end/start_levelsfx.play()
 	var effect := level_start.instantiate()
@@ -23,6 +25,10 @@ func _process(_delta):
 	if room == 1_1 and not get_tree().has_group("1-1"):
 		$"0/Area2D/CollisionShape2D".disabled = true
 		room = 0
+
+func _physics_process(delta: float) -> void:
+	pass
+	#$barrier_break.position.x += 100 * delta
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("player") and not get_tree().has_group("1-1"):
@@ -66,3 +72,15 @@ func _on_start_level_area_entered(area: Area2D) -> void:
 		$start_level.queue_free()
 		create_tween().tween_property($ui/health, "modulate", Color(1, 1, 1, 1,), 1)
 		create_tween().tween_property($ui/staminabar, "modulate", Color(1, 1, 1, 1,), 1)
+
+
+func _on_adasd_area_entered(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("bap"):
+			print("aaa")
+
+
+func _on_adasd_area_exited(area: Area2D) -> void:
+	if area.is_in_group("level_detect"):
+		if area.get_parent().is_in_group("bap"):
+			print("bbb")

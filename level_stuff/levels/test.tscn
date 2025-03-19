@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cx543jejl2row"]
+[gd_scene load_steps=20 format=4 uid="uid://cx543jejl2row"]
 
 [ext_resource type="Script" uid="uid://3wvfw8k63gqt" path="res://level_stuff/levels/test.gd" id="1_3ywd5"]
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_5n02b"]
@@ -11,6 +11,7 @@
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="9_xhrit"]
 [ext_resource type="PackedScene" uid="uid://q5kj08qhck4m" path="res://level_stuff/interactables/level_end.tscn" id="10_huyn0"]
 [ext_resource type="AudioStream" uid="uid://qajtv1gyj6ym" path="res://audio/parriedsfx.wav" id="11_bhl0g"]
+[ext_resource type="PackedScene" uid="uid://c0bd18xd2ewqv" path="res://level_stuff/interactables/barrier_break.tscn" id="12_lr3du"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_wk3v5"]
 scenes/1/scene = ExtResource("9_rp1md")
@@ -33,6 +34,9 @@ metadata/_snap_enabled = true
 offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lr3du"]
+radius = 204.0
 
 [node name="test" type="Node2D" groups=["cant spawn enemy"]]
 script = ExtResource("1_3ywd5")
@@ -136,5 +140,18 @@ scale_amount_min = 1.5
 scale_amount_max = 1.5
 color_ramp = SubResource("Gradient_lr3du")
 
+[node name="barrier_break" parent="." instance=ExtResource("12_lr3du")]
+position = Vector2(-1015, -531)
+event = "bap"
+
+[node name="adasd" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="adasd"]
+visible = false
+position = Vector2(-1017, -539)
+shape = SubResource("CircleShape2D_lr3du")
+
 [connection signal="area_entered" from="0/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="start_level" to="." method="_on_start_level_area_entered"]
+[connection signal="area_entered" from="adasd" to="." method="_on_adasd_area_entered"]
+[connection signal="area_exited" from="adasd" to="." method="_on_adasd_area_exited"]
