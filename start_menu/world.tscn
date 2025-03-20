@@ -49,10 +49,10 @@ tile_map_data = PackedByteArray("AAD0/+D/AAAAAAAAAQD0/+H/AAAAAAAAAQD0/+L/AAAAAAA
 tile_set = SubResource("TileSet_cpcic")
 
 [node name="player" parent="." instance=ExtResource("1_qdwvq")]
-position = Vector2(953, 532)
+position = Vector2(489, 432)
 
 [node name="camera" parent="." instance=ExtResource("3_0o8ed")]
-position = Vector2(953, 532)
+position = Vector2(489, 432)
 
 [node name="ui" type="CanvasLayer" parent="."]
 

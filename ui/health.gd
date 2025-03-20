@@ -6,21 +6,19 @@ extends Control
 
 func _ready() -> void:
 	position = Vector2(126, 932)
+	get_node("../../player").connect("is_speed_boosted", change_speed_boost)
+	get_node("../../player").connect("changed_weapon", change_weapon_visible)
 
 func _process(_delta):
 	var health = (get_node("../../player").health)
 	for i in range(0, healthEmitters.size()):
 		healthEmitters[i].emitting = i < health
 
-	if get_node("../../player").speed_boost == 300 and not $parry.color == Color(0, 1, 1, 1):
-		$parry.color = Color(0, 1, 1, 1)
-	if get_node("../../player").speed_boost == 0 and not $parry.color == Color(1, 1, 1, 1):
-		$parry.color = Color(1, 1, 1, 1)
-
 	var parry_cooldown = get_node("../../player").parry_cooldown
 	if parry_cooldown >= 30:
-		$parry_ready.emitting = true
-		$parry_ready2.emitting = true
+		if $parry_ready.emitting == false:
+			$parry_ready.emitting = true
+			$parry_ready2.emitting = true
 		$parry.modulate = Color(1, 1, 1, 1)
 	else:
 		if $parry_ready.emitting == true:
@@ -36,7 +34,7 @@ func _process(_delta):
 		$first_weapon.lifetime = 0.3
 		$first_weapon.modulate = Color(1, gunm2_cooldown / 100, gunm2_cooldown / 100, gunm2_cooldown / 100)
 
-	var laser_cooldown = (get_node("../../player").alt_gunm2_cooldown) #aaaaaaaaaaaaaaaaa
+	var laser_cooldown = (get_node("../../player").alt_gunm2_cooldown)
 	if laser_cooldown >= 100:
 		$first_alt/flames.lifetime = 0.5
 		$first_alt.modulate = Color(1, 1, 1)
@@ -65,6 +63,13 @@ func _process(_delta):
 		for vol in volatility:
 			vol.modulate = Color(1, 1, 1)
 
-	$first_weapon.visible = (get_node("../../player").active_weapon == "bullet")
-	$first_alt.visible = (get_node("../../player").active_weapon == "alt_bullet")
-	$second_weapon.visible = (get_node("../../player").active_weapon == "melee")
+func change_speed_boost(value):
+	if value == 300:
+		$parry.color = Color(0, 1, 1, 1)
+	if value == 0:
+		$parry.color = Color(1, 1, 1, 1)
+
+func change_weapon_visible(value):
+	$first_weapon.visible = (value == "bullet")
+	$first_alt.visible = (value == "alt_bullet")
+	$second_weapon.visible = (value == "melee")

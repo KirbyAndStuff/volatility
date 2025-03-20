@@ -8,6 +8,10 @@ extends Area2D
 var dead = false
 
 func _ready():
+	if get_tree().has_group(event):
+		get_tree().get_first_node_in_group(event).connect("died", _on_target_died)
+	get_tree().connect("node_added", _on_node_added)
+	
 	if stationary:
 		$StaticBody2D/CollisionShape2D.disabled = false
 	else:
@@ -18,12 +22,15 @@ func _ready():
 	create_tween().tween_property($CPUParticles2D, "modulate", Color(1, 1, 1, 1), 1)
 
 func _process(_delta):
-	if get_tree().has_group(event) and get_tree().has_group(target):
-		if stationary == false:
-			global_position = get_tree().get_first_node_in_group(target).global_position
-		if get_tree().get_first_node_in_group(target).guarded == false:
-			get_tree().get_first_node_in_group(target).guarded = true
-	if not get_tree().has_group(event) and dead == false:
+	if get_tree().has_group(target) and stationary == false:
+		global_position = get_tree().get_first_node_in_group(target).global_position
+
+func _on_area_entered(area):
+	if area.is_in_group("player_attack") and stationary:
+		if area.get_parent().has_method("die"):
+			area.get_parent().die()
+
+func _on_target_died():
 		dead = true
 		$StaticBody2D.queue_free()
 		if get_tree().has_group(target):
@@ -32,7 +39,6 @@ func _process(_delta):
 		await get_tree().create_timer(1, false).timeout
 		queue_free()
 
-func _on_area_entered(area):
-	if area.is_in_group("player_attack") and stationary:
-		if area.get_parent().has_method("die"):
-			area.get_parent().die()
+func _on_node_added(node):
+	if node.is_in_group(target):
+		get_tree().get_first_node_in_group(target).guarded = true

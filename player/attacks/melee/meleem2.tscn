@@ -36,7 +36,6 @@ color = Color(0, 1, 1, 1)
 
 [node name="SlashTimer" type="Timer" parent="."]
 wait_time = 0.2
-one_shot = true
 
 [node name="DieTimer" type="Timer" parent="."]
 wait_time = 1.5

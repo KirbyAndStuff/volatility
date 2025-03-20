@@ -26,10 +26,6 @@ func _process(_delta):
 		$"0/Area2D/CollisionShape2D".disabled = true
 		room = 0
 
-func _physics_process(delta: float) -> void:
-	pass
-	#$barrier_break.position.x += 100 * delta
-
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("player") and not get_tree().has_group("1-1"):
 		checkpoint = Vector2(394, 70)
@@ -84,3 +80,14 @@ func _on_adasd_area_exited(area: Area2D) -> void:
 	if area.is_in_group("level_detect"):
 		if area.get_parent().is_in_group("bap"):
 			print("bbb")
+
+
+func _on_adasd_body_entered(body: Node2D) -> void:
+	if body.is_in_group("bap"):
+		#print("aaa")
+		print("sasasa")
+		#print(body.get_groups())
+
+
+func _on_adasd_body_exited(body: Node2D) -> void:
+	print("bbb")

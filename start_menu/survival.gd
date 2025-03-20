@@ -69,3 +69,5 @@ func spawn_enemy(type):
 	# Set the enemy's position and add it to the scene
 	enemy_instance.position = random_position
 	add_child(enemy_instance)
+	await get_tree().create_timer(1, false).timeout
+	enemy_instance.spawn_enemy()

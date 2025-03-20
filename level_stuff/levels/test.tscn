@@ -147,7 +147,6 @@ event = "bap"
 [node name="adasd" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="adasd"]
-visible = false
 position = Vector2(-1017, -539)
 shape = SubResource("CircleShape2D_lr3du")
 
@@ -155,3 +154,5 @@ shape = SubResource("CircleShape2D_lr3du")
 [connection signal="area_entered" from="start_level" to="." method="_on_start_level_area_entered"]
 [connection signal="area_entered" from="adasd" to="." method="_on_adasd_area_entered"]
 [connection signal="area_exited" from="adasd" to="." method="_on_adasd_area_exited"]
+[connection signal="body_entered" from="adasd" to="." method="_on_adasd_body_entered"]
+[connection signal="body_exited" from="adasd" to="." method="_on_adasd_body_exited"]

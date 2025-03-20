@@ -22,7 +22,7 @@ var alt_gunm2_cooldown = 100
 var meleem2_cooldown = 100
 var input = Vector2.ZERO
 var is_dead = false
-var stamina_tween = true
+
 var powered_next_bullet_number = 0
 var powered_next_bullet = false
 var melee_order = 1
@@ -43,6 +43,13 @@ var key
 var key_wep
 var active_weapon = configfilehandler.load_other_weaponsstuff().previously_used_weapon
 
+signal next_level
+signal took_damage(new_health)
+signal died
+signal stamina_tween
+signal is_speed_boosted(value)
+signal changed_weapon(value)
+
 func _ready():
 	if active_weapon in configfilehandler.load_bullets():
 		key = configfilehandler.load_weapon_order().bullets.find(active_weapon)
@@ -57,8 +64,8 @@ func _physics_process(delta):
 		stamina += 25 * delta
 	if gunm2_cooldown <= 100:
 		gunm2_cooldown += 50 * delta
-	if alt_gunm2_cooldown <= 100 and not get_tree().has_group("beam"): #aaaaaaaaa
-		alt_gunm2_cooldown += 50 * delta #aaaaaaaa
+	if alt_gunm2_cooldown <= 100 and not get_tree().has_group("beam"):
+		alt_gunm2_cooldown += 50 * delta
 	if meleem2_cooldown <= 100:
 		meleem2_cooldown += 25 * delta
 	if parry_cooldown <= 30:
@@ -72,34 +79,81 @@ func _physics_process(delta):
 func _process(_delta):
 	if take_damage > 0 and amount_of_i_frames < 1 and is_dead == false:
 		health -= 1
+		emit_signal("took_damage", health)
 		i_frames(1)
 		player_hurt_particles()
 		taken_hit = true
 		framefreeze(0.4, 0.3)
-	if Input.is_action_pressed("dash") and stamina > 50 and $DashLength.is_stopped() and is_dead == false and in_intro == false:
-		dash()
-		stamina_tween = false
-	if Input.is_action_pressed("parry") and parry_cooldown > 30 and is_dead == false and in_intro == false:
-		parry()
 	if health < 1 and is_dead == false:
+		emit_signal("died")
 		var effect := player_death.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
 		modulate = Color(0, 0, 0, 0)
 		speed = 0
 		speed_boost = 0
+		emit_signal("is_speed_boosted", speed_boost)
 		$body.emitting = false
 		$"left eye node/left eye".emitting = false
 		$"right eye node/right eye".emitting = false
 		is_dead = true
-	if Input.is_action_pressed("left_mouse_button") and is_dead == false and in_intro == false:
+	if heal_cooldown >= 100 and health < 3 and is_dead == false:
+		health += 1
+		heal_particles()
+		heal_cooldown = 0
+	if is_dead == false:
+		if get_tree().has_group("enemy") or get_tree().has_group("enemy_attack") or get_tree().has_group("spawn"):
+			if $"combat eye".emitting == false:
+				$"combat eye".emitting = true
+				$"combat eye2".emitting = true
+		elif $"combat eye".emitting == true:
+			$"combat eye".emitting = false
+			$"combat eye2".emitting = false
+	elif  $"combat eye".emitting == true:
+		$"combat eye".emitting = false
+		$"combat eye2".emitting = false
+	if $powered_bullet2.visible:
+		$powered_bullet2.look_at(get_global_mouse_position())
+	if is_dead == false and in_intro == false:
+		change_weapon()
+	#if Input.is_action_just_pressed("switch_variant"):
+		#health = 0
+	#else:
+		#health = 10
+		
+	#if Input.is_action_just_pressed("blue_up"):
+		#var aaa = configfilehandler.load_weapon_order().bullets.find("alt_bullet")
+		#configfilehandler.load_weapon_order().bullets.remove_at(aaa)
+		#if aaa + 1 > configfilehandler.load_weapon_order().bullets.size():
+			#configfilehandler.load_weapon_order().bullets.insert(0, "alt_bullet")
+		#else:
+			#configfilehandler.load_weapon_order().bullets.insert(aaa + 1, "alt_bullet")
+		
+		#print(configfilehandler.load_weapon_order().bullets)
+	#if Input.is_action_just_pressed("blue_down"):
+		#var aaa = configfilehandler.load_weapon_order().bullets.find("alt_bullet")
+		#configfilehandler.load_weapon_order().bullets.remove_at(aaa)
+		#if aaa - 1 < 0:
+			#configfilehandler.load_weapon_order().bullets.insert(configfilehandler.load_weapon_order().bullets.size(), "alt_bullet")
+		#else:
+			#configfilehandler.load_weapon_order().bullets.insert(aaa - 1, "alt_bullet")
+		
+		#print(configfilehandler.load_weapon_order().bullets)
+
+func change_weapon():
+	if Input.is_action_pressed("dash") and stamina > 50 and $DashLength.is_stopped():
+		dash()
+		emit_signal("stamina_tween")
+	if Input.is_action_pressed("parry") and parry_cooldown > 30:
+		parry()
+	if Input.is_action_pressed("left_mouse_button"):
 		if active_weapon == "bullet" and $GunTimer.is_stopped() and not get_tree().has_group("beam"):
 			shoot()
 		if active_weapon == "alt_bullet" and $Alt_GunTimer.is_stopped() and not get_tree().has_group("bulletm2"):
 			alt_shoot()
 		if active_weapon == "melee" and $MeleeTimer.is_stopped() and not get_tree().has_group("meleem2"):
 			melee()
-	if Input.is_action_pressed("right_mouse_button") and is_dead == false and in_intro == false:
+	if Input.is_action_pressed("right_mouse_button"):
 		if active_weapon == "bullet":
 			shootm2()
 		if active_weapon == "alt_bullet":
@@ -164,47 +218,7 @@ func _process(_delta):
 			active_weapon = configfilehandler.load_weapon_order().melees[key]
 		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
-	if heal_cooldown >= 100 and health < 3 and is_dead == false:
-		health += 1
-		heal_particles()
-		heal_cooldown = 0
-	if is_dead == false:
-		if get_tree().has_group("enemy") or get_tree().has_group("enemy_attack") or get_tree().has_group("spawn"):
-			if $"combat eye".emitting == false:
-				$"combat eye".emitting = true
-				$"combat eye2".emitting = true
-		elif $"combat eye".emitting == true:
-			$"combat eye".emitting = false
-			$"combat eye2".emitting = false
-	elif  $"combat eye".emitting == true:
-		$"combat eye".emitting = false
-		$"combat eye2".emitting = false
-	if $powered_bullet2.visible:
-		$powered_bullet2.look_at(get_global_mouse_position())
-		
-	#if Input.is_action_just_pressed("switch_variant"):
-		#health = 0
-	#else:
-		#health = 10
-		
-	#if Input.is_action_just_pressed("blue_up"):
-		#var aaa = configfilehandler.load_weapon_order().bullets.find("alt_bullet")
-		#configfilehandler.load_weapon_order().bullets.remove_at(aaa)
-		#if aaa + 1 > configfilehandler.load_weapon_order().bullets.size():
-			#configfilehandler.load_weapon_order().bullets.insert(0, "alt_bullet")
-		#else:
-			#configfilehandler.load_weapon_order().bullets.insert(aaa + 1, "alt_bullet")
-		
-		#print(configfilehandler.load_weapon_order().bullets)
-	#if Input.is_action_just_pressed("blue_down"):
-		#var aaa = configfilehandler.load_weapon_order().bullets.find("alt_bullet")
-		#configfilehandler.load_weapon_order().bullets.remove_at(aaa)
-		#if aaa - 1 < 0:
-			#configfilehandler.load_weapon_order().bullets.insert(configfilehandler.load_weapon_order().bullets.size(), "alt_bullet")
-		#else:
-			#configfilehandler.load_weapon_order().bullets.insert(aaa - 1, "alt_bullet")
-		
-		#print(configfilehandler.load_weapon_order().bullets)
+	emit_signal("changed_weapon", active_weapon)
 
 func get_input():
 	if input.length() > 0.0:
@@ -291,13 +305,13 @@ func alt_shoot():
 		$Alt_GunTimer.start()
 
 func alt_shootm2():
-	if alt_gunm2_cooldown > 100 and not get_tree().has_group("bulletm2"): #aaaaaaaaaaaaaaaa
+	if alt_gunm2_cooldown > 100 and not get_tree().has_group("bulletm2"):
 		$lasersfx.play()
 		var bullet_scene = preload("res://player/attacks/alt_bullet/beam.tscn")
 		var shot = bullet_scene.instantiate()
 		get_parent().add_child(shot)
 		shot.shoot(global_position, get_global_mouse_position())
-		alt_gunm2_cooldown = 0 #aaaaaaaaaaaaaaaaaaaaaaaaaa
+		alt_gunm2_cooldown = 0
 
 func melee():
 	var bullet_scene = preload("res://player/attacks/melee/melee_new.tscn")
@@ -323,8 +337,12 @@ func melee():
 func meleem2():
 	if meleem2_cooldown > 100:
 		var effect := preload("res://player/attacks/melee/meleem2.tscn").instantiate()
+		var mouse_pos = get_local_mouse_position()
+		var dir = Vector2.ZERO.direction_to(mouse_pos)
+		var dist = mouse_pos.length()
 		effect.position = position
 		get_parent().add_child(effect)
+		effect.areaa.position = dir * min(dist, effect.max_dist)
 		meleem2_cooldown = 0
 
 func dash():
@@ -369,6 +387,7 @@ func _on_parry_detection_area_entered(area):
 			i_frames(1)
 			if speed_boost < 300:
 				speed_boost += 300
+				emit_signal("is_speed_boosted", speed_boost)
 				accel_boost += 3000
 				friction_boost += 1710
 
@@ -386,6 +405,7 @@ func player_hurt_particles():
 		get_parent().add_child(effect)
 		get_node("../camera").apply_shake(5, 0.1)
 		speed_boost = 0
+		emit_signal("is_speed_boosted", speed_boost)
 		accel_boost = 0
 		friction_boost = 0
 		got_hit = true
@@ -402,9 +422,10 @@ func _on_player_hurtbox_area_entered(area):
 	if area.is_in_group("enemy_attack"):
 		take_damage += 1
 	if area.is_in_group("level end") and is_dead == false:
-		add_to_group("next level")
+		emit_signal("next_level")
 		speed = 0
 		speed_boost = 0
+		emit_signal("is_speed_boosted", speed_boost)
 		$"left eye node/left eye".lifetime = 0.2
 		$"right eye node/right eye".lifetime = 0.2
 		var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_ELASTIC)

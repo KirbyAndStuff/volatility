@@ -11,6 +11,9 @@ var max_health = 50.0
 var guarded = false
 var shaking = false
 
+signal health_changed(new_health)
+signal died
+
 func _ready():
 	$arm_left.position = Vector2(-500, 150)
 	$arm_right.position = Vector2(500, 150)
@@ -31,14 +34,6 @@ func _process(_delta):
 		smack()
 	#if $SmackTimer.is_stopped() and anim_playing == false and smack_parried == false:
 		#smack()
-	if health <= 0:
-		if get_node("../camera").target == get_node("camera_anchor"):
-			get_node("../camera").snap = false
-			get_node("../camera").target = get_node("../player")
-			get_node("../player/player_hurtbox").add_to_group("snap camera")
-		if shaking:
-			get_node("../camera").const_shake_num += 1
-		queue_free()
 
 func smack():
 	$SmackTimer.start()
@@ -155,7 +150,23 @@ func parried_smack():
 func _on_player_death_body_area_entered(area):
 	if area.is_in_group("player_attack"):
 		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
+		if health <= 0:
+			dead()
 
 func _on_player_death_eye_area_entered(area):
 	if area.is_in_group("player_attack"):
 		health -= area.get_parent().damage * 2
+		emit_signal("health_changed", health)
+		if health <= 0:
+			dead()
+
+func dead():
+	emit_signal("died")
+	if get_node("../camera").target == get_node("camera_anchor"):
+		get_node("../camera").snap = false
+		get_node("../camera").target = get_node("../player")
+		get_node("../player/player_hurtbox").add_to_group("snap camera")
+	if shaking:
+		get_node("../camera").const_shake_num += 1
+	queue_free()

@@ -9,6 +9,9 @@ var max_health = 2.0
 var shoot_at_player = false
 var guarded = false
 
+signal health_changed(new_health)
+signal died
+
 func _ready():
 	$spawnsfx.global_position = get_node("../player").global_position
 	$spawn.emitting = true
@@ -21,11 +24,6 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func _process(_delta):
-	if health <= 0:
-		var effect := yellow_death.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		queue_free()
 	if shoot_at_player and $GunTimer.is_stopped():
 		$yellow_bulletsfx.play()
 		var bullet_scene = preload("res://enemies/yellow/yellow_bullet.tscn")
@@ -36,11 +34,18 @@ func _process(_delta):
 
 func _on_player_death_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		if health > 1:
+		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
+		if health > 0:
 			var effect := yellow_hurt.instantiate()
 			effect.position = position
 			get_parent().add_child(effect)
-		health -= area.get_parent().damage
+		else:
+			emit_signal("died")
+			var effect := yellow_death.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
+			queue_free()
 
 func _on_player_shoot_distance_area_entered(area):
 	if area.is_in_group("player"):

@@ -3,7 +3,6 @@ extends Control
 signal retry
 
 var has_checkpoint = null
-var restarted = false
 var is_paused = false:
 	set(value):
 		is_paused = value
@@ -16,18 +15,11 @@ func set_is_paused(value):
 	is_paused = value
 	get_tree().paused = is_paused
 	visible = is_paused
-	
-func _process(_delta):
-	var value = (get_node("../../player").health)
-	if value < 1:
-		visible = true
-	else:
-		visible = false
 
 func _on_retry_pressed():
-	restarted = true
 	emit_signal("retry")
 	if has_checkpoint and not get_parent().get_parent().checkpoint == null:
+		visible = false
 		get_node("../../player").heal_cooldown = 0
 		get_node("../../player").health = 3
 		get_node("../../player").global_position = get_parent().get_parent().checkpoint
@@ -47,6 +39,11 @@ func _on_quit_to_main_menu_pressed():
 
 func _ready():
 	has_checkpoint = check_checkpoint()
+	get_node("../../player").connect("took_damage", check_if_dead)
+
+func check_if_dead(value):
+	if value < 1:
+		visible = true
 
 func check_checkpoint():
 	return "checkpoint" in get_parent().get_parent()

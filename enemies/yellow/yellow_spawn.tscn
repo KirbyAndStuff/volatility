@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://srht8npn4ta4"]
+[gd_scene load_steps=4 format=3 uid="uid://srht8npn4ta4"]
 
 [ext_resource type="Script" uid="uid://cnm5lbof5i4i" path="res://enemies/yellow/yellow_spawn.gd" id="1_ud7ct"]
 
@@ -9,12 +9,6 @@ metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_7ef1l"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 0)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5b8df"]
-radius = 10000.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7t6j5"]
-radius = 29.0689
 
 [node name="yellow_spawn" type="CPUParticles2D"]
 amount = 20
@@ -34,18 +28,3 @@ scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_3j2ri")
 color_ramp = SubResource("Gradient_7ef1l")
 script = ExtResource("1_ud7ct")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
-shape = SubResource("CircleShape2D_5b8df")
-disabled = true
-
-[node name="wall_check" type="Area2D" parent="." groups=["spawn"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_check"]
-shape = SubResource("CircleShape2D_7t6j5")
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="wall_check" to="." method="_on_wall_check_body_entered"]

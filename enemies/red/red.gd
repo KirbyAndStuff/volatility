@@ -4,6 +4,9 @@ var red_death := preload("res://enemies/red/red_death.tscn")
 var red_dash_particles := preload("res://enemies/red/red_dash_particles.tscn")
 var red_hurt := preload("res://enemies/red/red_hurt.tscn")
 
+signal health_changed(new_health)
+signal died
+
 func _ready():
 	$"left eye".lifetime = 0.1
 	$"right eye".lifetime = 0.1
@@ -57,19 +60,21 @@ func _process(_delta):
 			velocity=direction*speed
 			dash_telegraph = false
 			red_dashlength.start()
-	if health <= 0:
-		var effect := red_death.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		queue_free()
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		if health > 1:
+		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
+		if health > 0:
 			var effect := red_hurt.instantiate()
 			effect.position = position
 			get_parent().add_child(effect)
-		health -= area.get_parent().damage
+		else:
+			emit_signal("died")
+			var effect := red_death.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
+			queue_free()
 	if area.is_in_group("parry") and guarded == false:
 		$hurts_player.add_to_group("parried")
 		$hurts_player/CollisionShape2D.set_deferred("disabled", true)

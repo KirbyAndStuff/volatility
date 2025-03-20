@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ugfxmkdd6pyc"]
+[gd_scene load_steps=23 format=3 uid="uid://ugfxmkdd6pyc"]
 
 [ext_resource type="Script" uid="uid://bpc4uwd6p1bli" path="res://enemies/red/red.gd" id="1_q1clp"]
 [ext_resource type="AudioStream" uid="uid://bkctaktd33d5w" path="res://audio/dashsfx.wav" id="2_wjcl0"]
@@ -76,9 +76,6 @@ metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qniof"]
 radius = 50.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_q45wr"]
-radius = 38.05
 
 [node name="red" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
@@ -317,12 +314,6 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bulletm2"]
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_qniof")
-
-[node name="level_detect" type="Area2D" parent="." groups=["level_detect"]]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="level_detect"]
-shape = SubResource("CircleShape2D_q45wr")
 
 [connection signal="area_entered" from="playerdeath" to="." method="_on_playerdeath_area_entered"]
 [connection signal="area_entered" from="player_dash_distance" to="." method="_on_player_dash_distance_area_entered"]

@@ -11,6 +11,9 @@ var guarded = false
 var attack_player = false
 var behind_wall = false
 
+signal health_changed(new_health)
+signal died
+
 func _ready():
 	$spawnsfx.global_position = get_node("../player").global_position
 	$spawn.emitting = true
@@ -18,11 +21,6 @@ func _ready():
 	$spawn.queue_free()
 
 func _process(_delta):
-	if health <= 0:
-		var effect := green_death.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		queue_free()
 	if $GunTimer.is_stopped() and bullets_fired <= 7 and $LaserTimer.is_stopped():
 		if attack_player:
 			if can_fire_laser:
@@ -62,11 +60,18 @@ func _physics_process(_delta):
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		if health > 1:
+		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
+		if health > 0:
 			var effect := green_hurt.instantiate()
 			effect.position = position
 			get_parent().add_child(effect)
-		health -= area.get_parent().damage
+		else:
+			emit_signal("died")
+			var effect := green_death.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
+			queue_free()
 
 func eyes_begone():
 	await get_tree().create_timer(1.4, false).timeout

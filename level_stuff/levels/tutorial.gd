@@ -7,30 +7,11 @@ var hurt_player = false
 var enemy1_health = 2.0
 var enemy2_health = 2.0
 var enemy3_health = 2.0
-var enemy_walls_tweened = false
-var killed_enemy1 = false
-var killed_enemy2 = false
-var killed_enemy3 = false
 var messages = [false, false, false, false]
 var checkpoint = null
 var guarded = false
-var going_to_next_level = false
 
 func _process(_delta):
-	if get_tree().has_group("next level") and going_to_next_level == false:
-		going_to_next_level = true
-		get_tree().create_tween().tween_property($ui/health, "modulate", Color(1, 1, 1, 0), 1)
-		get_tree().create_tween().tween_property($ui/staminabar, "modulate", Color(1, 1, 1, 0), 1)
-		await get_tree().create_timer(4.15, false).timeout
-		$ui/screen_transition.visible = true
-		get_tree().create_tween().tween_property($ui/screen_transition, "color", Color(0, 0, 0, 1.5), 1)
-		await get_tree().create_timer(2).timeout
-		get_tree().change_scene_to_file("res://level_stuff/levels/level_1_1.tscn")
-	if hurt_player and (get_node("player").amount_of_i_frames) < 1:
-		(get_node("player").health) -= 1
-		(get_node("player").i_frames(3))
-		(get_node("player").player_hurt_particles())
-		(get_node("player").framefreeze(0.4, 0.3))
 	if Input.is_action_pressed("left_mouse_button") and not get_tree().has_group("shoot message") and messages[0] == false:
 		$ui/particle_message.visible = false
 		$ui/message.text = ""
@@ -49,35 +30,10 @@ func _process(_delta):
 		$ui/message2.text = ""
 		$ui/message3.text = ""
 		messages[3] = true
-	if enemy_walls_tweened == false:
-		if not get_tree().has_group("enemy_body"):
-			create_tween().tween_property($enemy_walls, "modulate", Color(0, 0, 0, 0), 1)
-			$enemy_walls.process_mode = Node.PROCESS_MODE_DISABLED
-			enemy_walls_tweened = true
-	if enemy1_health < 1 and killed_enemy1 == false:
-		var effect := death.instantiate()
-		effect.position = $heal_enemy.position
-		get_parent().add_child(effect)
-		$heal_enemy.queue_free()
-		$enemy1.queue_free()
-		killed_enemy1 = true
-	if enemy2_health < 1 and killed_enemy2 == false:
-		var effect := death.instantiate()
-		effect.position = $heal_enemy2.position
-		get_parent().add_child(effect)
-		$heal_enemy2.queue_free()
-		$enemy2.queue_free()
-		killed_enemy2 = true
-	if enemy3_health < 1 and killed_enemy3 == false:
-		var effect := death.instantiate()
-		effect.position = $heal_enemy3.position
-		get_parent().add_child(effect)
-		$heal_enemy3.queue_free()
-		$enemy3.queue_free()
-		killed_enemy3 = true
 
 func _ready():
 	Engine.time_scale = 1.0
+	get_node("player").connect("next_level", go_to_next_level)
 	await get_tree().create_timer(2, false).timeout
 	$start_level_chargesfx.play()
 	$camera.apply_shake(10, 2)
@@ -104,11 +60,11 @@ func _on_start_level_area_entered(area):
 
 func _on_hurt_wall_area_entered(area):
 	if area.is_in_group("player"):
-		hurt_player = true
+		get_node("player").take_damage += 1
 
 func _on_hurt_wall_area_exited(area):
 	if area.is_in_group("player"):
-		hurt_player = false
+		get_node("player").take_damage -= 1
 
 func _on_bullet_timer_timeout():
 	$explosion_top.emitting = true
@@ -152,24 +108,54 @@ func _on_heal_message_area_entered(area):
 
 func _on_enemy_1_area_entered(area):
 	if area.is_in_group("player_attack"):
-		var effect := hurt.instantiate()
-		effect.position = $heal_enemy.position
-		get_parent().add_child(effect)
 		enemy1_health -= area.get_parent().damage
+		if enemy1_health > 0:
+			var effect := hurt.instantiate()
+			effect.position = $heal_enemy.position
+			get_parent().add_child(effect)
+		else:
+			if enemy1_health <= 0 and enemy2_health <= 0 and enemy3_health <= 0:
+				create_tween().tween_property($enemy_walls, "modulate", Color(0, 0, 0, 0), 1)
+				$enemy_walls.process_mode = Node.PROCESS_MODE_DISABLED
+			var effect := death.instantiate()
+			effect.position = $heal_enemy.position
+			get_parent().add_child(effect)
+			$heal_enemy.queue_free()
+			$enemy1.queue_free()
 
 func _on_enemy_2_area_entered(area):
 	if area.is_in_group("player_attack"):
-		var effect := hurt.instantiate()
-		effect.position = $heal_enemy2.position
-		get_parent().add_child(effect)
 		enemy2_health -= area.get_parent().damage
+		if enemy2_health > 0:
+			var effect := hurt.instantiate()
+			effect.position = $heal_enemy2.position
+			get_parent().add_child(effect)
+		else:
+			if enemy1_health <= 0 and enemy2_health <= 0 and enemy3_health <= 0:
+				create_tween().tween_property($enemy_walls, "modulate", Color(0, 0, 0, 0), 1)
+				$enemy_walls.process_mode = Node.PROCESS_MODE_DISABLED
+			var effect := death.instantiate()
+			effect.position = $heal_enemy2.position
+			get_parent().add_child(effect)
+			$heal_enemy2.queue_free()
+			$enemy2.queue_free()
 
 func _on_enemy_3_area_entered(area):
 	if area.is_in_group("player_attack"):
-		var effect := hurt.instantiate()
-		effect.position = $heal_enemy3.position
-		get_parent().add_child(effect)
 		enemy3_health -= area.get_parent().damage
+		if enemy3_health > 0:
+			var effect := hurt.instantiate()
+			effect.position = $heal_enemy3.position
+			get_parent().add_child(effect)
+		else:
+			if enemy1_health <= 0 and enemy2_health <= 0 and enemy3_health <= 0:
+				create_tween().tween_property($enemy_walls, "modulate", Color(0, 0, 0, 0), 1)
+				$enemy_walls.process_mode = Node.PROCESS_MODE_DISABLED
+			var effect := death.instantiate()
+			effect.position = $heal_enemy3.position
+			get_parent().add_child(effect)
+			$heal_enemy3.queue_free()
+			$enemy3.queue_free()
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("beam detonation"):
@@ -177,6 +163,15 @@ func _on_area_2d_area_entered(area):
 		$breakable_wall.remove_from_group("breakable wall")
 		await get_tree().create_timer(1, false).timeout
 		$breakable_wall.queue_free()
+
+func go_to_next_level():
+	get_tree().create_tween().tween_property($ui/health, "modulate", Color(1, 1, 1, 0), 1)
+	get_tree().create_tween().tween_property($ui/staminabar, "modulate", Color(1, 1, 1, 0), 1)
+	await get_tree().create_timer(4.15, false).timeout
+	$ui/screen_transition.visible = true
+	get_tree().create_tween().tween_property($ui/screen_transition, "color", Color(0, 0, 0, 1.5), 1)
+	await get_tree().create_timer(2).timeout
+	get_tree().change_scene_to_file("res://level_stuff/levels/level_1_1.tscn")
 
 func create_action_list(get_input):
 	var events = InputMap.action_get_events(get_input)

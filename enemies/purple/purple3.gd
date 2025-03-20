@@ -12,21 +12,24 @@ var health = 1.0
 var max_health = 1.0
 var guarded = false
 
+signal health_changed(new_health)
+signal died
+
 func _physics_process(_delta):
 	var direction = (get_node("../player").position-position).normalized()
 	velocity=direction*speed
 	move_and_slide()
 
-func _process(_delta):
-	if health <= 0:
-		queue_free()
-
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
+		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
 		var effect := purple_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		health -= area.get_parent().damage
+		if health <= 0:
+			emit_signal("died")
+			queue_free()
 	if area.is_in_group("parry") and guarded == false:
 		$hurts_player.add_to_group("parried")
 		speed = 0

@@ -1,6 +1,5 @@
 extends Control
 
-var restarted = false
 var is_paused = false:
 	set(value):
 		is_paused = value

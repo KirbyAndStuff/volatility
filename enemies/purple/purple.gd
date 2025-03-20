@@ -17,35 +17,38 @@ var guarded = false
 
 @onready var eyes = [$eye_bottom, $eye_top, $eye_left, $eye_right]
 
+signal health_changed(new_health)
+signal died
+
 func _physics_process(_delta):
 	var direction = (get_node("../player").position-position).normalized()
 	velocity=direction*speed
 	move_and_slide()
 
-func _process(_delta):
-	if health <= 0:
-		var effect := death.instantiate()
-		effect.position = position
-		get_parent().add_child(effect)
-		var purple2_1 := purple2.instantiate()
-		var purple2_2 := purple2.instantiate()
-		
-		var offset = Vector2(50, 0)
-		purple2_1.position = position - offset
-		purple2_2.position = position + offset
-		purple2_2.rotation = 90
-		
-		get_parent().add_child(purple2_1)
-		get_parent().add_child(purple2_2)
-		queue_free()
-
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		if health > 1:
+		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
+		if health > 0:
 			var effect := purple_hurt.instantiate()
 			effect.position = position
 			get_parent().add_child(effect)
-		health -= area.get_parent().damage
+		else:
+			emit_signal("died")
+			var effect := death.instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
+			var purple2_1 := purple2.instantiate()
+			var purple2_2 := purple2.instantiate()
+			
+			var offset = Vector2(50, 0)
+			purple2_1.position = position - offset
+			purple2_2.position = position + offset
+			purple2_2.rotation = 90
+			
+			call_deferred("add_sibling", purple2_1)
+			call_deferred("add_sibling", purple2_2)
+			queue_free()
 	if area.is_in_group("parry") and guarded == false:
 		$hurts_player.add_to_group("parried")
 		speed = 0

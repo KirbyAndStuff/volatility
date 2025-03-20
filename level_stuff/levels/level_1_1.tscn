@@ -312,14 +312,14 @@ offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 
-[node name="level 1-1" type="Node2D" groups=["cant spawn enemy"]]
+[node name="level 1-1" type="Node2D"]
 script = ExtResource("1_nrsi2")
 
 [node name="player" parent="." instance=ExtResource("1_qyvy7")]
-position = Vector2(10109, 1652)
+position = Vector2(2454, 822)
 
 [node name="camera" parent="." instance=ExtResource("3_lxdcc")]
-position = Vector2(-12610, -146)
+position = Vector2(-20265, -976)
 
 [node name="level_end" parent="." instance=ExtResource("3_wr0oy")]
 position = Vector2(228, -1016)
@@ -525,6 +525,8 @@ color = Color(0, 0, 0, 0)
 [node name="first_room_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(3688, 691)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/first_room_detect"]
 position = Vector2(64, 61)
@@ -533,6 +535,8 @@ shape = SubResource("RectangleShape2D_l2d1y")
 [node name="hall_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(3675, 1366)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/hall_detect"]
 position = Vector2(53, 746)
@@ -541,6 +545,8 @@ shape = SubResource("RectangleShape2D_f0qfe")
 [node name="second_room_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(3692, 3100)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/second_room_detect"]
 position = Vector2(-4, 268)
@@ -549,6 +555,8 @@ shape = SubResource("RectangleShape2D_6nydj")
 [node name="red_room_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(5250, 2319)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/red_room_detect"]
 position = Vector2(1318, -7)
@@ -557,6 +565,8 @@ shape = SubResource("RectangleShape2D_y20mm")
 [node name="green_meteor_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(8395, 2245)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/green_meteor_detect"]
 position = Vector2(2098, 67)
@@ -565,6 +575,8 @@ shape = SubResource("RectangleShape2D_4awka")
 [node name="5_1_room_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(10122, 1024)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/5_1_room_detect"]
 position = Vector2(-10, -96)
@@ -573,6 +585,8 @@ shape = SubResource("RectangleShape2D_vm42m")
 [node name="five_five_room_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(10067, 302)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/five_five_room_detect"]
 position = Vector2(21, 274)
@@ -581,6 +595,8 @@ shape = SubResource("RectangleShape2D_fblos")
 [node name="greater_green_room_detect" type="Area2D" parent="detect_enemies"]
 visible = false
 position = Vector2(10075, -1960)
+collision_layer = 31
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_enemies/greater_green_room_detect"]
 position = Vector2(-11, 56)
@@ -1558,21 +1574,22 @@ scale_amount_min = 1.5
 scale_amount_max = 1.5
 color_ramp = SubResource("Gradient_l2d1y")
 
-[connection signal="area_entered" from="detect_enemies/first_room_detect" to="." method="_on_first_room_detect_area_entered"]
-[connection signal="area_exited" from="detect_enemies/first_room_detect" to="." method="_on_first_room_detect_area_exited"]
-[connection signal="area_entered" from="detect_enemies/hall_detect" to="." method="_on_hall_detect_area_entered"]
-[connection signal="area_exited" from="detect_enemies/hall_detect" to="." method="_on_hall_detect_area_exited"]
-[connection signal="area_entered" from="detect_enemies/second_room_detect" to="." method="_on_second_room_detect_area_entered"]
-[connection signal="area_exited" from="detect_enemies/second_room_detect" to="." method="_on_second_room_detect_area_exited"]
-[connection signal="area_entered" from="detect_enemies/red_room_detect" to="." method="_on_red_room_detect_area_entered"]
-[connection signal="area_exited" from="detect_enemies/red_room_detect" to="." method="_on_red_room_detect_area_exited"]
-[connection signal="area_entered" from="detect_enemies/green_meteor_detect" to="." method="_on_green_meteor_detect_area_entered"]
-[connection signal="area_exited" from="detect_enemies/green_meteor_detect" to="." method="_on_green_meteor_detect_area_exited"]
-[connection signal="area_entered" from="detect_enemies/5_1_room_detect" to="." method="_on__1_room_detect_area_entered"]
-[connection signal="area_exited" from="detect_enemies/5_1_room_detect" to="." method="_on__1_room_detect_area_exited"]
-[connection signal="area_entered" from="detect_enemies/five_five_room_detect" to="." method="_on_five_five_room_detect_area_entered"]
+[connection signal="body_entered" from="detect_enemies/first_room_detect" to="." method="_on_first_room_detect_body_entered"]
+[connection signal="body_exited" from="detect_enemies/first_room_detect" to="." method="_on_first_room_detect_body_exited"]
+[connection signal="body_entered" from="detect_enemies/hall_detect" to="." method="_on_hall_detect_body_entered"]
+[connection signal="body_exited" from="detect_enemies/hall_detect" to="." method="_on_hall_detect_body_exited"]
+[connection signal="body_entered" from="detect_enemies/second_room_detect" to="." method="_on_second_room_detect_body_entered"]
+[connection signal="body_exited" from="detect_enemies/second_room_detect" to="." method="_on_second_room_detect_body_exited"]
+[connection signal="body_entered" from="detect_enemies/red_room_detect" to="." method="_on_red_room_detect_body_entered"]
+[connection signal="body_exited" from="detect_enemies/red_room_detect" to="." method="_on_red_room_detect_body_exited"]
+[connection signal="body_entered" from="detect_enemies/green_meteor_detect" to="." method="_on_green_meteor_detect_body_entered"]
+[connection signal="body_exited" from="detect_enemies/green_meteor_detect" to="." method="_on_green_meteor_detect_body_exited"]
+[connection signal="body_entered" from="detect_enemies/5_1_room_detect" to="." method="_on__1_room_detect_body_entered"]
+[connection signal="body_exited" from="detect_enemies/5_1_room_detect" to="." method="_on__1_room_detect_body_exited"]
 [connection signal="area_exited" from="detect_enemies/five_five_room_detect" to="." method="_on_five_five_room_detect_area_exited"]
-[connection signal="area_exited" from="detect_enemies/greater_green_room_detect" to="." method="_on_greater_green_room_detect_area_exited"]
+[connection signal="body_entered" from="detect_enemies/five_five_room_detect" to="." method="_on_five_five_room_detect_body_entered"]
+[connection signal="body_exited" from="detect_enemies/five_five_room_detect" to="." method="_on_five_five_room_detect_body_exited"]
+[connection signal="body_exited" from="detect_enemies/greater_green_room_detect" to="." method="_on_greater_green_room_detect_body_exited"]
 [connection signal="area_entered" from="5_activate" to="." method="_on__activate_area_entered"]
 [connection signal="area_entered" from="start_level" to="." method="_on_start_level_area_entered"]
 [connection signal="area_entered" from="hurt_wall" to="." method="_on_hurt_wall_area_entered"]

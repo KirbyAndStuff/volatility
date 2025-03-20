@@ -9,6 +9,9 @@ var screen_size
 var guarded = false
 @export var event = "0"
 
+signal health_changed(new_health)
+signal died
+
 func _ready():
 	add_to_group(event)
 	screen_size = get_viewport_rect().size
@@ -37,11 +40,13 @@ func _process(_delta):
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("player_attack") and can_be_hurt_view == true and can_be_hurt_enemy:
+		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
 		var effect := barrier_hurt.instantiate()
 		effect.position = position
 		get_parent().add_child(effect)
-		health -= area.get_parent().damage
-		if health < 1 and $CPUParticles2D.emitting:
+		if health <= 0 and $CPUParticles2D.emitting:
+			emit_signal("died")
 			$CPUParticles2D.emitting = false
 			$Area2D/CollisionShape2D.set_deferred("disabled", true)
 			$bulletm2/CollisionShape2D.set_deferred("disabled", true)

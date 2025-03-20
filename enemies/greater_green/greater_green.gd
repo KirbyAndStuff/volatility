@@ -18,6 +18,9 @@ var hurt := preload("res://enemies/greater_green/greater_green_hurt.tscn")
 
 var spawn_point_count = 16
 
+signal health_changed(new_health)
+signal died
+
 func _ready():
 	$body.emitting = false
 	$eye.modulate = Color(0, 1, 0, 0)
@@ -66,35 +69,6 @@ func _ready():
 		is_dead = false
 
 func _process(_delta):
-	if health <= 0 and is_dead == false:
-		add_to_group("enemy")
-		is_dead = true
-		$playerdeath.queue_free()
-		$bulletm2.queue_free()
-		get_node("../camera").apply_shake(5, 0.3)
-		create_tween().tween_property($eye, "modulate", Color(1, 1, 1, 0), 1.5)
-		$die.position = Vector2(randf_range(-64, 64), randf_range(-64, 64))
-		$die.emitting = true
-		$diesfx.play()
-		await get_tree().create_timer(0.51, false).timeout
-		get_node("../camera").apply_shake(5, 0.3)
-		$die.position = Vector2(randf_range(-64, 64), randf_range(-64, 64))
-		$die.emitting = true
-		$diesfx.play()
-		await get_tree().create_timer(0.51, false).timeout
-		get_node("../camera").apply_shake(5, 0.3)
-		$die.position = Vector2(randf_range(-64, 64), randf_range(-64, 64))
-		$die.emitting = true
-		$diesfx.play()
-		$body.emitting = false
-		await get_tree().create_timer(1, false).timeout
-		get_node("../camera").apply_shake(10, 1.5)
-		$die_final.emitting = true
-		$die_finalsfx.play()
-		await get_tree().create_timer(1, false).timeout
-		$die_final.emitting = false
-		await get_tree().create_timer(0.5, false).timeout
-		queue_free()
 	if $BlastTimer.is_stopped() and near_player and is_attacking == false and used_blast < 2 and is_dead == false:
 		$about_to_blast.emitting = true
 		$about_to_blastsfx.play()
@@ -203,12 +177,43 @@ func lasers(delay):
 
 func _on_playerdeath_area_entered(area):
 	if area.is_in_group("player_attack") and guarded == false:
-		if health > 1:
+		health -= area.get_parent().damage
+		emit_signal("health_changed", health)
+		if health > 0:
 			var effect := hurt.instantiate()
 			effect.position = position
 			effect.get_child(0).pitch_scale = randf_range(1, 2)
 			get_parent().add_child(effect)
-		health -= area.get_parent().damage
+		elif is_dead == false:
+			emit_signal("died")
+			add_to_group("enemy")
+			is_dead = true
+			$playerdeath.queue_free()
+			$bulletm2.queue_free()
+			get_node("../camera").apply_shake(5, 0.3)
+			create_tween().tween_property($eye, "modulate", Color(1, 1, 1, 0), 1.5)
+			$die.position = Vector2(randf_range(-64, 64), randf_range(-64, 64))
+			$die.emitting = true
+			$diesfx.play()
+			await get_tree().create_timer(0.51, false).timeout
+			get_node("../camera").apply_shake(5, 0.3)
+			$die.position = Vector2(randf_range(-64, 64), randf_range(-64, 64))
+			$die.emitting = true
+			$diesfx.play()
+			await get_tree().create_timer(0.51, false).timeout
+			get_node("../camera").apply_shake(5, 0.3)
+			$die.position = Vector2(randf_range(-64, 64), randf_range(-64, 64))
+			$die.emitting = true
+			$diesfx.play()
+			$body.emitting = false
+			await get_tree().create_timer(1, false).timeout
+			get_node("../camera").apply_shake(10, 1.5)
+			$die_final.emitting = true
+			$die_finalsfx.play()
+			await get_tree().create_timer(1, false).timeout
+			$die_final.emitting = false
+			await get_tree().create_timer(0.5, false).timeout
+			queue_free()
 
 func _on_introsfx_finished():
 	$introsfx.play()

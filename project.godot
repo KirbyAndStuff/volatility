@@ -41,10 +41,6 @@ project/assembly_name="volatility"
 
 movie_writer/disable_vsync=true
 
-[global_group]
-
-level_detect="used for levels detecting"
-
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
