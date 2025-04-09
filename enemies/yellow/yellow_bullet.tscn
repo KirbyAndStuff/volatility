@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1ojnykymisqh"]
+[gd_scene load_steps=7 format=3 uid="uid://c1ojnykymisqh"]
 
-[ext_resource type="Script" uid="uid://4e6fx7n4h2rr" path="res://enemies/yellow/yellow_bullet.gd" id="1_75ysy"]
+[ext_resource type="Script" uid="uid://cwhco0gdn78ep" path="res://enemies/general/bullets.gd" id="1_enedd"]
+[ext_resource type="PackedScene" uid="uid://drugun23oc68q" path="res://enemies/yellow/yellow_attack_area.tscn" id="2_cra5p"]
 
 [sub_resource type="Curve" id="Curve_o3r3b"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.247191, 1), 0.0, 0.0, 0, 0, Vector2(0.258437, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -17,8 +18,12 @@ point_count = 3
 offsets = PackedFloat32Array(0, 0.133333)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="yellow_bullet" type="CharacterBody2D"]
-script = ExtResource("1_75ysy")
+[node name="yellow_bullet" type="CharacterBody2D" node_paths=PackedStringArray("bullet_body", "bullet_hitbox") groups=["enemy_attack"]]
+script = ExtResource("1_enedd")
+bullet_death = ExtResource("2_cra5p")
+bullet_body = NodePath("bullet_body")
+bullet_hitbox = NodePath("bullet_hurtbox")
+speed = 750.0
 
 [node name="bullet_body" type="CPUParticles2D" parent="."]
 amount = 40
@@ -81,11 +86,11 @@ color_ramp = SubResource("Gradient_q0ctm")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="yellow_bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction", "parryable"]]
+[node name="bullet_hurtbox" type="Area2D" parent="." groups=["enemy_attack", "no heal_cooldown reduction", "parryable"]]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="yellow_bullet_hurtbox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bullet_hurtbox"]
 polygon = PackedVector2Array(5, -7, 8, 0, 5, 7, -2, 9, -16, 4, -27, 0, -16, -4, -2, -9)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="area_entered" from="yellow_bullet_hurtbox" to="." method="_on_yellow_bullet_hurtbox_area_entered"]
-[connection signal="body_entered" from="yellow_bullet_hurtbox" to="." method="_on_yellow_bullet_hurtbox_body_entered"]
+[connection signal="area_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_area_entered"]
+[connection signal="body_entered" from="bullet_hurtbox" to="." method="_on_bullet_hurtbox_body_entered"]

@@ -244,6 +244,10 @@ one_shot = true
 wait_time = 0.6
 one_shot = true
 
+[node name="Swap_Cooldown" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
 [node name="parry_detection" type="Area2D" parent="."]
 visible = false
 

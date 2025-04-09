@@ -115,7 +115,7 @@ func _process(_delta):
 	if $powered_bullet2.visible:
 		$powered_bullet2.look_at(get_global_mouse_position())
 	if is_dead == false and in_intro == false:
-		change_weapon()
+		weapon()
 	#if Input.is_action_just_pressed("switch_variant"):
 		#health = 0
 	#else:
@@ -140,20 +140,20 @@ func _process(_delta):
 		
 		#print(configfilehandler.load_weapon_order().bullets)
 
-func change_weapon():
+func weapon():
 	if Input.is_action_pressed("dash") and stamina > 50 and $DashLength.is_stopped():
 		dash()
 		emit_signal("stamina_tween")
 	if Input.is_action_pressed("parry") and parry_cooldown > 30:
 		parry()
-	if Input.is_action_pressed("left_mouse_button"):
+	if Input.is_action_pressed("left_mouse_button") and $Swap_Cooldown.is_stopped():
 		if active_weapon == "bullet" and $GunTimer.is_stopped() and not get_tree().has_group("beam"):
 			shoot()
 		if active_weapon == "alt_bullet" and $Alt_GunTimer.is_stopped() and not get_tree().has_group("bulletm2"):
 			alt_shoot()
 		if active_weapon == "melee" and $MeleeTimer.is_stopped() and not get_tree().has_group("meleem2"):
 			melee()
-	if Input.is_action_pressed("right_mouse_button"):
+	if Input.is_action_pressed("right_mouse_button") and $Swap_Cooldown.is_stopped():
 		if active_weapon == "bullet":
 			shootm2()
 		if active_weapon == "alt_bullet":
@@ -172,6 +172,7 @@ func change_weapon():
 			active_weapon = configfilehandler.load_weapon_order().bullets.front()
 		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
+		$Swap_Cooldown.start()
 	if Input.is_action_just_pressed("second_weapon"):
 		if active_weapon in melees:
 			key += 1
@@ -184,6 +185,7 @@ func change_weapon():
 			active_weapon = configfilehandler.load_weapon_order().melees.front()
 		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
+		$Swap_Cooldown.start()
 	if Input.is_action_just_pressed("scroll_up") and can_scroll_up:
 		can_scroll_up = false
 		key = 0
@@ -193,6 +195,7 @@ func change_weapon():
 		active_weapon = weapons.keys()[key_wep]
 		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
+		$Swap_Cooldown.start()
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_up = true
 	if Input.is_action_just_pressed("scroll_down") and can_scroll_down:
@@ -204,6 +207,7 @@ func change_weapon():
 		active_weapon = weapons.keys()[key_wep]
 		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
+		$Swap_Cooldown.start()
 		await get_tree().create_timer(0.2, false).timeout
 		can_scroll_down = true
 	if Input.is_action_just_pressed("switch_variant"):
@@ -218,6 +222,7 @@ func change_weapon():
 			active_weapon = configfilehandler.load_weapon_order().melees[key]
 		configfilehandler.save_other_weaponstuff("previously_used_weapon", active_weapon)
 		$switch_weaponsfx.play()
+		$Swap_Cooldown.start()
 	emit_signal("changed_weapon", active_weapon)
 
 func get_input():

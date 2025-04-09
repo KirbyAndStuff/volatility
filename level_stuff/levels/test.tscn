@@ -50,8 +50,9 @@ position = Vector2(-2094, -1146)
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-[node name="health" parent="ui" instance=ExtResource("3_pm4qh")]
+[node name="health" parent="ui" node_paths=PackedStringArray("player") instance=ExtResource("3_pm4qh")]
 modulate = Color(1, 1, 1, 0)
+player = NodePath("../../player")
 metadata/_edit_lock_ = true
 
 [node name="staminabar" parent="ui" instance=ExtResource("4_dg4y2")]

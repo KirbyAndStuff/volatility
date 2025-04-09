@@ -10,7 +10,7 @@ metadata/_snap_enabled = true
 [sub_resource type="Gradient" id="Gradient_q8rhc"]
 colors = PackedColorArray(1, 0, 0, 0.501961, 1, 0, 0, 0)
 
-[node name="red_spawn" type="CPUParticles2D"]
+[node name="red_spawn" type="CPUParticles2D" groups=["spawn"]]
 amount = 30
 local_coords = true
 spread = 180.0

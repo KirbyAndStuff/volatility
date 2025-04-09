@@ -13,7 +13,7 @@ func _physics_process(delta):
 	else:
 		position += direction * speed * delta
 
-func die():
+func dead():
 	if is_in_group("parried"):
 		var effect := detonation.instantiate()
 		effect.position = $bullet_body.global_position
@@ -28,7 +28,7 @@ func die():
 func _on_timer_timeout():
 	$bullet_body.emitting = false
 	await get_tree().create_timer(0.3, false).timeout
-	die()
+	dead()
 
 func _on_bullet_hurtbox_area_entered(area):
 	if area.is_in_group("parry") and not get_tree().has_group("greater green parried"):
@@ -42,12 +42,12 @@ func _on_bullet_hurtbox_area_entered(area):
 		shoot(global_position, get_global_mouse_position())
 	if area.is_in_group("enemy_body") and hit == false and is_in_group("parried"):
 		hit = true
-		die()
+		dead()
 
 func _on_bullet_hurtbox_body_entered(body):
 	if body.is_in_group("wall") and hit == false:
 		hit = true
-		die()
+		dead()
 
 func shoot(from: Vector2, to: Vector2):
 	global_position = from

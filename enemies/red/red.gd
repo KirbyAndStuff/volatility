@@ -39,7 +39,7 @@ func _physics_process(delta):
 		$dash_line_particles.look_at(get_node("../player").global_position)
 
 func _process(_delta):
-	if dash_at_player and $Red_DashCooldown.is_stopped():
+	if dash_at_player and $Red_DashCooldown.is_stopped() and get_tree().get_nodes_in_group("red").size() < 3:
 		$dash_line.modulate = Color(1, 1, 1, 1)
 		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($dash_line, "modulate", Color(1, 1, 1, 0), 0.5)
 		$is_about_to_dashsfx.play()

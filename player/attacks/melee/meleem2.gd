@@ -29,7 +29,8 @@ func _on_die_timer_timeout() -> void:
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("enemy"):
-		$SlashTimer.start()
+		if $SlashTimer.is_stopped():
+			$SlashTimer.start()
 		area.add_to_group("marked melee_m2")
 
 func _on_area_2d_area_exited(area):

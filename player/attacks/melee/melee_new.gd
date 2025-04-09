@@ -27,3 +27,5 @@ func _ready():
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("enemy_body") and not area.is_in_group("no heal_cooldown reduction") and area.get_parent().guarded == false:
 		get_node("../player").add_heal_cooldown(cooldown_amount)
+	if area.is_in_group("enemy_attack") and area.get_parent().has_method("die"):
+		area.get_parent().die()

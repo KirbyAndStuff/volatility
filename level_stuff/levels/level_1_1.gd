@@ -1,12 +1,14 @@
 extends Node2D
 
+@onready var red_spawns_intro = [$red_spawn, $red_spawn2, $red_spawndec, $red_spawndec2, $red_spawndec3, $red_spawndec4]
+
 var level_start = preload("res://level_stuff/interactables/level_start_particle.tscn")
 var please_press_m2 = false
 var pressed_m2 = false
 var red_intro_health = 3
 var red_intro_died = false
 var checkpoint = null #Vector2(10094, 1072) #null
-var checkpoint_number = 0 #7 #0
+var checkpoint_number = 8 #6 #0
 var restarts = 0
 var shot_green_meteor = false #true #false
 var room_in_action = null #5_7 #null
@@ -39,6 +41,9 @@ func _ready():
 	$ui/gameoverscreen.connect("retry", restarted)
 	$white_interactable.connect("interact", red_intro_thing)
 	get_tree().connect("node_removed", _on_node_removed)
+	
+	for vol in red_spawns_intro:
+		vol.remove_from_group("spawn")
 	
 	await get_tree().create_timer(0.5, false).timeout
 	#get_node("player").in_intro = true
@@ -96,6 +101,7 @@ func restarted():
 		spawned_red_5_2 = false
 		remove_from_group("ignore enemy")
 		for shield in get_tree().get_nodes_in_group("5-3 shield"):
+			shield.emit_signal("died")
 			shield.queue_free()
 	if checkpoint_number == 7:
 		remove_from_group("ignore enemy")
@@ -104,6 +110,7 @@ func restarted():
 		$"5_5_barrier_walls".process_mode = Node.PROCESS_MODE_INHERIT
 		$"5_5_barrier_walls".modulate = Color(0, 1, 0, 1)
 		for shield in get_tree().get_nodes_in_group("5-5 shield"):
+			shield.emit_signal("died")
 			shield.queue_free()
 	if checkpoint_number == 8:
 		if checkpoint == Vector2(10050, -1048):
@@ -180,6 +187,7 @@ func red_intro_thing(play: bool):
 		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2(3690, 0), 2)
 		await get_tree().create_timer(1, false).timeout
 		please_press_m2 = true
+		get_node("player").active_weapon = "bullet"
 		await get_tree().create_timer(3, false).timeout
 		if pressed_m2 == false:
 			$ui/message.text = "Press " + create_action_list("right_mouse_button")
@@ -209,6 +217,8 @@ func red_intro_die():
 	$red_spawn2.speed_scale = 1
 	$camera.apply_shake(10, 2.5)
 	$reds_spawning.play()
+	$red_spawn.add_to_group("spawn")
+	$red_spawn2.add_to_group("spawn")
 	create_tween().set_trans(Tween.TRANS_EXPO).tween_property($camera, "position", Vector2($player.global_position.x, $player.global_position.y), 1)
 	await get_tree().create_timer(1, false).timeout
 	remove_from_group("stop following player")

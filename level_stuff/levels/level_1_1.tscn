@@ -316,10 +316,10 @@ metadata/_snap_enabled = true
 script = ExtResource("1_nrsi2")
 
 [node name="player" parent="." instance=ExtResource("1_qyvy7")]
-position = Vector2(2454, 822)
+position = Vector2(10095, -1072)
 
 [node name="camera" parent="." instance=ExtResource("3_lxdcc")]
-position = Vector2(-20265, -976)
+position = Vector2(-10504, -2827)
 
 [node name="level_end" parent="." instance=ExtResource("3_wr0oy")]
 position = Vector2(228, -1016)
@@ -441,7 +441,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 50
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="message2" type="Label" parent="ui"]
 offset_top = 526.0
@@ -451,7 +451,7 @@ theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/font_size = 50
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="glowing_attack_mes" type="Label" parent="ui"]
 visible = false
@@ -463,6 +463,7 @@ theme_override_font_sizes/font_size = 50
 text = "Glowing Attacks                              "
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="glowing_attack_mes2" type="Label" parent="ui"]
 visible = false
@@ -474,8 +475,9 @@ theme_override_font_sizes/font_size = 50
 text = "                                   cannot be Parried"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
-[node name="health" parent="ui" instance=ExtResource("5_e60fe")]
+[node name="health" parent="ui" node_paths=PackedStringArray("player") instance=ExtResource("5_e60fe")]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 anchor_right = 0.0
@@ -486,6 +488,7 @@ offset_right = 126.0
 offset_bottom = 932.0
 grow_horizontal = 1
 grow_vertical = 1
+player = NodePath("../../player")
 metadata/_edit_use_anchors_ = true
 
 [node name="staminabar" parent="ui" instance=ExtResource("6_nbrhi")]

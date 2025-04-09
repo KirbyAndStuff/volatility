@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://dor7mirhn7dau"]
+[gd_scene load_steps=19 format=4 uid="uid://dor7mirhn7dau"]
 
 [ext_resource type="PackedScene" uid="uid://b6dph58aj4tme" path="res://player/player.tscn" id="1_qdwvq"]
 [ext_resource type="PackedScene" uid="uid://ck8b4pddxyoqp" path="res://ui/camera.tscn" id="3_0o8ed"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dy6wgmdha04uc" path="res://level_stuff/interactables/dummy.tscn" id="8_c4gwh"]
 [ext_resource type="Environment" uid="uid://dto3rsxcejtvh" path="res://defaultworldenvironment.tres" id="8_vtqmd"]
 [ext_resource type="PackedScene" uid="uid://qdynyepc0g4d" path="res://enemies/general/enemy_health_bar.tscn" id="11_7tys3"]
+[ext_resource type="PackedScene" uid="uid://cbq60l25xsim8" path="res://enemies/greater_green/greater_green.tscn" id="11_vphp0"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n61h1"]
 scenes/1/scene = ExtResource("7_88ayv")
@@ -57,7 +58,6 @@ position = Vector2(489, 432)
 [node name="ui" type="CanvasLayer" parent="."]
 
 [node name="enemy_health_bar2" parent="ui" instance=ExtResource("11_7tys3")]
-visible = false
 position = Vector2(960, 160)
 event = "bap"
 background_color = Color(0, 0, 0, 0)
@@ -155,7 +155,7 @@ scale_amount_max = 15.0
 scale_amount_curve = SubResource("Curve_vayfe")
 color_ramp = SubResource("Gradient_2vby7")
 
-[node name="health" parent="ui" instance=ExtResource("3_siq2p")]
+[node name="health" parent="ui" node_paths=PackedStringArray("player") instance=ExtResource("3_siq2p")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -165,6 +165,7 @@ offset_right = 126.0
 offset_bottom = 932.0
 grow_horizontal = 1
 grow_vertical = 1
+player = NodePath("../../player")
 metadata/_edit_use_anchors_ = true
 
 [node name="staminabar" parent="ui" instance=ExtResource("4_gvlwj")]
@@ -253,3 +254,6 @@ angle_max = 720.0
 scale_amount_min = 1.5
 scale_amount_max = 1.5
 color_ramp = SubResource("Gradient_vphp0")
+
+[node name="greater_green" parent="." instance=ExtResource("11_vphp0")]
+position = Vector2(1126, 206)

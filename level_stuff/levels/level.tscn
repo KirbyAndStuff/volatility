@@ -275,7 +275,7 @@ script = ExtResource("3_h6qr2")
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-[node name="health" parent="ui" instance=ExtResource("4_ujjgw")]
+[node name="health" parent="ui" node_paths=PackedStringArray("player") instance=ExtResource("4_ujjgw")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -285,6 +285,7 @@ offset_right = 126.0
 offset_bottom = 932.0
 grow_horizontal = 1
 grow_vertical = 1
+player = NodePath("../../player")
 metadata/_edit_use_anchors_ = true
 
 [node name="staminabar" parent="ui" instance=ExtResource("5_plt74")]
