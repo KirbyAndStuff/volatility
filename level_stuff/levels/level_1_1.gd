@@ -117,6 +117,9 @@ func restarted():
 			died_to_greater_green = true
 		$lock_walls8.enabled = false
 		$lock_walls8.modulate = Color(1, 1, 1, 0)
+		$ui/bar_dec.modulate = Color(1, 1, 1, 0)
+		if get_tree().has_group("health_bar"):
+			get_tree().get_first_node_in_group("health_bar").queue_free()
 		$camera.snap = true
 		create_tween().set_trans(Tween.TRANS_EXPO).tween_property($ui/bar_dec, "modulate", Color(1, 1, 1, 0), 1)
 		get_node("camera").target = get_node("player")
@@ -599,6 +602,7 @@ func _on_greater_green_room_area_entered(area):
 			enemy.add_to_group("6-2")
 			call_deferred("add_child", enemy)
 			var bar = load("res://enemies/general/enemy_health_bar.tscn").instantiate()
+			bar.connect("died", bar_dec_tween)
 			bar.position = Vector2(960, 160)
 			bar.event = "6-2"
 			bar.background_color = Color(0, 0, 0, 0)
@@ -632,6 +636,7 @@ func greater_green_intro3():
 		get_node("camera").target = get_node("player")
 		get_node("player/player_hurtbox").add_to_group("snap camera")
 		var bar = load("res://enemies/general/enemy_health_bar.tscn").instantiate()
+		bar.connect("died", bar_dec_tween)
 		bar.position = Vector2(960, 160)
 		bar.event = "6-2"
 		bar.background_color = Color(0, 0, 0, 0)
@@ -842,3 +847,6 @@ func _on_five_five_room_detect_area_exited(area: Area2D) -> void:
 			$"5_5_barrier_walls".process_mode = Node.PROCESS_MODE_DISABLED
 			create_tween().tween_property($"5_5_barrier_walls", "modulate", Color(0, 0, 0, 0), 1)
 			room_in_action = 5_7
+
+func bar_dec_tween():
+	create_tween().tween_property($ui/bar_dec, "modulate", Color(1, 1, 1, 0), 1)

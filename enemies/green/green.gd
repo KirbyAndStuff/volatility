@@ -30,6 +30,10 @@ func _process(_delta):
 			var shot = bullet_scene.instantiate()
 			get_parent().add_child(shot)
 			shot.shoot(global_position, get_node("../player").global_position)
+			var effect := preload("res://enemies/green/green_bullet_explosion.tscn").instantiate()
+			effect.position = position
+			get_parent().add_child(effect)
+			effect.shoot(global_position, get_node("../player").global_position)
 			$GunTimer.start()
 		elif can_fire_laser and behind_wall:
 			bullets_fired += 2

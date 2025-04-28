@@ -8,6 +8,8 @@ extends Node2D
 @export var title = "0"
 var dead = false
 
+signal died
+
 func _ready() -> void:
 	if get_tree().has_group(event):
 		$ProgressBar2.max_value = get_tree().get_first_node_in_group(event).max_health
@@ -38,6 +40,7 @@ func _on_health_changed(new_health):
 func _on_target_died():
 	if dead == false:
 		dead = true
+		emit_signal("died")
 		create_tween().tween_property(self, "modulate", Color(0, 0, 0, 0), 1)
 		remove_from_group("health_bar")
 		await get_tree().create_timer(1, false).timeout

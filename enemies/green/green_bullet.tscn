@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8ptqwq7ce3im"]
+[gd_scene load_steps=5 format=3 uid="uid://b8ptqwq7ce3im"]
 
 [ext_resource type="Script" uid="uid://cwhco0gdn78ep" path="res://enemies/general/bullets.gd" id="1_r2ap0"]
 [ext_resource type="PackedScene" uid="uid://dcqu666b30hjn" path="res://enemies/green/green_bullet_death.tscn" id="2_imdxb"]
@@ -8,14 +8,6 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252809, 1), 0.0, 0.0, 0, 0, Ve
 point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_dx5pk"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Curve" id="Curve_p4ovv"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.197802, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_gkvsv"]
-offsets = PackedFloat32Array(0, 0.145695)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="green_bullet" type="CharacterBody2D" node_paths=PackedStringArray("bullet_body", "bullet_hitbox") groups=["enemy_attack"]]
@@ -43,44 +35,6 @@ scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_phgnu")
 color = Color(0, 1, 0, 1)
 color_ramp = SubResource("Gradient_dx5pk")
-
-[node name="explosion_bottom" type="CPUParticles2D" parent="."]
-position = Vector2(60, 0)
-amount = 30
-lifetime = 2.5
-explosiveness = 1.0
-randomness = 1.0
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, 1)
-spread = 30.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
-scale_amount_curve = SubResource("Curve_p4ovv")
-color = Color(0, 1, 0, 1)
-color_ramp = SubResource("Gradient_gkvsv")
-
-[node name="explosion_top" type="CPUParticles2D" parent="."]
-position = Vector2(60, 0)
-amount = 30
-lifetime = 2.5
-explosiveness = 1.0
-randomness = 1.0
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, -1)
-spread = 30.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
-scale_amount_curve = SubResource("Curve_p4ovv")
-color = Color(0, 1, 0, 1)
-color_ramp = SubResource("Gradient_gkvsv")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.73
