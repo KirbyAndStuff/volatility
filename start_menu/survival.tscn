@@ -44,6 +44,11 @@ script = ExtResource("1_qdupt")
 [node name="player" parent="." instance=ExtResource("2_m2bu4")]
 
 [node name="camera" parent="." instance=ExtResource("3_7wm2r")]
+limit_left = -2300
+limit_top = -1400
+limit_right = 2300
+limit_bottom = 1400
+limit_smoothed = true
 
 [node name="ui" type="CanvasLayer" parent="."]
 

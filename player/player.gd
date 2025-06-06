@@ -42,6 +42,7 @@ var weapons = configfilehandler.load_weapons()
 var key
 var key_wep
 var active_weapon = configfilehandler.load_other_weaponsstuff().previously_used_weapon
+var laser_aim : bool = configfilehandler.load_video_settings().laser_aim
 
 signal next_level
 signal took_damage(new_health)
@@ -116,6 +117,11 @@ func _process(_delta):
 		$powered_bullet2.look_at(get_global_mouse_position())
 	if is_dead == false and in_intro == false:
 		weapon()
+	if laser_aim:
+		$laser_aim.visible = true
+		$laser_aim.look_at(get_global_mouse_position())
+	else:
+		$laser_aim.visible = false
 	#if Input.is_action_just_pressed("switch_variant"):
 		#health = 0
 	#else:

@@ -13,16 +13,23 @@ func _ready():
 	
 	var video_settings = configfilehandler.load_video_settings()
 	$CanvasLayer/Panel/VBoxContainer/screen_shake.value = video_settings.screen_shake * 100
-	$CanvasLayer/Panel/full_screen/Button.toggle_mode = video_settings.full_screen
+	$CanvasLayer/Panel/other_video/full_screen/Button.toggle_mode = video_settings.full_screen
+	$CanvasLayer/Panel/other_video/laser_aim/laser_aim_button.toggle_mode = video_settings.laser_aim
 	if video_settings.full_screen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		$"CanvasLayer/Panel/full_screen/Button/2".visible = true
-		$"CanvasLayer/Panel/full_screen/Button/3".visible = true
+		$"CanvasLayer/Panel/other_video/full_screen/Button/2".visible = true
+		$"CanvasLayer/Panel/other_video/full_screen/Button/3".visible = true
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		$"CanvasLayer/Panel/full_screen/Button/2".visible = false
-		$"CanvasLayer/Panel/full_screen/Button/3".visible = false
-	$CanvasLayer/Panel/framerate/OptionButton.selected = configfilehandler.framerates.find(video_settings.framerate)
+		$"CanvasLayer/Panel/other_video/full_screen/Button/2".visible = false
+		$"CanvasLayer/Panel/other_video/full_screen/Button/3".visible = false
+	if video_settings.laser_aim:
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/2".visible = true
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/3".visible = true
+	else:
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/2".visible = false
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/3".visible = false
+	$CanvasLayer/Panel/other_video/framerate/OptionButton.selected = configfilehandler.framerates.find(video_settings.framerate)
 	Engine.max_fps = video_settings.framerate
 
 func _unhandled_input(event):
@@ -119,20 +126,20 @@ func _on_screen_shake_drag_ended(value_changed: bool) -> void:
 		configfilehandler.save_video_settings("screen_shake", $CanvasLayer/Panel/VBoxContainer/screen_shake.value / 100)
 
 func _on_button_pressed() -> void:
-	$CanvasLayer/Panel/full_screen/Button.toggle_mode = !$CanvasLayer/Panel/full_screen/Button.toggle_mode
-	if $CanvasLayer/Panel/full_screen/Button.toggle_mode:
+	$CanvasLayer/Panel/other_video/full_screen/Button.toggle_mode = !$CanvasLayer/Panel/other_video/full_screen/Button.toggle_mode
+	if $CanvasLayer/Panel/other_video/full_screen/Button.toggle_mode:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		$"CanvasLayer/Panel/full_screen/Button/2".visible = true
-		$"CanvasLayer/Panel/full_screen/Button/3".visible = true
+		$"CanvasLayer/Panel/other_video/full_screen/Button/2".visible = true
+		$"CanvasLayer/Panel/other_video/full_screen/Button/3".visible = true
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		$"CanvasLayer/Panel/full_screen/Button/2".visible = false
-		$"CanvasLayer/Panel/full_screen/Button/3".visible = false
-	configfilehandler.save_video_settings("full_screen", $CanvasLayer/Panel/full_screen/Button.toggle_mode)
+		$"CanvasLayer/Panel/other_video/full_screen/Button/2".visible = false
+		$"CanvasLayer/Panel/other_video/full_screen/Button/3".visible = false
+	configfilehandler.save_video_settings("full_screen", $CanvasLayer/Panel/other_video/full_screen/Button.toggle_mode)
 
 func _on_option_button_item_selected(index: int) -> void:
-	configfilehandler.save_video_settings("framerate", configfilehandler.framerates[$CanvasLayer/Panel/framerate/OptionButton.get_item_index(index)])
-	Engine.max_fps = configfilehandler.framerates[$CanvasLayer/Panel/framerate/OptionButton.get_item_index(index)]
+	configfilehandler.save_video_settings("framerate", configfilehandler.framerates[$CanvasLayer/Panel/other_video/framerate/OptionButton.get_item_index(index)])
+	Engine.max_fps = configfilehandler.framerates[$CanvasLayer/Panel/other_video/framerate/OptionButton.get_item_index(index)]
 
 func _on_keybinds_button_pressed() -> void:
 	$CanvasLayer/Panel.visible = false
@@ -155,3 +162,13 @@ func _on_music_pressed() -> void:
 func _on_screen_shake_pressed() -> void:
 	$CanvasLayer/Panel/VBoxContainer/screen_shake.value = 100
 	configfilehandler.save_video_settings("screen_shake", $CanvasLayer/Panel/VBoxContainer/screen_shake.value / 100)
+
+func _on_laser_aim_button_pressed() -> void:
+	$CanvasLayer/Panel/other_video/laser_aim/laser_aim_button.toggle_mode = !$CanvasLayer/Panel/other_video/laser_aim/laser_aim_button.toggle_mode
+	if $CanvasLayer/Panel/other_video/laser_aim/laser_aim_button.toggle_mode:
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/2".visible = true
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/3".visible = true
+	else:
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/2".visible = false
+		$"CanvasLayer/Panel/other_video/laser_aim/laser_aim_button/3".visible = false
+	configfilehandler.save_video_settings("laser_aim", $CanvasLayer/Panel/other_video/laser_aim/laser_aim_button.toggle_mode)

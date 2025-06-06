@@ -19,6 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cj5n6")
+metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -28,6 +29,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.54902)
+metadata/_edit_lock_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
@@ -86,6 +88,7 @@ offset_right = 720.0
 offset_bottom = 405.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Close Setting" type="Button" parent="Settings Menu"]
 layout_mode = 0
@@ -183,76 +186,6 @@ theme_override_font_sizes/font_size = 30
 text = "0%"
 horizontal_alignment = 1
 
-[node name="full_screen" type="Label" parent="Settings Menu"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 400.0
-offset_right = 295.0
-offset_bottom = 469.792
-theme_override_font_sizes/font_size = 50
-text = "Full Screen"
-
-[node name="Button" type="Button" parent="Settings Menu/full_screen"]
-layout_mode = 0
-offset_left = 303.0
-offset_top = 13.0
-offset_right = 405.0
-offset_bottom = 115.0
-scale = Vector2(0.5, 0.5)
-
-[node name="1" type="Line2D" parent="Settings Menu/full_screen/Button"]
-points = PackedVector2Array(0, 0, 102, 0, 102, 102, 0, 102)
-closed = true
-begin_cap_mode = 2
-end_cap_mode = 2
-metadata/_edit_lock_ = true
-
-[node name="2" type="Line2D" parent="Settings Menu/full_screen/Button"]
-visible = false
-points = PackedVector2Array(102, 102, 0, 0)
-begin_cap_mode = 2
-end_cap_mode = 2
-metadata/_edit_lock_ = true
-
-[node name="3" type="Line2D" parent="Settings Menu/full_screen/Button"]
-visible = false
-position = Vector2(102, 0)
-rotation = 1.5708
-points = PackedVector2Array(102, 102, 0, 0)
-begin_cap_mode = 2
-end_cap_mode = 2
-metadata/_edit_lock_ = true
-
-[node name="framerate" type="Label" parent="Settings Menu"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 550.0
-offset_right = 295.0
-offset_bottom = 619.792
-theme_override_font_sizes/font_size = 50
-text = "Max FPS"
-
-[node name="OptionButton" type="OptionButton" parent="Settings Menu/framerate"]
-layout_mode = 0
-offset_left = 251.0
-offset_top = 2.0
-offset_right = 388.0
-offset_bottom = 66.0
-theme_override_font_sizes/font_size = 40
-item_count = 6
-popup/item_0/text = "None"
-popup/item_0/id = 0
-popup/item_1/text = "60"
-popup/item_1/id = 1
-popup/item_2/text = "120"
-popup/item_2/id = 2
-popup/item_3/text = "144"
-popup/item_3/id = 3
-popup/item_4/text = "240"
-popup/item_4/id = 4
-popup/item_5/text = "288"
-popup/item_5/id = 5
-
 [node name="keybinds_button" type="Button" parent="Settings Menu"]
 layout_mode = 0
 offset_left = 1137.0
@@ -296,6 +229,113 @@ theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_plhd7")
 text = "Reset"
 
+[node name="other_video" type="VBoxContainer" parent="Settings Menu"]
+layout_mode = 0
+offset_top = 390.0
+offset_right = 263.0
+offset_bottom = 810.0
+theme_override_constants/separation = 20
+
+[node name="full_screen" type="Label" parent="Settings Menu/other_video"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Full Screen"
+
+[node name="Button" type="Button" parent="Settings Menu/other_video/full_screen"]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 13.0
+offset_right = 405.0
+offset_bottom = 115.0
+scale = Vector2(0.5, 0.5)
+
+[node name="1" type="Line2D" parent="Settings Menu/other_video/full_screen/Button"]
+points = PackedVector2Array(0, 0, 102, 0, 102, 102, 0, 102)
+closed = true
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="2" type="Line2D" parent="Settings Menu/other_video/full_screen/Button"]
+visible = false
+points = PackedVector2Array(102, 102, 0, 0)
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="3" type="Line2D" parent="Settings Menu/other_video/full_screen/Button"]
+visible = false
+position = Vector2(102, 0)
+rotation = 1.5708
+points = PackedVector2Array(102, 102, 0, 0)
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="framerate" type="Label" parent="Settings Menu/other_video"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Max FPS"
+
+[node name="OptionButton" type="OptionButton" parent="Settings Menu/other_video/framerate"]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 2.0
+offset_right = 388.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 40
+item_count = 6
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "60"
+popup/item_1/id = 1
+popup/item_2/text = "120"
+popup/item_2/id = 2
+popup/item_3/text = "144"
+popup/item_3/id = 3
+popup/item_4/text = "240"
+popup/item_4/id = 4
+popup/item_5/text = "288"
+popup/item_5/id = 5
+
+[node name="laser_aim" type="Label" parent="Settings Menu/other_video"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Laser Aim"
+
+[node name="laser_aim_button" type="Button" parent="Settings Menu/other_video/laser_aim"]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 13.0
+offset_right = 354.0
+offset_bottom = 64.0
+
+[node name="1" type="Line2D" parent="Settings Menu/other_video/laser_aim/laser_aim_button"]
+points = PackedVector2Array(0, 0, 51, 0, 51, 51, 0, 51)
+closed = true
+width = 5.0
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="2" type="Line2D" parent="Settings Menu/other_video/laser_aim/laser_aim_button"]
+visible = false
+points = PackedVector2Array(51, 51, 0, 0)
+width = 5.0
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="3" type="Line2D" parent="Settings Menu/other_video/laser_aim/laser_aim_button"]
+visible = false
+position = Vector2(51, 0)
+rotation = 1.5708
+points = PackedVector2Array(51, 51, 0, 0)
+width = 5.0
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true
+
 [node name="InputSettings" parent="." instance=ExtResource("2_ik68m")]
 visible = false
 layout_mode = 1
@@ -329,10 +369,11 @@ text = "Close"
 [connection signal="value_changed" from="Settings Menu/VBoxContainer/music" to="." method="_on_music_value_changed"]
 [connection signal="drag_ended" from="Settings Menu/VBoxContainer/screen_shake" to="." method="_on_screen_shake_drag_ended"]
 [connection signal="value_changed" from="Settings Menu/VBoxContainer/screen_shake" to="." method="_on_screen_shake_value_changed"]
-[connection signal="pressed" from="Settings Menu/full_screen/Button" to="." method="_on_button_pressed"]
-[connection signal="item_selected" from="Settings Menu/framerate/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="pressed" from="Settings Menu/keybinds_button" to="." method="_on_keybinds_button_pressed"]
 [connection signal="pressed" from="Settings Menu/reset_buttons/sound_effects" to="." method="_on_sound_effects_pressed"]
 [connection signal="pressed" from="Settings Menu/reset_buttons/music" to="." method="_on_music_pressed"]
 [connection signal="pressed" from="Settings Menu/reset_buttons/screen_shake" to="." method="_on_screen_shake_pressed"]
+[connection signal="pressed" from="Settings Menu/other_video/full_screen/Button" to="." method="_on_button_pressed"]
+[connection signal="item_selected" from="Settings Menu/other_video/framerate/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Settings Menu/other_video/laser_aim/laser_aim_button" to="." method="_on_laser_aim_button_pressed"]
 [connection signal="pressed" from="close_keybinds_button" to="." method="_on_close_keybinds_button_pressed"]

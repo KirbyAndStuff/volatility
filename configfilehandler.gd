@@ -14,6 +14,7 @@ func _ready():
 		config.set_value("video", "full_screen", false)
 		config.set_value("video", "framerate", 0)
 		config.set_value("video", "screen_shake", 1.0)
+		config.set_value("video", "laser_aim", false)
 		
 		config.set_value("keybinding", "blue_left", "A")
 		config.set_value("keybinding", "blue_right", "D")

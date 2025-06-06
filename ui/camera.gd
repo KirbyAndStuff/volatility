@@ -47,6 +47,7 @@ func _physics_process(delta):
 	if shake_strength > 0 or const_shake > 0:
 		shake_strength = lerpf(shake_strength, 0, shakefade * delta)
 		offset = (randomoffset() + randomconstoffset()) * shake_mult
+		
 	if const_shake_num > 0 and const_shake > 0:
 		const_shake = lerpf(const_shake, 0, 10 * delta)
 

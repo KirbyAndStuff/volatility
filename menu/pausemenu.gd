@@ -19,16 +19,23 @@ func _ready():
 	
 	var video_settings = configfilehandler.load_video_settings()
 	$"Settings Menu/VBoxContainer/screen_shake".value = video_settings.screen_shake * 100
-	$"Settings Menu/full_screen/Button".toggle_mode = video_settings.full_screen
+	$"Settings Menu/other_video/full_screen/Button".toggle_mode = video_settings.full_screen
+	$"Settings Menu/other_video/laser_aim/laser_aim_button".toggle_mode = video_settings.laser_aim
 	if video_settings.full_screen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		$"Settings Menu/full_screen/Button/2".visible = true
-		$"Settings Menu/full_screen/Button/3".visible = true
+		$"Settings Menu/other_video/full_screen/Button/2".visible = true
+		$"Settings Menu/other_video/full_screen/Button/3".visible = true
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		$"Settings Menu/full_screen/Button/2".visible = false
-		$"Settings Menu/full_screen/Button/3".visible = false
-	$"Settings Menu/framerate/OptionButton".selected = configfilehandler.framerates.find(video_settings.framerate)
+		$"Settings Menu/other_video/full_screen/Button/2".visible = false
+		$"Settings Menu/other_video/full_screen/Button/3".visible = false
+	if video_settings.laser_aim:
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/2".visible = true
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/3".visible = true
+	else:
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/2".visible = false
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/3".visible = false
+	$"Settings Menu/other_video/framerate/OptionButton".selected = configfilehandler.framerates.find(video_settings.framerate)
 	Engine.max_fps = video_settings.framerate
 
 func _unhandled_input(event):
@@ -113,16 +120,16 @@ func _on_screen_shake_value_changed(value: float) -> void:
 		$"Settings Menu/reset_buttons/screen_shake".visible = true
 
 func _on_button_pressed() -> void:
-	$"Settings Menu/full_screen/Button".toggle_mode = !$"Settings Menu/full_screen/Button".toggle_mode
-	if $"Settings Menu/full_screen/Button".toggle_mode:
+	$"Settings Menu/other_video/full_screen/Button".toggle_mode = !$"Settings Menu/other_video/full_screen/Button".toggle_mode
+	if $"Settings Menu/other_video/full_screen/Button".toggle_mode:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		$"Settings Menu/full_screen/Button/2".visible = true
-		$"Settings Menu/full_screen/Button/3".visible = true
+		$"Settings Menu/other_video/full_screen/Button/2".visible = true
+		$"Settings Menu/other_video/full_screen/Button/3".visible = true
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		$"Settings Menu/full_screen/Button/2".visible = false
-		$"Settings Menu/full_screen/Button/3".visible = false
-	configfilehandler.save_video_settings("full_screen", $"Settings Menu/full_screen/Button".toggle_mode)
+		$"Settings Menu/other_video/full_screen/Button/2".visible = false
+		$"Settings Menu/other_video/full_screen/Button/3".visible = false
+	configfilehandler.save_video_settings("full_screen", $"Settings Menu/other_video/full_screen/Button".toggle_mode)
 
 func _on_option_button_item_selected(index: int) -> void:
 	configfilehandler.save_video_settings("framerate", configfilehandler.framerates[$"Settings Menu/framerate/OptionButton".get_item_index(index)])
@@ -149,3 +156,15 @@ func _on_music_pressed() -> void:
 func _on_screen_shake_pressed() -> void:
 	$"Settings Menu/VBoxContainer/screen_shake".value = 100
 	configfilehandler.save_video_settings("screen_shake", $"Settings Menu/VBoxContainer/screen_shake".value / 100)
+
+func _on_laser_aim_button_pressed() -> void:
+	$"Settings Menu/other_video/laser_aim/laser_aim_button".toggle_mode = !$"Settings Menu/other_video/laser_aim/laser_aim_button".toggle_mode
+	if $"Settings Menu/other_video/laser_aim/laser_aim_button".toggle_mode:
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/2".visible = true
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/3".visible = true
+		get_tree().get_first_node_in_group("player").get_parent().laser_aim = true
+	else:
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/2".visible = false
+		$"Settings Menu/other_video/laser_aim/laser_aim_button/3".visible = false
+		get_tree().get_first_node_in_group("player").get_parent().laser_aim = false
+	configfilehandler.save_video_settings("laser_aim", $"Settings Menu/other_video/laser_aim/laser_aim_button".toggle_mode)
